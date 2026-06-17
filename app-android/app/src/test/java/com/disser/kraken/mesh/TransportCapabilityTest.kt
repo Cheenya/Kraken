@@ -1,6 +1,5 @@
 package com.disser.kraken.mesh
 
-import java.io.File
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -22,15 +21,4 @@ class TransportCapabilityTest {
         }
     }
 
-    @Test
-    fun roadmapDocDoesNotExposeCloudRelay() {
-        val doc = File("../../docs/multi-transport-mesh-roadmap.md").readText()
-
-        assertTrue(doc.contains("no cloud relay"))
-        assertTrue(doc.contains("UI exposes only implemented transport modes"))
-        assertTrue(doc.contains("WifiP2pManager"))
-        assertTrue(doc.contains("Wi-Fi Direct still requires phone route evidence"))
-        assertTrue(doc.contains("LAN NSD + TCP"))
-        assertTrue(doc.contains("Nearby Connections"))
-    }
 }

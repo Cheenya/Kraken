@@ -22,7 +22,7 @@ struct DesktopProbeService {
         run(
             title: "Desktop relay preflight",
             executable: "/usr/bin/env",
-            arguments: ["python3", "scripts/kraken_desktop_relay_preflight.py"]
+            arguments: ["python3", "app-macos/script/kraken_desktop_relay_preflight.py"]
         )
     }
 

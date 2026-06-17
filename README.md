@@ -1,7 +1,7 @@
 # Kraken
 
-Материалы по проекту Kraken: исходный код приложения, сборки для установки,
-отчеты экспериментов и данные, на которые есть ссылки в ВКР.
+Материалы по проекту Kraken: исходный код приложения, сборки для установки и
+файлы, на которые есть ссылки в ВКР.
 
 Основная часть проекта - Android-приложение для проверки QR-сопряжения,
 локального хранения связей между устройствами, обмена сообщениями и
@@ -27,16 +27,15 @@
 `app-macos/` - отдельная macOS-сборка. Она нужна для проверки части логики и
 локального обмена, но не заменяет Android-версию.
 
-`src/`, `tests/`, `benchmarks/` - Python-код, тесты и небольшие проверки.
-
-`protocol-spec/` - описание форматов сообщений и связанных структур.
-
-`docs/` - технические заметки по отдельным частям проекта.
-
-`reports/out/` - отчеты и сохраненные результаты запусков.
+`reports/out/` - отчеты, на которые есть ссылки в тексте ВКР.
 
 `artifacts/` - дополнительные файлы, которые нужны для подтверждения отдельных
 проверок.
+
+`app/src/main/assets/research/` - исследовательские данные по пути, который
+указан в ВКР.
+
+`downloads/` - APK, архив macOS-приложения и контрольные суммы.
 
 ## Пути из ВКР
 
@@ -46,6 +45,8 @@
 ```text
 reports/out/sage_validation
 reports/out/large_coefficient_sage_validation
+reports/out/random_risk_simulation.md
+reports/out/adamova_effectiveness_experiment.md
 artifacts/research_backend_benchmark/backend_benchmark_from_device.md
 app/src/main/assets/research
 ```
@@ -62,17 +63,9 @@ app-android/app/src/main/assets/research/
 Основные файлы с результатами:
 
 - `reports/out/adamova_effectiveness_experiment.md`
-- `reports/out/adamova_effectiveness_dissertation_table.md`
+- `reports/out/random_risk_simulation.md`
 - `reports/out/sage_validation/reference_comparison_report.md`
 - `reports/out/large_coefficient_sage_validation/reference_comparison_report.md`
-- `reports/out/android_p2p_smoke_report.md`
-- `reports/out/ble_two_device_delivery_evidence_2026-06-06.md`
-- `reports/out/mesh_delivery_simulation.md`
-- `reports/out/two_device_delivery_evidence.md`
-- `reports/out/two_device_route_specific_smoke_2026-06-08.md`
-- `reports/out/wifi_direct_endpoint_binding_refactor_2026-06-13.md`
-- `reports/out/wifi_direct_reliability_sampling_2026-06-13.md`
-- `reports/out/macos_desktop_transport_bridge_trial_2026-06-14.md`
 
 В отчетах оставлены и успешные результаты, и ограничения. Если в конкретном
 месте написано, что сценарий не доказан полностью, это часть результата
@@ -84,7 +77,6 @@ app-android/app/src/main/assets/research/
 
 ```bash
 cd app-android
-./gradlew test
 ./gradlew assembleDebug
 ```
 
@@ -107,13 +99,6 @@ swift run KrakenDesktopCoreSmoke
 
 ```text
 app-macos/dist/KrakenDesktop.app
-```
-
-## Python
-
-```bash
-python -m pytest
-python -m compileall src scripts tests benchmarks
 ```
 
 ## Лицензия
