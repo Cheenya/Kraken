@@ -1,48 +1,86 @@
 # Kraken
 
-Kraken is a research prototype for offline-first Android messaging experiments and elliptic-curve diagnostic materials used in dissertation work.
+Материалы по проекту Kraken: исходный код приложения, сборки для установки,
+отчеты экспериментов и данные, на которые есть ссылки в ВКР.
 
-The repository contains:
+Основная часть проекта - Android-приложение для проверки QR-сопряжения,
+локального хранения связей между устройствами, обмена сообщениями и
+диагностических проверок, связанных с эллиптическими кривыми.
 
-- Android Kotlin/Compose application source in `app-android/`;
-- native C++ diagnostic bridge used by the Android research panel;
-- macOS SwiftUI desktop test harness in `app-macos/`;
-- Python research modules in `src/`;
-- technical boundary documents in `docs/`;
-- protocol notes and schemas in `protocol-spec/`;
-- selected reproducible reports in `reports/out/`;
-- packaged prototype downloads in `downloads/`.
+## Скачать
 
-## Scope
+Ссылки для установки через GitHub Releases:
 
-Kraken is not a production-secure messenger. The current build is a research prototype for QR pairing, local relationship state, message pipeline experiments, transport diagnostics and rational elliptic-curve diagnostic reporting.
+- Android APK:
+  `https://github.com/Cheenya/Kraken/releases/latest/download/Kraken-android-debug.apk`
+- macOS:
+  `https://github.com/Cheenya/Kraken/releases/latest/download/KrakenDesktop.app.zip`
+- SHA-256:
+  `https://github.com/Cheenya/Kraken/releases/latest/download/SHA256SUMS.txt`
 
-Transport work is interpreted by evidence boundary:
+Эти же файлы продублированы в `downloads/`.
 
-- LAN and BLE have saved prototype evidence in the published reports;
-- Wi-Fi Direct remains a diagnostic direction unless a report explicitly states message delivery proof;
-- macOS Desktop is a LAN/ADB bridge and packet handling test harness, not native macOS Wi-Fi Direct.
+## Структура
 
-## Downloads
+`app-android/` - основной Android-проект на Kotlin/Compose.
 
-Stable download paths for QR codes:
+`app-macos/` - отдельная macOS-сборка. Она нужна для проверки части логики и
+локального обмена, но не заменяет Android-версию.
 
-- Android APK: `https://github.com/Cheenya/Kraken/releases/latest/download/Kraken-android-debug.apk`
-- macOS app bundle archive: `https://github.com/Cheenya/Kraken/releases/latest/download/KrakenDesktop.app.zip`
+`src/`, `tests/`, `benchmarks/` - Python-код, тесты и небольшие проверки.
 
-Repository copies are also stored under `downloads/`.
+`protocol-spec/` - описание форматов сообщений и связанных структур.
 
-Checksums are in `downloads/SHA256SUMS.txt`.
+`docs/` - технические заметки по отдельным частям проекта.
 
-## Android Build
+`reports/out/` - отчеты и сохраненные результаты запусков.
 
-Requirements:
+`artifacts/` - дополнительные файлы, которые нужны для подтверждения отдельных
+проверок.
 
-- JDK 17;
-- Android SDK platform 35;
-- Android NDK and CMake installed through Android Studio SDK Manager.
+## Пути из ВКР
 
-Commands:
+В тексте ВКР некоторые пути указаны без отдельного пояснения корня. В этом
+репозитории их нужно читать от корня репозитория:
+
+```text
+reports/out/sage_validation
+reports/out/large_coefficient_sage_validation
+artifacts/research_backend_benchmark/backend_benchmark_from_device.md
+app/src/main/assets/research
+```
+
+При этом Android-проект лежит отдельно в `app-android/`, поэтому рабочий путь
+для тех же research-assets внутри Android-сборки такой:
+
+```text
+app-android/app/src/main/assets/research/
+```
+
+## Отчеты
+
+Основные файлы с результатами:
+
+- `reports/out/adamova_effectiveness_experiment.md`
+- `reports/out/adamova_effectiveness_dissertation_table.md`
+- `reports/out/sage_validation/reference_comparison_report.md`
+- `reports/out/large_coefficient_sage_validation/reference_comparison_report.md`
+- `reports/out/android_p2p_smoke_report.md`
+- `reports/out/ble_two_device_delivery_evidence_2026-06-06.md`
+- `reports/out/mesh_delivery_simulation.md`
+- `reports/out/two_device_delivery_evidence.md`
+- `reports/out/two_device_route_specific_smoke_2026-06-08.md`
+- `reports/out/wifi_direct_endpoint_binding_refactor_2026-06-13.md`
+- `reports/out/wifi_direct_reliability_sampling_2026-06-13.md`
+- `reports/out/macos_desktop_transport_bridge_trial_2026-06-14.md`
+
+В отчетах оставлены и успешные результаты, и ограничения. Если в конкретном
+месте написано, что сценарий не доказан полностью, это часть результата
+эксперимента.
+
+## Android
+
+Нужны JDK 17, Android SDK 35, NDK и CMake.
 
 ```bash
 cd app-android
@@ -50,20 +88,13 @@ cd app-android
 ./gradlew assembleDebug
 ```
 
-The debug APK is produced at:
+APK после сборки:
 
 ```text
 app-android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-## macOS Build
-
-Requirements:
-
-- macOS 14 or newer;
-- Swift 5.9 or newer.
-
-Commands:
+## macOS
 
 ```bash
 cd app-macos
@@ -72,67 +103,19 @@ swift run KrakenDesktopCoreSmoke
 ./script/build_and_run.sh --verify
 ```
 
-The local app bundle is staged at:
+Локальная `.app`-сборка появляется здесь:
 
 ```text
 app-macos/dist/KrakenDesktop.app
 ```
 
-## Python Checks
-
-Requirements:
-
-- Python 3.11 or newer;
-- dependencies from `pyproject.toml`.
-
-Commands:
+## Python
 
 ```bash
 python -m pytest
-python -m compileall .
+python -m compileall src scripts tests benchmarks
 ```
 
-## Published Report Set
+## Лицензия
 
-Selected reports are included under `reports/out/`:
-
-- `adamova_effectiveness_experiment.md`;
-- `adamova_effectiveness_experiment.json`;
-- `adamova_effectiveness_experiment.csv`;
-- `adamova_effectiveness_dissertation_table.md`;
-- `sage_validation/reference_comparison_report.md`;
-- `large_coefficient_sage_validation/reference_comparison_report.md`;
-- `android_p2p_smoke_report.md`;
-- `ble_two_device_delivery_evidence_2026-06-06.md`;
-- `mesh_delivery_simulation.md`;
-- `mesh_metrics_summary.json`;
-- `two_device_delivery_evidence.md`;
-- `two_device_route_specific_smoke_2026-06-08.md`;
-- `two_device_route_specific_smoke_2026-06-08.json`;
-- `wifi_direct_endpoint_binding_refactor_2026-06-13.md`;
-- `wifi_direct_reliability_sampling_2026-06-13.md`;
-- `macos_desktop_transport_bridge_trial_2026-06-14.md`.
-
-Android-compatible research assets are included under the dissertation path:
-
-```text
-app/src/main/assets/research/
-```
-
-The buildable Android project keeps the same assets under:
-
-```text
-app-android/app/src/main/assets/research/
-```
-
-The Kotlin/C++ benchmark report is included at:
-
-```text
-artifacts/research_backend_benchmark/backend_benchmark_from_device.md
-```
-
-All paths in this repository are read from the repository root. The original dissertation text used the same relative paths without naming the root.
-
-## License
-
-See `LICENSE.md`.
+См. `LICENSE.md`.
