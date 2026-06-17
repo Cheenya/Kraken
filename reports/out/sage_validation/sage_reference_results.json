@@ -1,0 +1,414 @@
+{
+  "format": "sage-torsion-reference-output",
+  "input_path": "reports/out/sage_validation/input_curves.json",
+  "reference_system": "SageMath",
+  "reference_version": "10.8",
+  "research_warning": "SageMath reference validation only; not production cryptography",
+  "rows": [
+    {
+      "a": "-1",
+      "b": "0",
+      "curve_id": "full_two_torsion_x3_minus_x",
+      "discriminant": "64",
+      "j_invariant": "1728",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "1",
+          "y": "0"
+        },
+        {
+          "x": "0",
+          "y": "0"
+        },
+        {
+          "x": "-1",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(-1 : 0 : 1)",
+        "(0 : 0 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - x over Rational Field",
+      "two_torsion_count": 3,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "-2",
+      "b": "1",
+      "curve_id": "one_two_torsion_x3_minus_2x_plus_1",
+      "discriminant": "80",
+      "j_invariant": "55296/5",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "1",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(0 : 1 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/4 associated to the Elliptic Curve defined by y^2 = x^3 - 2*x + 1 over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "1",
+      "b": "1",
+      "curve_id": "no_two_torsion_x3_plus_x_plus_1",
+      "discriminant": "-496",
+      "j_invariant": "6912/31",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [],
+      "singular": false,
+      "torsion_gens": [],
+      "torsion_order": 1,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + x + 1 over Rational Field",
+      "two_torsion_count": 0,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "0",
+      "b": "1",
+      "curve_id": "order_three_x3_plus_1",
+      "discriminant": "-432",
+      "j_invariant": "0",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "-1",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(2 : 3 : 1)"
+      ],
+      "torsion_order": 6,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/6 associated to the Elliptic Curve defined by y^2 = x^3 + 1 over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "-1/16",
+      "b": "0",
+      "curve_id": "fractional_full_two_torsion",
+      "discriminant": "1/64",
+      "j_invariant": "1728",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "1/4",
+          "y": "0"
+        },
+        {
+          "x": "0",
+          "y": "0"
+        },
+        {
+          "x": "-1/4",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(-1/4 : 0 : 1)",
+        "(0 : 0 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 1/16*x over Rational Field",
+      "two_torsion_count": 3,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "0",
+      "b": "0",
+      "curve_id": "singular_zero_curve",
+      "discriminant": "0",
+      "j_invariant": null,
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "0",
+          "y": "0"
+        }
+      ],
+      "singular": true,
+      "torsion_gens": [],
+      "torsion_order": null,
+      "torsion_subgroup": null,
+      "two_torsion_count": 1,
+      "unsupported_cases": [
+        "singular curve; torsion subgroup is not computed"
+      ],
+      "warnings": []
+    },
+    {
+      "a": "-4",
+      "b": "0",
+      "curve_id": "full_two_torsion_scaled",
+      "discriminant": "4096",
+      "j_invariant": "1728",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "2",
+          "y": "0"
+        },
+        {
+          "x": "0",
+          "y": "0"
+        },
+        {
+          "x": "-2",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(-2 : 0 : 1)",
+        "(0 : 0 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 4*x over Rational Field",
+      "two_torsion_count": 3,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "4",
+      "b": "0",
+      "curve_id": "one_two_torsion_plus_order_four",
+      "discriminant": "-4096",
+      "j_invariant": "1728",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "0",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(2 : 4 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/4 associated to the Elliptic Curve defined by y^2 = x^3 + 4*x over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "0",
+      "b": "-1",
+      "curve_id": "one_two_torsion_x3_minus_one",
+      "discriminant": "-432",
+      "j_invariant": "0",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "1",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(1 : 0 : 1)"
+      ],
+      "torsion_order": 2,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 1 over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "2",
+      "b": "3",
+      "curve_id": "one_two_torsion_x3_plus_2x_plus_3",
+      "discriminant": "-4400",
+      "j_invariant": "55296/275",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "-1",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(-1 : 0 : 1)"
+      ],
+      "torsion_order": 2,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 + 2*x + 3 over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "-7",
+      "b": "6",
+      "curve_id": "full_two_torsion_three_roots",
+      "discriminant": "6400",
+      "j_invariant": "148176/25",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "2",
+          "y": "0"
+        },
+        {
+          "x": "1",
+          "y": "0"
+        },
+        {
+          "x": "-3",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(-3 : 0 : 1)",
+        "(1 : 0 : 1)"
+      ],
+      "torsion_order": 4,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 7*x + 6 over Rational Field",
+      "two_torsion_count": 3,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "2",
+      "b": "1",
+      "curve_id": "no_two_torsion_x3_plus_2x_plus_1",
+      "discriminant": "-944",
+      "j_invariant": "55296/59",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [],
+      "singular": false,
+      "torsion_gens": [],
+      "torsion_order": 1,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 2*x + 1 over Rational Field",
+      "two_torsion_count": 0,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "-2/9",
+      "b": "1/27",
+      "curve_id": "fractional_one_two_torsion",
+      "discriminant": "80/729",
+      "j_invariant": "55296/5",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "1/3",
+          "y": "0"
+        }
+      ],
+      "singular": false,
+      "torsion_gens": [
+        "(1/3 : 0 : 1)"
+      ],
+      "torsion_order": 2,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 2/9*x + 1/27 over Rational Field",
+      "two_torsion_count": 1,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    },
+    {
+      "a": "-3",
+      "b": "2",
+      "curve_id": "singular_double_root",
+      "discriminant": "0",
+      "j_invariant": null,
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [
+        {
+          "x": "-2",
+          "y": "0"
+        },
+        {
+          "x": "1",
+          "y": "0"
+        }
+      ],
+      "singular": true,
+      "torsion_gens": [],
+      "torsion_order": null,
+      "torsion_subgroup": null,
+      "two_torsion_count": 2,
+      "unsupported_cases": [
+        "singular curve; torsion subgroup is not computed"
+      ],
+      "warnings": []
+    },
+    {
+      "a": "-1",
+      "b": "1",
+      "curve_id": "nonsingular_negative_discriminant",
+      "discriminant": "-368",
+      "j_invariant": "-6912/23",
+      "rank": null,
+      "rank_status": "not_computed",
+      "rational_two_torsion_points": [],
+      "singular": false,
+      "torsion_gens": [],
+      "torsion_order": 1,
+      "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 - x + 1 over Rational Field",
+      "two_torsion_count": 0,
+      "unsupported_cases": [],
+      "warnings": [
+        "rank computation intentionally skipped by generated validation script"
+      ]
+    }
+  ]
+}

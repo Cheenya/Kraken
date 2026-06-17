@@ -1,0 +1,893 @@
+{
+  "comparison_count": 20,
+  "format": "kraken-reference-comparison-summary-v1",
+  "local_reports": "reports/out/large_coefficient_curve_reports",
+  "reference_validation_status": "available",
+  "research_warning": "Reference comparison only; not production cryptography",
+  "rows": [
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc128_controlled_full_two_torsion",
+      "local_summary": {
+        "curve_id": "lc128_controlled_full_two_torsion",
+        "discriminant": "401734518921780434811949757662653684061724967902676655622400",
+        "exact_probe_orders": [],
+        "j_invariant": "3719764064090559587036645327488761264158898003169803297616/2152641240793147906013962607503074010104407621220618225",
+        "singular": false,
+        "two_torsion_count": 3,
+        "two_torsion_summary": "full rational 2-torsion with three nontrivial points",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc128_controlled_full_two_torsion",
+        "discriminant": "401734518921780434811949757662653684061724967902676655622400",
+        "j_invariant": "3719764064090559587036645327488761264158898003169803297616/2152641240793147906013962607503074010104407621220618225",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 18446744193968636103*x + 36893488387937272198 over Rational Field",
+        "two_torsion_count": 3,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc128_large_a_small_b_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc128_large_a_small_b_no_two_torsion",
+        "discriminant": "-315216049571155833698232320801148910435079893880332395963254939953548754595053392734587793057677845056386643448037744",
+        "exact_probe_orders": [],
+        "j_invariant": "34043333353684830039409090646524082326988628539075898764031533514983265496265766415335481650229207266089757492388029696/19701003098197239606139520050071806902192493367520774747703433747096797162190837045911737066104865316024165215502359",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc128_large_a_small_b_no_two_torsion",
+        "discriminant": "-315216049571155833698232320801148910435079893880332395963254939953548754595053392734587793057677845056386643448037744",
+        "j_invariant": "34043333353684830039409090646524082326988628539075898764031533514983265496265766415335481650229207266089757492388029696/19701003098197239606139520050071806902192493367520774747703433747096797162190837045911737066104865316024165215502359",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 170141183460469231731687303715884105727*x + 1 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc128_large_pair_no_obvious_root",
+      "local_summary": {
+        "curve_id": "lc128_large_pair_no_obvious_root",
+        "discriminant": "-2521728396569246669585858566409191284671444996759218921442043529457736481269755303882670504270793979609256470581358704",
+        "exact_probe_orders": [],
+        "j_invariant": "272346666829478640315272725172192658743165460721131587412320169212294204222457349761847448409553722241740915927603906816/157608024785577916849116160400574455291965312297451182590127720591108530079359706492666906516924623725578529411334919",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc128_large_pair_no_obvious_root",
+        "discriminant": "-2521728396569246669585858566409191284671444996759218921442043529457736481269755303882670504270793979609256470581358704",
+        "j_invariant": "272346666829478640315272725172192658743165460721131587412320169212294204222457349761847448409553722241740915927603906816/157608024785577916849116160400574455291965312297451182590127720591108530079359706492666906516924623725578529411334919",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 340282366920938463463374607431768211507*x + 170141183460469231731687303715884105569 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc128_negative_mixed_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc128_negative_mixed_no_two_torsion",
+        "discriminant": "315216049571155833698232320801148910443069548037707213447481337919148220237002522667771914684508507268137911326867088",
+        "exact_probe_orders": [],
+        "j_invariant": "1260864198284623334792929283204595641784783737788459002895671018057531174995869245049957148821863092484585215573885184/729666781414712578005167409261918774173772101939137068165466059998028287585653987656879432140065989046615535478859",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc128_negative_mixed_no_two_torsion",
+        "discriminant": "315216049571155833698232320801148910443069548037707213447481337919148220237002522667771914684508507268137911326867088",
+        "j_invariant": "1260864198284623334792929283204595641784783737788459002895671018057531174995869245049957148821863092484585215573885184/729666781414712578005167409261918774173772101939137068165466059998028287585653987656879432140065989046615535478859",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 - 170141183460469231731687303715884105729*x + 85070591730234615865843651857942052863 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc128_scaled_order_four",
+      "local_summary": {
+        "curve_id": "lc128_scaled_order_four",
+        "discriminant": "-161390624144234555164829209182024982252089013820151560028493625127692353389055355366199300322315464815942432676906274816",
+        "exact_probe_orders": [],
+        "j_invariant": "1728",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc128_scaled_order_four",
+        "discriminant": "-161390624144234555164829209182024982252089013820151560028493625127692353389055355366199300322315464815942432676906274816",
+        "j_invariant": "1728",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/4 associated to the Elliptic Curve defined by y^2 = x^3 + 1361129486698512956889357682137433839364*x over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc32_controlled_full_two_torsion",
+      "local_summary": {
+        "curve_id": "lc32_controlled_full_two_torsion",
+        "discriminant": "18009451046895616",
+        "exact_probe_orders": [],
+        "j_invariant": "7600868096017113/4396838634496",
+        "singular": false,
+        "two_torsion_count": 3,
+        "two_torsion_summary": "full rational 2-torsion with three nontrivial points",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc32_controlled_full_two_torsion",
+        "discriminant": "18009451046895616",
+        "j_invariant": "7600868096017113/4396838634496",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 65539*x + 131070 over Rational Field",
+        "two_torsion_count": 3,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc32_controlled_one_two_torsion",
+      "local_summary": {
+        "curve_id": "lc32_controlled_one_two_torsion",
+        "discriminant": "5070695685650953070129918837072",
+        "exact_probe_orders": [],
+        "j_invariant": "547635136248236340901374640128000/316918480353184566883119927317",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc32_controlled_one_two_torsion",
+        "discriminant": "5070695685650953070129918837072",
+        "j_invariant": "547635136248236340901374640128000/316918480353184566883119927317",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 2,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 4294993640*x - 6863624473 over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc32_mersenne_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc32_mersenne_no_two_torsion",
+        "discriminant": "-633825299228670985622609985904",
+        "exact_probe_orders": [],
+        "j_invariant": "68453132316696466447241878430976/39614081201791936601413124119",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc32_mersenne_no_two_torsion",
+        "discriminant": "-633825299228670985622609985904",
+        "j_invariant": "68453132316696466447241878430976/39614081201791936601413124119",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 2147483647*x + 1 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc32_mixed_sign_one_two_torsion",
+      "local_summary": {
+        "curve_id": "lc32_mixed_sign_one_two_torsion",
+        "discriminant": "633825298121866342643145899600",
+        "exact_probe_orders": [],
+        "j_invariant": "68453132412324387680821973090304/39614081132616646415196618725",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc32_mixed_sign_one_two_torsion",
+        "discriminant": "633825298121866342643145899600",
+        "j_invariant": "68453132412324387680821973090304/39614081132616646415196618725",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 2,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 2147483648*x + 2147483647 over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc32_prime_offsets_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc32_prime_offsets_no_two_torsion",
+        "discriminant": "-18019961402392304",
+        "exact_probe_orders": [],
+        "j_invariant": "1945644100824865536/1126247587649519",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc32_prime_offsets_no_two_torsion",
+        "discriminant": "-18019961402392304",
+        "j_invariant": "1945644100824865536/1126247587649519",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 65537*x + 104729 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc64_controlled_full_two_torsion",
+      "local_summary": {
+        "curve_id": "lc64_controlled_full_two_torsion",
+        "discriminant": "5070602379662268455338519822336",
+        "exact_probe_orders": [],
+        "j_invariant": "2139160392367695928068138861273/1237940034097233509604130816",
+        "singular": false,
+        "two_torsion_count": 3,
+        "two_torsion_summary": "full rational 2-torsion with three nontrivial points",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc64_controlled_full_two_torsion",
+        "discriminant": "5070602379662268455338519822336",
+        "j_invariant": "2139160392367695928068138861273/1237940034097233509604130816",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 4294967299*x + 8589934590 over Rational Field",
+        "two_torsion_count": 3,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc64_mixed_large_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc64_mixed_large_no_two_torsion",
+        "discriminant": "50216813883093446092055855796739950457962219589859715055120",
+        "exact_probe_orders": [],
+        "j_invariant": "5423415899374092178190098271533278789109556981646860042102016/3138550867693340380753490987296246903622638724366232190945",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc64_mixed_large_no_two_torsion",
+        "discriminant": "50216813883093446092055855796739950457962219589859715055120",
+        "j_invariant": "5423415899374092178190098271533278789109556981646860042102016/3138550867693340380753490987296246903622638724366232190945",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 - 9223372036854775807*x + 2305843009213693951 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc64_near_signed_limit_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc64_near_signed_limit_no_two_torsion",
+        "discriminant": "-50216813883093445702347475080535176279573959060163518316400",
+        "exact_probe_orders": [],
+        "j_invariant": "5423415899374092135853527308697799038193987578497659978124544/3138550867693340356396717192533448517473372441260219894775",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc64_near_signed_limit_no_two_torsion",
+        "discriminant": "-50216813883093445702347475080535176279573959060163518316400",
+        "j_invariant": "5423415899374092135853527308697799038193987578497659978124544/3138550867693340356396717192533448517473372441260219894775",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 9223372036854775783*x + 1 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc64_prime_offsets_no_two_torsion",
+      "local_summary": {
+        "curve_id": "lc64_prime_offsets_no_two_torsion",
+        "discriminant": "-5070602462008534390017393152752",
+        "exact_probe_orders": [],
+        "j_invariant": "547625065036270398171794158908672/316912653875533399376087072047",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc64_prime_offsets_no_two_torsion",
+        "discriminant": "-5070602462008534390017393152752",
+        "j_invariant": "547625065036270398171794158908672/316912653875533399376087072047",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 4294967311*x + 4294967357 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lc64_scaled_order_four",
+      "local_summary": {
+        "curve_id": "lc64_scaled_order_four",
+        "discriminant": "-25715716929561987386190690386725456300841128884027773555838976",
+        "exact_probe_orders": [],
+        "j_invariant": "1728",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lc64_scaled_order_four",
+        "discriminant": "-25715716929561987386190690386725456300841128884027773555838976",
+        "j_invariant": "1728",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/4 associated to the Elliptic Curve defined by y^2 = x^3 + 73791479997545840644*x over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lcstruct_full_two_torsion_large_three_roots",
+      "local_summary": {
+        "curve_id": "lcstruct_full_two_torsion_large_three_roots",
+        "discriminant": "6668383852483294435051319502400",
+        "exact_probe_orders": [],
+        "j_invariant": "1024059861752593214280880451669184/104193497695051475547676867225",
+        "singular": false,
+        "two_torsion_count": 3,
+        "two_torsion_summary": "full rational 2-torsion with three nontrivial points",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lcstruct_full_two_torsion_large_three_roots",
+        "discriminant": "6668383852483294435051319502400",
+        "j_invariant": "1024059861752593214280880451669184/104193497695051475547676867225",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 + Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 8399637337*x + 268999170345816 over Rational Field",
+        "two_torsion_count": 3,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lcstruct_lutz_large_discriminant_stress",
+      "local_summary": {
+        "curve_id": "lcstruct_lutz_large_discriminant_stress",
+        "discriminant": "-64000000007920000000344736000005403888",
+        "exact_probe_orders": [],
+        "j_invariant": "6912000000808704000031539456000410012928/4000000000495000000021546000000337743",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lcstruct_lutz_large_discriminant_stress",
+        "discriminant": "-64000000007920000000344736000005403888",
+        "j_invariant": "6912000000808704000031539456000410012928/4000000000495000000021546000000337743",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 1000000000039*x + 1000000000061 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lcstruct_no_obvious_root_decimal_stress",
+      "local_summary": {
+        "curve_id": "lcstruct_no_obvious_root_decimal_stress",
+        "discriminant": "-64000000000000001008000000000000030240000000000000472176",
+        "exact_probe_orders": [],
+        "j_invariant": "6912000000000000062208000000000000186624000000000000186624/4000000000000000063000000000000001890000000000000029511",
+        "singular": false,
+        "two_torsion_count": 0,
+        "two_torsion_summary": "no rational 2-torsion",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lcstruct_no_obvious_root_decimal_stress",
+        "discriminant": "-64000000000000001008000000000000030240000000000000472176",
+        "j_invariant": "6912000000000000062208000000000000186624000000000000186624/4000000000000000063000000000000001890000000000000029511",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 1,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Trivial group associated to the Elliptic Curve defined by y^2 = x^3 + 1000000000000000003*x + 1000000000000000033 over Rational Field",
+        "two_torsion_count": 0,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lcstruct_one_two_torsion_large_root",
+      "local_summary": {
+        "curve_id": "lcstruct_one_two_torsion_large_root",
+        "discriminant": "84444997882170699064963843653968",
+        "exact_probe_orders": [],
+        "j_invariant": "9120059773472368908343438520352768/5277812367635668691560240228373",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lcstruct_one_two_torsion_large_root",
+        "discriminant": "84444997882170699064963843653968",
+        "j_invariant": "9120059773472368908343438520352768/5277812367635668691560240228373",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 2,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/2 associated to the Elliptic Curve defined by y^2 = x^3 - 10968097904*x - 6863624473 over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    },
+    {
+      "checks": {
+        "discriminant": true,
+        "j_invariant": true,
+        "singular": true,
+        "two_torsion_count": true
+      },
+      "curve_id": "lcstruct_scaled_order_four_medium",
+      "local_summary": {
+        "curve_id": "lcstruct_scaled_order_four_medium",
+        "discriminant": "-340061470086390423762452034359296",
+        "exact_probe_orders": [],
+        "j_invariant": "1728",
+        "singular": false,
+        "two_torsion_count": 1,
+        "two_torsion_summary": "one nontrivial rational 2-torsion point",
+        "unsupported_cases": [
+          "large discriminant outside local Lutz-Nagell helper bound"
+        ],
+        "warnings": [
+          "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+        ]
+      },
+      "mismatches": [],
+      "notes": [
+        "Sage torsion order is reference data; local bounded probing is not a full torsion proof.",
+        "Local Lutz-Nagell candidate enumeration was skipped by size guard; directly comparable invariants and 2-torsion fields were still checked."
+      ],
+      "reference_summary": {
+        "curve_id": "lcstruct_scaled_order_four_medium",
+        "discriminant": "-340061470086390423762452034359296",
+        "j_invariant": "1728",
+        "rank": null,
+        "singular": false,
+        "torsion_order": 4,
+        "torsion_subgroup": "Torsion Subgroup isomorphic to Z/4 associated to the Elliptic Curve defined by y^2 = x^3 + 17449881604*x over Rational Field",
+        "two_torsion_count": 1,
+        "unsupported_cases": [],
+        "warnings": [
+          "rank computation intentionally skipped by generated validation script"
+        ]
+      },
+      "status": "match"
+    }
+  ],
+  "sage_results": "reports/out/large_coefficient_sage_validation/sage_reference_results.json",
+  "status_counts": {
+    "match": 20
+  }
+}

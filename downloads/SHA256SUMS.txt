@@ -1,0 +1,2 @@
+3a3278e81ce67bc03615e97f487506b742c8d1fd436789aab6c44f1b3764b303  Kraken-android-debug.apk
+c5c1f316d01f6f78172f22e3b74259c9fefb9258e0fed7e3c39401fdcd501e46  KrakenDesktop.app.zip

@@ -1,0 +1,148 @@
+{
+  "curve_count": 20,
+  "curves": [
+    {
+      "a": "65537",
+      "b": "104729",
+      "curve_id": "lc32_prime_offsets_no_two_torsion",
+      "description": "32-bit-ish prime-sized coefficients without an obvious rational root",
+      "source_note": "deterministic prime-like constants 65537 and 104729; exact rational-root diagnostic expected to find no rational 2-torsion"
+    },
+    {
+      "a": "2147483647",
+      "b": "1",
+      "curve_id": "lc32_mersenne_no_two_torsion",
+      "description": "large 32-bit a with small constant for fast negative rational-root sanity check",
+      "source_note": "a=2^31-1, b=1; rational root candidates +/-1 fail"
+    },
+    {
+      "a": "-2147483648",
+      "b": "2147483647",
+      "curve_id": "lc32_mixed_sign_one_two_torsion",
+      "description": "mixed-sign 32-bit-ish stress curve with one rational 2-torsion point",
+      "source_note": "a=-2^31, b=2^31-1; deterministic boundary-value coefficients"
+    },
+    {
+      "a": "-65539",
+      "b": "131070",
+      "curve_id": "lc32_controlled_full_two_torsion",
+      "description": "controlled full rational 2-torsion with large roots",
+      "source_note": "constructed as (x+257)(x-2)(x-255), roots sum to zero"
+    },
+    {
+      "a": "-4294993640",
+      "b": "-6863624473",
+      "curve_id": "lc32_controlled_one_two_torsion",
+      "description": "controlled one rational 2-torsion with large coefficients",
+      "source_note": "constructed as (x-r)(x^2+r*x+c) with r=65537, c=104729"
+    },
+    {
+      "a": "4294967311",
+      "b": "4294967357",
+      "curve_id": "lc64_prime_offsets_no_two_torsion",
+      "description": "64-bit-ish prime-offset coefficients without an obvious rational root",
+      "source_note": "deterministic offsets above 2^32; intended as no-obvious-root stress case"
+    },
+    {
+      "a": "9223372036854775783",
+      "b": "1",
+      "curve_id": "lc64_near_signed_limit_no_two_torsion",
+      "description": "near signed 64-bit coefficient with b=1",
+      "source_note": "a is near 2^63; rational root candidates +/-1 fail"
+    },
+    {
+      "a": "-9223372036854775807",
+      "b": "2305843009213693951",
+      "curve_id": "lc64_mixed_large_no_two_torsion",
+      "description": "mixed 64-bit-ish coefficients",
+      "source_note": "deterministic Mersenne-like constants; SageMath comparison records the reference result"
+    },
+    {
+      "a": "-4294967299",
+      "b": "8589934590",
+      "curve_id": "lc64_controlled_full_two_torsion",
+      "description": "controlled full rational 2-torsion with large roots",
+      "source_note": "constructed as (x+65537)(x-2)(x-65535), roots sum to zero"
+    },
+    {
+      "a": "73791479997545840644",
+      "b": "0",
+      "curve_id": "lc64_scaled_order_four",
+      "description": "scaled order-four probe example from y^2=x^3+4x",
+      "source_note": "integer scaling x=u^2*x0,y=u^3*y0 from y^2=x^3+4x with u=65537"
+    },
+    {
+      "a": "170141183460469231731687303715884105727",
+      "b": "1",
+      "curve_id": "lc128_large_a_small_b_no_two_torsion",
+      "description": "128-bit-ish a with small b for fast negative rational-root check",
+      "source_note": "a=2^127-1, b=1; rational root candidates +/-1 fail"
+    },
+    {
+      "a": "340282366920938463463374607431768211507",
+      "b": "170141183460469231731687303715884105569",
+      "curve_id": "lc128_large_pair_no_obvious_root",
+      "description": "large 128-bit-ish coefficient pair",
+      "source_note": "deterministic powers-of-two offsets; intended as rational diagnostic stress example"
+    },
+    {
+      "a": "-170141183460469231731687303715884105729",
+      "b": "85070591730234615865843651857942052863",
+      "curve_id": "lc128_negative_mixed_no_two_torsion",
+      "description": "negative/positive 128-bit-ish mixed coefficients",
+      "source_note": "deterministic boundary-value coefficients over Q"
+    },
+    {
+      "a": "-18446744193968636103",
+      "b": "36893488387937272198",
+      "curve_id": "lc128_controlled_full_two_torsion",
+      "description": "controlled full rational 2-torsion with large roots",
+      "source_note": "constructed as (x+(2^32+15))(x-2)(x-(2^32+13)), roots sum to zero"
+    },
+    {
+      "a": "1361129486698512956889357682137433839364",
+      "b": "0",
+      "curve_id": "lc128_scaled_order_four",
+      "description": "scaled order-four probe example from y^2=x^3+4x",
+      "source_note": "integer scaling x=u^2*x0,y=u^3*y0 from y^2=x^3+4x with u=2^32+15"
+    },
+    {
+      "a": "-8399637337",
+      "b": "268999170345816",
+      "curve_id": "lcstruct_full_two_torsion_large_three_roots",
+      "description": "controlled full rational 2-torsion with large roots",
+      "source_note": "constructed full rational 2-torsion with three nonzero roots summing to zero"
+    },
+    {
+      "a": "-10968097904",
+      "b": "-6863624473",
+      "curve_id": "lcstruct_one_two_torsion_large_root",
+      "description": "controlled one rational 2-torsion with large coefficients",
+      "source_note": "constructed one rational root with quadratic factor x^2+r*x+c"
+    },
+    {
+      "a": "17449881604",
+      "b": "0",
+      "curve_id": "lcstruct_scaled_order_four_medium",
+      "description": "scaled order-four probe example from y^2=x^3+4x",
+      "source_note": "moderate integer scaling of y^2=x^3+4x for bounded order-four probe"
+    },
+    {
+      "a": "1000000000039",
+      "b": "1000000000061",
+      "curve_id": "lcstruct_lutz_large_discriminant_stress",
+      "description": "large discriminant stress case for local Lutz-Nagell bound",
+      "source_note": "deterministic decimal offsets; expected to mark Lutz-Nagell helper unsupported when divisor enumeration would be too large"
+    },
+    {
+      "a": "1000000000000000003",
+      "b": "1000000000000000033",
+      "curve_id": "lcstruct_no_obvious_root_decimal_stress",
+      "description": "decimal large-coefficient no-obvious-root stress case",
+      "source_note": "deterministic decimal offsets; SageMath validates exact invariants and rational roots"
+    }
+  ],
+  "fixture_file": "tests/fixtures/elliptic_curves_large_coefficients.json",
+  "format": "kraken-sage-validation-input-v1",
+  "research_warning": "Reference validation input only; not production cryptography"
+}

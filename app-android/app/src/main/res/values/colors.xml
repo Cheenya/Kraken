@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="kraken_seed">#165B5A</color>
+    <color name="kraken_launcher_background">#071115</color>
+    <color name="kraken_splash_background">#071115</color>
+    <color name="kraken_system_bar">#071115</color>
+</resources>

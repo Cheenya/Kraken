@@ -1,0 +1,84 @@
+package com.disser.kraken.ui.components
+
+import android.graphics.Bitmap
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.disser.kraken.invite.InviteQrCodeGenerator
+import com.disser.kraken.invite.InviteQrCodeMatrix
+import com.disser.kraken.qr.KrakenQrPayloadCodec
+import com.disser.kraken.ui.theme.LocalKrakenThemeTokens
+
+@Composable
+fun PayloadQrCodeCard(
+    title: String,
+    payloadJson: String,
+    details: List<String>,
+    modifier: Modifier = Modifier,
+) {
+    val tokens = LocalKrakenThemeTokens.current
+    val qrContent = remember(payloadJson) {
+        KrakenQrPayloadCodec.encodePayload(payloadJson).getOrElse { payloadJson }
+    }
+    val qrResult = remember(qrContent) { InviteQrCodeGenerator.generate(qrContent, size = 960) }
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(tokens.cardRadius + 8.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            qrResult.getOrNull()?.let { matrix ->
+                Image(
+                    bitmap = matrix.toBitmap(
+                        darkColor = android.graphics.Color.BLACK,
+                        lightColor = android.graphics.Color.WHITE,
+                    ).asImageBitmap(),
+                    contentDescription = title,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .background(androidx.compose.ui.graphics.Color.White, RoundedCornerShape(12.dp)),
+                )
+            } ?: Text(qrResult.exceptionOrNull()?.message ?: "QR generation failed.")
+            details.forEach { detail ->
+                Text(detail, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+private fun InviteQrCodeMatrix.toBitmap(
+    darkColor: Int,
+    lightColor: Int,
+): Bitmap {
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    for (y in 0 until height) {
+        for (x in 0 until width) {
+            bitmap.setPixel(x, y, if (isDark(x, y)) darkColor else lightColor)
+        }
+    }
+    return bitmap
+}

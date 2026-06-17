@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Kraken.Launcher" parent="Theme.Kraken">
+        <item name="android:windowSplashScreenBackground">@color/kraken_splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/kraken_splash_transparent_icon</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+</resources>

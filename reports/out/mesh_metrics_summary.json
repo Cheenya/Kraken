@@ -1,0 +1,358 @@
+{
+  "implementation_baseline": "f4a03cf",
+  "current_evidence_head": "f6538bd_dirty_working_tree",
+  "status": "current_lan_and_ble_retry_delivered_after_stale_peer_fix",
+  "visible_adb_devices_may_30_run": 1,
+  "may_30_device": "Device A ANDROID_MODEL_A / ANDROID_DEVICE_A",
+  "manual_two_phone_evidence": "reports/out/two_device_delivery_evidence.md",
+  "manual_two_phone_devices": [
+    "Device A ANDROID_DEVICE_A",
+    "Device B ANDROID_DEVICE_B"
+  ],
+  "gradle_test": "passed",
+  "gradle_assembleDebug": "passed",
+  "gradle_installDebug": "passed_on_device_a_sm_s938b",
+  "git_diff_check": "passed",
+  "delivery_success_rate": null,
+  "median_delivery_latency_ms": null,
+  "p95_delivery_latency_ms": null,
+  "duplicate_drop_count": "covered_by_unit_tests",
+  "expired_drop_count": "covered_by_unit_tests",
+  "unknown_peer_rejection_count": "covered_by_unit_tests",
+  "queue_time_ms": "covered_by_queue_state_tests_no_manual_latency_claim",
+  "receipt_delivery": "covered_by_two_node_unit_tests",
+  "queue_retry": "covered_by_unit_tests",
+  "simulated_relay_hop_count": 1,
+  "real_lan_two_device_smoke": "manual_prototype_completed",
+  "repeatable_two_device_harness": "capture_helper_and_post_cleanup_chat_bundle_available_manual_flow",
+  "latency_metrics": "current_ble_last_delivery_samples_ms_device_a_7192_device_b_7145; current_lan_after_stale_peer_fix_samples_ms_device_a_1391_device_b_929_not_percentiles",
+  "ble_physical_smoke": "manual_direct_route_capture_available",
+  "ble_physical_evidence": "reports/out/ble_two_device_delivery_evidence_2026-06-06.md",
+  "route_specific_two_phone_smoke": {
+    "status": "current_lan_and_ble_retry_delivered_after_stale_peer_fix",
+    "report": "reports/out/two_device_route_specific_smoke_2026-06-08.md",
+    "machine_report": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+    "artifact_root": "artifacts/two-phone-test/route-specific-20260607-205617-baseline",
+    "physical_delivery_apk_sha256": "28cbe980833716b94913f67387c305e3baa3799d7beebb2a9ccdc40088534272",
+    "current_debug_apk_sha256": "5810480172db4ae9ec93dd322caace05cfaa3187b010887fe15b3cb8e872f439",
+    "selected_route_after_ble_cutover": "ble-gatt_observed_in_device_b_export_and_prior_ble_phase",
+    "current_apk_debug_counters": {
+      "ble_observed_retry_delivered": {
+        "device_a": {
+          "packets_sent": 2,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 2,
+          "wrong_recipient_rejected": 1,
+          "queue_size": 0,
+          "last_delivery_latency_ms": 7192,
+          "selected_route_at_export": "ble-gatt",
+          "queue_retry": {
+            "queue_retry_message_id": "message-2af44e9e-d201-42b6-9551-10c77a1931f2",
+            "queue_retry_body": "queueRetry590867",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": true,
+            "delivered_after_transport_restart": true,
+            "queue_size_after_restart": 0,
+            "message_status_after_restart": "DELIVERED_TO_PEER"
+          }
+        },
+        "device_b": {
+          "packets_sent": 2,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 2,
+          "wrong_recipient_rejected": 1,
+          "queue_size": 0,
+          "last_delivery_latency_ms": 7145,
+          "selected_route_at_export": "ble-gatt",
+          "queue_retry": {
+            "queue_retry_message_id": "message-508680eb-1841-4af4-a475-fb19b7095397",
+            "queue_retry_body": "queueRetry591404",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": true,
+            "delivered_after_transport_restart": true,
+            "queue_size_after_restart": 0,
+            "message_status_after_restart": "DELIVERED_TO_PEER"
+          }
+        }
+      },
+      "lan_bt_off_mixed": {
+        "device_a": {
+          "packets_sent": 2,
+          "packets_received": 2,
+          "receipts_received": 1,
+          "duplicates_dropped": 5,
+          "expired_dropped": 1,
+          "unknown_peer_rejected": 48,
+          "wrong_recipient_rejected": 2,
+          "queue_size": 1,
+          "last_delivery_latency_ms": 7192,
+          "selected_route_at_export": "lan-nsd-tcp",
+          "queue_retry": {
+            "queue_retry_message_id": "message-ff7c57d1-a0fc-4e05-964e-a57ac2ed146f",
+            "queue_retry_body": "queueRetry739692",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": false,
+            "delivered_after_transport_restart": false,
+            "queue_size_after_restart": 1,
+            "message_status_after_restart": "FAILED"
+          },
+          "recent_attempts": [
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40566) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+              "attempted_at_epoch_millis": 1780871792475
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40582) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+              "attempted_at_epoch_millis": 1780871793105
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40598) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+              "attempted_at_epoch_millis": 1780871795565
+            }
+          ]
+        },
+        "device_b": {
+          "packets_sent": 6,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 2,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 3,
+          "wrong_recipient_rejected": 2,
+          "queue_size": 1,
+          "last_delivery_latency_ms": 7145,
+          "selected_route_at_export": "lan-nsd-tcp",
+          "queue_retry": {
+            "queue_retry_message_id": "message-fbbd4597-b259-4818-9b08-923c0e3d7100",
+            "queue_retry_body": "queueRetry740291",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": true,
+            "delivered_after_transport_restart": false,
+            "queue_size_after_restart": 1,
+            "message_status_after_restart": "SENT_TO_TRANSPORT"
+          },
+          "recent_attempts": [
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780871757399
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780871773064
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780871788735
+            }
+          ]
+        }
+      },
+      "lan_after_stale_peer_fix": {
+        "device_a": {
+          "packets_sent": 2,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 1,
+          "wrong_recipient_rejected": 1,
+          "queue_size": 0,
+          "last_delivery_latency_ms": 1391,
+          "selected_route_at_export": "lan-nsd-tcp",
+          "queue_retry": {
+            "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+            "ran_at_epoch_millis": 1780872251029,
+            "unknown_peer_injected": true,
+            "wrong_recipient_injected": true,
+            "duplicate_injected": true,
+            "queue_retry_message_id": "message-abdf5867-7bce-47b0-ac3d-af32de894f4b",
+            "queue_retry_body": "queueRetry247196",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": true,
+            "delivered_after_transport_restart": true,
+            "queue_size_after_restart": 0,
+            "message_status_after_restart": "DELIVERED_TO_PEER"
+          },
+          "recent_attempts": [
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780872249080
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780872250641
+            }
+          ]
+        },
+        "device_b": {
+          "packets_sent": 3,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 46,
+          "wrong_recipient_rejected": 1,
+          "queue_size": 0,
+          "last_delivery_latency_ms": 929,
+          "selected_route_at_export": "lan-nsd-tcp",
+          "queue_retry": {
+            "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+            "ran_at_epoch_millis": 1780872254203,
+            "unknown_peer_injected": true,
+            "wrong_recipient_injected": true,
+            "duplicate_injected": true,
+            "queue_retry_message_id": "message-e2a8b47b-c82a-4226-8db5-4b870478bc1c",
+            "queue_retry_body": "queueRetry247693",
+            "queued_before_transport_restart": true,
+            "queue_size_before_restart": 1,
+            "sent_after_transport_restart": true,
+            "delivered_after_transport_restart": true,
+            "queue_size_after_restart": 0,
+            "message_status_after_restart": "DELIVERED_TO_PEER"
+          },
+          "recent_attempts": [
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "failed to connect to /192.168.0.201 (port 41157) from /192.168.0.121 (port 49708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+              "attempted_at_epoch_millis": 1780872248325
+            },
+            {
+              "path": "ble-gatt",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "ble-peer-not-ready",
+              "attempted_at_epoch_millis": 1780872248529
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": false,
+              "error": "peer-not-found",
+              "attempted_at_epoch_millis": 1780872248529
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780872250459
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780872250716
+            },
+            {
+              "path": "lan-nsd-tcp",
+              "peer_id": "unknown",
+              "peer_fingerprint": "unknown",
+              "success": true,
+              "error": null,
+              "attempted_at_epoch_millis": 1780872250977
+            }
+          ]
+        }
+      }
+    },
+    "older_physical_export_device_a_counters": {
+      "packets_sent": 4,
+      "packets_received": 2,
+      "receipts_received": 1,
+      "duplicates_dropped": 1,
+      "unknown_peer_rejected": 2,
+      "wrong_recipient_rejected": 1,
+      "queue_size": 0,
+      "queue_retry": {
+        "queued_before_transport_restart": true,
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": false,
+        "message_status_after_restart": "SENT_TO_TRANSPORT"
+      }
+    },
+    "older_physical_export_device_b_counters": {
+      "packets_sent": 3,
+      "packets_received": 1,
+      "receipts_received": 2,
+      "duplicates_dropped": 3,
+      "unknown_peer_rejected": 4,
+      "wrong_recipient_rejected": 2,
+      "queue_size": 0,
+      "route_attempts": 1,
+      "queue_retry": {
+        "queued_before_transport_restart": true,
+        "sent_after_transport_restart": false,
+        "delivered_after_transport_restart": false,
+        "message_status_after_restart": "READY_FOR_TRANSPORT"
+      }
+    },
+    "physical_negative_packet_injection": "debug_only_local_counter_probe_not_external_hostile_packet_injection",
+    "queue_retry_after_transport_restart": "current_ble_observed_retry_delivered; current_lan_bt_off_retry_delivered_after_stale_peer_fix",
+    "latency_metrics": "current_ble_last_delivery_samples_ms_device_a_7192_device_b_7145; current_lan_after_stale_peer_fix_samples_ms_device_a_1391_device_b_929_not_percentiles",
+    "fresh_current_apk_post_radio_debug_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export",
+    "fresh_current_apk_post_radio_debug_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture",
+    "fresh_current_apk_retry_delivered_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export",
+    "fresh_current_apk_retry_delivered_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture",
+    "fresh_current_apk_lan_bt_off_mixed_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-export",
+    "fresh_current_apk_lan_bt_off_mixed_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture",
+    "lan_current_gap": "closed_in_fresh_current_apk_after_stale_peer_cleanup; pre_fix_stale_port_regression_retained",
+    "stale_peer_fix_debug_apk_sha256": "5810480172db4ae9ec93dd322caace05cfaa3187b010887fe15b3cb8e872f439",
+    "fresh_current_apk_lan_stale_peer_fix_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export",
+    "fresh_current_apk_lan_stale_peer_fix_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture"
+  },
+  "real_relay": "disabled_by_default",
+  "screenshots": "curated_one_device_screenshots_prepared_separately",
+  "claim_boundary": "prototype_p2p_not_production_secure_messaging",
+  "current_debug_apk_sha256": "5810480172db4ae9ec93dd322caace05cfaa3187b010887fe15b3cb8e872f439"
+}
