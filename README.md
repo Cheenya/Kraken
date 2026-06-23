@@ -27,6 +27,9 @@
 `app-macos/` - отдельная macOS-сборка. Она нужна для проверки части логики и
 локального обмена, но не заменяет Android-версию.
 
+`app-windows/` - экспериментальная Windows-сборка для проверки части логики,
+QR/LAN/BLE framing и локального состояния. Она не заменяет Android-версию.
+
 `reports/out/` - отчеты, на которые есть ссылки в тексте ВКР.
 
 `artifacts/` - дополнительные файлы, которые нужны для подтверждения отдельных
@@ -99,6 +102,24 @@ swift run KrakenDesktopCoreSmoke
 
 ```text
 app-macos/dist/KrakenDesktop.app
+```
+
+## Windows
+
+```powershell
+cd app-windows
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m kraken_windows
+```
+
+Быстрая проверка логики без GUI:
+
+```bash
+cd app-windows
+python -m unittest discover -s tests
+python -m kraken_windows --smoke
 ```
 
 ## Лицензия
