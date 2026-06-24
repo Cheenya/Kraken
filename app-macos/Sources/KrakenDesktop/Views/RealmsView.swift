@@ -115,7 +115,7 @@ private struct RealmDetailView: View {
             }
 
             SectionBlock(title: "Участники") {
-                Text("Пока в этом desktop-каркасе показывается только локальная личность. Список участников появится после синхронизации realm membership.")
+                Text("Пока в этом desktop-каркасе показывается только локальная личность. Список участников появится после синхронизации состава реалма.")
                     .foregroundStyle(.secondary)
             }
         }

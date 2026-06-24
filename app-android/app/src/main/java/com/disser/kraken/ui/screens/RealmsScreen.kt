@@ -557,7 +557,7 @@ private fun RealmActionPanel(
         }
     }
     if (canCreateApprovalRequest && BuildConfig.DEBUG) {
-        TechnicalDetailsDisclosure("Dev tools") {
+        TechnicalDetailsDisclosure("Инструменты разработчика") {
             WarningCard(
                 "Служебная проверка экрана заявок",
                 listOf(

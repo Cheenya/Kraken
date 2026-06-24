@@ -1,39 +1,40 @@
-# Windows port audit
+# Аудит Windows-порта
 
-Date: 2026-06-24
+Дата: 2026-06-24
 
-Reference: `app-macos/` desktop harness and Android transport models.
+Референс: настольный стенд `app-macos/` и Android-модели транспорта.
 
-## Covered
+## Покрыто
 
-- Local identity, relationships, messages, route snapshots and Adamova admission
-  state.
-- `RelationshipState.ACTIVE` message gate.
-- QR normalization for raw JSON, `kraken:`, `kraken://qr`, `intent://qr` and
+- Локальный идентификатор, связи, сообщения, снимки маршрутов и состояние
+  допуска по критерию Адамовой.
+- Пропуск сообщений через `RelationshipState.ACTIVE`.
+- Нормализация QR для raw JSON, `kraken:`, `kraken://qr`, `intent://qr` и
   `https://kraken.local/qr?v=2&z=d&p=...`.
-- QR import for invite, response and confirmation payloads into active
-  relationships.
-- Android-compatible LAN envelope codec with 4-byte big-endian length prefix and
-  ACK byte `0x06`.
-- Local Windows LAN TCP sender/listener for loopback and LAN endpoint tests.
-- Android-compatible BLE chunk framing and reassembly.
-- Packet policy checks for expiry, zero TTL and duplicate packet IDs.
-- LAN/BLE timeline reducers for outbound result and unknown inbound peer
-  handling.
-- Durable JSON state store and durable outbox retry records with preserved
-  `message_id`.
-- Evidence export with an explicit claim boundary.
+- QR-импорт полезной нагрузки invite, response и confirmation в активные связи.
+- Совместимый с Android кодек LAN-конверта с 4-байтовым big-endian префиксом
+  длины и ACK-байтом `0x06`.
+- Локальные Windows LAN TCP-отправитель и слушатель для loopback и проверки
+  LAN-конечной точки.
+- Совместимые с Android разбиение и сборка BLE-фрагментов.
+- Проверки политики пакетов: срок действия, нулевой TTL и повторяющиеся
+  идентификаторы пакетов.
+- Редьюсеры LAN/BLE-хронологии для исходящих результатов и обработки
+  неизвестного входящего узла.
+- Устойчивое JSON-хранилище состояния и устойчивые записи повторной отправки в
+  исходящей очереди с сохранением `message_id`.
+- Экспорт подтверждений с явной границей заявлений.
 
-## Not Claimed
+## Не заявлено
 
-- Native Android Wi-Fi Direct parity. Android remains the source of truth for
-  Wi-Fi Direct.
-- Production cryptographic security.
-- Production BLE delivery reliability on Windows hardware.
-- Windows release artifact in GitHub Releases. Build script exists, but the
-  `.exe` must be produced and checked on Windows.
+- Полное соответствие нативному Android Wi-Fi Direct. Android остаётся
+  источником истины для Wi-Fi Direct.
+- Production-уровень криптографической защиты.
+- Production-надёжность BLE-доставки на Windows-оборудовании.
+- Windows-артефакт в GitHub Releases. Скрипт сборки есть, но `.exe` нужно
+  собрать и проверить на Windows.
 
-## Verification
+## Проверка
 
 ```bash
 cd app-windows
@@ -42,5 +43,5 @@ python3 -m compileall kraken_windows tests
 python3 -m kraken_windows --smoke
 ```
 
-Expected result: 10 tests pass, compileall succeeds, and smoke prints
-`Kraken Windows smoke OK`.
+Ожидаемый результат: 10 тестов проходят, compileall завершается успешно,
+smoke-проверка печатает `Smoke-проверка Kraken Windows: OK`.

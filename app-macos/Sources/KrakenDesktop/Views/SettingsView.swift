@@ -160,7 +160,7 @@ struct SettingsView: View {
                 Button {
                     store.selectLanBridgeEndpointPeer()
                 } label: {
-                    Label("Выбрать peer", systemImage: "person.crop.circle.badge.checkmark")
+                    Label("Выбрать узел", systemImage: "person.crop.circle.badge.checkmark")
                 }
 
                 Button {
@@ -190,7 +190,7 @@ struct SettingsView: View {
             .font(.caption)
             .foregroundStyle(store.lanBridgeSelectedPeerMatchesEndpoint ? .green : .orange)
 
-            Text("ADB forward/reverse задают только текущий endpoint. Peer для UI выбирается по отпечатку устройства.")
+            Text("ADB forward/reverse задают только текущую конечную точку. Узел для UI выбирается по отпечатку устройства.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

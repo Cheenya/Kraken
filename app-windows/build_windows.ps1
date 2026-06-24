@@ -11,4 +11,4 @@ $python = ".venv\Scripts\python.exe"
 & $python -m pip install -r requirements.txt -r requirements-build.txt
 & $python -m PyInstaller --noconfirm --windowed --name KrakenWindows --paths . kraken_windows\__main__.py
 
-Write-Host "Windows bundle written to dist\KrakenWindows"
+Write-Host "Windows-сборка записана в dist\KrakenWindows"

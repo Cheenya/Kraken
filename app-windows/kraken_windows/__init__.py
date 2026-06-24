@@ -1,3 +1,3 @@
-"""Windows desktop harness for the Kraken research prototype."""
+"""Настольный Windows-стенд для исследовательского прототипа Kraken."""
 
 __version__ = "0.1.0"

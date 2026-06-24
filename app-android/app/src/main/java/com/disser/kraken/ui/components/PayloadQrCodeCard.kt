@@ -62,7 +62,7 @@ fun PayloadQrCodeCard(
                         .aspectRatio(1f)
                         .background(androidx.compose.ui.graphics.Color.White, RoundedCornerShape(12.dp)),
                 )
-            } ?: Text(qrResult.exceptionOrNull()?.message ?: "QR generation failed.")
+            } ?: Text(qrResult.exceptionOrNull()?.message ?: "Не удалось создать QR.")
             details.forEach { detail ->
                 Text(detail, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }

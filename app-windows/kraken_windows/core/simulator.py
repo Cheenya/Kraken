@@ -271,7 +271,7 @@ class KrakenDesktopSimulator:
                 updated_at=current,
             )
         )
-        state.last_event = "Входящий LAN payload добавлен в таймлайн"
+        state.last_event = "Входящая LAN-полезная нагрузка добавлена в таймлайн"
         return relationship.relationship_id
 
     def _ensure_relationship(

@@ -32,7 +32,7 @@ class HandshakeImportService:
         try:
             payload = json.loads(normalized)
         except json.JSONDecodeError:
-            return "Этот QR не является JSON-payload Kraken."
+            return "Этот QR не является JSON-полезной нагрузкой Kraken."
         if not isinstance(payload, dict):
             return "Этот QR не является JSON-объектом Kraken."
 
@@ -43,7 +43,7 @@ class HandshakeImportService:
             return cls._import_response(state, payload, identity=identity)
         if kind == "confirmation":
             return cls._import_confirmation(state, payload, identity=identity)
-        return f"QR считан, но этот тип payload пока не поддержан: {payload.get('type') or 'без типа'}."
+        return f"QR считан, но этот тип полезной нагрузки пока не поддержан: {payload.get('type') or 'без типа'}."
 
     @classmethod
     def _import_invite(

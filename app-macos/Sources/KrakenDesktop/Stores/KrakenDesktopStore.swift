@@ -178,11 +178,11 @@ final class KrakenDesktopStore: ObservableObject {
 
     var lanBridgeBindingTitle: String {
         guard let relationship = selectedRelationship else {
-            return "LAN/ADB peer не выбран"
+            return "LAN/ADB узел не выбран"
         }
         return lanBridgeSelectedPeerMatchesEndpoint
             ? "LAN/ADB привязан к \(relationship.peerDisplayName)"
-            : "Отпечаток endpoint не совпадает с выбранным peer"
+            : "Отпечаток конечной точки не совпадает с выбранным узлом"
     }
 
     func selectRelationship(_ relationshipId: String) {
@@ -241,7 +241,7 @@ final class KrakenDesktopStore: ObservableObject {
             peerFingerprint: relationship.peerFingerprint,
             now: Date()
         )
-        state.lastEvent = "LAN/ADB endpoint привязан к \(relationship.peerDisplayName)"
+        state.lastEvent = "LAN/ADB конечная точка привязана к \(relationship.peerDisplayName)"
     }
 
     func createIdentity(displayName: String) {
@@ -313,9 +313,9 @@ final class KrakenDesktopStore: ObservableObject {
                 return "Финальный QR Kraken считан, но его данные неполные: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
             }
         case .unknown:
-            return "QR считан, но этот тип payload пока не поддержан в Kraken Desktop. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+            return "QR считан, но этот тип полезной нагрузки пока не поддержан в Kraken Desktop. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
         case .invalid:
-            return "Этот QR не является JSON-payload Kraken. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+            return "Этот QR не является JSON-полезной нагрузкой Kraken. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
         }
     }
 
@@ -713,16 +713,16 @@ final class KrakenDesktopStore: ObservableObject {
     func selectLanBridgeEndpointPeer() {
         let endpointFingerprint = lanTargetFingerprint.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !endpointFingerprint.isEmpty else {
-            state.lastEvent = "LAN/ADB peer не выбран: отпечаток устройства пустой"
+            state.lastEvent = "LAN/ADB узел не выбран: отпечаток устройства пустой"
             return
         }
         guard let port = Int(lanTargetPort), port > 0, port <= 65535 else {
-            state.lastEvent = "LAN/ADB peer не выбран: неверный порт назначения"
+            state.lastEvent = "LAN/ADB узел не выбран: неверный порт назначения"
             return
         }
         let host = lanTargetHost.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !host.isEmpty else {
-            state.lastEvent = "LAN/ADB peer не выбран: адрес пустой"
+            state.lastEvent = "LAN/ADB узел не выбран: адрес пустой"
             return
         }
 
@@ -767,8 +767,8 @@ final class KrakenDesktopStore: ObservableObject {
         selectedSection = .chat
         transportPanelVisible = true
         Self.saveRelationships(state.relationships)
-        state.lastEvent = "LAN/ADB endpoint выбран как peer: \(displayName)"
-        flushReadyOutbox(reason: "LAN/ADB endpoint выбран")
+        state.lastEvent = "LAN/ADB конечная точка выбрана как узел: \(displayName)"
+        flushReadyOutbox(reason: "LAN/ADB конечная точка выбрана")
     }
 
     private func sendLanMessage(body: String, relationship: Relationship, existingMessageId: String? = nil) {
@@ -814,7 +814,7 @@ final class KrakenDesktopStore: ObservableObject {
                 relationship: relationship,
                 existingMessageId: existingMessageId,
                 error: "endpoint-fingerprint-mismatch",
-                eventMessage: "LAN-отправка остановлена: endpoint не совпадает с выбранным peer"
+                eventMessage: "LAN-отправка остановлена: конечная точка не совпадает с выбранным узлом"
             )
             return
         }
@@ -1068,7 +1068,7 @@ final class KrakenDesktopStore: ObservableObject {
             ? "LAN \(lanDirectionTitle(event.direction)): ошибка, ждём повтор"
             : "LAN \(lanDirectionTitle(event.direction)): \(lanStatusTitle(event.status))"
         if !rescheduled {
-            flushReadyOutbox(reason: "LAN route обновлён")
+            flushReadyOutbox(reason: "LAN-маршрут обновлён")
         }
     }
 
@@ -1091,7 +1091,7 @@ final class KrakenDesktopStore: ObservableObject {
             ? "Bluetooth \(bleDirectionTitle(event.direction)): ошибка, ждём повтор"
             : "Bluetooth \(bleDirectionTitle(event.direction)): \(bleStatusTitle(event.status))"
         if !rescheduled {
-            flushReadyOutbox(reason: "Bluetooth route обновлён")
+            flushReadyOutbox(reason: "Bluetooth-маршрут обновлён")
         }
     }
 

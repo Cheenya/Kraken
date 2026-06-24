@@ -40,7 +40,7 @@ struct SidebarView: View {
                                     store.selectRelationship(relationship.relationshipId)
                                     store.bindCurrentLanEndpointToSelectedPeer()
                                 } label: {
-                                    Label("Привязать LAN/ADB endpoint", systemImage: "link")
+                                    Label("Привязать LAN/ADB конечную точку", systemImage: "link")
                                 }
 
                                 Divider()

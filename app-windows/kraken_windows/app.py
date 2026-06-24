@@ -108,7 +108,7 @@ def create_main_window(qt):
     class MainWindow(QMainWindow):
         def __init__(self) -> None:
             super().__init__()
-            self.setWindowTitle("Kraken Desktop for Windows")
+            self.setWindowTitle("Kraken Desktop для Windows")
             self.resize(1120, 720)
             self.root_dir = Path(__file__).resolve().parents[1]
             self.state_store = JsonStateStore(self.root_dir / "output" / "windows-state")
@@ -155,15 +155,15 @@ def create_main_window(qt):
 
             create_identity = QPushButton("Создать личность")
             create_identity.clicked.connect(self.create_identity)
-            accept_admission = QPushButton("Принять experimental Adamova")
+            accept_admission = QPushButton("Принять экспериментальный профиль Адамовой")
             accept_admission.clicked.connect(lambda: self.evaluate_admission(True))
-            reject_admission = QPushButton("Отклонить risk demo")
+            reject_admission = QPushButton("Отклонить риск-демо")
             reject_admission.clicked.connect(lambda: self.evaluate_admission(False))
 
             form = QFormLayout()
             form.addRow("Последнее событие", self.event_label)
             form.addRow("Локальная личность", self.identity_label)
-            form.addRow("Adamova gate", self.admission_label)
+            form.addRow("Допуск Адамовой", self.admission_label)
             form.addRow("Имя", self.identity_name_input)
 
             buttons = QHBoxLayout()
@@ -172,8 +172,8 @@ def create_main_window(qt):
             buttons.addWidget(reject_admission)
 
             scope = QLabel(
-                "Windows harness: LAN/BLE/QR-compatible research surface. "
-                "Это не production Wi-Fi Direct transport."
+                "Windows-стенд: исследовательская поверхность, совместимая с LAN/BLE/QR. "
+                "Это не production-транспорт Wi-Fi Direct."
             )
             scope.setWordWrap(True)
 
@@ -203,7 +203,7 @@ def create_main_window(qt):
 
             self.import_peer_input = QLineEdit()
             self.import_peer_input.setPlaceholderText("Имя устройства")
-            import_button = QPushButton("Добавить peer")
+            import_button = QPushButton("Добавить узел")
             import_button.clicked.connect(self.import_peer)
 
             row = QHBoxLayout()
@@ -227,30 +227,30 @@ def create_main_window(qt):
             layout = QVBoxLayout(page)
 
             self.routes_table = QTableWidget(0, 6)
-            self.routes_table.setHorizontalHeaderLabels(["Peer", "Fingerprint", "Route", "Transport", "BW", "Hops"])
+            self.routes_table.setHorizontalHeaderLabels(["Узел", "Отпечаток", "Маршрут", "Транспорт", "BW", "Переходы"])
             self.lan_host_input = QLineEdit("127.0.0.1")
             self.lan_port_input = QLineEdit("54035")
             self.lan_listen_port_input = QLineEdit("43191")
 
             cycle_button = QPushButton("Сменить маршрут")
             cycle_button.clicked.connect(self.cycle_route)
-            preview_button = QPushButton("LAN frame preview")
+            preview_button = QPushButton("Предпросмотр LAN-кадра")
             preview_button.clicked.connect(self.preview_lan_frame)
-            start_listener_button = QPushButton("Start LAN listener")
+            start_listener_button = QPushButton("Запустить LAN-слушатель")
             start_listener_button.clicked.connect(self.start_lan_listener)
-            stop_listener_button = QPushButton("Stop LAN listener")
+            stop_listener_button = QPushButton("Остановить LAN-слушатель")
             stop_listener_button.clicked.connect(self.stop_lan_listener)
-            send_lan_button = QPushButton("Send LAN frame")
+            send_lan_button = QPushButton("Отправить LAN-кадр")
             send_lan_button.clicked.connect(self.send_lan_frame)
-            evidence_button = QPushButton("Save evidence")
+            evidence_button = QPushButton("Сохранить подтверждения")
             evidence_button.clicked.connect(self.save_evidence)
             self.lan_preview = QPlainTextEdit()
             self.lan_preview.setReadOnly(True)
 
             lan_form = QFormLayout()
-            lan_form.addRow("Target host", self.lan_host_input)
-            lan_form.addRow("Target port", self.lan_port_input)
-            lan_form.addRow("Listen port", self.lan_listen_port_input)
+            lan_form.addRow("Целевой хост", self.lan_host_input)
+            lan_form.addRow("Целевой порт", self.lan_port_input)
+            lan_form.addRow("Порт слушателя", self.lan_listen_port_input)
 
             buttons = QHBoxLayout()
             buttons.addWidget(cycle_button)
@@ -271,15 +271,17 @@ def create_main_window(qt):
             layout = QVBoxLayout(page)
 
             self.qr_input = QPlainTextEdit()
-            self.qr_input.setPlaceholderText("Вставьте raw JSON, kraken://qr, intent://qr или https://kraken.local/qr payload")
+            self.qr_input.setPlaceholderText(
+                "Вставьте исходный JSON, kraken://qr, intent://qr или полезную нагрузку https://kraken.local/qr"
+            )
             self.qr_output = QPlainTextEdit()
             self.qr_output.setReadOnly(True)
 
-            normalize_button = QPushButton("Normalize / detect")
+            normalize_button = QPushButton("Нормализовать / определить")
             normalize_button.clicked.connect(self.normalize_qr)
-            encode_button = QPushButton("Encode web QR payload")
+            encode_button = QPushButton("Закодировать web QR-полезную нагрузку")
             encode_button.clicked.connect(self.encode_qr)
-            import_button = QPushButton("Import QR")
+            import_button = QPushButton("Импортировать QR")
             import_button.clicked.connect(self.import_qr)
 
             buttons = QHBoxLayout()
@@ -287,10 +289,10 @@ def create_main_window(qt):
             buttons.addWidget(encode_button)
             buttons.addWidget(import_button)
 
-            layout.addWidget(QLabel("QR payload"))
+            layout.addWidget(QLabel("QR-полезная нагрузка"))
             layout.addWidget(self.qr_input, 1)
             layout.addLayout(buttons)
-            layout.addWidget(QLabel("Result"))
+            layout.addWidget(QLabel("Результат"))
             layout.addWidget(self.qr_output, 1)
             return page
 
@@ -300,18 +302,18 @@ def create_main_window(qt):
 
             box = QGroupBox("Проверки")
             grid = QGridLayout(box)
-            grid.addWidget(QLabel("Core smoke"), 0, 0)
+            grid.addWidget(QLabel("Базовый smoke-тест"), 0, 0)
             grid.addWidget(QLabel("python -m unittest discover -s tests"), 0, 1)
-            grid.addWidget(QLabel("Compile"), 1, 0)
+            grid.addWidget(QLabel("Компиляция Python"), 1, 0)
             grid.addWidget(QLabel("python -m compileall kraken_windows tests"), 1, 1)
-            grid.addWidget(QLabel("Windows run"), 2, 0)
+            grid.addWidget(QLabel("Запуск на Windows"), 2, 0)
             grid.addWidget(QLabel("run_windows.bat"), 2, 1)
-            grid.addWidget(QLabel("State"), 3, 0)
+            grid.addWidget(QLabel("Состояние"), 3, 0)
             grid.addWidget(QLabel("output/windows-state/state.json + outbox.json"), 3, 1)
 
             note = QLabel(
-                "BLE and LAN codecs are parity checks for Android/macOS envelopes. "
-                "Native Windows Bluetooth/Wi-Fi Direct transport remains outside this harness."
+                "Кодеки BLE и LAN используются для проверки соответствия Android/macOS-конвертам. "
+                "Нативный Windows Bluetooth/Wi-Fi Direct транспорт остаётся за пределами этого стенда."
             )
             note.setWordWrap(True)
             layout.addWidget(box)
@@ -329,7 +331,7 @@ def create_main_window(qt):
 
             admission = self.state.admission_result
             self.admission_label.setText(
-                f"{admission.profile_id}: {admission.decision.value}, flags={','.join(admission.risk_flags) or 'none'}"
+                f"{admission.profile_id}: {admission.decision.value}, флаги={','.join(admission.risk_flags) or 'нет'}"
             )
 
             current = self.selected_relationship_id
@@ -384,8 +386,8 @@ def create_main_window(qt):
             outbox_count = len(self.outbox_store.records)
             if not self.lan_preview.toPlainText():
                 self.lan_preview.setPlainText(
-                    f"Outbox records: {outbox_count}\n"
-                    f"LAN listener port: {self.lan_listener.local_port or 'stopped'}"
+                    f"Записей исходящей очереди: {outbox_count}\n"
+                    f"Порт LAN-слушателя: {self.lan_listener.local_port or 'остановлен'}"
                 )
 
         def _persist(self) -> None:
@@ -455,7 +457,10 @@ def create_main_window(qt):
                 message_id="message-windows-preview",
                 created_at_epoch_millis=now_ms,
                 expires_at_epoch_millis=now_ms + 300_000,
-                payload_json=json.dumps({"message_id": "message-windows-preview", "body": "hello from Windows"}, ensure_ascii=False),
+                payload_json=json.dumps(
+                    {"message_id": "message-windows-preview", "body": "привет от Windows"},
+                    ensure_ascii=False,
+                ),
             )
             envelope = LanFrameEnvelope(
                 sender_peer_id="windows-desktop",
@@ -467,11 +472,11 @@ def create_main_window(qt):
             frame = LanFrameCodec.encode_envelope(envelope)
             decoded = LanFrameCodec.decode_frame(frame)
             self.lan_preview.setPlainText(
-                f"Frame bytes: {len(frame)}\n"
-                f"Length prefix: {int.from_bytes(frame[:4], 'big')}\n"
-                f"Decoded peer: {decoded.sender_peer_id}\n"
-                f"Decoded message: {decoded.packet.message_id}\n"
-                f"Payload: {decoded.packet.payload_json}"
+                f"Байты кадра: {len(frame)}\n"
+                f"Префикс длины: {int.from_bytes(frame[:4], 'big')}\n"
+                f"Декодированный узел: {decoded.sender_peer_id}\n"
+                f"Декодированное сообщение: {decoded.packet.message_id}\n"
+                f"Полезная нагрузка: {decoded.packet.payload_json}"
             )
 
         def start_lan_listener(self) -> None:
@@ -479,21 +484,21 @@ def create_main_window(qt):
                 port = int(self.lan_listen_port_input.text())
                 actual_port = self.lan_listener.start("0.0.0.0", port, self.record_lan_event)
             except (OSError, ValueError) as exc:
-                self.lan_preview.setPlainText(f"LAN listener failed: {exc}")
+                self.lan_preview.setPlainText(f"LAN-слушатель не запущен: {exc}")
                 return
             self.lan_listen_port_input.setText(str(actual_port))
-            self.lan_preview.setPlainText(f"LAN listener started on {actual_port}")
+            self.lan_preview.setPlainText(f"LAN-слушатель запущен на порту {actual_port}")
 
         def stop_lan_listener(self) -> None:
             self.lan_listener.stop()
-            self.lan_preview.setPlainText("LAN listener stopped")
+            self.lan_preview.setPlainText("LAN-слушатель остановлен")
 
         def send_lan_frame(self) -> None:
             relationship = next(
                 item for item in self.state.relationships if item.relationship_id == self.selected_relationship_id
             )
             message_id = f"message-windows-lan-{uuid.uuid4()}"
-            envelope = self._make_lan_envelope(relationship, message_id, "hello from Windows LAN")
+            envelope = self._make_lan_envelope(relationship, message_id, "привет от Windows LAN")
             try:
                 endpoint = LanEndpoint(
                     host=self.lan_host_input.text().strip(),
@@ -502,15 +507,15 @@ def create_main_window(qt):
                     display_name=relationship.peer_display_name,
                 )
             except ValueError as exc:
-                self.lan_preview.setPlainText(f"LAN endpoint failed: {exc}")
+                self.lan_preview.setPlainText(f"LAN-конечная точка не создана: {exc}")
                 return
             event = self.lan_sender.send(envelope, endpoint, timeout_seconds=4)
             self.record_lan_event(event)
             self.lan_preview.setPlainText(
-                f"LAN outbound: {event.status.value}\n"
-                f"target={event.target}\n"
+                f"Исходящий LAN: {event.status.value}\n"
+                f"цель={event.target}\n"
                 f"message_id={event.message_id}\n"
-                f"error={event.error or 'none'}"
+                f"ошибка={event.error or 'нет'}"
             )
 
         def record_lan_event(self, event) -> None:
@@ -535,10 +540,10 @@ def create_main_window(qt):
                 encoding="utf-8",
             )
             (out_dir / "claim_boundary.txt").write_text(
-                "Windows LAN/BLE/QR harness evidence; not Android Wi-Fi Direct and not production crypto.",
+                "Подтверждения Windows-стенда LAN/BLE/QR; это не Android Wi-Fi Direct и не production-криптография.",
                 encoding="utf-8",
             )
-            QMessageBox.information(self, "Evidence saved", str(out_dir))
+            QMessageBox.information(self, "Подтверждения сохранены", str(out_dir))
 
         def _make_lan_envelope(self, relationship, message_id: str, body: str) -> LanFrameEnvelope:
             now = datetime.now(tz=UTC)
@@ -570,13 +575,13 @@ def create_main_window(qt):
             normalized = HandshakeQrCodec.normalized_scanned_payload(raw)
             kind = HandshakeQrCodec.detect_kind(raw)
             summary = HandshakeQrCodec.payload_summary(raw)
-            self.qr_output.setPlainText(f"kind={kind}\n{summary}\n\n{normalized}")
+            self.qr_output.setPlainText(f"тип={kind}\n{summary}\n\n{normalized}")
 
         def encode_qr(self) -> None:
             try:
                 encoded = HandshakeQrCodec.encoded_qr_payload(self.qr_input.toPlainText())
             except ValueError as exc:
-                self.qr_output.setPlainText(f"encode failed: {exc}")
+                self.qr_output.setPlainText(f"кодирование не выполнено: {exc}")
                 return
             self.qr_output.setPlainText(encoded)
 
@@ -619,7 +624,7 @@ def run_smoke() -> int:
     state = simulator.send_message(state, "rel-xiaomi", "hello windows")
     latest = state.messages[-1]
     if latest.status.value != "SENT_TO_TRANSPORT":
-        print("smoke failed: active peer did not enter SENT_TO_TRANSPORT")
+        print("smoke-проверка не пройдена: активный узел не перешёл в SENT_TO_TRANSPORT")
         return 1
 
     now = datetime.now(tz=UTC)
@@ -644,7 +649,7 @@ def run_smoke() -> int:
     )
     decoded = LanFrameCodec.decode_frame(LanFrameCodec.encode_envelope(envelope))
     if decoded != envelope:
-        print("smoke failed: LAN frame did not round-trip")
+        print("smoke-проверка не пройдена: LAN-кадр не прошёл сквозную проверку")
         return 1
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -655,10 +660,10 @@ def run_smoke() -> int:
         outbox_store.enqueue(latest)
         outbox_store.mark_attempt(latest.message_id, now=now)
         if state_store.load_state().messages[-1].message_id != latest.message_id:
-            print("smoke failed: persisted state did not round-trip")
+            print("smoke-проверка не пройдена: сохранённое состояние не прошло сквозную проверку")
             return 1
         if outbox_store.records[latest.message_id].attempts != 1:
-            print("smoke failed: outbox attempt was not durable")
+            print("smoke-проверка не пройдена: попытка outbox не сохранилась устойчиво")
             return 1
 
     inbound_events = []
@@ -676,8 +681,8 @@ def run_smoke() -> int:
     finally:
         listener.stop()
     if outbound_event.status is not LanEventStatus.ACKED or not inbound_events:
-        print("smoke failed: LAN loopback did not ACK")
+        print("smoke-проверка не пройдена: LAN loopback не вернул ACK")
         return 1
 
-    print("Kraken Windows smoke OK")
+    print("Smoke-проверка Kraken Windows: OK")
     return 0

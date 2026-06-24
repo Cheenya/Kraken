@@ -93,7 +93,7 @@ struct QrScannerSheet: View {
                                     NSPasteboard.general.clearContents()
                                     NSPasteboard.general.setString(lastScannedPayload, forType: .string)
                                 } label: {
-                                    Label("Скопировать payload", systemImage: "doc.on.doc")
+                                    Label("Скопировать полезную нагрузку", systemImage: "doc.on.doc")
                                 }
                                 .buttonStyle(.bordered)
                             }
@@ -157,7 +157,7 @@ struct QrScannerSheet: View {
     private func handleManualImport() {
         let payload = manualPayload.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !payload.isEmpty else {
-            errorMessage = "Вставьте QR payload или ссылку Kraken."
+            errorMessage = "Вставьте QR-полезную нагрузку или ссылку Kraken."
             return
         }
         scanLocked = true

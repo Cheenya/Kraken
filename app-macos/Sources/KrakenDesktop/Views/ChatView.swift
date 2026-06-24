@@ -250,7 +250,7 @@ private struct TransportInspector: View {
                 } label: {
                     Image(systemName: "person.crop.circle.badge.checkmark")
                 }
-                .help("Выбрать LAN/ADB endpoint как peer")
+                .help("Выбрать LAN/ADB конечную точку как узел")
 
                 Button {
                     store.startLanListener()
@@ -300,7 +300,7 @@ private struct TransportInspector: View {
                 Button {
                     store.bindCurrentLanEndpointToSelectedPeer()
                 } label: {
-                    Label("Привязать endpoint к выбранному контакту", systemImage: "link")
+                    Label("Привязать конечную точку к выбранному контакту", systemImage: "link")
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)

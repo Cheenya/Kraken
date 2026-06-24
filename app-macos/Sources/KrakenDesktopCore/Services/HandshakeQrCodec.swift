@@ -146,7 +146,7 @@ public enum KrakenHandshakeQrCodec {
         let payload = normalizedScannedPayload(rawPayload)
         guard let data = payload.data(using: .utf8),
               let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return "Payload не является JSON-объектом."
+            return "Полезная нагрузка не является JSON-объектом."
         }
         let type = (object["type"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)
         let keys = object.keys.sorted().prefix(12).joined(separator: ", ")

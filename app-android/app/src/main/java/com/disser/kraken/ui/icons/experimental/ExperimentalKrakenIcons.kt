@@ -10,28 +10,28 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 enum class ExperimentalKrakenIcon(val label: String) {
-    Home("Home"),
-    Contacts("Contacts"),
-    Realms("Realms"),
-    Settings("Settings"),
-    QrInvite("QR / Invite"),
-    Import("Import"),
-    Chat("Chat"),
-    Channels("Channels"),
-    MeshStatus("Mesh Status"),
-    Research("Research"),
-    Identity("Identity"),
-    Warning("Warning"),
-    LockPrivacy("Lock / Privacy"),
-    RelayCourier("Relay / Courier"),
-    Back("Back"),
-    Copy("Copy"),
-    Check("Check"),
-    Close("Close"),
-    Pause("Pause"),
-    Archive("Archive"),
-    Leave("Leave"),
-    LinkHandshake("Link / Handshake"),
+    Home("Домой"),
+    Contacts("Контакты"),
+    Realms("Реалмы"),
+    Settings("Настройки"),
+    QrInvite("QR / приглашение"),
+    Import("Импорт"),
+    Chat("Чат"),
+    Channels("Каналы"),
+    MeshStatus("Статус mesh"),
+    Research("Исследование"),
+    Identity("Личность"),
+    Warning("Предупреждение"),
+    LockPrivacy("Замок / приватность"),
+    RelayCourier("Relay / курьер"),
+    Back("Назад"),
+    Copy("Копировать"),
+    Check("Проверка"),
+    Close("Закрыть"),
+    Pause("Пауза"),
+    Archive("Архив"),
+    Leave("Покинуть"),
+    LinkHandshake("Связь / рукопожатие"),
 }
 
 data class ExperimentalIconConceptSet(
@@ -42,20 +42,20 @@ data class ExperimentalIconConceptSet(
 
 object ExperimentalKrakenIcons {
     val MinimalLine = ExperimentalIconConceptSet(
-        name = "Minimal Line",
-        intent = "Thin rounded strokes for readable messenger navigation.",
+        name = "Минимальная линия",
+        intent = "Тонкие скруглённые линии для читаемой навигации мессенджера.",
         icons = ExperimentalKrakenIcon.entries.map { it to minimalLineIcon(it) },
     )
 
     val GlassGlyph = ExperimentalIconConceptSet(
-        name = "Glass Glyph",
-        intent = "Filled duotone-like glyphs for dark glassy primary actions.",
+        name = "Стеклянный знак",
+        intent = "Заполненные двухтоновые знаки для основных действий на тёмном стеклянном фоне.",
         icons = ExperimentalKrakenIcon.entries.map { it to glassGlyphIcon(it) },
     )
 
     val AbyssGeometry = ExperimentalIconConceptSet(
-        name = "Abyss / Kraken Geometry",
-        intent = "Geometric marine hints with subtle coils and no mascot.",
+        name = "Геометрия бездны / Kraken",
+        intent = "Геометрические морские намёки с мягкими спиралями без маскота.",
         icons = ExperimentalKrakenIcon.entries.map { it to abyssGeometryIcon(it) },
     )
 

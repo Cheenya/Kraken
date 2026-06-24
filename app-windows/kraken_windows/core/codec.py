@@ -224,9 +224,9 @@ class HandshakeQrCodec:
         try:
             decoded = json.loads(normalized)
         except json.JSONDecodeError:
-            return "Payload не является JSON-объектом."
+            return "Полезная нагрузка не является JSON-объектом."
         if not isinstance(decoded, dict):
-            return "Payload не является JSON-объектом."
+            return "Полезная нагрузка не является JSON-объектом."
         payload_type = str(decoded.get("type") or "без типа")
         keys = ", ".join(sorted(decoded.keys())[:12]) or "нет полей"
         return f"Тип: {payload_type}. Поля: {keys}."

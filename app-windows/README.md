@@ -1,31 +1,31 @@
-# Kraken Desktop for Windows
+# Kraken Desktop для Windows
 
-Windows desktop test harness for the Kraken research prototype.
+Тестовый настольный стенд для исследовательского прототипа Kraken на Windows.
 
-## Scope
+## Назначение
 
-This app mirrors the macOS desktop harness at `app-macos/` for Windows-oriented
-testing:
+Это приложение повторяет настольный стенд из `app-macos/` для проверок на
+Windows:
 
-- local identity state;
-- relationship states and the `ACTIVE` message gate;
-- message status transitions;
-- peer route snapshots for BLE, LAN and routed mesh;
-- Adamova admission-gate semantics;
-- Android-compatible LAN frame encoding/decoding;
-- Android-compatible BLE chunk encoding/reassembly;
-- manual QR payload normalization for invite/response/confirmation flows;
-- QR invite/response/confirmation import into local relationship state;
-- durable JSON state and outbox retry records;
-- local LAN TCP sender/listener with ACK handling for loopback/LAN checks;
-- LAN/BLE timeline reducers for inbound/outbound transport events;
-- local evidence export under `output/windows-evidence/`.
+- локальное состояние идентификатора;
+- состояния связей между участниками и пропуск сообщений только для `ACTIVE`;
+- переходы статусов сообщений;
+- снимки маршрутов одноранговых узлов для BLE, LAN и маршрутизируемой mesh-сети;
+- семантику допуска по критерию Адамовой;
+- совместимое с Android кодирование и декодирование LAN-кадров;
+- совместимое с Android разбиение и сборку BLE-фрагментов;
+- ручную нормализацию QR-полезной нагрузки для invite/response/confirmation;
+- импорт QR invite/response/confirmation в локальное состояние связи;
+- устойчивое JSON-состояние и записи повторной отправки в исходящей очереди;
+- локальные LAN TCP-отправитель и слушатель с обработкой ACK для loopback/LAN;
+- редьюсеры LAN/BLE-хронологии для входящих и исходящих транспортных событий;
+- локальный экспорт подтверждений в `output/windows-evidence/`.
 
-It is still a research prototype. The Windows app does not claim production
-cryptographic security and does not replace Android Wi-Fi Direct/BLE proof
-artifacts.
+Это по-прежнему исследовательский прототип. Windows-приложение не заявляет
+production-уровень криптографической защиты и не заменяет Android-артефакты
+проверок Wi-Fi Direct/BLE.
 
-## Run on Windows
+## Запуск на Windows
 
 ```powershell
 cd app-windows
@@ -35,16 +35,16 @@ py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m kraken_windows
 ```
 
-Or use:
+Либо можно запустить:
 
 ```cmd
 run_windows.bat
 ```
 
-## Development Checks
+## Проверки при разработке
 
-The core smoke tests use only the Python standard library, so they can run even
-when PySide6 is not installed:
+Базовые smoke-тесты используют только стандартную библиотеку Python, поэтому их
+можно запускать даже без установленного PySide6:
 
 ```bash
 cd app-windows
@@ -53,22 +53,22 @@ python -m compileall kraken_windows tests
 python -m kraken_windows --smoke
 ```
 
-## Build a Windows EXE
+## Сборка Windows EXE
 
-Run on Windows:
+Команда для Windows:
 
 ```powershell
 cd app-windows
 .\build_windows.ps1
 ```
 
-The script installs `PySide6` and `pyinstaller` into `.venv` and writes the
-bundle to `dist/KrakenWindows/`.
+Скрипт устанавливает `PySide6` и `pyinstaller` в `.venv`, а затем кладёт сборку
+в `dist/KrakenWindows/`.
 
-## Boundary
+## Границы
 
-The Windows port uses a LAN/BLE/QR-compatible desktop harness model. It is not a
-native Windows Wi-Fi Direct implementation and should not be described as a
-production transport layer.
+Windows-порт использует модель настольного стенда, совместимую с LAN/BLE/QR.
+Это не нативная реализация Windows Wi-Fi Direct, и её не нужно описывать как
+production-транспорт.
 
-See `AUDIT.md` for the current parity audit.
+Текущий аудит соответствия находится в `AUDIT.md`.

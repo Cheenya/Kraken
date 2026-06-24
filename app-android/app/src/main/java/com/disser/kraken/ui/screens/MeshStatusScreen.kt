@@ -349,20 +349,20 @@ private fun DebugMeshDiagnostics(
         OutlinedTextField(
             value = manualFingerprint,
             onValueChange = onManualFingerprintChanged,
-            label = { Text("Fingerprint пира") },
+            label = { Text("Отпечаток узла") },
             modifier = Modifier.fillMaxWidth(),
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
                 value = manualHost,
                 onValueChange = onManualHostChanged,
-                label = { Text("IP / host") },
+                label = { Text("IP / хост") },
                 modifier = Modifier.weight(1f),
             )
             OutlinedTextField(
                 value = manualPort,
                 onValueChange = { onManualPortChanged(it.filter(Char::isDigit).take(5)) },
-                label = { Text("Port") },
+                label = { Text("Порт") },
                 modifier = Modifier.weight(0.65f),
             )
         }

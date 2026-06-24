@@ -15,12 +15,12 @@ struct DesktopProbeService {
     }
 
     func adbDevices() -> DesktopProbeResult {
-        run(title: "ADB devices", executable: "/usr/bin/env", arguments: ["adb", "devices", "-l"])
+        run(title: "ADB-устройства", executable: "/usr/bin/env", arguments: ["adb", "devices", "-l"])
     }
 
     func desktopRelayPreflight() -> DesktopProbeResult {
         run(
-            title: "Desktop relay preflight",
+            title: "Предпроверка desktop relay",
             executable: "/usr/bin/env",
             arguments: ["python3", "app-macos/script/kraken_desktop_relay_preflight.py"]
         )

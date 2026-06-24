@@ -320,9 +320,9 @@ class KrakenAppState(private val context: Context) {
 
     private fun processLanEndpointPayload(rawJson: String): QrScanImportResult? {
         val payload = LanEndpointPayloadCodec.decode(rawJson).getOrNull() ?: return null
-        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте локальную личность перед добавлением LAN endpoint.")
+        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте локальную личность перед добавлением LAN-конечной точки.")
         if (payload.fingerprint == identity.fingerprint) {
-            return QrScanImportResult.Error("Нельзя добавить собственный LAN endpoint.")
+            return QrScanImportResult.Error("Нельзя добавить собственную LAN-конечную точку.")
         }
         if (!addManualLanPeer(payload.fingerprint, payload.host, payload.port.toString())) {
             return QrScanImportResult.Error("QR-адрес связи не добавлен: ${meshSnapshot.lastPacketStatus}.")

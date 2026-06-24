@@ -74,11 +74,11 @@ def main() -> int:
         encoding="utf-8",
     )
     lines = [
-        "# Kraken desktop relay preflight",
+        "# Предпроверка desktop relay Kraken",
         "",
-        f"Generated: `{report['generated_at']}`",
+        f"Сформировано: `{report['generated_at']}`",
         "",
-        "## Attack modes",
+        "## Режимы атаки",
         "",
     ]
     for item in report["modes"]:
@@ -89,9 +89,9 @@ def main() -> int:
     lines.extend(
         [
             "",
-            "## Boundary",
+            "## Граница",
             "",
-            "This artifact proves local relay decision logic only. It does not prove Android radio delivery or production security.",
+            "Этот артефакт подтверждает только локальную логику relay-решений. Он не доказывает радиодоставку Android или production-безопасность.",
         ]
     )
     (out_dir / "desktop_relay_preflight.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
