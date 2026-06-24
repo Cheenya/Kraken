@@ -15,6 +15,10 @@ testing:
 - Android-compatible LAN frame encoding/decoding;
 - Android-compatible BLE chunk encoding/reassembly;
 - manual QR payload normalization for invite/response/confirmation flows;
+- QR invite/response/confirmation import into local relationship state;
+- durable JSON state and outbox retry records;
+- local LAN TCP sender/listener with ACK handling for loopback/LAN checks;
+- LAN/BLE timeline reducers for inbound/outbound transport events;
 - local evidence export under `output/windows-evidence/`.
 
 It is still a research prototype. The Windows app does not claim production
@@ -46,6 +50,7 @@ when PySide6 is not installed:
 cd app-windows
 python -m unittest discover -s tests
 python -m compileall kraken_windows tests
+python -m kraken_windows --smoke
 ```
 
 ## Build a Windows EXE
@@ -65,3 +70,5 @@ bundle to `dist/KrakenWindows/`.
 The Windows port uses a LAN/BLE/QR-compatible desktop harness model. It is not a
 native Windows Wi-Fi Direct implementation and should not be described as a
 production transport layer.
+
+See `AUDIT.md` for the current parity audit.

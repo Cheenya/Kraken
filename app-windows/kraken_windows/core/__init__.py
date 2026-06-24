@@ -7,6 +7,18 @@ from .codec import (
     LanFrameCodec,
     OutboxBackoffPolicy,
 )
+from .events import (
+    BleEventDirection,
+    BleEventStatus,
+    BleTimelineReducer,
+    BleTransferEvent,
+    LanEventDirection,
+    LanEventStatus,
+    LanTimelineReducer,
+    LanTransferEvent,
+)
+from .handshake import HandshakeImportService
+from .lan_transport import WindowsLanTcpListener, WindowsLanTcpSender
 from .models import (
     AdmissionResult,
     AdamovaAdmissionDecision,
@@ -14,6 +26,7 @@ from .models import (
     BleFrameChunk,
     KrakenDesktopState,
     KrakenPacket,
+    LanEndpoint,
     LanFrameEnvelope,
     LocalIdentity,
     LocalMessage,
@@ -24,7 +37,9 @@ from .models import (
     Relationship,
     RelationshipState,
 )
+from .outbox import DurableOutboxStore, OutboxRetryRecord
 from .simulator import KrakenDesktopSimulator
+from .store import JsonStateStore
 
 __all__ = [
     "AdmissionResult",
@@ -33,21 +48,36 @@ __all__ = [
     "BleFrameChunk",
     "BleFrameCodec",
     "BleFrameReassembler",
+    "BleEventDirection",
+    "BleEventStatus",
+    "BleTimelineReducer",
+    "BleTransferEvent",
+    "DurableOutboxStore",
     "HandshakeQrCodec",
+    "HandshakeImportService",
+    "JsonStateStore",
     "KrakenDesktopSimulator",
     "KrakenDesktopState",
     "KrakenPacket",
     "KrakenPacketPolicyError",
     "KrakenPacketPolicyValidator",
+    "LanEndpoint",
+    "LanEventDirection",
+    "LanEventStatus",
     "LanFrameCodec",
     "LanFrameEnvelope",
+    "LanTimelineReducer",
+    "LanTransferEvent",
     "LocalIdentity",
     "LocalMessage",
     "MessageDirection",
     "MessageStatus",
     "OutboxBackoffPolicy",
+    "OutboxRetryRecord",
     "PeerRouteKind",
     "PeerRouteSnapshot",
     "Relationship",
     "RelationshipState",
+    "WindowsLanTcpListener",
+    "WindowsLanTcpSender",
 ]

@@ -28,7 +28,8 @@
 локального обмена, но не заменяет Android-версию.
 
 `app-windows/` - экспериментальная Windows-сборка для проверки части логики,
-QR/LAN/BLE framing и локального состояния. Она не заменяет Android-версию.
+QR/LAN/BLE framing, локального состояния, QR-импорта, LAN-событий и outbox. Она
+не заменяет Android-версию.
 
 `reports/out/` - отчеты, на которые есть ссылки в тексте ВКР.
 
@@ -119,6 +120,7 @@ py -3 -m venv .venv
 ```bash
 cd app-windows
 python -m unittest discover -s tests
+python -m compileall kraken_windows tests
 python -m kraken_windows --smoke
 ```
 
