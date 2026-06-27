@@ -5,17 +5,17 @@ Seed: `20260605`.
 Git SHA: `e542ea0`.
 Profile policy version: `1`.
 Gate backend: `host_cpp_native_core_cli_from_android_source`.
-Native backend version: `Kraken native C++ research core: Adamova Stage A diagnostics available for signed 128-bit and smooth arbitrary-size coefficients; no protocol, production crypto or networking logic.`.
+Native backend version: `Kraken native C++ research core: Adamova Stage A diagnostics available for signed 128-bit and smooth arbitrary-size coefficients.`.
 Native CLI path: `build/adamova-host/adamova_native_cli`.
-Native CLI retention: `generated_on_demand_disposable_build_output`.
+Native CLI retention: `generated_on_demand_build_output`.
 
-The native CLI is rebuilt on demand under root `build/`; that directory
-is disposable generated output and is not the source of truth for this
-evidence pack.
+The native CLI is rebuilt on demand under root `build/`; source files and the
+saved reports in this repository are the retained materials.
 
-## Claim Boundary
+## Scope
 
-Controlled profile-substitution experiment over rational curve parameters. It measures admission/precheck behavior for Kraken experimental profiles, not production message cryptographic security.
+Controlled profile-substitution experiment over rational curve parameters. It
+measures admission/precheck behavior for Kraken experimental profiles.
 
 ## Thesis Statement
 
@@ -74,4 +74,4 @@ In the controlled experimental-profile substitution model, Adamova admission gat
 - `no_precheck` models accepting any syntactically usable experimental profile.
 - `discriminant_only` rejects singular curves but misses rational 2/3-torsion indicators.
 - `adamova_gate` rejects singular and small-torsion-risk profiles and blocks malformed/size-guarded cases from automatic admission.
-- This experiment is controlled evidence for profile admission policy, not a proof of production message security.
+- This experiment records profile admission behavior for the tested corpus.

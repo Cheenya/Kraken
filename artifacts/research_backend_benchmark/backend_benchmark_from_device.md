@@ -1,6 +1,6 @@
 # Research Backend Benchmark
 
-Diagnostic-only benchmark. This does not measure production message encryption.
+Benchmark for the research backend used in the diagnostic workflow.
 
 - Warmup runs per backend/case: 5
 - Measured runs per backend/case: 30

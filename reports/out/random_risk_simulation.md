@@ -36,11 +36,11 @@
 1. `no_precheck` accepts every construction-labeled risky candidate.
 2. `discriminant_only` removes singular curves but still accepts rational 2-torsion and guarded cases.
 3. `kraken_precheck` rejects singular/rational-2-torsion cases and quarantines large guarded cases as `needs_reference_validation`.
-4. This is empirical evidence for the diagnostic workflow, not production crypto.
+4. The simulation records how the diagnostic workflow handles injected risk groups.
 
-## Wording Constraints
+## Notes
 
-- Do not claim production cryptographic security.
-- Do not claim finite-field ECC hardness.
-- Do not claim message encryption/signature speedup.
-- Use: diagnostic gate, random/injected corpus, empirical workflow evidence.
+- Use this report for the diagnostic gate, random/injected corpus and workflow
+  evidence.
+- Message encryption, signatures and finite-field ECC hardness are outside this
+  simulation.
