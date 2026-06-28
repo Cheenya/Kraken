@@ -24,7 +24,7 @@ class SimulatedStoreAndForwardRelayTest {
         val relayTransport = InMemoryTwoNodeTransport(relay, bus) { 1_700_000_000_000 }
         relayTransport.start()
 
-        val result = SimulatedStoreAndForwardRelay(prototypeRelayEnabled = false) { 1_700_000_000_100 }
+        val result = SimulatedStoreAndForwardRelay(localRelayEnabled = false) { 1_700_000_000_100 }
             .relay(packet(), bob, relayTransport)
 
         assertEquals(RelaySimulationStatus.RELAY_DISABLED, result.status)
@@ -39,7 +39,7 @@ class SimulatedStoreAndForwardRelayTest {
         bobTransport.start()
         relayTransport.start()
 
-        val result = SimulatedStoreAndForwardRelay(prototypeRelayEnabled = true) { 1_700_000_000_100 }
+        val result = SimulatedStoreAndForwardRelay(localRelayEnabled = true) { 1_700_000_000_100 }
             .relay(packet(ttlHops = 3), bob, relayTransport)
 
         assertEquals(RelaySimulationStatus.FORWARDED, result.status)
@@ -59,7 +59,7 @@ class SimulatedStoreAndForwardRelayTest {
         val relayTransport = InMemoryTwoNodeTransport(relay, bus) { 1_700_000_000_000 }
         bobTransport.start()
         relayTransport.start()
-        val relayService = SimulatedStoreAndForwardRelay(prototypeRelayEnabled = true) { 1_700_000_000_100 }
+        val relayService = SimulatedStoreAndForwardRelay(localRelayEnabled = true) { 1_700_000_000_100 }
 
         val blocked = relayService.relayInRealm(
             localIdentity = localIdentity,
@@ -104,7 +104,7 @@ class SimulatedStoreAndForwardRelayTest {
         val bus = InMemoryTwoNodeTransport.SharedBus()
         val relayTransport = InMemoryTwoNodeTransport(relay, bus) { 1_700_000_000_000 }
         relayTransport.start()
-        val relayService = SimulatedStoreAndForwardRelay(prototypeRelayEnabled = true) { 1_700_000_000_100 }
+        val relayService = SimulatedStoreAndForwardRelay(localRelayEnabled = true) { 1_700_000_000_100 }
 
         assertEquals(
             MeshRejectionReason.DUPLICATE,
@@ -135,7 +135,7 @@ class SimulatedStoreAndForwardRelayTest {
             payloadJson = """{"packet_id":"packet-msg","message_id":"message-1"}""",
         )
 
-        val result = SimulatedStoreAndForwardRelay(prototypeRelayEnabled = true) { 1_700_000_000_100 }
+        val result = SimulatedStoreAndForwardRelay(localRelayEnabled = true) { 1_700_000_000_100 }
             .relay(receipt, alice, relayTransport)
 
         assertEquals(RelaySimulationStatus.FORWARDED, result.status)

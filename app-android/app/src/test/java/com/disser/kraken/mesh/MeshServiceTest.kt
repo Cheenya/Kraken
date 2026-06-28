@@ -26,7 +26,7 @@ import org.junit.Test
 
 class MeshServiceTest {
     @Test
-    fun meshStartsOnlyWithIdentityAndReportsPrototypeWarning() {
+    fun meshStartsOnlyWithIdentityAndReportsTransportNotice() {
         val service = MeshService()
 
         val error = service.start(null)
@@ -35,9 +35,9 @@ class MeshServiceTest {
 
         val started = service.start(identity())
         assertEquals(MeshState.SCANNING, started.state)
-        assertEquals("loopback-prototype", started.transportMode)
+        assertEquals("loopback-local", started.transportMode)
         assertEquals("loopback-ready", started.lastPacketStatus)
-        assertTrue(started.prototypeWarning.contains("сообщения идут через защищённый payload path"))
+        assertTrue(started.transportNotice.contains("сообщения идут через защищённый payload path"))
     }
 
     @Test

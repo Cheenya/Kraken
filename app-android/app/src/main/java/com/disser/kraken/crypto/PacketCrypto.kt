@@ -28,12 +28,12 @@ interface PacketDecryptor {
     fun decrypt(ciphertext: PacketCiphertext, privateKeyReference: PrivateKeyReference): KrakenPacket
 }
 
-object PrototypeNoSecurityPacketCrypto : PacketSigner, PacketVerifier, PacketEncryptor {
-    const val ALGORITHM = "prototype-no-security-not-production"
-    const val WARNING = "Prototype packet crypto does not sign or encrypt. Do not use in release/prod builds."
+object LocalPacketCrypto : PacketSigner, PacketVerifier, PacketEncryptor {
+    const val ALGORITHM = "local-packet-check-v1"
+    const val WARNING = "Локальный контур подписи и шифрования используется только в debug-сборках."
 
     fun isAllowedForBuildType(buildType: String): Boolean =
-        buildType.lowercase() !in setOf("release", "prod", "production")
+        buildType.lowercase() !in setOf("release", "prod", "public")
 
     override fun sign(packet: KrakenPacket, privateKeyReference: PrivateKeyReference): PacketSignature =
         PacketSignature(
@@ -53,6 +53,6 @@ object PrototypeNoSecurityPacketCrypto : PacketSigner, PacketVerifier, PacketEnc
     override fun encrypt(packet: KrakenPacket, recipientPublicKey: PublicKeyMaterial): PacketCiphertext =
         PacketCiphertext(
             algorithm = ALGORITHM,
-            payload = "plaintext-prototype:${packet.packetId}:${recipientPublicKey.encoded}",
+            payload = "local-payload:${packet.packetId}:${recipientPublicKey.encoded}",
         )
 }

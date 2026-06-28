@@ -46,11 +46,11 @@ class ResearchDiagnosticServiceTest {
     }
 
     @Test
-    fun diagnosticResultWarnsThatItIsNotProductionEncryption() {
+    fun diagnosticResultKeepsDiagnosticContext() {
         val result = ResearchDiagnosticService.evaluate(CurveInput(BigInteger.ONE, BigInteger.ONE))
 
-        assertTrue(result.diagnosticOnlyWarning.contains("Diagnostic-only"))
-        assertTrue(result.diagnosticOnlyWarning.contains("not production encryption"))
+        assertTrue(result.diagnosticOnlyWarning.contains("Диагностический"))
+        assertTrue(result.diagnosticOnlyWarning.contains("параметров кривой"))
     }
 
     @Test

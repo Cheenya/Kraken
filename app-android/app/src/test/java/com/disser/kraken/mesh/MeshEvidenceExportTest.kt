@@ -417,7 +417,7 @@ class MeshEvidenceExportTest {
         assertTrue(markdown.contains("evidenceMode: `debug_local_inbox_packet_injection_and_queue_retry_probe`"))
         assertTrue(markdown.contains("queuedBeforeTransportRestart: `true`"))
         assertTrue(markdown.contains("sentAfterTransportRestart: `true`"))
-        assertTrue(markdown.contains("Prototype evidence only. Message payload encryption is implemented for the protected path; production key storage, signatures, replay hardening and external review are still separate work."))
+        assertTrue(markdown.contains("Отчёт фиксирует состояние маршрутов, доставки и integrity mode для выбранного прогона."))
     }
 
     @Test

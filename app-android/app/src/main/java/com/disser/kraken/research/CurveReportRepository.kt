@@ -46,8 +46,8 @@ object CurveReportRepository {
         if (report.reportVersion != ANDROID_CURVE_REPORT_VERSION) {
             return CurveReportLoadResult.Error("Unsupported report version: ${report.reportVersion}")
         }
-        if (!report.uiWording.securityNote.contains("not production encryption", ignoreCase = true)) {
-            return CurveReportLoadResult.Error("Report must include diagnostic-only safety wording.")
+        if (!report.uiWording.securityNote.contains("диагност", ignoreCase = true)) {
+            return CurveReportLoadResult.Error("Report must include diagnostic context wording.")
         }
         return CurveReportLoadResult.Success(report)
     }

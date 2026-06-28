@@ -7,8 +7,8 @@ struct ResearchGateView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 HeaderBlock(
-                    title: "Исследовательский режим",
-                    subtitle: "Проверка правил допуска профилей. Это исследовательский прототип, не промышленная криптография."
+                    title: "Проверка профилей",
+                    subtitle: "Проверка правил допуска профилей и состояния локального контура."
                 )
 
                 SectionBlock(title: "Текущий результат") {

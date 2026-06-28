@@ -1412,7 +1412,7 @@ jstring classify_decimal_jni(JNIEnv* env, jstring a_raw, jstring b_raw) {
 } // namespace
 
 extern "C" const char* kraken_native_placeholder_status() {
-    return "Kraken native C++ research core: Adamova Stage A diagnostics available for signed 128-bit and smooth arbitrary-size coefficients; no protocol, production crypto or networking logic.";
+    return "Kraken native C++: диагностика Adamova Stage A для signed 128-bit и smooth arbitrary-size коэффициентов.";
 }
 
 extern "C" JNIEXPORT jstring JNICALL

@@ -131,7 +131,7 @@ class RealmQrMembershipFlowTest {
         assertEquals(alice.publicKeyEncoded, bobSnapshot.inviteEdges.single().inviterPublicKey)
         assertEquals(realmInvite.inviteId, bobSnapshot.inviteEdges.single().inviteId)
         assertNotNull(finalConfirmation.membershipCertificate)
-        assertTrue(finalConfirmation.proofPlaceholder.contains("not-production-crypto"))
+        assertEquals("offline-qr-confirmation-check-v1", finalConfirmation.proofPlaceholder)
     }
 
     @Test

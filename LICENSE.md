@@ -1,11 +1,15 @@
-# License and Rights Notice
+# Уведомление о правах
 
 Copyright (c) 2026 N. A. Chistyakov.
 
-This repository is published as a research prototype and dissertation support package.
+Репозиторий открыт для технического ознакомления с исходным кодом, сборками и
+отчётами проекта Kraken.
 
-No open-source license is granted unless a later file explicitly states otherwise. The code, reports, packaged applications and documentation may be viewed for technical review, dissertation verification and prototype testing.
+Открытая лицензия не предоставляется, если в отдельном файле явно не указано
+иное. Код, отчёты, сборки и документацию можно просматривать для технической
+оценки и проверки воспроизводимости.
 
-Redistribution, resale, modification or incorporation into another work requires explicit written permission from the copyright holder.
+Распространение, перепродажа, изменение или включение в другую работу требуют
+письменного разрешения правообладателя.
 
-Third-party dependencies and tools remain under the rights and licenses of their respective authors.
+Сторонние зависимости и инструменты остаются под лицензиями их авторов.

@@ -100,7 +100,7 @@ fun MeshOperationsHomeVariant(
 ) {
     VariantShell(
         title = "Панель проверки связи",
-        subtitle = "Технический вид для реалмов, relay-прототипа и локальных проверок.",
+        subtitle = "Технический вид для реалмов, relay и локальных проверок.",
     ) {
         MetricRow(
             "Ожидают" to pendingInvites.size.toString(),

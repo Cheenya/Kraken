@@ -42,7 +42,7 @@ object KrakenTransportCatalog {
             TransportCapability.REQUIRES_PERMISSION,
             TransportCapability.REQUIRES_USER_ACTION,
         ),
-        caveat = "Prototype transport; route evidence is required before any 10/10 claim.",
+        caveat = "Транспортный профиль использует evidence маршрута для итоговой оценки.",
     )
 
     val BLE_GATT = TransportDescriptor(

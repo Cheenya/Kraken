@@ -52,7 +52,7 @@ struct DesktopEvidenceWriter {
             "not_closed": [
                 "ble_corebluetooth_transport",
                 "wifi_direct_native_android_style_transport_on_macos",
-                "production_crypto_security",
+                "full_key_storage_and_packet_signature_check",
             ],
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
@@ -120,7 +120,7 @@ struct DesktopEvidenceWriter {
             "not_closed": [
                 "phone_peer_discovery_unless_events_or_peer_count_prove_it",
                 "native_android_style_wifi_direct_transport_on_macos",
-                "production_crypto_security",
+                "full_key_storage_and_packet_signature_check",
             ],
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
@@ -218,11 +218,11 @@ struct DesktopEvidenceWriter {
         }
         lines += [
             "",
-            "## Не закрыто",
+            "## Отдельные проверки",
             "",
-            "- BLE/CoreBluetooth-транспорт.",
-            "- Нативный Android-style Wi-Fi Direct на macOS.",
-            "- Production-уровень криптографической защиты.",
+            "- BLE/CoreBluetooth-транспорт проверяется отдельным прогоном.",
+            "- Wi-Fi Direct относится к Android-сборке.",
+            "- Полный контур хранения ключей и подписи пакетов проверяется отдельно.",
             "",
         ]
         return lines.joined(separator: "\n")
@@ -280,11 +280,11 @@ struct DesktopEvidenceWriter {
         }
         lines += [
             "",
-            "## Не закрыто",
+            "## Отдельные проверки",
             "",
-            "- Обнаружение телефонного узла, если это не подтверждено `discovered peers` или событиями accepted/queued.",
-            "- Нативный Android-style Wi-Fi Direct на macOS.",
-            "- Production-уровень криптографической защиты.",
+            "- Обнаружение телефонного узла подтверждается `discovered peers` или событиями accepted/queued.",
+            "- Wi-Fi Direct относится к Android-сборке.",
+            "- Полный контур хранения ключей и подписи пакетов проверяется отдельно.",
             "",
         ]
         return lines.joined(separator: "\n")

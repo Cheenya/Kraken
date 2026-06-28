@@ -54,7 +54,7 @@ class QrOnlyUxCopyTest {
     }
 
     @Test
-    fun adminAndChatScreensDoNotExposeRawPrototypeLabels() {
+    fun adminAndChatScreensDoNotExposeRawInternalLabels() {
         val sourceFiles = listOf(
             "src/main/java/com/disser/kraken/ui/screens/ChatScreen.kt",
             "src/main/java/com/disser/kraken/ui/screens/PendingApprovalsScreen.kt",
@@ -81,7 +81,7 @@ class QrOnlyUxCopyTest {
         }
 
         forbiddenCopy.forEach { phrase ->
-            assertFalse("Admin/chat UI must not expose raw prototype copy '$phrase'", joinedSource.contains(phrase))
+            assertFalse("Admin/chat UI must not expose raw internal copy '$phrase'", joinedSource.contains(phrase))
         }
     }
 }

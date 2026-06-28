@@ -1,29 +1,33 @@
-# Adamova Effectiveness Experiment
+# Эксперимент допуска по критерию Адамовой
 
-Experiment id: `adamova_effectiveness_experiment_20260605`.
+ID эксперимента: `adamova_effectiveness_experiment_20260605`.
 Seed: `20260605`.
 Git SHA: `e542ea0`.
-Profile policy version: `1`.
-Gate backend: `host_cpp_native_core_cli_from_android_source`.
-Native backend version: `Kraken native C++ research core: Adamova Stage A diagnostics available for signed 128-bit and smooth arbitrary-size coefficients.`.
-Native CLI path: `build/adamova-host/adamova_native_cli`.
-Native CLI retention: `generated_on_demand_build_output`.
+Версия политики профиля: `1`.
+Backend проверки: `host_cpp_native_core_cli_from_android_source`.
+Версия native backend: `Kraken native C++: диагностика Adamova Stage A для signed 128-bit и smooth arbitrary-size коэффициентов.`.
+Путь native CLI: `build/adamova-host/adamova_native_cli`.
+Хранение native CLI: `generated_on_demand_build_output`.
 
-The native CLI is rebuilt on demand under root `build/`; source files and the
-saved reports in this repository are the retained materials.
+Native CLI пересобирается по запросу в каталоге `build/`; в репозитории
+хранятся исходные файлы и сохранённые отчёты.
 
-## Scope
+## Область проверки
 
-Controlled profile-substitution experiment over rational curve parameters. It
-measures admission/precheck behavior for Kraken experimental profiles.
+Контролируемый эксперимент с подстановкой профилей рациональных кривых. Он
+показывает работу admission/precheck-логики для выбранного набора профилей.
 
-## Thesis Statement
+## Короткий вывод
 
-In the controlled experimental-profile substitution model, Adamova admission gate reduced accepted weak/invalid profiles from 8/10 without precheck and 6/10 with discriminant-only precheck to 0/10, while routing size/unsupported cases to reference validation before session or message use.
+В контролируемой модели подстановки профилей критерий Адамовой снизил число
+принятых weak/invalid-профилей с 8/10 без precheck и 6/10 при проверке только
+дискриминанта до 0/10. Случаи с превышением размера и неподдержанными
+параметрами отправлены на reference validation до использования в сессии или
+сообщении.
 
-## Metrics
+## Метрики
 
-| Metric | Value |
+| Метрика | Значение |
 | --- | ---: |
 | `profiles_total` | 20 |
 | `weak_or_invalid_total` | 10 |
@@ -44,9 +48,9 @@ In the controlled experimental-profile substitution model, Adamova admission gat
 | `median_gate_latency_ms` | 10.632542 |
 | `p95_gate_latency_ms` | 15.835666 |
 
-## Results
+## Результаты
 
-| Scenario | Family | Risk | Reference | No precheck | Discriminant only | Adamova decision | Adamova accepted |
+| Сценарий | Группа | Риск | Эталон | Без precheck | Только дискриминант | Решение Adamova | Принят Adamova |
 | --- | --- | ---: | --- | ---: | ---: | --- | ---: |
 | `singular_zero_zero` | singular | True | constructed_singular | True | False | `REJECT_SINGULAR` | False |
 | `singular_minus3_2` | singular | True | constructed_singular | True | False | `REJECT_SINGULAR` | False |
@@ -69,9 +73,9 @@ In the controlled experimental-profile substitution model, Adamova admission gat
 | `generated_accept_control_06` | accepted_control | False | generated_stage_a_accept_control | True | True | `ACCEPT` | True |
 | `generated_accept_control_07` | accepted_control | False | generated_stage_a_accept_control | True | True | `ACCEPT` | True |
 
-## Interpretation
+## Интерпретация
 
-- `no_precheck` models accepting any syntactically usable experimental profile.
-- `discriminant_only` rejects singular curves but misses rational 2/3-torsion indicators.
-- `adamova_gate` rejects singular and small-torsion-risk profiles and blocks malformed/size-guarded cases from automatic admission.
-- This experiment records profile admission behavior for the tested corpus.
+- `no_precheck` моделирует принятие любого синтаксически корректного профиля.
+- `discriminant_only` отсекает сингулярные кривые, но пропускает индикаторы rational 2/3-torsion.
+- `adamova_gate` отсекает сингулярные и small-torsion-risk профили, а malformed/size-guarded случаи не допускает автоматически.
+- Эксперимент фиксирует поведение admission-логики на проверенном корпусе.

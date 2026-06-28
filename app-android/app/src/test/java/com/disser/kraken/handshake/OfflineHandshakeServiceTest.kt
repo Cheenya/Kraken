@@ -51,7 +51,7 @@ class OfflineHandshakeServiceTest {
         assertEquals("invite-alice-1", response.inviteId)
         assertEquals(bob.fingerprint, response.responderFingerprint)
         assertEquals(alice.fingerprint, response.inviterFingerprint)
-        assertEquals("prototype-offline-qr-handshake-not-production-crypto", response.proofPlaceholder)
+        assertEquals("offline-qr-handshake-check-v1", response.proofPlaceholder)
     }
 
     @Test

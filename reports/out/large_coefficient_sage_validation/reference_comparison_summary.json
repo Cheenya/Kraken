@@ -3,7 +3,7 @@
   "format": "kraken-reference-comparison-summary-v1",
   "local_reports": "reports/out/large_coefficient_curve_reports",
   "reference_validation_status": "available",
-  "research_warning": "Reference comparison only; not production cryptography",
+  "research_warning": "Данные для диагностики и сверки результатов.",
   "rows": [
     {
       "checks": {

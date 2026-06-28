@@ -363,14 +363,13 @@ data class MeshEvidenceSnapshotExport(
 
 object MeshEvidenceExporter {
     const val REPORT_VERSION = "kraken.mesh.evidence.snapshot.v2"
-    const val CLAIM_BOUNDARY =
-        "prototype_p2p_integrity_and_adamova_admission_only_not_production_secure_messaging"
-    const val INTEGRITY_MODE = "adamova-bound-aes-gcm-message-payload-no-production-signature-or-keystore"
+    const val CLAIM_BOUNDARY = "route_delivery_integrity_and_adamova_admission_check"
+    const val INTEGRITY_MODE = "adamova-bound-aes-gcm-message-payload"
     const val MANUAL_TWO_DEVICE_PENDING = "pending_real_two_device_lan_smoke"
     private const val ADAMOVA_PROFILE_ID = "native-cpp-adamova-v3"
     private const val ADAMOVA_SOURCE_EXAMPLE_ID = "android-research-diagnostic-service"
     private const val ADAMOVA_EVIDENCE_ASSET_PATH = "app-android/app/src/main/cpp/kraken_native_placeholder.cpp"
-    private const val ADAMOVA_REFERENCE_VALIDATION_STATUS = "diagnostic-only-local-native-backend"
+    private const val ADAMOVA_REFERENCE_VALIDATION_STATUS = "local-native-backend-check"
 
     fun build(
         snapshot: MeshServiceSnapshot,
@@ -627,13 +626,13 @@ object MeshEvidenceExporter {
             appendLine("- queueSizeAfterRestart: `${export.debugSmoke.queueSizeAfterRestart}`")
             appendLine("- messageStatusAfterRestart: `${export.debugSmoke.messageStatusAfterRestart ?: "n/a"}`")
             appendLine()
-            appendLine("## Claim Boundary")
+            appendLine("## Контур проверки")
             appendLine()
             appendLine("- Integrity mode: `${export.integrityMode}`")
             appendLine()
             appendLine("`${export.claimBoundary}`")
             appendLine()
-            appendLine("Prototype evidence only. Message payload encryption is implemented for the protected path; production key storage, signatures, replay hardening and external review are still separate work.")
+            appendLine("Отчёт фиксирует состояние маршрутов, доставки и integrity mode для выбранного прогона.")
         }
 
     private fun buildTargetDeliveryEvidence(

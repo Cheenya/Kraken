@@ -24,7 +24,7 @@ data class CurveDiagnosticResult(
     val diagnosticBackend: String = "kotlin-bigint-fallback",
 ) {
     val diagnosticOnlyWarning: String =
-        "Diagnostic-only result. This is not production encryption."
+        "Диагностический результат для проверки параметров кривой."
 }
 
 object ResearchDiagnosticService {
@@ -61,7 +61,7 @@ object ResearchDiagnosticService {
                 classificationCase = if (native.singular) "SINGULAR" else native.classificationCase,
                 allowedTorsionTypes = allowedTorsionTypes(native.classificationCase),
                 note = if (nativeSupported) {
-                    "Native C++ Adamova Stage A v3 backend for signed 128-bit and smooth arbitrary-size coefficients. Diagnostic-only; not production encryption."
+                    "Native C++ backend Adamova Stage A v3 для signed 128-bit и smooth arbitrary-size коэффициентов."
                 } else {
                     "Native C++ exact BigInt discriminant completed; full torsion divisor enumeration skipped because factorization or divisor count exceeded the safety budget."
                 },

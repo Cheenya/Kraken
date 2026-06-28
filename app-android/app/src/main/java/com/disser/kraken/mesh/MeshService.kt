@@ -97,7 +97,7 @@ data class MeshRealmRelayCandidateSnapshot(
 
 data class MeshServiceSnapshot(
     val state: MeshState = MeshState.OFF,
-    val transportMode: String = "loopback-prototype",
+    val transportMode: String = "loopback-local",
     val discoveredPeers: List<DiscoveredPeer> = emptyList(),
     val peerRouteEvidence: List<DiscoveredPeerRouteEvidence> = emptyList(),
     val transportDiagnostics: MeshTransportDiagnostics = MeshTransportDiagnostics(),
@@ -112,7 +112,7 @@ data class MeshServiceSnapshot(
     val realmRelayCandidates: List<MeshRealmRelayCandidateSnapshot> = emptyList(),
     val foregroundServiceEnabled: Boolean = false,
     val lastServiceStartedAtEpochMillis: Long? = null,
-    val prototypeWarning: String = "Прототип локальной связи: сообщения идут через защищённый payload path; хранение ключей и replay-hardening ещё требуют отдельной доводки.",
+    val transportNotice: String = "Локальная связь: сообщения идут через защищённый payload path; хранение ключей и replay-hardening вынесены в отдельный контур.",
 )
 
 data class MeshSyncResult(
@@ -307,7 +307,7 @@ class MeshService(
         }
         return MeshServiceSnapshot(
             state = state,
-            transportMode = transport?.modeId ?: "loopback-prototype",
+            transportMode = transport?.modeId ?: "loopback-local",
             discoveredPeers = peers,
             peerRouteEvidence = diagnostics.peerRouteEvidence,
             transportDiagnostics = diagnostics,

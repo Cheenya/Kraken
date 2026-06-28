@@ -1,46 +1,46 @@
-# Random Parameter Risk Simulation
+# Симуляция риска на случайных параметрах
 
-Цель: проверить diagnostic gate на детерминированном random/injected корпусе параметров рациональных кривых над `Q`.
+Цель: проверить диагностический фильтр на детерминированном смешанном корпусе параметров рациональных кривых над `Q`.
 
 ## Короткий вывод
 
 - Seed: `20260524`.
-- Curve count: 90.
-- Group counts: `{'injected_full_two_torsion': 10, 'injected_one_two_torsion': 20, 'injected_singular': 10, 'large_discriminant_guarded': 10, 'random_nonsingular_no_obvious_risk': 40}`.
-- Risk labels: `{'risky': 50, 'safe': 40}`.
-- No precheck false accepts: 50 (100.00%).
-- Discriminant-only false accepts: 40 (80.00%).
-- Kraken precheck false accepts: 0 (0.00%).
-- Kraken precheck false rejects: 0 (0.00%).
-- Kraken needs reference validation: 10.
+- Количество кривых: 90.
+- Группы: `{'injected_full_two_torsion': 10, 'injected_one_two_torsion': 20, 'injected_singular': 10, 'large_discriminant_guarded': 10, 'random_nonsingular_no_obvious_risk': 40}`.
+- Метки риска: `{'risky': 50, 'safe': 40}`.
+- Ложные принятия без precheck: 50 (100.00%).
+- Ложные принятия при проверке только дискриминанта: 40 (80.00%).
+- Ложные принятия в Kraken precheck: 0 (0.00%).
+- Ложные отклонения в Kraken precheck: 0 (0.00%).
+- Требуют эталонной проверки: 10.
 
-## Baseline Comparison
+## Сравнение режимов
 
-| baseline | decisions | false accepts | false rejects | needs reference |
+| Режим | Решения | Ложные принятия | Ложные отклонения | Нужна сверка |
 | --- | --- | ---: | ---: | ---: |
 | no_precheck | `{'pass': 90}` | 50 | 0 | 0 |
 | discriminant_only | `{'pass': 80, 'reject': 10}` | 40 | 0 | 0 |
 | kraken_precheck | `{'needs_reference_validation': 10, 'pass': 40, 'reject': 40}` | 0 | 0 | 10 |
 
-## Methodology
+## Методика
 
-- Safe generation: Deterministic pseudo-random small integral coefficients filtered to nonsingular curves with no rational 2-torsion and no local Lutz-Nagell size guard.
-- Injected risk groups:
-  - singular curves constructed as a=-3*t^2, b=2*t^3
-  - curves with one constructed rational 2-torsion root
-  - curves with three constructed rational 2-torsion roots
-  - large-discriminant guarded curves requiring reference validation
+- Базовая выборка: детерминированные псевдослучайные малые целые коэффициенты,
+  отфильтрованные до несингулярных кривых без rational 2-torsion и без локального
+  size guard Lutz-Nagell.
+- Добавленные группы риска:
+  - сингулярные кривые, построенные как a=-3*t^2, b=2*t^3;
+  - кривые с одним сконструированным rational 2-torsion root;
+  - кривые с тремя сконструированными rational 2-torsion roots;
+  - кривые с крупным дискриминантом, требующие эталонной проверки.
 
-## Interpretation
+## Интерпретация
 
-1. `no_precheck` accepts every construction-labeled risky candidate.
-2. `discriminant_only` removes singular curves but still accepts rational 2-torsion and guarded cases.
-3. `kraken_precheck` rejects singular/rational-2-torsion cases and quarantines large guarded cases as `needs_reference_validation`.
-4. The simulation records how the diagnostic workflow handles injected risk groups.
+1. `no_precheck` принимает каждый risky-кандидат из сконструированных групп.
+2. `discriminant_only` убирает сингулярные кривые, но пропускает rational 2-torsion и случаи с size guard.
+3. `kraken_precheck` отсекает singular/rational-2-torsion случаи и переводит крупные случаи в `needs_reference_validation`.
+4. Симуляция показывает, как диагностический workflow обрабатывает добавленные группы риска.
 
-## Notes
+## Примечания
 
-- Use this report for the diagnostic gate, random/injected corpus and workflow
-  evidence.
-- Message encryption, signatures and finite-field ECC hardness are outside this
-  simulation.
+- Отчёт относится к диагностическому фильтру, смешанному корпусу и evidence workflow.
+- Симуляция рассматривает поведение фильтра на выбранном корпусе параметров.

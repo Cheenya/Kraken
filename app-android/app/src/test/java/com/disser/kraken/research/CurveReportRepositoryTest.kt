@@ -41,14 +41,14 @@ class CurveReportRepositoryTest {
     }
 
     @Test
-    fun displayModelKeepsDiagnosticOnlyWarningVisible() {
+    fun displayModelKeepsDiagnosticContextVisible() {
         val rawJson = File("src/main/assets/research/sample_curve_diagnostic_report.json").readText()
         val report = (CurveReportRepository.parseReport(rawJson) as CurveReportLoadResult.Success).report
 
         val displayModel = report.toDisplayModel()
 
-        assertTrue(displayModel.warning.contains("Diagnostic-only"))
-        assertTrue(displayModel.warning.contains("not production encryption"))
+        assertTrue(displayModel.warning.contains("Диагностический"))
+        assertTrue(displayModel.warning.contains("параметров кривой"))
         assertTrue(displayModel.benchmarkSummary.contains("offline-python"))
     }
 

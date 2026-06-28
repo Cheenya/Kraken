@@ -15,7 +15,7 @@ class GuidedCurveExamplesTest {
     @Test
     fun manifestParsesAndUsesAndroidReportVersion() {
         assertEquals(ANDROID_CURVE_REPORT_VERSION, manifest.reportVersion)
-        assertTrue(manifest.researchWarning.contains("not production encryption"))
+        assertTrue(manifest.researchWarning.contains("диагност", ignoreCase = true))
         assertTrue(manifest.examples.isNotEmpty())
     }
 
@@ -35,14 +35,14 @@ class GuidedCurveExamplesTest {
     }
 
     @Test
-    fun researchScaleExamplesDoNotClaimProductionCrypto() {
+    fun researchScaleExamplesKeepDiagnosticScope() {
         val researchScale = manifest.examples.filter { it.category == GuidedCurveExampleCategory.RESEARCH_SCALE }
 
         assertTrue(researchScale.isNotEmpty())
-        assertTrue(researchScale.all { !it.productionCryptoClaim })
+        assertTrue(researchScale.all { !it.cryptographicSafetyClaim })
         assertTrue(researchScale.all { it.validationStatus == "SageMath direct match" })
         assertTrue(researchScale.all { it.teachingOnly.not() })
-        assertTrue(researchScale.all { it.caveat?.contains("not production finite-field crypto") == true })
+        assertTrue(researchScale.all { it.caveat?.contains("SageMath") == true })
     }
 
     @Test
@@ -57,19 +57,18 @@ class GuidedCurveExamplesTest {
     }
 
     @Test
-    fun noExampleClaimsProductionCryptographicSafety() {
+    fun noExampleClaimsCryptographicSafety() {
         val forbiddenClaims = listOf(
-            "production cryptographic safety",
-            "production crypto safe",
-            "secure for production",
-            "improves cryptography",
+            "публичная криптографическая стойкость",
+            "готовый криптографический контур",
+            "усиленная криптография",
         )
         val manifestText = manifestFile.readText().lowercase()
 
         forbiddenClaims.forEach { phrase ->
-            assertFalse("Forbidden overclaim phrase found: $phrase", manifestText.contains(phrase))
+            assertFalse("В manifest найдено лишнее обещание: $phrase", manifestText.contains(phrase))
         }
-        assertTrue(manifest.examples.all { !it.productionCryptoClaim })
+        assertTrue(manifest.examples.all { !it.cryptographicSafetyClaim })
     }
 
     @Test
@@ -127,8 +126,8 @@ class GuidedCurveExamplesTest {
         assertEquals(5, summary.benchmarkRuns)
         assertEquals(22.8673, summary.medianTotalRuntimeMs, 0.0001)
         assertEquals(24.1665, summary.p95TotalRuntimeMs, 0.0001)
-        assertTrue(summary.caveat.contains("over Q"))
-        assertTrue(summary.caveat.contains("not production finite-field ECC"))
+        assertTrue(summary.caveat.contains("рациональных кривых"))
+        assertTrue(summary.caveat.contains("SageMath"))
     }
 
     @Test

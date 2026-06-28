@@ -1,7 +1,7 @@
 {
   "report_version": "kraken.math.curve_diagnostic.android.v1",
   "generated_at": "2026-05-19T20:38:00Z",
-  "research_warning": "Guided examples are diagnostic-only and not production encryption.",
+  "research_warning": "Данные для диагностики и сверки результатов.",
   "large_coefficient_validation": {
     "title": "Large coefficient validation corpus",
     "curve_count": 20,
@@ -11,7 +11,7 @@
     "benchmark_runs": 5,
     "median_total_runtime_ms": 22.8673,
     "p95_total_runtime_ms": 24.1665,
-    "caveat": "These are rational diagnostics over Q, not production finite-field ECC curves."
+    "caveat": "Диагностика рациональных кривых над Q с проверкой по SageMath."
   },
   "examples": [
     {
@@ -26,7 +26,7 @@
       "expected_result": "Nonsingular sanity-check with nonzero a and b.",
       "why": "Explains the input shape without showing a b=0 or singular-looking example.",
       "teaching_only": true,
-      "production_crypto_claim": false
+      "cryptographic_safety_claim": false
     },
     {
       "example_id": "validation_no_rational_two_torsion",
@@ -41,7 +41,7 @@
       "expected_result": "No rational 2-torsion.",
       "why": "Validates a negative 2-torsion diagnostic against SageMath.",
       "teaching_only": false,
-      "production_crypto_claim": false
+      "cryptographic_safety_claim": false
     },
     {
       "example_id": "research_scale_prime_coefficients",
@@ -56,8 +56,8 @@
       "expected_result": "No rational 2-torsion.",
       "why": "Keeps the previous Research-scale coefficient pair but upgrades it to a SageMath-validated report.",
       "teaching_only": false,
-      "production_crypto_claim": false,
-      "caveat": "Rational diagnostic over Q, not production finite-field crypto."
+      "cryptographic_safety_claim": false,
+      "caveat": "Сверка с SageMath для случая с крупными коэффициентами."
     },
     {
       "example_id": "research_scale_lc128_large_a_small_b",
@@ -72,8 +72,8 @@
       "expected_result": "No rational 2-torsion.",
       "why": "Shows a large coefficient stress case with a simple constant term and validated report.",
       "teaching_only": false,
-      "production_crypto_claim": false,
-      "caveat": "Rational diagnostic over Q, not production finite-field crypto."
+      "cryptographic_safety_claim": false,
+      "caveat": "Сверка с SageMath для случая с крупными коэффициентами."
     },
     {
       "example_id": "research_scale_lutz_large_discriminant_stress",
@@ -88,8 +88,8 @@
       "expected_result": "No rational 2-torsion; local Lutz-Nagell helper is size-guarded.",
       "why": "Shows how large-discriminant examples stay explicit about local diagnostic bounds.",
       "teaching_only": false,
-      "production_crypto_claim": false,
-      "caveat": "Rational diagnostic over Q, not production finite-field crypto."
+      "cryptographic_safety_claim": false,
+      "caveat": "Сверка с SageMath для случая с крупными коэффициентами."
     }
   ]
 }

@@ -106,14 +106,14 @@ android {
     }
 }
 
-val krakenReleasePrototypeGate = tasks.register("krakenReleasePrototypeGate") {
+val krakenReleaseReadinessGate = tasks.register("krakenReleaseReadinessGate") {
     group = "verification"
-    description = "Blocks release-like builds until production crypto, identity and QR gates are implemented."
+    description = "Останавливает release-like сборки до подключения полного набора проверок."
     doLast {
         throw GradleException(
-            "Kraken release/prod build is blocked: PrototypeNoSecurityPacketCrypto, " +
-                "placeholder identity and unsigned QR handshake are still research-only. " +
-                "Use assembleDebug for friend testing, or implement the production readiness roadmap first.",
+            "Release-like сборка Kraken остановлена: для публичной сборки нужен полный набор " +
+                "проверок идентичности, QR-рукопожатия и криптографического контура. " +
+                "Для локальной установки используйте assembleDebug.",
         )
     }
 }
@@ -121,7 +121,7 @@ val krakenReleasePrototypeGate = tasks.register("krakenReleasePrototypeGate") {
 tasks.matching { task ->
     task.name in setOf("assembleRelease", "bundleRelease", "packageRelease")
 }.configureEach {
-    dependsOn(krakenReleasePrototypeGate)
+    dependsOn(krakenReleaseReadinessGate)
 }
 
 kotlin {

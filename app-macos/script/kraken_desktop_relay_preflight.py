@@ -30,9 +30,9 @@ def packet(packet_id: str = "packet-1") -> dict[str, Any]:
         "payload_type": "LOCAL_MESSAGE_JSON",
         "payload_json": "{\"message_id\":\"message-1\",\"body\":\"hello\"}",
         "crypto_profile_id": "kraken-research-mesh-lc32-prime-offsets",
-        "proof_mode": "verified-hmac-sha256-prototype",
-        "auth_algorithm": "hmac-sha256-prototype-auth",
-        "auth_tag": "prototype-tag",
+        "proof_mode": "verified-hmac-sha256-local",
+        "auth_algorithm": "hmac-sha256-local-auth",
+        "auth_tag": "local-auth-tag",
     }
 
 
@@ -66,7 +66,7 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     report = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-        "claim_boundary": "desktop_lan_relay_research_tool_not_production_relay",
+        "claim_boundary": "desktop_lan_relay_local_check",
         "modes": [mode_result(mode) for mode in RelayAttackMode],
     }
     (out_dir / "desktop_relay_preflight.json").write_text(
@@ -91,7 +91,7 @@ def main() -> int:
             "",
             "## Граница",
             "",
-            "Этот артефакт подтверждает только локальную логику relay-решений. Он не доказывает радиодоставку Android или production-безопасность.",
+            "Артефакт фиксирует локальную логику relay-решений для desktop-сценария.",
         ]
     )
     (out_dir / "desktop_relay_preflight.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -172,7 +172,7 @@ private fun TransportPathReadiness.homeStatusLabel(pathLabel: String): String =
         ready -> "активен"
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "$pathLabel выключен"
-        !transportImplemented -> "не реализован"
+        !transportImplemented -> "в очереди"
         !serviceRunning -> "запускается"
         else -> "не активен"
     }

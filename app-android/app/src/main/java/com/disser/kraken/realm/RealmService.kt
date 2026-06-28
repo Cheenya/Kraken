@@ -36,7 +36,7 @@ object RealmService {
     ): DemoRealmCreation =
         createRealmInternal(
             owner = owner,
-            name = "Dissertation Demo",
+            name = "Kraken Demo",
             description = "Local invite-only demo realm.",
             nowEpochMillis = nowEpochMillis,
         )

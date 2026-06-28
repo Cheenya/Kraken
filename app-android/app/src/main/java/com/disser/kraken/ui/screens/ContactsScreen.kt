@@ -191,7 +191,7 @@ fun ContactsScreen(
         }
         KrakenCompactCard {
             Text(
-                "QR создаёт локальное доверие для контакта. Это исследовательская проверка, не боевая криптография.",
+                "QR создаёт локальное доверие для контакта и привязывает следующий обмен к выбранному профилю.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

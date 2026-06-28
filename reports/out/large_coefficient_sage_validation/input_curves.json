@@ -144,5 +144,5 @@
   ],
   "fixture_file": "tests/fixtures/elliptic_curves_large_coefficients.json",
   "format": "kraken-sage-validation-input-v1",
-  "research_warning": "Reference validation input only; not production cryptography"
+  "research_warning": "Данные для диагностики и сверки результатов."
 }

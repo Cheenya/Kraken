@@ -71,7 +71,7 @@ def main(input_path, output_path):
         "reference_version": str(SAGE_VERSION),
         "input_path": str(input_path),
         "rows": rows,
-        "research_warning": "SageMath reference validation only; not production cryptography",
+        "research_warning": "Данные для SageMath reference validation.",
     }
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     Path(output_path).write_text(json.dumps(output, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")

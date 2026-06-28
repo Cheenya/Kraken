@@ -31,7 +31,7 @@ class AdamovaAdmissionAttackDemoRunnerTest {
         assertEquals(1, report.metrics.needsReferenceValidation)
         assertEquals(1, report.metrics.sizeGuarded)
         assertTrue(report.safeClaim.contains("weak experimental curve profiles"))
-        assertTrue(report.claimBoundary.contains("does not prove production"))
+        assertTrue(report.claimBoundary.contains("profile admission behavior"))
         assertTrue(report.toMarkdown().contains("downgrade_to_weak_profile"))
         assertTrue(report.toJson().contains("\"packet_profile_mismatch\""))
     }

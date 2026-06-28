@@ -457,7 +457,7 @@ private fun RealmMemberRosterCard(
     KrakenCompactCard {
         Text("Использовано ${members.size} из ${realm.capacityState.capacity} локальных мест.")
         Text(
-            "Ограничения применяются локально. Для другого устройства потребуется отдельное подтверждение.",
+            "Правила применяются локально. Для другого устройства используется отдельное подтверждение.",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -562,7 +562,7 @@ private fun RealmActionPanel(
                 "Служебная проверка экрана заявок",
                 listOf(
                     "Основной поток заявок идёт через QR: приглашение, ответ, одобрение, финальное подтверждение.",
-                    "Эта кнопка не является пользовательским сценарием и нужна только для проверки интерфейса.",
+                    "Кнопка открывает проверочный сценарий интерфейса.",
                 ),
             )
             OutlinedButton(

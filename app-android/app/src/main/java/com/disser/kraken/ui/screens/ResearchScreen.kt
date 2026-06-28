@@ -175,9 +175,9 @@ fun ResearchScreen(navController: NavHostController) {
 
         TechnicalDetailsDisclosure("Состояние расчётов") {
             WarningCard(
-                "Только диагностика",
+                "Расчёты",
                 listOf(
-                    "Математические отчёты загружены локально. Это не боевое шифрование сообщений.",
+                    "Математические отчёты загружены локально.",
                     "Python внутри Android не запускается.",
                 )
             )
@@ -288,7 +288,7 @@ fun ResearchScreen(navController: NavHostController) {
         TechnicalDetailsDisclosure("Встроенный отчёт") {
             BundledCurveReportCard(bundledReportResult)
         }
-        InfoCard("Экспорт отчётов", listOf("Файлы отчётов остаются локальными артефактами для диссертации."))
+        InfoCard("Экспорт отчётов", listOf("Файлы отчётов остаются локальными артефактами проекта."))
     }
 }
 
@@ -306,7 +306,7 @@ private fun ResearchOverviewCards(
 ) {
     KrakenCompactCard {
         Text("Сценарии", fontWeight = FontWeight.SemiBold)
-        Text("Учебные, валидационные и исследовательские примеры для локальной проверки.")
+        Text("Учебные, валидационные и проверочные примеры для локальной проверки.")
         Button(
             onClick = onRunDemoCalculation,
             enabled = !attackRunning,
@@ -354,10 +354,10 @@ private fun AdamovaAdmissionGateCard(
     InfoCard(
         "Проверка допуска профиля",
         listOf(
-            "Проверяет исследовательский профиль кривой до сессии и политики пакета.",
-            "Экспериментальный профиль отклоняется до переписки, если C++-проверка находит слабую структуру.",
-            "Проверенные стандартные примитивы получают статус «не применимо», без ложной проверки экспериментального контура.",
-            "Это исследовательский фильтр, не шифрование payload и не доказательство боевой безопасности.",
+            "Проверяет профиль кривой до сессии и политики пакета.",
+            "Выбранный профиль отклоняется до переписки, если C++-проверка находит слабую структуру.",
+            "Стандартные примитивы получают статус «не применимо» для этого сценария проверки.",
+            "Фильтр фиксирует результат admission/precheck для выбранного профиля.",
         ),
     )
     Button(
@@ -380,7 +380,7 @@ private fun AdamovaAdmissionGateCard(
                 "Принято только по дискриминанту: ${metrics.acceptedByDiscriminantOnly}.",
                 "Принято проверкой допуска: ${metrics.acceptedByAdamovaGate}.",
                 "Отклонено проверкой допуска: ${metrics.rejectedByAdamovaGate}.",
-                "Нужна эталонная проверка: ${metrics.needsReferenceValidation}; ограничено размером: ${metrics.sizeGuarded}.",
+                "Нужна эталонная проверка: ${metrics.needsReferenceValidation}; превышение размера: ${metrics.sizeGuarded}.",
                 "Медианная задержка: ${formatAdmissionLatency(metrics.medianGateLatencyMs)} мс; p95: ${formatAdmissionLatency(metrics.p95GateLatencyMs)} мс.",
                 "Отчёт сохранён локально в каталоге profile_admission_gate.",
             ),
@@ -413,7 +413,7 @@ private fun BackendBenchmarkCard(
         "Замер Kotlin и C++",
         listOf(
             "Ручной замер одной диагностической задачи на Kotlin BigInteger и C++.",
-            "Это замер исследовательской диагностики, не боевого шифрования.",
+            "Замер показывает время работы выбранной задачи.",
         ),
     )
     Button(
@@ -454,7 +454,7 @@ private fun StartupAttackEvidenceCard(
         InfoCard(
             "Демонстрационный расчёт",
             listOf(
-                "Запускается вручную из исследовательского режима, обычный старт приложения больше не блокируется.",
+                "Запускается вручную из раздела проверок, обычный старт приложения больше не блокируется.",
                 "Расчёт выполняется локально против контролируемой ослабленной ECDLP-задачи.",
             ),
         )
@@ -611,18 +611,18 @@ private fun LargeCoefficientSummaryCard(summary: LargeCoefficientValidationSumma
 private fun SelectedExampleCard(example: GuidedCurveExample) {
     val caveats = buildList {
         if (example.teachingOnly) {
-            add("Учебный пример, не криптографический масштаб.")
+            add("Учебный пример с малыми коэффициентами.")
         }
         if (example.category == GuidedCurveExampleCategory.RESEARCH_SCALE) {
-            add("Большие коэффициенты над Q; это не боевая finite-field ECC.")
+            add("Большие коэффициенты над Q; сверка идёт по рациональной модели.")
         }
         if (!example.validationStatus.equals("SageMath direct match", ignoreCase = true)) {
-            add("Эталонная проверка для примера не завершена.")
+            add("Для примера используется локальный статус эталонной проверки.")
         }
         example.caveat?.let { add(caveatDisplay(it)) }
     }
     if (caveats.isNotEmpty()) {
-        WarningCard("Ограничения примера", caveats)
+        WarningCard("Примечания к примеру", caveats)
     }
 }
 
@@ -688,14 +688,7 @@ private fun expectedResultDisplay(value: String): String =
         else -> value
     }
 
-private fun caveatDisplay(value: String): String =
-    when (value) {
-        "These are rational diagnostics over Q, not production finite-field ECC curves." ->
-            "Это рациональная диагностика над Q, не боевая ECC над конечным полем."
-        "Rational diagnostic over Q, not production finite-field crypto." ->
-            "Диагностика над Q, не боевая криптография над конечным полем."
-        else -> value
-    }
+private fun caveatDisplay(value: String): String = value
 
 private fun formatBenchmarkMs(ns: Long): String =
     String.format(Locale.US, "%.4f", ns.toDouble() / 1_000_000.0)
@@ -783,9 +776,9 @@ private fun BundledCurveReportContent(model: CurveReportDisplayModel) {
     InfoCard("Проверка кручения", listOf(model.torsionProbeSummary))
     InfoCard("Замер", listOf(model.benchmarkSummary))
     InfoCard(
-        "Предупреждения и ограничения",
+        "Примечания к проверке",
         (model.warnings + model.unsupportedCases).ifEmpty {
-            listOf("Во встроенном примере нет предупреждений или неподдержанных сценариев.")
+            listOf("Во встроенном примере нет дополнительных примечаний.")
         },
     )
 }

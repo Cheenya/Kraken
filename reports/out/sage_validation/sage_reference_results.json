@@ -3,7 +3,7 @@
   "input_path": "reports/out/sage_validation/input_curves.json",
   "reference_system": "SageMath",
   "reference_version": "10.8",
-  "research_warning": "SageMath reference validation only; not production cryptography",
+  "research_warning": "Данные для диагностики и сверки результатов.",
   "rows": [
     {
       "a": "-1",

@@ -53,18 +53,18 @@ data class AdamovaAttackDemoReport(
 ) {
     fun toMarkdown(): String =
         buildString {
-            appendLine("# Adamova Admission Gate Attack Demo")
+            appendLine("# Проверка admission gate по критерию Адамовой")
             appendLine()
-            appendLine("Status: live Android Research Mode run.")
+            appendLine("Статус: запуск из Android Research Mode.")
             appendLine()
-            appendLine("## Claim Boundary")
+            appendLine("## Контур проверки")
             appendLine()
             appendLine("- $safeClaim")
             appendLine("- $claimBoundary")
             appendLine()
-            appendLine("## Metrics")
+            appendLine("## Метрики")
             appendLine()
-            appendLine("| Metric | Value |")
+            appendLine("| Метрика | Значение |")
             appendLine("| --- | ---: |")
             appendLine("| profiles_total | ${metrics.profilesTotal} |")
             appendLine("| weak_profiles_total | ${metrics.weakProfilesTotal} |")
@@ -131,7 +131,7 @@ data class AdamovaAttackDemoReport(
         const val SAFE_CLAIM =
             "Adamova gate rejects or blocks weak experimental curve profiles before session/message use."
         const val CLAIM_BOUNDARY =
-            "This does not prove production message cryptographic security and does not replace reviewed primitives."
+            "Experiment records profile admission behavior for the tested corpus."
 
         private fun jsonString(value: String?): String =
             value?.replace("\\", "\\\\")

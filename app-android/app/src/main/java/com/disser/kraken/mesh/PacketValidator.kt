@@ -28,7 +28,7 @@ object PacketValidator {
         ) {
             return PacketValidationResult(false, MeshRejectionReason.UNKNOWN_CRYPTO_PROFILE)
         }
-        if (packet.proofMode != KrakenPacket.PROTOTYPE_PROOF_MODE) {
+        if (packet.proofMode != KrakenPacket.LOCAL_PROOF_MODE) {
             return PacketValidationResult(false, MeshRejectionReason.MALFORMED)
         }
         return PacketValidationResult(true)

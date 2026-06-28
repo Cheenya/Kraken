@@ -1,16 +1,16 @@
-# Research Backend Benchmark
+# Бенчмарк диагностического backend
 
-Benchmark for the research backend used in the diagnostic workflow.
+Бенчмарк показывает время работы диагностического backend на выбранных случаях.
 
-- Warmup runs per backend/case: 5
-- Measured runs per backend/case: 30
-- Kotlin median total: 109.3562 ms
-- C++ median total: 5.8283 ms
-- C++ speedup by summed medians: 18.7631x
-- Comparable exact rows: 4
-- Comparable exact C++ speedup: 54.5145x
+- Прогревов на backend/case: 5
+- Измерений на backend/case: 30
+- Kotlin, сумма медиан: 109.3562 ms
+- C++, сумма медиан: 5.8283 ms
+- Ускорение C++ по сумме медиан: 18.7631x
+- Сопоставимых exact-строк: 4
+- Ускорение C++ на сопоставимых exact-строках: 54.5145x
 
-| Case | Group | Kotlin median ms | C++ median ms | Speedup | Kotlin case | C++ case |
+| Случай | Группа | Kotlin median ms | C++ median ms | Ускорение | Kotlin case | C++ case |
 |---|---:|---:|---:|---:|---|---|
 | teaching_full_2_torsion | small_exact | 0.3215 | 0.0885 | 3.6315x | A6 | A6 |
 | teaching_three_torsion_indicator | small_exact | 0.0385 | 0.0816 | 0.4718x | A2 | A2 |

@@ -144,7 +144,7 @@ fun MeshStatusScreen(
                     listOf(
                         "Включите локальную связь, чтобы показать QR для второго телефона.",
                         "QR-адрес помогает найти устройство в локальной сети, если автообнаружение не сработало.",
-                        "Этот QR не создаёт доверие и не заменяет взаимное QR-рукопожатие.",
+                        "Этот QR передаёт только LAN endpoint; доверие создаётся через взаимное QR-рукопожатие.",
                     ),
                 )
             } else {
@@ -385,11 +385,11 @@ private fun DebugMeshDiagnostics(
                 "Истекшие отброшены: ${meshSnapshot.metrics.expiredDropped}",
                 "Неизвестные пиры отклонены: ${meshSnapshot.metrics.unknownPeerRejected}",
                 "Ошибочные получатели отклонены: ${meshSnapshot.metrics.wrongRecipientRejected}",
-                "Через relay-прототип: ${meshSnapshot.metrics.relayForwarded}",
+                "Через relay: ${meshSnapshot.metrics.relayForwarded}",
                 "Последняя задержка, мс: ${meshSnapshot.metrics.lastDeliveryLatencyMs?.toString() ?: "нет"}",
                 "Хранилище очереди: ${meshSnapshot.queue.storedOutboxPackets}, отклонено: ${meshSnapshot.queue.rejectedPackets}, истекло: ${meshSnapshot.queue.expiredPackets}",
                 "Следующая попытка: ${meshSnapshot.queue.nextAttemptAtEpochMillis?.toString() ?: "нет"}, ошибка очереди: ${meshSnapshot.queue.lastError ?: "нет"}",
-                "Транспорт: принято ${meshSnapshot.transportDiagnostics.acceptedConnections}, входящих ${meshSnapshot.transportDiagnostics.inboundPackets}, битых кадров ${meshSnapshot.transportDiagnostics.malformedFramesDropped}, сбоев отправки ${meshSnapshot.transportDiagnostics.sendFailures}",
+                "Транспорт: принято ${meshSnapshot.transportDiagnostics.acceptedConnections}, входящих ${meshSnapshot.transportDiagnostics.inboundPackets}, некорректных кадров ${meshSnapshot.transportDiagnostics.malformedFramesDropped}, сбоев отправки ${meshSnapshot.transportDiagnostics.sendFailures}",
             "Маршруты: $routePreview",
         ),
     )
@@ -398,7 +398,7 @@ private fun DebugMeshDiagnostics(
         listOf(
             "Режим: ${relayPolicyState.mode}",
             "Состояние: ${ForwardingAllowedEvaluator.runtimeStateFor(relayPolicyState, demoContext)}",
-            "Передача через relay-прототип в тестовом контексте: $forwardingAllowed",
+            "Передача через relay в тестовом контексте: $forwardingAllowed",
             "Оценка переносчика: ${courierSnapshot.localScore}",
             "Надёжность ретрансляции: ${reliability.reliabilityPercent}%",
         ),

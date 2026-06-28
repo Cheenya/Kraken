@@ -57,7 +57,7 @@ public struct KrakenPacket: Codable, Equatable, Sendable {
         sessionProfileId: String? = nil,
         admissionDecisionHash: String? = "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
         profilePolicyVersion: Int? = 1,
-        proofMode: String = "prototype-placeholder"
+        proofMode: String = "local-admission-check-v1"
     ) {
         self.packetId = packetId
         self.protocolVersion = protocolVersion

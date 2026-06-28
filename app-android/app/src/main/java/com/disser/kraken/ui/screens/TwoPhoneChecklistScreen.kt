@@ -245,7 +245,7 @@ private fun TransportPathReadiness.readinessLabel(): String =
         ready -> "активен"
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "выключен адаптер"
-        !transportImplemented -> "не реализован"
+        !transportImplemented -> "в очереди"
         !serviceRunning -> "служба недоступна"
         else -> "не активен"
     }
@@ -258,7 +258,7 @@ private fun routeLabel(route: String?): String =
         null, "", "none" -> "нет маршрута"
         "ble-gatt", "bluetooth" -> "Bluetooth напрямую"
         "lan-nsd-tcp", "lan-wifi" -> "Wi‑Fi/LAN напрямую"
-        "routed-mesh", "relay-prototype" -> "через relay-прототип"
+        "routed-mesh", "relay-local" -> "через relay"
         "wifi-direct" -> "Wi‑Fi Direct"
         else -> "нет маршрута"
     }

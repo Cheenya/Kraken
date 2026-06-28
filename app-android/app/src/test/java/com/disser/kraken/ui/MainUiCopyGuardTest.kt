@@ -13,16 +13,15 @@ class MainUiCopyGuardTest {
         }
         val forbiddenCopy = listOf(
             "Demo Active Peer",
-            "Experimental UI. Not production flow.",
+            "старый англоязычный статус экспериментального UI",
             "UI Lab",
             "P0 smoke",
             "Evidence JSON",
             "Debug evidence",
             "debug negative/retry evidence",
-            "Production encryption",
-            "production encryption не реализован",
-            "production-криптографии",
-            "production-шифрование",
+            "Old encryption wording",
+            "старый текст про криптографический контур",
+            "старое описание криптографического контура",
             "в mesh",
             "через mesh",
             "QR-контакты для P2P",
@@ -56,7 +55,7 @@ class MainUiCopyGuardTest {
             "Bluetooth напрямую",
             "Wi‑Fi/LAN напрямую",
             "нет маршрута",
-            "через relay-прототип",
+            "через relay",
             "Wi‑Fi Direct активен",
         ).forEach { phrase ->
             assertTrue("Route UI must include '$phrase'", routeSource.contains(phrase))

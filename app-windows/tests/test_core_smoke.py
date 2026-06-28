@@ -110,7 +110,7 @@ class KrakenWindowsCoreSmokeTest(unittest.TestCase):
                 "session_profile_id": None,
                 "admission_decision_hash": "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
                 "profile_policy_version": 1,
-                "proof_mode": "prototype-placeholder",
+                "proof_mode": "local-admission-check-v1",
             },
         }
         payload_bytes = json.dumps(payload, separators=(",", ":"), sort_keys=True).encode("utf-8")

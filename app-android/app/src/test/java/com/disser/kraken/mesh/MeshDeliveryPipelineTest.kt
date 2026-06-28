@@ -297,7 +297,7 @@ class MeshDeliveryPipelineTest {
     }
 
     @Test
-    fun productionProtectionPolicyRejectsOutboundPlaintextWithoutProtector() {
+    fun encryptedProtectionPolicyRejectsOutboundPlaintextWithoutProtector() {
         val activeRelationship = relationship(alice, bob, RelationshipState.ACTIVE)
         val transport = InMemoryTwoNodeTransport(alicePeer, InMemoryTwoNodeTransport.SharedBus()) {
             1_700_000_000_000
@@ -318,7 +318,7 @@ class MeshDeliveryPipelineTest {
     }
 
     @Test
-    fun productionProtectionPolicyRejectsInboundPlaintextMessage() {
+    fun encryptedProtectionPolicyRejectsInboundPlaintextMessage() {
         val packet = validMessagePacket()
 
         val result = MeshInboxProcessor(

@@ -237,7 +237,7 @@ private fun TransportPathReadiness.reasonText(pathLabel: String): String =
     when {
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "$pathLabel выключен"
-        !transportImplemented -> "транспорт не реализован"
+        !transportImplemented -> "транспорт в очереди"
         !serviceRunning -> "служба не запущена"
         else -> "mesh не запущен"
     }

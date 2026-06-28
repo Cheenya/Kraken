@@ -1527,7 +1527,7 @@ final class KrakenDesktopStore: ObservableObject {
             "admission_decision_hash": payload.admissionDecisionHash ?? NSNull(),
             "profile_policy_version": payload.profilePolicyVersion.map { $0 as Any } ?? NSNull(),
             "native_backend_version": payload.nativeBackendVersion ?? NSNull(),
-            "proof_placeholder": "prototype-offline-qr-confirmation-not-production-crypto",
+            "proof_placeholder": "offline-qr-confirmation-check-v1",
         ]
         let data = (try? JSONSerialization.data(withJSONObject: confirmation, options: [.sortedKeys])) ?? Data()
         let payloadJson = String(data: data, encoding: .utf8) ?? "{}"

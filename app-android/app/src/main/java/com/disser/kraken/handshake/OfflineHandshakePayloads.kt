@@ -44,7 +44,7 @@ data class HandshakeResponsePayload(
     @SerialName("native_backend_version")
     val nativeBackendVersion: String? = null,
     @SerialName("proof_placeholder")
-    val proofPlaceholder: String = "prototype-offline-qr-handshake-not-production-crypto",
+    val proofPlaceholder: String = "offline-qr-handshake-check-v1",
 ) {
     companion object {
         const val TYPE = "kraken.handshake.response.v1"
@@ -85,7 +85,7 @@ data class HandshakeConfirmationPayload(
     @SerialName("native_backend_version")
     val nativeBackendVersion: String? = null,
     @SerialName("proof_placeholder")
-    val proofPlaceholder: String = "prototype-offline-qr-confirmation-not-production-crypto",
+    val proofPlaceholder: String = "offline-qr-confirmation-check-v1",
 ) {
     companion object {
         const val TYPE = "kraken.handshake.confirmation.v1"

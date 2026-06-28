@@ -47,19 +47,19 @@ data class ResearchBackendBenchmarkReport(
         }
 
     fun toMarkdown(): String = buildString {
-        appendLine("# Research Backend Benchmark")
+        appendLine("# Бенчмарк диагностического backend")
         appendLine()
-        appendLine("Diagnostic-only benchmark. This does not measure production message encryption.")
+        appendLine("Бенчмарк показывает время работы диагностического backend на выбранных случаях.")
         appendLine()
-        appendLine("- Warmup runs per backend/case: $warmupRuns")
-        appendLine("- Measured runs per backend/case: $measuredRuns")
-        appendLine("- Kotlin median total: ${formatMs(kotlinMedianTotalNs)} ms")
-        appendLine("- C++ median total: ${formatMs(nativeMedianTotalNs)} ms")
-        appendLine("- C++ speedup by summed medians: ${formatRatio(totalSpeedup)}x")
-        appendLine("- Comparable exact rows: ${comparableRows.size}")
-        appendLine("- Comparable exact C++ speedup: ${formatRatio(comparableSpeedup)}x")
+        appendLine("- Прогревов на backend/case: $warmupRuns")
+        appendLine("- Измерений на backend/case: $measuredRuns")
+        appendLine("- Kotlin, сумма медиан: ${formatMs(kotlinMedianTotalNs)} ms")
+        appendLine("- C++, сумма медиан: ${formatMs(nativeMedianTotalNs)} ms")
+        appendLine("- Ускорение C++ по сумме медиан: ${formatRatio(totalSpeedup)}x")
+        appendLine("- Сопоставимых exact-строк: ${comparableRows.size}")
+        appendLine("- Ускорение C++ на сопоставимых exact-строках: ${formatRatio(comparableSpeedup)}x")
         appendLine()
-        appendLine("| Case | Group | Kotlin median ms | C++ median ms | Speedup | Kotlin case | C++ case |")
+        appendLine("| Случай | Группа | Kotlin median ms | C++ median ms | Ускорение | Kotlin case | C++ case |")
         appendLine("|---|---:|---:|---:|---:|---|---|")
         rows.forEach { row ->
             appendLine(
@@ -72,7 +72,7 @@ data class ResearchBackendBenchmarkReport(
 
     fun toJson(): String = buildString {
         append("{\n")
-        append("  \"warning\": \"Diagnostic-only benchmark. This does not measure production message encryption.\",\n")
+        append("  \"note\": \"Бенчмарк показывает время работы диагностического backend на выбранных случаях.\",\n")
         append("  \"warmup_runs\": $warmupRuns,\n")
         append("  \"measured_runs\": $measuredRuns,\n")
         append("  \"kotlin_median_total_ns\": $kotlinMedianTotalNs,\n")

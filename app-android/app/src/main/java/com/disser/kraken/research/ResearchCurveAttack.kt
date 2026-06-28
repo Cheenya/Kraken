@@ -289,10 +289,10 @@ object StartupResearchCurveAttack {
                         publicPoint = challenge.publicPoint,
                         validationCheckedChallenges = validationChecked,
                         validationRejectedChallenges = validationRejected,
-                        validationDecision = "REJECT: validation gate marked the weak candidate before it could be accepted.",
+                        validationDecision = "REJECT: validation gate отклонил слабого кандидата до принятия.",
                         elapsedMs = elapsedMs,
-                        summary = "Without validation, ${challenge.label} exposes Q=dG with recoverable d=$candidate. With validation, the candidate is rejected before acceptance.",
-                        caveat = "Controlled research demonstration only. It does not attack production Kraken identities or message encryption.",
+                        summary = "Проверка ${challenge.label} нашла восстанавливаемое значение d=$candidate; validation gate отклонил кандидата до принятия.",
+                        caveat = "Сценарий работает на подготовленных данных и фиксирует поведение выбранного метода.",
                     )
                     emit(totalChecked, index + 1, challenge.label, candidate)
                     emitLog?.invoke(log)
@@ -304,7 +304,7 @@ object StartupResearchCurveAttack {
         val elapsedMs = (System.nanoTime() - startNanos) / 1_000_000
         val log = ResearchCurveAttackLog(
             challengeId = "startup_ecdlp_validation_gate_v1",
-            attackName = "Parallel validation-gate vs unvalidated ECDLP attack",
+            attackName = "Параллельная проверка validation gate и ECDLP-сценария",
             status = "no_weak_candidate_found",
             testedChallenges = challenges.size,
             weakChallengeId = null,
@@ -314,10 +314,10 @@ object StartupResearchCurveAttack {
             publicPoint = challenges.last().publicPoint,
             validationCheckedChallenges = validationChecked,
             validationRejectedChallenges = validationRejected,
-            validationDecision = "PASS: no candidate secret was recovered inside the configured attack budget.",
+            validationDecision = "PASS: в заданном бюджете кандидат не восстановлен.",
             elapsedMs = elapsedMs,
-            summary = "No unvalidated candidate failed inside the bounded startup attack budget.",
-            caveat = "Controlled research demonstration only. It does not attack production Kraken identities or message encryption.",
+            summary = "В заданном бюджете startup-проверки слабый кандидат не найден.",
+            caveat = "Сценарий работает на подготовленных данных и фиксирует поведение выбранного метода.",
         )
         emitLog?.invoke(log)
         return log

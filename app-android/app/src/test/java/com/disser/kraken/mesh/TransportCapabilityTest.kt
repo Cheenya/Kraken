@@ -6,7 +6,7 @@ import org.junit.Test
 
 class TransportCapabilityTest {
     @Test
-    fun primaryPrototypeTransportsAreMarkedImplemented() {
+    fun primaryTransportsAreMarkedImplemented() {
         val implemented = KrakenTransportCatalog.implementedTransports()
 
         assertTrue(implemented.any { it.id == "wifi-direct" })

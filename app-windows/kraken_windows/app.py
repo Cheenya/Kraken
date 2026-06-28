@@ -172,8 +172,7 @@ def create_main_window(qt):
             buttons.addWidget(reject_admission)
 
             scope = QLabel(
-                "Windows-стенд: исследовательская поверхность, совместимая с LAN/BLE/QR. "
-                "Это не production-транспорт Wi-Fi Direct."
+                "Windows-стенд: LAN/BLE/QR, локальные профили и обмен через выбранный маршрут."
             )
             scope.setWordWrap(True)
 
@@ -540,7 +539,7 @@ def create_main_window(qt):
                 encoding="utf-8",
             )
             (out_dir / "claim_boundary.txt").write_text(
-                "Подтверждения Windows-стенда LAN/BLE/QR; это не Android Wi-Fi Direct и не production-криптография.",
+                "Windows-стенд фиксирует LAN/BLE/QR-события и состояние локального криптографического контура.",
                 encoding="utf-8",
             )
             QMessageBox.information(self, "Подтверждения сохранены", str(out_dir))

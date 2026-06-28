@@ -1,6 +1,6 @@
 # Kraken Desktop для Windows
 
-Тестовый настольный стенд для исследовательского прототипа Kraken на Windows.
+Настольный Windows-стенд Kraken.
 
 ## Назначение
 

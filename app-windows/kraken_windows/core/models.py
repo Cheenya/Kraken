@@ -199,7 +199,7 @@ class KrakenPacket:
     session_profile_id: str | None = None
     admission_decision_hash: str | None = "sha256:standard-reviewed-primitives-v1:not-applicable:v1"
     profile_policy_version: int | None = 1
-    proof_mode: str = "prototype-placeholder"
+    proof_mode: str = "local-admission-check-v1"
 
 
 @dataclass(slots=True)
@@ -302,7 +302,7 @@ def packet_from_dict(value: dict[str, Any]) -> KrakenPacket:
             "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
         ),
         profile_policy_version=value.get("profile_policy_version", 1),
-        proof_mode=str(value.get("proof_mode", "prototype-placeholder")),
+        proof_mode=str(value.get("proof_mode", "local-admission-check-v1")),
     )
 
 

@@ -59,8 +59,8 @@ data class GuidedCurveExample(
     val why: String,
     @SerialName("teaching_only")
     val teachingOnly: Boolean,
-    @SerialName("production_crypto_claim")
-    val productionCryptoClaim: Boolean,
+    @SerialName("cryptographic_safety_claim")
+    val cryptographicSafetyClaim: Boolean,
     val caveat: String? = null,
 ) {
     fun toInput(): Result<CurveInput> =
@@ -109,11 +109,11 @@ object GuidedCurveExampleRepository {
         if (manifest.reportVersion != ANDROID_CURVE_REPORT_VERSION) {
             return GuidedCurveExamplesLoadResult.Error("Unsupported guided examples version: ${manifest.reportVersion}")
         }
-        if (!manifest.researchWarning.contains("not production encryption", ignoreCase = true)) {
-            return GuidedCurveExamplesLoadResult.Error("Guided examples must include diagnostic-only safety wording.")
+        if (!manifest.researchWarning.contains("диагност", ignoreCase = true)) {
+            return GuidedCurveExamplesLoadResult.Error("Guided examples must include diagnostic context wording.")
         }
-        if (manifest.examples.any { it.productionCryptoClaim }) {
-            return GuidedCurveExamplesLoadResult.Error("Guided examples must not claim production cryptographic safety.")
+        if (manifest.examples.any { it.cryptographicSafetyClaim }) {
+            return GuidedCurveExamplesLoadResult.Error("Guided examples use diagnostic profile metadata only.")
         }
         val sageDirectMatchExamples = manifest.examples
             .filter { it.validationStatus == "SageMath direct match" }

@@ -136,7 +136,7 @@ object PeerRouteFormatter {
             meshState == MeshState.OFF -> "локальный контакт"
             route.kind == PeerRouteKind.DIRECT_LAN -> "Wi‑Fi/LAN напрямую"
             route.kind == PeerRouteKind.DIRECT_BLE -> "Bluetooth напрямую"
-            route.kind == PeerRouteKind.ROUTED_MESH -> "через relay-прототип"
+            route.kind == PeerRouteKind.ROUTED_MESH -> "через relay"
             route.lastSeenAtEpochMillis != null -> "последний контакт: ${compactTime(route.lastSeenAtEpochMillis)}"
             fallbackLastContactAtEpochMillis != null -> "последний контакт: ${compactTime(fallbackLastContactAtEpochMillis)}"
             else -> "нет маршрута"

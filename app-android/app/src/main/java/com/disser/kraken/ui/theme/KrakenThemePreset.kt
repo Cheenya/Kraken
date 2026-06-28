@@ -68,8 +68,8 @@ enum class KrakenThemePreset(
     ),
     RESEARCH_CONSOLE(
         storageKey = "research_console",
-        displayName = "Исследовательская консоль",
-        description = "Технический стиль для исследовательских и демонстрационных экранов.",
+        displayName = "Техническая консоль",
+        description = "Технический стиль для проверочных и демонстрационных экранов.",
         densityMode = KrakenDensityMode.TECHNICAL,
         surfaceStyle = KrakenSurfaceStyle.CONSOLE,
     );

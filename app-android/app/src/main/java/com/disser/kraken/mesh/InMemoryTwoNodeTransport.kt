@@ -71,7 +71,7 @@ class LoopbackTransport(
     localPeer: DiscoveredPeer,
     clock: () -> Long = { System.currentTimeMillis() },
 ) : PeerTransport {
-    override val modeId: String = "loopback-prototype"
+    override val modeId: String = "loopback-local"
 
     private val bus = InMemoryTwoNodeTransport.SharedBus()
     private val delegate = InMemoryTwoNodeTransport(localPeer, bus, clock)
