@@ -263,8 +263,8 @@ object DemoDataSeeder {
 
     private const val DEMO_PREFIX = "demo-"
     private const val DEMO_LABEL = "пример"
-    private const val DEMO_REALM_NAME = "Kraken Demo"
-    private const val DEMO_REALM_DESCRIPTION = "Local invite-only demo realm."
-    private const val DEMO_CHANNEL_DESCRIPTION = "Local demo channel inside an invite-only realm."
-    private const val DEMO_GROUP_DESCRIPTION = "Strictly limited local group inside an invite-only realm."
+    private const val DEMO_REALM_NAME = "Демо диссертации"
+    private const val DEMO_REALM_DESCRIPTION = "Локальный демо-реалм по приглашению."
+    private const val DEMO_CHANNEL_DESCRIPTION = "Локальный демо-канал внутри реалма по приглашению."
+    private const val DEMO_GROUP_DESCRIPTION = "Закрытая локальная группа внутри реалма по приглашению."
 }

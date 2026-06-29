@@ -1,0 +1,174 @@
+{
+  "report_date": "2026-06-07",
+  "read_only": true,
+  "phone_required_for_this_report": false,
+  "non_phone_verification_passed": true,
+  "destructive_actions_executed": false,
+  "completed_without_phones": [
+    {
+      "name": "branch_tree_audit",
+      "status": "complete",
+      "evidence": "reports/out/branch_tree_cleanup_verification_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "dirty_tree_commit_slices",
+      "status": "complete",
+      "evidence": "reports/out/dirty_tree_commit_slices_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "cleanup_action_plan",
+      "status": "complete_read_only",
+      "evidence": "reports/out/cleanup_action_plan_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "commit_slicing_handoff",
+      "status": "complete_read_only",
+      "evidence": "reports/out/commit_slicing_handoff_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "android_raw_evidence_retention_manifest",
+      "status": "complete_read_only",
+      "evidence": "reports/out/raw_evidence_retention_manifest_2026-06-06.md",
+      "phone_required": false
+    },
+    {
+      "name": "math_local_output_retention_manifest",
+      "status": "complete_read_only",
+      "evidence": "math reports/out/local_output_retention_manifest_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "active_documentation_sync",
+      "status": "complete_for_current_non_phone_state",
+      "evidence": "math docs/documentation-index.md and tests/test_documentation_claim_guard.py",
+      "phone_required": false
+    },
+    {
+      "name": "cross_tree_non_phone_completion_audit",
+      "status": "complete_read_only",
+      "evidence": "reports/out/non_phone_completion_audit_2026-06-07.md",
+      "phone_required": false
+    },
+    {
+      "name": "separate_phone_evidence_plan",
+      "status": "complete_plan_only",
+      "evidence": "reports/out/phone_evidence_plan_2026-06-07.md",
+      "phone_required": false
+    }
+  ],
+  "dirty_tree_summary": {
+    "android": {
+      "dirty_file_count": 13,
+      "unassigned_count": 0,
+      "missing_slice_files_count": 0
+    },
+    "math": {
+      "dirty_file_count": 0,
+      "unassigned_count": 0,
+      "missing_slice_files_count": 0
+    }
+  },
+  "commit_slices": [
+    {
+      "name": "android_qr_issued_invite_metadata",
+      "repository": "android",
+      "dirty_file_count": 0,
+      "purpose": "Salvage useful consumed invite audit metadata without merging the old one-time invite service branch wholesale."
+    },
+    {
+      "name": "android_mesh_ble_manual_evidence_docs",
+      "repository": "android",
+      "dirty_file_count": 1,
+      "purpose": "Update LAN/Wi-Fi and BLE manual evidence boundaries plus capture helper docs/tests."
+    },
+    {
+      "name": "android_adamova_effectiveness_evidence_pack",
+      "repository": "android",
+      "dirty_file_count": 0,
+      "purpose": "Keep Adamova admission-gate scripts, tests and portable reports together."
+    },
+    {
+      "name": "android_branch_tree_cleanup_and_retention",
+      "repository": "android",
+      "dirty_file_count": 9,
+      "purpose": "Document branch/stash/raw evidence cleanup and verify it read-only."
+    },
+    {
+      "name": "android_june_7_readiness_and_policy_guards",
+      "repository": "android",
+      "dirty_file_count": 3,
+      "purpose": "Make June 7 readiness and 10/10 research-prototype planning the current entrypoint."
+    },
+    {
+      "name": "math_supervisor_packet_june_7_sync",
+      "repository": "math",
+      "dirty_file_count": 0,
+      "purpose": "Synchronize linked math/supervisor packet with June 7 Android readiness and current test counts."
+    }
+  ],
+  "approval_only_remainder": [
+    {
+      "name": "delete_safe_merged_android_archive_branches",
+      "category": "local_branch_cleanup",
+      "repository": "android",
+      "status": "ready_after_user_approval",
+      "approval_required": true
+    },
+    {
+      "name": "delete_audited_math_and_qr_local_archive_branches",
+      "category": "local_branch_cleanup",
+      "repository": "android",
+      "status": "requires_separate_user_approval",
+      "approval_required": true
+    },
+    {
+      "name": "delete_low_risk_remote_scaffold_v2",
+      "category": "remote_branch_cleanup",
+      "repository": "origin",
+      "status": "requires_separate_user_approval",
+      "approval_required": true
+    },
+    {
+      "name": "drop_raw_artifact_stashes",
+      "category": "stash_cleanup",
+      "repository": "android",
+      "status": "requires_user_confirmation_after_stat_review",
+      "approval_required": true
+    },
+    {
+      "name": "review_android_raw_evidence_retention_window",
+      "category": "raw_evidence_retention",
+      "repository": "android",
+      "status": "retention_window_not_chosen",
+      "approval_required": true
+    },
+    {
+      "name": "review_math_local_output_retention_window",
+      "category": "local_output_retention",
+      "repository": "math",
+      "status": "retention_window_not_chosen",
+      "approval_required": true
+    }
+  ],
+  "phone_dependent_remainder": [
+    {
+      "name": "fresh_route_specific_delivery_capture",
+      "reason": "ADB visibility and Bluetooth-direct open-chat UI evidence were captured on 2026-06-07; the remaining gate is orchestrated fresh-send/counter evidence",
+      "evidence_to_collect": "fresh orchestrated sends, route labels, receipt UI, rejection cases, packet counters"
+    },
+    {
+      "name": "route_specific_lan_ble_counter_smoke",
+      "reason": "requires live devices on LAN/BLE routes",
+      "evidence_to_collect": "authoritative packet counters, queue/latency metrics, rejection/counter cases"
+    },
+    {
+      "name": "fresh_research_ui_visual_pass",
+      "reason": "requires emulator or physical device rendering",
+      "evidence_to_collect": "Research screen screenshots with diagnostic-only wording"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "report": "cleanup_execution_status",
+  "date": "2026-06-07",
+  "executed_after_user_approval": true,
+  "android_branch": "codex/android-research-panel-report-viewer",
+  "math_branch": "codex/math-experiment-evidence-pack",
+  "commits": {
+    "android": [
+      "617b0f4 Salvage issued invite metadata guardrails",
+      "280eec6 Refresh LAN and BLE manual evidence docs",
+      "205875f Add Adamova effectiveness evidence pack",
+      "45de04b Document branch cleanup and retention plan",
+      "5d57377 Refresh June 7 Kraken readiness guards"
+    ],
+    "math": [
+      "5a9a863 Sync dissertation packet with June 7 readiness"
+    ],
+    "local_dissertation": [
+      "84d0478 Track dissertation navigation state"
+    ]
+  },
+  "pushed": {
+    "android": "origin/codex/android-research-panel-report-viewer",
+    "math": "origin/codex/math-experiment-evidence-pack"
+  },
+  "deleted_local_branches": [
+    "codex/android-identity-invite-relationship-realm",
+    "codex/android-skeleton",
+    "codex/protocol-spec-core-models",
+    "codex/dissertation-research-alignment",
+    "codex/math-core-curve-diagnostics",
+    "codex/math-core-reference-validation",
+    "codex/math-research-panel-integration-plan",
+    "codex/qr-one-time-invite"
+  ],
+  "deleted_remote_branches": [
+    "origin/chore/research-mvp-scaffold-v2"
+  ],
+  "dropped_stashes": [
+    "stash@{1} 44e0a9fc5c1c06d3427430ef0f34ba019683e82a",
+    "stash@{0} 70b9c21eed7f6d43d6aa6bb7ced970d7a8c23c9b"
+  ],
+  "raw_evidence_deleted": false,
+  "raw_evidence_boundary": "No raw evidence directories were bulk-deleted because current reports reference the June 6 and June 7 two-phone artifacts."
+}

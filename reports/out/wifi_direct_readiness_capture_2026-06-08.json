@@ -1,0 +1,53 @@
+{
+  "report": "wifi_direct_readiness_capture",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "artifact_root": "artifacts/debug-route-evidence/20260608-084228-mesh-start-readiness-after-cd1adf5",
+  "git": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "sha": "cd1adf5",
+    "capture_source_state": "clean",
+    "app_source_state": "clean_commit_cd1adf5"
+  },
+  "capture_mode": "debug_adb_broadcast_start_mesh_then_route_evidence_export",
+  "start_mesh_before_export": true,
+  "run_local_hostile_probe": false,
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "mesh_state": "PEER_FOUND",
+      "selected_route": "lan-nsd-tcp",
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      }
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "mesh_state": "PEER_FOUND",
+      "selected_route": "lan-nsd-tcp",
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      }
+    }
+  ],
+  "closed_gap": "wifi_direct_service_readiness_after_mesh_start",
+  "not_closed": [
+    "wifi_direct_selected_route_delivery",
+    "wifi_direct_negative_tests",
+    "wifi_direct_latency_loss_retry_samples",
+    "physical_hostile_packet_injection_over_lan_ble",
+    "mac_inline_relay_attack_against_android_devices",
+    "repeated_route_benchmark"
+  ],
+  "claim_boundary": "Wi-Fi Direct service readiness was exported from the debug app on both phones, but selected_route remained lan-nsd-tcp. This is not Wi-Fi Direct delivery evidence and not Wi-Fi Direct negative-test evidence."
+}

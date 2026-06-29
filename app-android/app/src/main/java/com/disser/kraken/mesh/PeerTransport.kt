@@ -107,10 +107,15 @@ fun TransportSendResult.rejectionReason(): MeshRejectionReason? {
     val normalized = error.orEmpty().lowercase()
     return when {
         normalized.contains("malformed") ||
-            normalized.contains("invalid") ||
-            normalized.contains("exceeds") ||
-            normalized.contains("too-large") ||
-            normalized.contains("frame") -> MeshRejectionReason.MALFORMED
+        normalized.contains("invalid") ||
+        normalized.contains("exceeds") ||
+        normalized.contains("too-large") ||
+        normalized.contains("frame") ||
+            normalized.contains("кадр") ||
+            normalized.contains("длин") ||
+            normalized.contains("больше") ||
+            normalized.contains("повреж") ||
+            normalized.contains("некоррект") -> MeshRejectionReason.MALFORMED
         normalized.contains("expired") -> MeshRejectionReason.EXPIRED
         else -> MeshRejectionReason.UNKNOWN_PEER
     }

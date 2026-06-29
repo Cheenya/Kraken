@@ -25,7 +25,7 @@ object RealmService {
         return createRealmInternal(
             owner = owner,
             name = safeName,
-            description = safeDescription ?: "Локальный invite-only реалм.",
+            description = safeDescription ?: "Локальный реалм по приглашению.",
             nowEpochMillis = nowEpochMillis,
         )
     }
@@ -36,8 +36,8 @@ object RealmService {
     ): DemoRealmCreation =
         createRealmInternal(
             owner = owner,
-            name = "Kraken Demo",
-            description = "Local invite-only demo realm.",
+            name = "Демо диссертации",
+            description = "Локальный демо-реалм по приглашению.",
             nowEpochMillis = nowEpochMillis,
         )
 
@@ -305,7 +305,7 @@ object RealmService {
         Realm(
             realmId = certificate.realmId,
             name = realmName?.trim()?.take(80)?.ifBlank { null } ?: "Joined Realm",
-            description = "Локальный реалм, добавленный через финальный QR подтверждения.",
+            description = "Реалм, добавленный через QR подтверждения.",
             createdByPublicKey = certificate.issuedByPublicKey,
             createdAtEpochMillis = certificate.issuedAtEpochMillis,
             policy = RealmPolicy(),

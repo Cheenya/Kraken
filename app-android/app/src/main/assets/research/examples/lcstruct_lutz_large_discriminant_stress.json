@@ -16,13 +16,13 @@
     "lutz_nagell": {
       "candidate_count": 0,
       "candidates": [],
-      "summary": "candidate diagnostic only; not a complete torsion proof"
+      "summary": "Диагностическая проверка структуры точек кручения"
     },
     "singular": false,
     "torsion_probe_results": [],
     "two_torsion": {
       "points": [],
-      "summary": "no rational 2-torsion"
+      "summary": "рациональные точки кручения 2 порядка не найдены"
     }
   },
   "generated_at": "2026-05-19T18:07:57Z",
@@ -39,15 +39,15 @@
     "generator_version": "research"
   },
   "ui_wording": {
-    "security_note": "Диагностический отчёт для проверки параметров кривой.",
-    "summary": "Офлайн-отчёт по диагностике параметров кривой.",
-    "title": "Rational curve diagnostic",
-    "unsupported_note": "Unsupported cases are intentionally shown instead of guessed."
+    "security_note": "Диагностический расчёт профиля для проверки математического контура Kraken.",
+    "summary": "Диагностический отчёт, подготовленный математическим контуром Kraken.",
+    "title": "Диагностика рациональной кривой",
+    "unsupported_note": "Неподдерживаемые случаи явно помечаются, а не угадываются."
   },
   "unsupported_cases": [
-    "large discriminant outside local Lutz-Nagell helper bound"
+    "большой дискриминант вне локальной границы проверки Лутца-Нагелля"
   ],
   "warnings": [
-    "discriminant is too large for exhaustive Lutz-Nagell divisor enumeration"
+    "дискриминант слишком велик для полного перебора делителей по проверке Лутца-Нагелля"
   ]
 }

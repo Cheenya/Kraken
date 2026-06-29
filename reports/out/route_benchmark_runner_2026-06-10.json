@@ -1,0 +1,30 @@
+{
+  "report": "route_benchmark_runner",
+  "date": "2026-06-10",
+  "script": "scripts/run_route_benchmark_trials.sh",
+  "purpose": "Run repeated debug route-evidence captures and aggregate route latency samples through scripts/build_route_benchmark_summary.py.",
+  "default_trials": 10,
+  "default_min_samples_per_route": 10,
+  "requires": [
+    "at_least_two_connected_adb_devices",
+    "debug_apk_with_DebugEvidenceReceiver",
+    "active_sendable_relationships_on_devices"
+  ],
+  "outputs": [
+    "artifacts/route-benchmark/<timestamp>-<label>/manifest.json",
+    "artifacts/route-benchmark/<timestamp>-<label>/route_benchmark_trials.md",
+    "artifacts/route-benchmark/<timestamp>-<label>/route_benchmark_summary.json",
+    "artifacts/route-benchmark/<timestamp>-<label>/route_benchmark_summary.md",
+    "artifacts/route-benchmark/<timestamp>-<label>/trial-XX/<serial>/route_specific_evidence_latest.json"
+  ],
+  "latest_execution": {
+    "artifact": "reports/out/route_benchmark_preflight_2026-06-11.md",
+    "devices": [
+      "R5CY22X6MSB",
+      "d948ffd0"
+    ],
+    "overall_status": "insufficient_n_for_reliability_claim",
+    "latency_sample_count": 0
+  },
+  "claim_boundary": "The runner prepares repeatable N-run route evidence collection. It does not prove reliability until it has been run on two devices and each claimed route passes the minimum sample gate with fresh comparable captures."
+}

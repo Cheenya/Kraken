@@ -44,7 +44,7 @@ data class HandshakeResponsePayload(
     @SerialName("native_backend_version")
     val nativeBackendVersion: String? = null,
     @SerialName("proof_placeholder")
-    val proofPlaceholder: String = "offline-qr-handshake-check-v1",
+    val proofPlaceholder: String = "offline-qr-handshake-proof-placeholder-v1",
 ) {
     companion object {
         const val TYPE = "kraken.handshake.response.v1"
@@ -85,7 +85,7 @@ data class HandshakeConfirmationPayload(
     @SerialName("native_backend_version")
     val nativeBackendVersion: String? = null,
     @SerialName("proof_placeholder")
-    val proofPlaceholder: String = "offline-qr-confirmation-check-v1",
+    val proofPlaceholder: String = "offline-qr-confirmation-proof-placeholder-v1",
 ) {
     companion object {
         const val TYPE = "kraken.handshake.confirmation.v1"
@@ -135,7 +135,7 @@ object HandshakePayloadCodec {
     private inline fun <T> decode(block: () -> T): Result<T> =
         runCatching(block).recoverCatching { error ->
             if (error is SerializationException || error is IllegalArgumentException) {
-                throw IllegalArgumentException("Invalid offline handshake payload.")
+                throw IllegalArgumentException("Некорректные данные QR-рукопожатия.")
             }
             throw error
         }

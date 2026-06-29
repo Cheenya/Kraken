@@ -46,11 +46,11 @@ class ResearchDiagnosticServiceTest {
     }
 
     @Test
-    fun diagnosticResultKeepsDiagnosticContext() {
+    fun diagnosticResultDescribesProfileCheck() {
         val result = ResearchDiagnosticService.evaluate(CurveInput(BigInteger.ONE, BigInteger.ONE))
 
-        assertTrue(result.diagnosticOnlyWarning.contains("Диагностический"))
-        assertTrue(result.diagnosticOnlyWarning.contains("параметров кривой"))
+        assertTrue(result.diagnosticOnlyWarning.contains("Диагностический расчёт профиля"))
+        assertFalse(result.diagnosticOnlyWarning.contains("not production encryption", ignoreCase = true))
     }
 
     @Test
@@ -68,7 +68,7 @@ class ResearchDiagnosticServiceTest {
         assertTrue(result.nonsingular)
         assertFalse(result.localDiagnosticSupported)
         assertEquals("SIZE_GUARDED", result.classificationCase)
-        assertTrue(result.unsupportedReasons.any { it.contains("divisor enumeration") })
+        assertTrue(result.unsupportedReasons.any { it.contains("делителей") })
     }
 
     @Test
@@ -84,6 +84,6 @@ class ResearchDiagnosticServiceTest {
         assertFalse(result.localDiagnosticSupported)
         assertEquals("SIZE_GUARDED", result.classificationCase)
         assertFalse(result.hasThreeTorsionIndicator)
-        assertTrue(result.unsupportedReasons.any { it.contains("3-torsion indicator") })
+        assertTrue(result.unsupportedReasons.any { it.contains("точек кручения 3 порядка") })
     }
 }

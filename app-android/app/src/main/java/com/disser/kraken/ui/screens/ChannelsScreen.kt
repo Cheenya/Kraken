@@ -53,12 +53,12 @@ fun ChannelsScreen(
             "Каналы и малые группы",
             listOf(
                 "Каналы существуют только внутри реалмов по QR-приглашению.",
-                "Личные чаты остаются основным сценарием; каналы нужны для широкой локальной коммуникации.",
+                "Личные чаты остаются основным сценарием; каналы нужны для общения внутри реалма.",
                 "Малые группы ограничены политикой реалма и не становятся публичными.",
             )
         )
         if (localIdentity == null || realmSnapshot.realms.isEmpty()) {
-            EmptyState("Нужен реалм", "Создайте локальную личность и реалм перед созданием каналов или малых групп.")
+            EmptyState("Нужен реалм", "Создайте профиль Kraken и реалм перед созданием каналов или малых групп.")
         } else {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Button(onClick = onCreateDemoChannel, modifier = Modifier.weight(1f)) {
@@ -71,7 +71,7 @@ fun ChannelsScreen(
         }
         Text("Каналы", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
         if (channelSnapshot.channels.isEmpty()) {
-            EmptyState("Каналов пока нет", "Создайте локальный канал внутри реалма по QR-приглашению.")
+            EmptyState("Каналов пока нет", "Создайте канал внутри реалма по QR-приглашению.")
         }
         channelSnapshot.channels.forEach { channel ->
             val membership = channelSnapshot.memberships.firstOrNull { it.channelId == channel.channelId }

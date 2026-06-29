@@ -120,7 +120,7 @@ object DefaultCryptoProfileRegistry : CryptoProfileRegistry {
             curveA = "65537",
             curveB = "104729",
             evidenceAssetPath = "research/examples/lc32_prime_offsets_no_two_torsion.json",
-            requiredReferenceStatus = "SageMath direct match",
+            requiredReferenceStatus = "совпадает с SageMath",
         )
 
     private val profiles: Map<String, KrakenCryptoProfile> =

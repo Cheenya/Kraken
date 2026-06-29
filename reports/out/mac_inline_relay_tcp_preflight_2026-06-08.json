@@ -1,0 +1,38 @@
+{
+  "report": "mac_inline_relay_tcp_preflight",
+  "date": "2026-06-08",
+  "mac_ip": "192.168.0.123",
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "ping_to_mac": "2 transmitted, 2 received, 0% packet loss",
+      "system_nc_listener_payload_seen_on_mac": "samsung-nc-listener"
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "ping_to_mac": "2 transmitted, 2 received, 0% packet loss",
+      "system_nc_listener_payload_seen_on_mac": "xiaomi-nc-listener"
+    }
+  ],
+  "mac_firewall": {
+    "enabled": true,
+    "block_all": false,
+    "stealth_mode": false
+  },
+  "python_listener_result": {
+    "accepted_connections": 0,
+    "result": "timeout",
+    "boundary": "Python listener was not accepted during this preflight; system nc listener did accept both phones."
+  },
+  "closed_gap": "android_to_mac_tcp_reachability_preflight_for_system_listener",
+  "not_closed": [
+    "android_a_to_mac_to_android_b_inline_relay_run",
+    "android_lan_frame_relay_normal_drop_duplicate_tamper",
+    "android_before_after_delivery_and_rejection_counters",
+    "cryptographic_mitm_resistance",
+    "production_relay_security"
+  ],
+  "claim_boundary": "This proves both phones can open TCP to a Mac system listener on the current LAN. It does not prove Android inline relay/MITM, Android frame forwarding, packet rejection, or production security."
+}

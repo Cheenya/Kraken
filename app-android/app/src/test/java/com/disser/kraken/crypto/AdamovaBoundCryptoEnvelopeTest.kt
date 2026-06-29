@@ -11,7 +11,7 @@ import java.math.BigInteger
 class AdamovaBoundCryptoEnvelopeTest {
     @Test
     fun acceptedExperimentalProfileIsBoundIntoAeadAssociatedData() {
-        val profile = experimentalProfile(profileId = "experimental-accepted-message-v1")
+        val profile = experimentalProfile(profileId = "experimental-accepted-production-v1")
         val gate = admissionGateFor(profile, nativeResult(classificationCase = "A4"))
         val admission = gate.evaluate(profile)
         val aead = RecordingAeadProvider()
@@ -27,14 +27,14 @@ class AdamovaBoundCryptoEnvelopeTest {
 
         assertEquals("adamova-bound-test-aead", ciphertext.algorithm)
         val associatedData = requireNotNull(aead.lastSealAssociatedData).decodeToString()
-        assertTrue(associatedData.contains("kraken-message-crypto-v1"))
+        assertTrue(associatedData.contains("kraken-production-crypto-v1"))
         assertTrue(associatedData.contains("adamova_profile_id=${profile.profileId}"))
         assertTrue(associatedData.contains("adamova_admission_decision_hash=${admission.decisionHash}"))
     }
 
     @Test
     fun rejectedExperimentalProfileCannotBeSealed() {
-        val profile = experimentalProfile(profileId = "experimental-rejected-message-v1")
+        val profile = experimentalProfile(profileId = "experimental-rejected-production-v1")
         val gate = admissionGateFor(profile, nativeResult(twoTorsionRootCount = 1, classificationCase = "A5"))
         val admission = gate.evaluate(profile)
         val envelope = AdamovaBoundCryptoEnvelope(gate)
@@ -53,7 +53,7 @@ class AdamovaBoundCryptoEnvelopeTest {
 
     @Test
     fun tamperedAdmissionHashCannotOpenCiphertext() {
-        val profile = experimentalProfile(profileId = "experimental-tamper-message-v1")
+        val profile = experimentalProfile(profileId = "experimental-tamper-production-v1")
         val gate = admissionGateFor(profile, nativeResult(classificationCase = "A4"))
         val admission = gate.evaluate(profile)
         val envelope = AdamovaBoundCryptoEnvelope(gate)

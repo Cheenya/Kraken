@@ -10,9 +10,9 @@ data class InviteQrCodeMatrix(
     val modules: List<Boolean>,
 ) {
     init {
-        require(width > 0) { "QR width must be positive." }
-        require(height > 0) { "QR height must be positive." }
-        require(modules.size == width * height) { "QR module count must match dimensions." }
+        require(width > 0) { "Ширина QR должна быть положительной." }
+        require(height > 0) { "Высота QR должна быть положительной." }
+        require(modules.size == width * height) { "Размер QR не совпадает с количеством модулей." }
     }
 
     fun isDark(x: Int, y: Int): Boolean = modules[y * width + x]
@@ -81,8 +81,8 @@ object InviteLifecycleFormatter {
 object InviteQrCodeGenerator {
     fun generate(payload: String, size: Int = DEFAULT_SIZE): Result<InviteQrCodeMatrix> = runCatching {
         val trimmed = payload.trim()
-        require(trimmed.isNotBlank()) { "QR payload is blank." }
-        require(size > 0) { "QR size must be positive." }
+        require(trimmed.isNotBlank()) { "QR пустой." }
+        require(size > 0) { "Размер QR должен быть положительным." }
 
         val bitMatrix = QRCodeWriter().encode(trimmed, BarcodeFormat.QR_CODE, size, size)
         val modules = List(bitMatrix.width * bitMatrix.height) { index ->

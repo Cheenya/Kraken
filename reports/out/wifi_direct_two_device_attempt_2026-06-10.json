@@ -1,0 +1,33 @@
+{
+  "report": "wifi_direct_two_device_attempt",
+  "date": "2026-06-10",
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM_S938B",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "p2p_visible_device_count": 2,
+      "transport_discovered_peer_count": 0,
+      "selected_route": "none",
+      "debug_send_success": false,
+      "debug_send_error": "UNKNOWN_PEER"
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "p2p_visible_device_count": 2,
+      "transport_discovered_peer_count": 0,
+      "selected_route": "none",
+      "debug_send_success": false,
+      "debug_send_error": "UNKNOWN_PEER"
+    }
+  ],
+  "artifact": "artifacts/debug-route-evidence/20260610-232255-wifi-direct-debug-send-30s-settle-2026-06-10/manifest.json",
+  "verdict": "wifi_direct_two_device_route_not_complete",
+  "claim_boundary": "Negative completion evidence only; no production security or production reliability claim."
+}

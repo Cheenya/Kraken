@@ -29,7 +29,7 @@ object KrakenTransportCatalog {
             TransportCapability.HIGH_BANDWIDTH,
             TransportCapability.REQUIRES_PERMISSION,
         ),
-        caveat = "Local LAN only; QR trust still required.",
+        caveat = "Только локальная LAN; доверие всё равно задаётся через QR.",
     )
 
     val WIFI_DIRECT = TransportDescriptor(
@@ -42,7 +42,7 @@ object KrakenTransportCatalog {
             TransportCapability.REQUIRES_PERMISSION,
             TransportCapability.REQUIRES_USER_ACTION,
         ),
-        caveat = "Транспортный профиль использует evidence маршрута для итоговой оценки.",
+        caveat = "Транспорт включён; для сильных утверждений нужны доказательные прогоны маршрута.",
     )
 
     val BLE_GATT = TransportDescriptor(
@@ -55,18 +55,18 @@ object KrakenTransportCatalog {
             TransportCapability.LOW_BANDWIDTH,
             TransportCapability.REQUIRES_PERMISSION,
         ),
-        caveat = "Android 12+ foreground BLE GATT; QR trust still required.",
+        caveat = "BLE GATT в foreground-режиме Android 12+; доверие всё равно задаётся через QR.",
     )
 
     val MANUAL_QR_PACKET_FALLBACK = TransportDescriptor(
         id = "manual-qr-packet-fallback",
-        displayName = "Manual QR packet fallback",
+        displayName = "Передача пакета через QR",
         implemented = false,
         capabilities = setOf(
             TransportCapability.REQUIRES_USER_ACTION,
             TransportCapability.LOW_BANDWIDTH,
         ),
-        caveat = "Fallback idea only, not radio P2P.",
+        caveat = "Идея для резервной передачи без радиоканала P2P.",
     )
 
     fun implementedTransports(): List<TransportDescriptor> =

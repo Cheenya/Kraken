@@ -54,10 +54,18 @@ class QrScanImportService(
                 existingImports = existingImports,
             )
         ) {
-            is InviteImportResult.Error -> QrScanImportResult.Error("$INVALID_QR_MESSAGE ${result.reason}")
+            is InviteImportResult.Error -> QrScanImportResult.Error(friendlyInviteImportError(result.reason))
             is InviteImportResult.Success -> QrScanImportResult.Success(result.pendingImport)
         }
     }
+
+    private fun friendlyInviteImportError(reason: String): String =
+        when (reason) {
+            "Ключ уже знаком" -> "Ключ уже знаком"
+            "Приглашение уже добавлено." -> "Приглашение уже добавлено."
+            "Нельзя добавить собственный QR." -> "Нельзя добавить собственный QR."
+            else -> INVALID_QR_MESSAGE
+        }
 
     companion object {
         const val INVALID_QR_MESSAGE = "Этот QR не является корректным приглашением Kraken."

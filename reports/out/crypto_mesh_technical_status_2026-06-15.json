@@ -1,0 +1,278 @@
+{
+  "report": "crypto_mesh_technical_status_2026-06-15",
+  "status": "partial_verified_crypto_mesh_runtime_with_physical_relay_evidence",
+  "runtime_message_payload_policy": "ADAMOVA_ENCRYPTED_REQUIRED",
+  "lower_level_message_payload_policy_default": "ADAMOVA_ENCRYPTED_REQUIRED",
+  "default_message_payload_type": "ENCRYPTED_MESSAGE_JSON",
+  "legacy_plaintext_scope": "debug_fixture_only_explicit_LEGACY_DEBUG_PLAINTEXT_ALLOWED",
+  "message_key_provider": "QrHandshakeMessageSessionKeyProvider",
+  "message_key_derivation": "HKDF-SHA256 over sourceInviteId and relationship/session/profile context",
+  "integrity_mode": "adamova-bound-aes-gcm-message-payload-no-production-signature-or-keystore",
+  "local_attack_checks": [
+    "plaintext_injection_rejected",
+    "admission_hash_tamper_rejected",
+    "session_profile_tamper_rejected",
+    "unknown_sender_rejected",
+    "wrong_recipient_rejected",
+    "duplicate_replay_rejected",
+    "qr_handshake_key_shared_by_both_sides",
+    "missing_invite_secret_no_silent_plaintext_fallback",
+    "realm_relay_candidate_requires_same_realm_relay_basic_without_granting_direct_message_rights"
+  ],
+  "realm_relay_policy": {
+    "status": "runtime_evidence_candidates_and_policy_gated_simulation_added_physical_multihop_not_captured",
+    "direct_message_boundary": "relationship plus send_direct still required",
+    "relay_candidate_boundary": "same-realm member with relay_basic can be surfaced as a relay candidate without relationship",
+    "evidence_fields": [
+      "MeshServiceSnapshot.realmRelayCandidates",
+      "MeshEvidenceTransportExport.realm_relay_candidates"
+    ],
+    "tests": [
+      "RealmRelayPolicyTest",
+      "MeshServiceTest.snapshotExposesRealmRelayCandidateWithoutDirectSendPeerPromotion",
+      "MeshEvidenceExportTest.routeSpecificEvidenceJsonContainsRouteCountersBuildAndDeviceShape",
+      "SimulatedStoreAndForwardRelayTest.realmPolicyMustAllowRelayBeforeForwarding"
+    ]
+  },
+  "evidence_artifacts": {
+    "crypto_attack_unit": "artifacts/crypto-attack-unit/20260615-032122",
+    "phone_preflight": "artifacts/phone-preflight/20260615-after-wifi-direct-diagnostic-patch",
+    "debug_route_evidence": "artifacts/debug-route-evidence/20260615-022752-crypto-path-post-install-lan-ble-debug-evidence",
+    "hotspot_compatible_debug_route_evidence": "artifacts/debug-route-evidence/20260615-030913-hotspot-compatible-lan-ble-evidence-after-secure-default",
+    "physical_inline_relay": "artifacts/physical-inline-relay/20260615-022842-crypto-path-physical-relay-after-encrypted-runtime",
+    "directed_wifi_direct_initial": "artifacts/directed-wifi-direct/20260615-023158-samsung-to-xiaomi-after-encrypted-runtime",
+    "directed_wifi_direct_prearm_hint": "artifacts/directed-wifi-direct/20260615-032906-samsung-to-xiaomi-prearm-hint-after-secure-default",
+    "ordinary_launch_profile_isolation_smoke": "artifacts/phone-audit/20260615-ordinary-launch-profile-isolation-smoke",
+    "physical_evidence_runbook": "docs/physical-evidence-next-runbook-2026-06-15.md",
+    "directed_wifi_direct_after_binding_reason_patch": "artifacts/directed-wifi-direct/20260615-035314-samsung-to-xiaomi-after-binding-reason-diagnostic",
+    "directed_wifi_direct_after_connect_attempt_diagnostics": "artifacts/directed-wifi-direct/20260615-041155-samsung-to-xiaomi-connect-attempt-diagnostics",
+    "directed_wifi_direct_reverse_after_connect_attempt_diagnostics": "artifacts/directed-wifi-direct/20260615-042142-xiaomi-to-samsung-connect-attempt-diagnostics"
+  },
+  "debug_apk": {
+    "path": "app-android/app/build/outputs/apk/debug/app-debug.apk",
+    "size_bytes": 21125925,
+    "sha256": "5143331510995c30adb04dffebd9eeb5f3ad0358d186b2e235950e53a361b1f9",
+    "ready_for_install_smoke": true,
+    "preflight_artifact": "artifacts/phone-preflight/20260615-after-wifi-direct-diagnostic-patch",
+    "installed_devices_after_latest_rebuild": [
+      "R5CY22X6MSB",
+      "d948ffd0"
+    ],
+    "previous_installed_devices": [
+      "R5CY22X6MSB",
+      "d948ffd0"
+    ],
+    "adb_devices_visible_during_preflight": false,
+    "adb_devices_visible_during_later_run": true
+  },
+  "debug_route_evidence": {
+    "artifact": "artifacts/debug-route-evidence/20260615-022752-crypto-path-post-install-lan-ble-debug-evidence",
+    "transport_profile": "lan-only",
+    "selected_routes": [
+      "lan-nsd-tcp",
+      "lan-nsd-tcp"
+    ],
+    "wifi_direct_permissions_clean": true,
+    "message_delivery_proven": false
+  },
+  "hotspot_compatible_debug_route_evidence": {
+    "artifact": "artifacts/debug-route-evidence/20260615-030913-hotspot-compatible-lan-ble-evidence-after-secure-default",
+    "transport_profile": "hotspot-compatible",
+    "enabled_transport_modes": [
+      "ble-gatt",
+      "lan-nsd-tcp"
+    ],
+    "wifi_direct_active": false,
+    "wifi_direct_permission_warning": null,
+    "message_delivery_proven": false,
+    "claim_boundary": "transport profile selection and discovery evidence only, not message delivery proof"
+  },
+  "physical_inline_relay": {
+    "artifact": "artifacts/physical-inline-relay/20260615-022842-crypto-path-physical-relay-after-encrypted-runtime",
+    "claim_boundary": "debug physical MacBook relay evidence for packet path, not production security proof",
+    "modes": {
+      "normal": {
+        "frames_received": 1,
+        "frames_forwarded": 1,
+        "target_accepted_delta": 1,
+        "target_inbound_delta": 1,
+        "current_packet_id": "packet-87013439-5bc3-469b-a423-3fe8affe0e1f",
+        "current_message_id": "message-0ae8e11e-4d79-41d8-bc8b-10bd28c1319d",
+        "verdict": "packet_and_message_delivery_observed"
+      },
+      "drop": {
+        "frames_received": 1,
+        "frames_dropped": 1,
+        "target_accepted_delta": 0,
+        "target_inbound_delta": 0,
+        "verdict": "drop_observed"
+      },
+      "duplicate": {
+        "frames_received": 1,
+        "frames_forwarded": 1,
+        "frames_duplicated": 1,
+        "target_accepted_delta": 2,
+        "target_inbound_delta": 2,
+        "target_rejection_reason": "DUPLICATE",
+        "verdict": "duplicate_rejection_observed_without_claiming_two_user_deliveries"
+      },
+      "tamper": {
+        "frames_received": 1,
+        "frames_forwarded": 1,
+        "frames_tampered": 1,
+        "target_accepted_delta": 1,
+        "target_inbound_delta": 1,
+        "target_rejection_reason": "MALFORMED",
+        "verdict": "tamper_rejection_observed_without_message_delivery"
+      }
+    }
+  },
+  "default_transport_profile": "hotspot-compatible LAN/BLE without Wi-Fi Direct",
+  "wifi_direct_user_choice": "explicit experimental Wi-Fi Direct trial from Mesh Status diagnostics",
+  "ordinary_launch_profile_isolation_smoke": {
+    "artifact": "artifacts/phone-audit/20260615-ordinary-launch-profile-isolation-smoke",
+    "scope": "ordinary app launch smoke, not full Bluetooth/nearby confirmation and not directed Wi-Fi Direct proof",
+    "duration_seconds": 45,
+    "samsung": {
+      "anr": false,
+      "skipped_frames": false,
+      "wifi_direct_appop_or_p2p": false
+    },
+    "xiaomi": {
+      "anr": false,
+      "skipped_frames": false,
+      "wifi_direct_appop_or_p2p": false
+    }
+  },
+  "long_hotspot_compatible_freeze_smoke_after_broadcast_hold_fix": {
+    "artifact": "artifacts/phone-audit/20260615-long-hotspot-compatible-freeze-smoke-after-broadcast-hold-fix",
+    "duration_seconds": 120,
+    "scope": "automated hotspot-compatible LAN/BLE smoke, not manual Bluetooth/nearby confirmation and not directed Wi-Fi Direct proof",
+    "samsung": {
+      "anr": false,
+      "skipped_frames": false,
+      "wifi_direct_appop_or_p2p": false
+    },
+    "xiaomi": {
+      "anr": false,
+      "skipped_frames": false,
+      "wifi_direct_appop_or_p2p": false
+    }
+  },
+  "wifi_direct_directed_verdict": {
+    "artifact": "artifacts/directed-wifi-direct/20260615-023158-samsung-to-xiaomi-after-encrypted-runtime",
+    "permissions_ready": true,
+    "relationship_ready": true,
+    "wifi_direct_discovery_ready": true,
+    "endpoint_bound": false,
+    "send_attempted": true,
+    "transport_counter_delivery_observed": false,
+    "message_delivery_proven": false,
+    "status": "sender_endpoint_not_bound",
+    "binding_reason": "relationship-peer-not-visible-after-fresh-discovery:Xiaomi",
+    "previous_xiaomi_logcat_appop_denial": "Earlier Wi-Fi Direct logs showed Appop Denial for android.net.wifi.p2p.PEERS_CHANGED; ordinary profile-isolated LAN/BLE launch did not reproduce it, explicit Wi-Fi Direct mode still needs retest"
+  },
+  "latest_wifi_direct_directed_verdict": {
+    "artifact": "artifacts/directed-wifi-direct/20260615-041155-samsung-to-xiaomi-connect-attempt-diagnostics",
+    "debug_wifi_direct_peer_hint_requested": true,
+    "debug_wifi_direct_peer_hint_status": "ready",
+    "permissions_ready": true,
+    "relationship_ready": true,
+    "wifi_direct_discovery_ready": true,
+    "kraken_dns_sd_peer_seen": true,
+    "target_group_owner_formed_before_and_after": true,
+    "target_group_owner_address": "192.168.49.1",
+    "endpoint_bound": false,
+    "send_attempted": true,
+    "transport_route_unavailable": true,
+    "transport_counter_delivery_observed": false,
+    "message_delivery_proven": false,
+    "failure_stage": "wifi_p2p_group_connect_failed",
+    "binding_state": "FAILED",
+    "binding_reason": "p2p-group-not-formed:connect=failed:attempt=1:intent=0:reason=ERROR(0)",
+    "connect_attempts_exported": true,
+    "connect_attempt_failure_reason_name": "ERROR",
+    "connect_attempt_group_owner_intents_seen": [
+      0,
+      15,
+      7
+    ],
+    "stop_peer_discovery_result": "stopped",
+    "target_accepted_connections_delta": 0,
+    "target_inbound_packets_delta": 0,
+    "verdict": "target_go_alive_and_kraken_dns_sd_discovery_clean_but_android_wifi_p2p_connect_returns_error_0"
+  },
+  "mesh_peer_classification": {
+    "relationship_peer": "direct personal message target; must match the active relationship",
+    "realm_relay_peer": "future relay candidate in the same realm; may forward sealed packets but must not replace the message target",
+    "unknown_noise_peer": "device without a valid Kraken/realm beacon"
+  },
+  "wifi_direct_runtime_diagnostic_patch": {
+    "peer_endpoint_failed_state_exported": true,
+    "peer_endpoint_binding_reason_exported": true,
+    "scope": "diagnostic only; does not prove Wi-Fi Direct delivery",
+    "latest_run_confirmed": true,
+    "latest_run_artifact": "artifacts/directed-wifi-direct/20260615-041155-samsung-to-xiaomi-connect-attempt-diagnostics",
+    "connect_attempts_exported": true
+  },
+  "wifi_p2p_appop_noise_diagnostic": {
+    "artifact": "artifacts/phone-audit/20260615-061419-wifi-p2p-appop-noise-current",
+    "verdict": "permissions_granted_but_wifi_p2p_appop_denial_seen",
+    "samsung_kraken_appop_denials": 0,
+    "xiaomi_kraken_appop_denials": 32,
+    "permissions_clean": true,
+    "boundary": "permission/app-op diagnostic only; no Wi-Fi Direct delivery claim"
+  },
+  "known_open_issues": [
+    "Wi-Fi Direct Android WifiP2pManager.connect returns ERROR(0) against live target GO",
+    "Wi-Fi Direct ERROR(0) is symmetric in Samsung/Xiaomi directed runs",
+    "Wi-Fi Direct endpoint binding remains unreliable after permission blocker was removed",
+    "Xiaomi Wi-Fi P2P PEERS_CHANGED app-op denial persists even with permissions granted and FINE_LOCATION app-op allow",
+    "manual Bluetooth/nearby confirmation freeze-monitoring still recommended",
+    "realm-scoped relay physical multi-hop delivery is not captured yet"
+  ],
+  "remaining_work": [
+    "Android Keystore key storage",
+    "QR and packet signatures",
+    "Wi-Fi Direct peer visibility and endpoint-binding reliability",
+    "Wi-Fi Direct persistent group / invitation / authorization diagnosis after ERROR(0) connect attempts",
+    "external review",
+    "manual Bluetooth/nearby confirmation ANR/freeze smoke on phones",
+    "public-key key agreement",
+    "realm-scoped relay physical multi-hop harness",
+    "replay window and key rotation",
+    "handle Xiaomi Wi-Fi P2P foreground/app-op behavior or keep Wi-Fi Direct as explicit experimental mode"
+  ],
+  "wifi_direct_claim": "implemented_diagnostic_prototype_not_stable_transport",
+  "latest_wifi_direct_reverse_directed_verdict": {
+    "artifact": "artifacts/directed-wifi-direct/20260615-042142-xiaomi-to-samsung-connect-attempt-diagnostics",
+    "debug_wifi_direct_peer_hint_requested": true,
+    "debug_wifi_direct_peer_hint_status": "ready",
+    "permissions_ready": true,
+    "relationship_ready": true,
+    "wifi_direct_discovery_ready": true,
+    "kraken_dns_sd_peer_seen": true,
+    "target_group_owner_formed_before_and_after": true,
+    "target_group_owner_address_from_dumpsys": "192.168.49.1",
+    "endpoint_bound": false,
+    "send_attempted": true,
+    "transport_route_unavailable": true,
+    "transport_counter_delivery_observed": false,
+    "message_delivery_proven": false,
+    "failure_stage": "wifi_p2p_group_connect_failed",
+    "binding_state": "FAILED",
+    "binding_reason": "p2p-group-not-formed:connect=failed:attempt=1:intent=0:reason=ERROR(0)",
+    "connect_attempts_exported": true,
+    "connect_attempt_failure_reason_name": "ERROR",
+    "connect_attempt_group_owner_intents_seen": [
+      0,
+      15,
+      7
+    ],
+    "stop_peer_discovery_result": "stopped",
+    "target_accepted_connections_delta": 0,
+    "target_inbound_packets_delta": 0,
+    "verdict": "reverse_target_go_alive_and_kraken_dns_sd_discovery_clean_but_android_wifi_p2p_connect_returns_error_0"
+  },
+  "wifi_direct_symmetric_pair_verdict": "forward_and_reverse_directed_runs_fail_at_android_wifi_p2p_connect_error_0_before_endpoint_binding"
+}

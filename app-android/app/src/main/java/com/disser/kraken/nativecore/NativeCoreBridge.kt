@@ -51,7 +51,7 @@ object NativeCoreBridge {
 
     private external fun classifyAdamovaV3Decimal(a: String, b: String): String
 
-    private const val UNAVAILABLE_STATUS = "Kraken native core unavailable in this runtime."
+    private const val UNAVAILABLE_STATUS = "Нативное ядро Kraken недоступно в этой среде."
 
     private fun parseAdamovaResult(raw: String): NativeAdamovaResult? {
         val fields = raw.split('\t')

@@ -1,0 +1,121 @@
+{
+  "report": "two_device_route_specific_smoke",
+  "date": "2026-06-07",
+  "timezone": "Europe/Moscow",
+  "status": "partial_physical_route_smoke_completed",
+  "claim_boundary": "prototype_p2p_integrity_and_adamova_admission_only_not_production_secure_messaging",
+  "source": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "git_sha": "f6538bd",
+    "source_state": "dirty_working_tree_based_on_f6538bd",
+    "apk": "app-android/app/build/outputs/apk/debug/app-debug.apk",
+    "apk_sha256": "d8ef0c3dcd390ee7e9e7e58c83b18a5ac72eb5deaf66fe651dc6e43e4ec1c9b0"
+  },
+  "devices": [
+    {
+      "role": "samsung",
+      "serial": "R5CY22X6MSB",
+      "manufacturer": "samsung",
+      "model": "SM-S938B"
+    },
+    {
+      "role": "xiaomi",
+      "serial": "d948ffd0",
+      "manufacturer": "Xiaomi",
+      "model": "2201122G"
+    }
+  ],
+  "artifact_root": "artifacts/two-phone-test/route-specific-20260607-205617-baseline",
+  "evidence": {
+    "fresh_final_ui_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-apk-post-sends",
+    "final_export_screen": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-export-screen-scrolled",
+    "route_evidence_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/exported-route-evidence",
+    "earlier_lan_samsung_to_xiaomi": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/lan-samsung-to-xiaomi",
+    "earlier_lan_xiaomi_to_samsung": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/lan-xiaomi-to-samsung",
+    "earlier_ble_samsung_to_xiaomi": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/ble-samsung-to-xiaomi"
+  },
+  "scenarios": [
+    {
+      "id": "lan_samsung_to_xiaomi",
+      "status": "passed_physical_ui",
+      "messages": ["lanS2X2057", "lanFinal2104"],
+      "route_label_evidence": "Wi-Fi/LAN directly observed before BLE cutover; final chat later shows Bluetooth after Wi-Fi disabled.",
+      "proof": "Samsung UI shows sent message delivered; Xiaomi UI contains received message."
+    },
+    {
+      "id": "lan_xiaomi_to_samsung",
+      "status": "passed_physical_ui",
+      "messages": ["lanX2S2058"],
+      "route_label_evidence": "Wi-Fi/LAN directly observed during LAN phase.",
+      "proof": "Xiaomi UI shows sent message delivered; Samsung UI contains received message."
+    },
+    {
+      "id": "ble_samsung_to_xiaomi",
+      "status": "passed_physical_ui_and_exported_counters",
+      "messages": ["bleS2X2101", "bleFinal2105"],
+      "route_label_evidence": "Bluetooth directly observed after Wi-Fi disabled.",
+      "proof": "Samsung UI shows sent BLE message delivered; Xiaomi UI contains received message; exported route selected ble-gatt."
+    },
+    {
+      "id": "unknown_peer_rejection",
+      "status": "not_executed_in_physical_run",
+      "exported_counter": 0,
+      "note": "Counter is present in schema but no unknown-peer packet injection was performed in this two-phone run."
+    },
+    {
+      "id": "wrong_recipient_rejection",
+      "status": "not_executed_in_physical_run",
+      "exported_counter": 0,
+      "note": "Counter is present in schema but no wrong-recipient packet injection was performed in this two-phone run."
+    },
+    {
+      "id": "duplicate_packet_rejection",
+      "status": "not_executed_in_physical_run",
+      "exported_counter": 0,
+      "note": "Counter is present in schema but no duplicate packet injection was performed in this two-phone run."
+    },
+    {
+      "id": "queue_retry_after_transport_restart",
+      "status": "not_executed_in_physical_run",
+      "exported_queue_size": 0,
+      "note": "The run did not include a queued pending packet across transport restart; only post-send queue_size=0 was exported."
+    }
+  ],
+  "route_evidence": {
+    "samsung": {
+      "exported_at_msk": "2026-06-07 21:11:50",
+      "report_version": "kraken.mesh.evidence.snapshot.v2",
+      "selected_route": "ble-gatt",
+      "route_attempts": 2,
+      "queue_size": 0,
+      "packets_sent": 2,
+      "packets_received": 0,
+      "receipts_received": 2,
+      "duplicates_dropped": 0,
+      "expired_dropped": 0,
+      "unknown_peer_rejected": 0,
+      "wrong_recipient_rejected": 0,
+      "last_delivery_latency_ms": null
+    },
+    "xiaomi": {
+      "exported_at_msk": "2026-06-07 21:11:52",
+      "report_version": "kraken.mesh.evidence.snapshot.v2",
+      "selected_route": "ble-gatt",
+      "route_attempts": 2,
+      "queue_size": 0,
+      "packets_sent": 2,
+      "packets_received": 2,
+      "receipts_received": 0,
+      "duplicates_dropped": 0,
+      "expired_dropped": 0,
+      "unknown_peer_rejected": 0,
+      "wrong_recipient_rejected": 0,
+      "last_delivery_latency_ms": null
+    }
+  },
+  "limitations": [
+    "No production security claim: prototype integrity/admission evidence only.",
+    "Latency and loss metrics were not measured.",
+    "Unknown-peer, wrong-recipient, duplicate, and queue-retry physical packet-injection scenarios remain open."
+  ]
+}

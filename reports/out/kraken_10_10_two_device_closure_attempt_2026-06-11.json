@@ -1,0 +1,80 @@
+{
+  "report": "kraken_10_10_two_device_closure_attempt",
+  "audited_at_msk": "2026-06-11 13:38:32 MSK",
+  "branch": "codex/android-research-panel-report-viewer",
+  "git_sha": "96b4eb7",
+  "current_10_10_verdict": "not_complete",
+  "completion_claim_allowed": false,
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM_S938B",
+      "status": "device"
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "status": "device"
+    }
+  ],
+  "artifact_roots": {
+    "closure_suite_partial": "artifacts/10-10-closure-suite/20260611-132456-closure-suite-2026-06-11",
+    "physical_inline_relay_retry": "artifacts/physical-inline-relay/20260611-133356-physical-inline-relay-2026-06-11-retry"
+  },
+  "gates": [
+    {
+      "id": "wifi_direct_sender_to_target",
+      "status": "open",
+      "observed": {
+        "wifi_direct_active": true,
+        "selected_route": "none",
+        "debug_send_success": false,
+        "debug_send_error": "UNKNOWN_PEER"
+      }
+    },
+    {
+      "id": "wifi_direct_target_to_sender",
+      "status": "open",
+      "observed": {
+        "wifi_direct_peer_observed_on_samsung": true,
+        "selected_route_observed_on_samsung": "wifi-direct",
+        "debug_send_success": false,
+        "debug_send_error": "UNKNOWN_PEER"
+      }
+    },
+    {
+      "id": "route_benchmark_min_n",
+      "status": "open",
+      "observed": {
+        "overall_status": "insufficient_n_for_reliability_claim",
+        "latency_samples": {
+          "ble-gatt": 0,
+          "lan-nsd-tcp": 0,
+          "wifi-direct": 0
+        }
+      }
+    },
+    {
+      "id": "physical_mac_inline_relay_modes",
+      "status": "open",
+      "observed": {
+        "frames_received_per_mode": {
+          "normal": 1,
+          "drop": 1,
+          "duplicate": 1,
+          "tamper": 1
+        },
+        "normal_forward_result": "failed: timed out",
+        "duplicate_forward_result": "failed: connection refused",
+        "tamper_forward_result": "failed: connection refused",
+        "target_after_inbound_packets_per_mode": {
+          "normal": 0,
+          "drop": 0,
+          "duplicate": 0,
+          "tamper": 0
+        }
+      }
+    }
+  ],
+  "claim_boundary": "Partial/failure evidence only. Do not cite as completed 10/10, production reliability, or production security evidence."
+}

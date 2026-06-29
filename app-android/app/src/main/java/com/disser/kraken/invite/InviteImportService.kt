@@ -10,7 +10,7 @@ class InviteImportService {
         existingImports: List<PendingInviteImport>,
     ): InviteImportResult {
         val payload = InvitePayloadCodec.decode(rawJson).getOrElse { error ->
-            return InviteImportResult.Error(error.message ?: "Invalid invite JSON.")
+            return InviteImportResult.Error(error.message ?: "Не удалось прочитать QR Kraken.")
         }
 
         validate(payload, localIdentity, existingImports)?.let { error ->
@@ -48,17 +48,17 @@ class InviteImportService {
         existingImports: List<PendingInviteImport>,
     ): String? {
         return when {
-            payload.type != OneTimeInvitePayload.TYPE -> "Unsupported invite type."
-            payload.version != OneTimeInvitePayload.VERSION -> "Unsupported invite version."
-            payload.inviteId.isBlank() -> "Missing invite_id."
+            payload.type != OneTimeInvitePayload.TYPE -> "Неподдерживаемый тип приглашения."
+            payload.version != OneTimeInvitePayload.VERSION -> "Неподдерживаемая версия приглашения."
+            payload.inviteId.isBlank() -> "В приглашении отсутствует идентификатор."
             payload.scope == InviteScope.REALM_MEMBERSHIP && payload.realmId.isNullOrBlank() ->
-                "Missing realm_id."
-            payload.inviterPublicKeyEncoded.isBlank() -> "Missing inviter public key."
-            payload.inviterFingerprint.isBlank() -> "Missing inviter fingerprint."
+                "В приглашении отсутствует реалм."
+            payload.inviterPublicKeyEncoded.isBlank() -> "В приглашении отсутствует ключ."
+            payload.inviterFingerprint.isBlank() -> "В приглашении отсутствует отпечаток."
             localIdentity != null && payload.inviterPublicKeyEncoded == localIdentity.publicKeyEncoded ->
-                "Self-invite is not allowed."
+                "Нельзя добавить собственный QR."
             existingImports.any { it.inviteId == payload.inviteId } ->
-                "This invite was already imported."
+                "Приглашение уже добавлено."
             existingImports.any { it.inviterPublicKeyEncoded == payload.inviterPublicKeyEncoded } ->
                 "Ключ уже знаком"
             else -> null

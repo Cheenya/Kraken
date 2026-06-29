@@ -112,7 +112,7 @@ fun MyQrScreen(
     ScreenContainer("Мой QR", navController) {
         if (localIdentity == null) {
             EmptyState(
-                "Нужен профиль на этом устройстве",
+                "Нужен профиль Kraken",
                 "Создайте профиль перед показом QR.",
                 actionLabel = "Создать",
                 route = KrakenRoute.CreateIdentity,
@@ -124,7 +124,7 @@ fun MyQrScreen(
         val payload = localPayloadPreview
         InfoCard(
             "Мой QR",
-            listOf("Покажите этот QR человеку рядом. После сканирования приложение перейдёт к подтверждению контакта.")
+            listOf("Покажите этот QR второму устройству. После сканирования приложение перейдёт к подтверждению контакта.")
         )
         when {
             qrDisplayModel == null ->
@@ -162,9 +162,9 @@ fun MyQrScreen(
             }
         }
         WarningCard(
-            "Подтверждение рядом",
+            "Локальное подтверждение",
             listOf(
-                "QR только подтверждает, что устройства рядом. Ручные QR-шаги нужны как резервный способ, если Bluetooth-подтверждение недоступно.",
+                "QR запускает локальное подтверждение контакта. Если Bluetooth недоступен, завершить сопряжение можно через QR подтверждения.",
             )
         )
         if (showDetails && payload != null) {
@@ -194,7 +194,7 @@ private fun NearbyHandshakeWaitingStatus(meshSnapshot: MeshServiceSnapshot) {
             if (meshRunning) {
                 "После сканирования вторым устройством контакт должен подтвердиться автоматически."
             } else {
-                "Запустите связь рядом, чтобы второе устройство могло отправить подтверждение без второго QR."
+                "Запустите локальную связь, чтобы второе устройство могло отправить подтверждение без второго QR."
             },
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

@@ -1,0 +1,41 @@
+{
+  "report": "kraken_release_package",
+  "report_date": "2026-06-11",
+  "artifact_built_at": "2026-06-11 12:22:10 MSK",
+  "artifact_root": "artifacts/releases/20260611-kraken-release-05ba28d",
+  "zip": "artifacts/releases/20260611-kraken-release-05ba28d/Kraken_release_2026-06-11_05ba28d.zip",
+  "apk": "artifacts/releases/20260611-kraken-release-05ba28d/Kraken_release/Kraken_release.apk",
+  "readme": "artifacts/releases/20260611-kraken-release-05ba28d/Kraken_release/README.txt",
+  "metadata": "artifacts/releases/20260611-kraken-release-05ba28d/Kraken_release/metadata.json",
+  "package": "com.disser.kraken",
+  "version_name": "0.1.0",
+  "git_sha": "05ba28d",
+  "branch": "codex/android-research-panel-report-viewer",
+  "build_type": "debug research demo",
+  "debuggable": true,
+  "min_sdk": 26,
+  "target_sdk": 35,
+  "sha256": "97f4a65420c173cb48f1b79950edfe89c4c8fe3d9c1682d4f86d8c045b7e341a",
+  "size": "21M",
+  "installed_on": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "status": "installed_and_launched"
+    }
+  ],
+  "validation": {
+    "targeted_gradle_unit_tests": "passed",
+    "pytest_android_policy_guards": "53 passed",
+    "lint_debug": "passed",
+    "assemble_debug": "passed",
+    "apksigner_verify": "passed_v2_debug_certificate",
+    "apkanalyzer_manifest": "passed",
+    "checksum_verify": "passed",
+    "zip_integrity": "passed",
+    "smoke_install_samsung": "passed",
+    "smoke_launch_samsung": "passed",
+    "git_diff_check": "passed"
+  },
+  "claim_boundary": "Installable research/demo APK for friend testing. This is not a production secure messenger release and does not claim production encryption, production Keystore identity, signed QR proofs, production security review, or complete Wi-Fi Direct route evidence."
+}

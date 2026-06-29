@@ -159,7 +159,7 @@ fun TransportStatusBar(
                     .fillMaxWidth()
                     .clickable(onClick = onOpenMeshStatus)
                     .semantics {
-                        contentDescription = "$statusText. Открыть диагностику связи рядом"
+                        contentDescription = "$statusText. Открыть диагностику локальной связи"
                     },
                 shape = RoundedCornerShape(18.dp),
                 color = if (noTransportActive) {
@@ -190,14 +190,14 @@ fun TransportStatusBar(
                 )
                 TransportPathIcon(
                     active = wifiActive,
-                    activeDescription = "Wi-Fi LAN транспорт активен",
-                    inactiveDescription = "Wi-Fi LAN транспорт не активен: ${readiness.wifi.reasonText("Wi‑Fi")}",
+                    activeDescription = "Wi‑Fi/LAN связь активна",
+                    inactiveDescription = "Wi‑Fi/LAN связь не активна: ${readiness.wifi.reasonText("Wi‑Fi")}",
                     icon = WifiPathIcon,
                 )
                 TransportPathIcon(
                     active = bluetoothActive,
-                    activeDescription = "Bluetooth транспорт активен",
-                    inactiveDescription = "Bluetooth транспорт не активен: ${readiness.bluetooth.reasonText("Bluetooth")}",
+                    activeDescription = "Bluetooth-связь активна",
+                    inactiveDescription = "Bluetooth-связь не активна: ${readiness.bluetooth.reasonText("Bluetooth")}",
                     icon = BluetoothPathIcon,
                 )
                 }
@@ -214,13 +214,13 @@ private fun transportChipText(
     readiness: TransportReadinessSnapshot,
 ): String =
     when {
-        !hasLocalIdentity -> "Нет профиля на устройстве"
+        !hasLocalIdentity -> "Нет профиля Kraken"
         !meshRunning -> "Локальная связь не запущена"
         !bluetoothActive && !wifiActive ->
-            "LAN недоступен · BT ${readiness.bluetooth.reasonText("Bluetooth")} · телефон не передаёт и не принимает"
+            "LAN недоступен · Bluetooth: ${readiness.bluetooth.reasonText("Bluetooth")} · телефон не передаёт и не принимает"
         else -> listOf(
             if (wifiActive) "LAN активен" else "LAN: ${readiness.wifi.reasonText("Wi‑Fi")}",
-            if (bluetoothActive) "BT активен" else "BT: ${readiness.bluetooth.reasonText("Bluetooth")}",
+            if (bluetoothActive) "Bluetooth активен" else "Bluetooth: ${readiness.bluetooth.reasonText("Bluetooth")}",
         ).joinToString(" · ")
     }
 
@@ -237,9 +237,9 @@ private fun TransportPathReadiness.reasonText(pathLabel: String): String =
     when {
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "$pathLabel выключен"
-        !transportImplemented -> "транспорт в очереди"
+        !transportImplemented -> "транспорт не реализован"
         !serviceRunning -> "служба не запущена"
-        else -> "mesh не запущен"
+        else -> "связь не запущена"
     }
 
 @Composable

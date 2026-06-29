@@ -1,0 +1,63 @@
+{
+  "report": "wifi_direct_only_capture",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "artifact_root": "artifacts/debug-route-evidence/20260608-085525-wifi-direct-only-after-254b209",
+  "git": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "sha": "254b209",
+    "capture_source_state": "clean",
+    "app_source_state": "clean_commit_254b209"
+  },
+  "capture_mode": "debug_adb_broadcast_start_mesh_with_wifi_direct_only_profile",
+  "start_mesh_before_export": true,
+  "transport_profile": "wifi-direct-only",
+  "run_local_hostile_probe": false,
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "mesh_state": "SCANNING",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "selected_route": "none",
+      "recent_route_attempt_count": 0,
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      }
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "mesh_state": "SCANNING",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "selected_route": "none",
+      "recent_route_attempt_count": 0,
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      }
+    }
+  ],
+  "closed_gap": "debug_wifi_direct_only_capture_without_ble_lan_fallback",
+  "not_closed": [
+    "wifi_direct_selected_route_delivery",
+    "wifi_direct_peer_discovery_or_connection",
+    "wifi_direct_negative_tests",
+    "wifi_direct_latency_loss_retry_samples",
+    "physical_hostile_packet_injection_over_lan_ble_wifi_direct",
+    "mac_inline_relay_attack_against_android_devices",
+    "repeated_route_benchmark"
+  ],
+  "claim_boundary": "Wi-Fi Direct-only debug capture proves the app can start with only the Wi-Fi Direct prototype transport enabled and with Wi-Fi Direct readiness active on both phones. selected_route remained none and recent_route_attempt_count remained 0, so this is not Wi-Fi Direct delivery evidence."
+}

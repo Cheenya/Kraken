@@ -1,0 +1,42 @@
+{
+  "report": "kraken_release_hard_gate",
+  "date": "2026-06-10",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "implemented_gate": "krakenReleasePrototypeGate",
+  "release_like_tasks_blocked": [
+    "assembleRelease",
+    "bundleRelease",
+    "packageRelease"
+  ],
+  "debug_friend_testing_task": "assembleDebug",
+  "build_config_flags": {
+    "debug": {
+      "KRAKEN_RESEARCH_DEMO": true,
+      "KRAKEN_RELEASE_SECURITY_READY": false
+    },
+    "release": {
+      "KRAKEN_RESEARCH_DEMO": false,
+      "KRAKEN_RELEASE_SECURITY_READY": false
+    }
+  },
+  "validation": {
+    "assemble_debug": "passed",
+    "assemble_release": {
+      "status": "blocked_as_expected",
+      "failing_task": ":app:krakenReleasePrototypeGate",
+      "error_contains": "Kraken release/prod build is blocked: PrototypeNoSecurityPacketCrypto, placeholder identity and unsigned QR handshake are still research-only. Use assembleDebug for friend testing, or implement the production readiness roadmap first."
+    },
+    "pytest_policy_guards": "41 passed"
+  },
+  "closed_gap": "minimal_gradle_release_like_prototype_hard_gate",
+  "not_closed": [
+    "production_crypto",
+    "android_keystore_identity",
+    "signed_qr_handshake",
+    "encrypted_packet_envelope",
+    "release_signing",
+    "security_review"
+  ],
+  "claim_boundary": "This blocks accidental release-like Gradle builds while prototype crypto, placeholder identity and unsigned QR remain in use. It does not implement production security."
+}

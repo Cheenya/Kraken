@@ -90,7 +90,7 @@ fun ContactsScreen(
                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                     Text("QR-приглашение", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                     Text(
-                        "QR рядом для контакта.",
+                        "Локальное QR-приглашение для контакта.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -183,7 +183,7 @@ fun ContactsScreen(
         } else {
             EmptyState(
                 "Контактов пока нет",
-                "Сканируйте QR, чтобы добавить контакт рядом.",
+                "Сканируйте QR, чтобы добавить локальный контакт.",
                 actionLabel = "Скан QR",
                 route = KrakenRoute.QrScanner,
                 navController = navController,
@@ -191,7 +191,7 @@ fun ContactsScreen(
         }
         KrakenCompactCard {
             Text(
-                "QR создаёт локальное доверие для контакта и привязывает следующий обмен к выбранному профилю.",
+                "QR создаёт локальное доверие для контакта и запускает подтверждение связи.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -275,7 +275,7 @@ private fun RelationshipCard(
                     )
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                     Text(
-                        "Оставьте устройства рядом. Если подтверждение не придёт, используйте резервный QR.",
+                        "Дождитесь локального подтверждения. Если оно не придёт, используйте QR подтверждения.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -383,7 +383,7 @@ private fun CancelPairingSheet(
         ) {
             Text("Отменить сопряжение?", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(
-                "Запись ${relationship.peerDisplayName ?: "контакта"} будет удалена только с этого устройства. Для новой попытки понадобится заново отсканировать QR.",
+                "Сопряжение с ${relationship.peerDisplayName ?: "контактом"} будет удалено. Для новой попытки отсканируйте QR заново.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -429,7 +429,7 @@ private fun RelationshipActionRow(
                 onClick = {
                     val identity = localIdentity
                     if (identity == null) {
-                        onError("Сначала создайте профиль на этом устройстве.")
+                        onError("Сначала создайте профиль Kraken.")
                     } else {
                         val handshaking = RelationshipService.startHandshake(relationship)
                         onRelationshipUpdated(handshaking)
@@ -438,22 +438,22 @@ private fun RelationshipActionRow(
                                 onSuccess = { payload ->
                                     onPayloadReady(
                                         HandshakePayloadView(
-                                            title = "Ручной QR подтверждения",
+                                            title = "QR подтверждения",
                                             payloadJson = HandshakePayloadCodec.encodeResponse(payload),
                                             details = listOf(
                                                 "Покажите этот QR устройству, которое создало приглашение.",
-                                                "Это резервный путь, если Bluetooth-подтверждение рядом не сработало.",
-                                                "После сканирования там появится следующий резервный шаг.",
+                                                "Этот QR завершает подтверждение контакта.",
+                                                "После сканирования контакт продолжит сопряжение.",
                                             )
                                         )
                                     )
                                 },
-                                onFailure = { onError(it.message ?: "Не удалось создать резервный QR.") },
+                                onFailure = { onError(it.message ?: "Не удалось создать QR подтверждения.") },
                             )
                     }
                 }
             ) {
-                Text("Завершить вручную через QR")
+                Text("Завершить через QR")
             }
         }
         if (relationship.state in setOf(RelationshipState.PENDING_IMPORT, RelationshipState.PENDING_HANDSHAKE)) {
@@ -466,34 +466,34 @@ private fun RelationshipActionRow(
                 onClick = {
                     val identity = localIdentity
                     if (identity == null) {
-                        onError("Сначала создайте профиль на этом устройстве.")
+                        onError("Сначала создайте профиль Kraken.")
                     } else {
                         handshakeService.generateResponsePayload(identity, relationship)
                             .fold(
                                 onSuccess = { payload ->
                                     onPayloadReady(
                                         HandshakePayloadView(
-                                            title = "Ручной QR подтверждения",
+                                            title = "QR подтверждения",
                                             payloadJson = HandshakePayloadCodec.encodeResponse(payload),
                                             details = listOf(
                                                 "Покажите этот QR устройству, которое создало приглашение.",
                                                 "Это устройство пока ждёт завершение сопряжения.",
-                                                "Это резервный способ, если подтверждение рядом недоступно.",
+                                                "Этот QR завершает подтверждение контакта.",
                                             )
                                         )
                                     )
                                 },
-                                onFailure = { onError(it.message ?: "Не удалось создать резервный QR.") },
+                                onFailure = { onError(it.message ?: "Не удалось создать QR подтверждения.") },
                             )
                     }
                 }
             ) {
-                Text("Показать ручной QR")
+                Text("Показать QR")
             }
         }
         if (relationship.state == RelationshipState.PENDING_HANDSHAKE && showManualFallback) {
             OutlinedButton(onClick = { navController.navigate(KrakenRoute.QrScanner.route) }) {
-                Text("Сканировать ручной QR")
+                Text("Сканировать QR")
             }
         }
     }
@@ -536,12 +536,12 @@ private fun shortRelationshipSubtitle(relationship: Relationship): String =
         RelationshipState.UNLINK_REQUESTED -> "Запрошена отвязка."
         RelationshipState.UNLINKED -> "Локальный контакт завершён."
         RelationshipState.BLOCKED_BY_PEER -> "Контакт заблокирован или завершён."
-        RelationshipState.REJOIN_REQUIRED -> "Нужны новый invite и рукопожатие."
+        RelationshipState.REJOIN_REQUIRED -> "Нужно новое приглашение и рукопожатие."
     }
 
 private fun pendingHandshakeProgressLabel(state: RelationshipState): String =
     when (state) {
-        RelationshipState.PENDING_IMPORT -> "Подтверждаем контакт рядом..."
-        RelationshipState.PENDING_HANDSHAKE -> "Завершаем сопряжение рядом..."
-        else -> "Ждём подтверждение рядом..."
+        RelationshipState.PENDING_IMPORT -> "Подтверждаем локальный контакт..."
+        RelationshipState.PENDING_HANDSHAKE -> "Завершаем локальное сопряжение..."
+        else -> "Ждём локальное подтверждение..."
     }

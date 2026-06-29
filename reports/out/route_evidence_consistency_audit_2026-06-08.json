@@ -1,0 +1,412 @@
+{
+  "audit_date": "2026-06-08",
+  "raw_root": "artifacts/two-phone-test",
+  "verification_passed": true,
+  "status": "passed_with_quarantined_raw_mismatches",
+  "pairs_scanned": 28,
+  "matching_pairs": 16,
+  "json_only_raw_exports": 9,
+  "mismatched_pairs": 3,
+  "mismatch_field_count": 32,
+  "source_hierarchy": [
+    "reports/out/two_device_route_specific_smoke_2026-06-08.md",
+    "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+    "reports/out/mesh_metrics_summary.json",
+    "ignored artifacts/two-phone-test JSON",
+    "ignored artifacts/two-phone-test markdown summaries only after JSON consistency check"
+  ],
+  "raw_markdown_summary_policy": "Ignored per-device markdown summaries are not current source-of-truth when they disagree with sibling JSON; cite consolidated reports/out artifacts first.",
+  "audits": [
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/exported-route-evidence/route_specific_evidence_R5CY22X6MSB.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/exported-route-evidence/route_specific_evidence_d948ffd0.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-after-reinstall-private-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-after-reinstall-private-export/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-after-reinstall-private-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-after-reinstall-private-export/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-debug-exported-route-evidence/route_specific_evidence_R5CY22X6MSB.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-debug-exported-route-evidence/route_specific_evidence_d948ffd0.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-debug-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-debug-export/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-debug-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-debug-export/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture/device-a-R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture/device-a-R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "raw_summary_mismatch_quarantined",
+      "mismatches": [
+        {
+          "key": "Recent route attempts",
+          "json_path": "transport.recent_route_attempts.count",
+          "expected": "12",
+          "actual": "4"
+        },
+        {
+          "key": "Last packet status",
+          "json_path": "last_packet_status",
+          "expected": "rejected-1",
+          "actual": "sync-noop"
+        },
+        {
+          "key": "packetsSent",
+          "json_path": "metrics.packets_sent",
+          "expected": "2",
+          "actual": "6"
+        },
+        {
+          "key": "duplicatesDropped",
+          "json_path": "metrics.duplicates_dropped",
+          "expected": "5",
+          "actual": "7"
+        },
+        {
+          "key": "unknownPeerRejected",
+          "json_path": "metrics.unknown_peer_rejected",
+          "expected": "48",
+          "actual": "63"
+        },
+        {
+          "key": "wrongRecipientRejected",
+          "json_path": "metrics.wrong_recipient_rejected",
+          "expected": "2",
+          "actual": "3"
+        },
+        {
+          "key": "sentAfterTransportRestart",
+          "json_path": "debug_smoke.sent_after_transport_restart",
+          "expected": "false",
+          "actual": "true"
+        },
+        {
+          "key": "messageStatusAfterRestart",
+          "json_path": "debug_smoke.message_status_after_restart",
+          "expected": "FAILED",
+          "actual": "SENT_TO_TRANSPORT"
+        }
+      ]
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture/device-b-d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture/device-b-d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": null,
+      "summary_kind": "in_app_latest",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": null,
+      "summary_kind": "in_app_latest",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-samsung-only-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": null,
+      "summary_kind": "in_app_latest",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route-specific/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route-specific/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "raw_summary_mismatch_quarantined",
+      "mismatches": [
+        {
+          "key": "Recent route attempts",
+          "json_path": "transport.recent_route_attempts.count",
+          "expected": "2",
+          "actual": "4"
+        },
+        {
+          "key": "Queue size",
+          "json_path": "queue_size",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "packetsSent",
+          "json_path": "metrics.packets_sent",
+          "expected": "2",
+          "actual": "6"
+        },
+        {
+          "key": "packetsReceived",
+          "json_path": "metrics.packets_received",
+          "expected": "1",
+          "actual": "2"
+        },
+        {
+          "key": "duplicatesDropped",
+          "json_path": "metrics.duplicates_dropped",
+          "expected": "1",
+          "actual": "7"
+        },
+        {
+          "key": "expiredDropped",
+          "json_path": "metrics.expired_dropped",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "unknownPeerRejected",
+          "json_path": "metrics.unknown_peer_rejected",
+          "expected": "1",
+          "actual": "63"
+        },
+        {
+          "key": "wrongRecipientRejected",
+          "json_path": "metrics.wrong_recipient_rejected",
+          "expected": "1",
+          "actual": "3"
+        },
+        {
+          "key": "lastDeliveryLatencyMs",
+          "json_path": "metrics.last_delivery_latency_ms",
+          "expected": "1391",
+          "actual": "7192"
+        },
+        {
+          "key": "deliveredAfterTransportRestart",
+          "json_path": "debug_smoke.delivered_after_transport_restart",
+          "expected": "true",
+          "actual": "false"
+        },
+        {
+          "key": "queueSizeAfterRestart",
+          "json_path": "debug_smoke.queue_size_after_restart",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "messageStatusAfterRestart",
+          "json_path": "debug_smoke.message_status_after_restart",
+          "expected": "DELIVERED_TO_PEER",
+          "actual": "SENT_TO_TRANSPORT"
+        }
+      ]
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route-specific/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route-specific/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route_specific_evidence.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture/route_specific_evidence_summary.md",
+      "summary_kind": "capture_bundle",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "raw_summary_mismatch_quarantined",
+      "mismatches": [
+        {
+          "key": "Recent route attempts",
+          "json_path": "transport.recent_route_attempts.count",
+          "expected": "2",
+          "actual": "4"
+        },
+        {
+          "key": "Queue size",
+          "json_path": "queue_size",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "packetsSent",
+          "json_path": "metrics.packets_sent",
+          "expected": "2",
+          "actual": "6"
+        },
+        {
+          "key": "packetsReceived",
+          "json_path": "metrics.packets_received",
+          "expected": "1",
+          "actual": "2"
+        },
+        {
+          "key": "duplicatesDropped",
+          "json_path": "metrics.duplicates_dropped",
+          "expected": "1",
+          "actual": "7"
+        },
+        {
+          "key": "expiredDropped",
+          "json_path": "metrics.expired_dropped",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "unknownPeerRejected",
+          "json_path": "metrics.unknown_peer_rejected",
+          "expected": "1",
+          "actual": "63"
+        },
+        {
+          "key": "wrongRecipientRejected",
+          "json_path": "metrics.wrong_recipient_rejected",
+          "expected": "1",
+          "actual": "3"
+        },
+        {
+          "key": "lastDeliveryLatencyMs",
+          "json_path": "metrics.last_delivery_latency_ms",
+          "expected": "1391",
+          "actual": "7192"
+        },
+        {
+          "key": "deliveredAfterTransportRestart",
+          "json_path": "debug_smoke.delivered_after_transport_restart",
+          "expected": "true",
+          "actual": "false"
+        },
+        {
+          "key": "queueSizeAfterRestart",
+          "json_path": "debug_smoke.queue_size_after_restart",
+          "expected": "0",
+          "actual": "1"
+        },
+        {
+          "key": "messageStatusAfterRestart",
+          "json_path": "debug_smoke.message_status_after_restart",
+          "expected": "DELIVERED_TO_PEER",
+          "actual": "SENT_TO_TRANSPORT"
+        }
+      ]
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture/device-a-R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture/device-a-R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture/device-b-d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture/device-b-d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/R5CY22X6MSB/route_specific_evidence_after_wait.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/d948ffd0/route_specific_evidence_after_wait.json",
+      "summary_path": null,
+      "summary_kind": "capture_bundle",
+      "status": "json_only_raw_export",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture/device-a-R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture/device-a-R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture/device-b-d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture/device-b-d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export/R5CY22X6MSB/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export/R5CY22X6MSB/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    },
+    {
+      "json_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export/d948ffd0/route_specific_evidence_latest.json",
+      "summary_path": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export/d948ffd0/route_specific_evidence_summary_latest.md",
+      "summary_kind": "in_app_latest",
+      "status": "matches",
+      "mismatches": []
+    }
+  ]
+}

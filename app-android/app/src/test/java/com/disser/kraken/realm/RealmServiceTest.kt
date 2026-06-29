@@ -21,7 +21,7 @@ class RealmServiceTest {
     fun creatingDemoRealmProducesDefaultPolicyCapacityAndMembershipCertificate() {
         val creation = RealmService.createDemoRealm(owner, nowEpochMillis = 1_700_000_000_100)
 
-        assertEquals("Kraken Demo", creation.realm.name)
+        assertEquals("Демо диссертации", creation.realm.name)
         assertEquals(500, creation.realm.policy.maxMembers)
         assertEquals(500, creation.realm.capacityState.capacity)
         assertEquals(1, creation.realm.capacityState.memberCount)

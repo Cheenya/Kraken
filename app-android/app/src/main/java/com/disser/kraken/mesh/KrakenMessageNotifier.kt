@@ -34,7 +34,7 @@ object KrakenMessageNotifier {
         val manager = context.getSystemService(NotificationManager::class.java) ?: return
         notificationBatches(messages).forEach { batch ->
             batch.messages.forEach { message -> manager.cancel(message.messageId.hashCode()) }
-            val contactName = contactNameFor(batch.latestMessage) ?: "Kraken contact"
+            val contactName = contactNameFor(batch.latestMessage) ?: "Контакт Kraken"
             val preview = batch.latestMessage.body.take(NOTIFICATION_PREVIEW_LIMIT)
             val contentText = if (batch.messages.size == 1) {
                 preview
@@ -48,7 +48,7 @@ object KrakenMessageNotifier {
                     .setSmallIcon(R.drawable.ic_kraken_notification)
                     .setContentTitle(contactName)
                     .setContentText(contentText)
-                    .setSubText("Kraken Mesh")
+                    .setSubText("Kraken")
                     .setTicker("$contactName: $preview")
                     .setWhen(batch.latestMessage.createdAtEpochMillis)
                     .setShowWhen(true)

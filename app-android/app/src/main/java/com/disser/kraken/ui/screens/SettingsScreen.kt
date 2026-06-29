@@ -93,16 +93,16 @@ fun SettingsScreen(
         if (localIdentity != null) {
             KrakenListRow(
                 title = localIdentity.displayName,
-                subtitle = "${localIdentity.fingerprint.take(4)}…${localIdentity.fingerprint.takeLast(4)} · профиль на этом устройстве",
+                subtitle = "Отпечаток ${localIdentity.fingerprint.take(4)}…${localIdentity.fingerprint.takeLast(4)}",
                 leadingIcon = KrakenIcons.Identity,
-                badge = "НА УСТРОЙСТВЕ",
+                badge = "ПРОФИЛЬ",
             )
             TechnicalDetailsDisclosure("Профиль и имя") {
                 InfoCard(
                     "Технические данные",
                     listOf(
                         "Отпечаток: ${localIdentity.fingerprint}",
-                        "Создано локально: ${formatEpoch(localIdentity.createdAtEpochMillis)}",
+                        "Создан: ${formatEpoch(localIdentity.createdAtEpochMillis)}",
                     )
                 )
                 if (editingIdentity) {
@@ -170,7 +170,7 @@ fun SettingsScreen(
         )
         KrakenListRow(
             title = "Быстрая реакция",
-            subtitle = "Двойной тап по сообщению · пока только локально",
+            subtitle = "Двойной тап по сообщению",
             leadingIcon = KrakenIcons.Chat,
             trailingText = quickReaction,
             onClick = { quickReactionPickerOpen = true },
@@ -199,7 +199,7 @@ fun SettingsScreen(
         if (routeSettingsMode == RouteSettingsMode.Diagnostics) {
             KrakenListRow(
                 title = "Диагностика связи",
-                subtitle = "Bluetooth/LAN, очередь сообщений и устройства рядом",
+                subtitle = "Bluetooth/LAN, очередь сообщений и найденные устройства",
                 leadingIcon = KrakenIcons.MeshStatus,
                 trailingText = "›",
                 onClick = { navController.navigate(KrakenRoute.MeshStatus.route) },
@@ -207,18 +207,18 @@ fun SettingsScreen(
         }
         KrakenSectionHeader("Исследование")
         KrakenListRow(
-            title = "Проверки и отчёты",
-            subtitle = "Отчёты, замеры и проверочные материалы",
+            title = "Исследовательский режим",
+            subtitle = "Отчёты, замеры и материалы для диссертации",
             leadingIcon = KrakenIcons.Research,
             trailingText = "›",
             onClick = { navController.navigate(KrakenRoute.Research.route) },
         )
-        TechnicalDetailsDisclosure("О контуре проверок") {
+        TechnicalDetailsDisclosure("Технические сведения") {
             InfoCard(
-                "Контур обмена",
+                "Локальная связь",
                 listOf(
-                    "Сообщения передаются через локальные прямые маршруты или явно проверенный relay.",
-                    "Проверочные экраны показывают состояние локального контура обмена.",
+                    "Сообщения передаются через локальные прямые маршруты или проверенный маршрут ретрансляции.",
+                    "Диагностика и отчёты вынесены в отдельные технические экраны.",
                 ),
             )
         }
@@ -231,7 +231,7 @@ fun SettingsScreen(
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
-                        "Используется по двойному тапу. В этой версии реакция сохраняется только на вашем устройстве.",
+                        "Используется по двойному тапу по сообщению.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -287,6 +287,7 @@ private fun MeshControlCard(
     onSyncMeshNow: () -> Unit,
 ) {
     val meshRunning = meshSnapshot.state !in setOf(MeshState.OFF, MeshState.ERROR)
+    val meshServiceActive = meshRunning || meshSnapshot.foregroundServiceEnabled
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(14.dp),
@@ -330,7 +331,7 @@ private fun MeshControlCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                if (meshRunning) {
+                if (meshServiceActive) {
                     Button(onClick = onSyncMeshNow, modifier = Modifier.weight(1f)) {
                         Text(if (meshSnapshot.queuedPackets > 0) "Отправить" else "Проверить")
                     }
@@ -369,7 +370,7 @@ private fun MeshControlCard(
                     Text("Wi‑Fi Direct")
                 }
             }
-            if (meshRunning) {
+            if (meshServiceActive) {
                 OutlinedButton(onClick = onStopMesh, modifier = Modifier.fillMaxWidth()) {
                     Text("Остановить связь")
                 }
@@ -401,7 +402,7 @@ private fun meshStateLabel(state: MeshState): String =
         MeshState.OFF -> "выкл."
         MeshState.STARTING -> "старт"
         MeshState.SCANNING -> "поиск"
-        MeshState.PEER_FOUND -> "рядом"
+        MeshState.PEER_FOUND -> "найдено"
         MeshState.CONNECTED -> "активна"
         MeshState.DEGRADED -> "огранич."
         MeshState.ERROR -> "ошибка"
@@ -521,8 +522,8 @@ private fun ThemePresetSelector(
     InfoCard(
         "Для диагностики",
         listOf(
-            "Технические стили нужны для раздела проверок и проверки интерфейса.",
-            "Они меняют только визуальные токены, не протоколы и не безопасность.",
+            "Технические стили нужны для диагностики и проверки интерфейса.",
+            "Они меняют только визуальные токены интерфейса.",
         ),
     )
     KrakenThemePresetCatalog.diagnosticOptions(selectedPreset).forEach { option ->
@@ -706,6 +707,6 @@ private enum class RouteSettingsMode(
     ),
     Diagnostics(
         label = "Диагностика",
-        subtitle = "Инструменты диагностики и evidence",
+        subtitle = "Инструменты диагностики и подтверждения",
     );
 }

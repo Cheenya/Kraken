@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "evidenceSet": "kraken-ios-current-smoke",
+  "generatedBy": "app-ios/Scripts/capture_ios_smoke.py",
+  "currentScreenshots": [
+    "kraken-ios-native-welcome.png",
+    "kraken-ios-native-home.png",
+    "kraken-ios-native-contacts.png",
+    "kraken-ios-native-contacts-bottom.png",
+    "kraken-ios-native-contacts-qr-invite.png",
+    "kraken-ios-native-contacts-qr-response.png",
+    "kraken-ios-native-contacts-qr-response-bottom.png",
+    "kraken-ios-native-contacts-qr-confirmation.png",
+    "kraken-ios-native-realms.png",
+    "kraken-ios-native-realms-bottom.png",
+    "kraken-ios-native-settings.png",
+    "kraken-ios-native-settings-bottom.png",
+    "kraken-ios-compact-welcome.png",
+    "kraken-ios-compact-contacts-qr-response-bottom.png",
+    "kraken-ios-compact-settings-bottom.png",
+    "kraken-ios-tablet-welcome.png",
+    "kraken-ios-tablet-settings-bottom.png"
+  ],
+  "launchReference": {
+    "file": "kraken-ios-launch-reference.png",
+    "source": "UILaunchScreen BrandBackground + LaunchGlyph assets",
+    "pixels": [
+      1170,
+      2532
+    ],
+    "note": "Reference image, not a Simulator launch screenshot."
+  },
+  "compactViewport": {
+    "device": "iPhone SE (3rd generation)",
+    "expectedPixels": [
+      750,
+      1334
+    ],
+    "screenshots": [
+      "kraken-ios-compact-welcome.png",
+      "kraken-ios-compact-contacts-qr-response-bottom.png",
+      "kraken-ios-compact-settings-bottom.png"
+    ]
+  },
+  "tabletViewport": {
+    "device": "iPad (A16)",
+    "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+    "screenshots": [
+      "kraken-ios-tablet-welcome.png",
+      "kraken-ios-tablet-settings-bottom.png"
+    ],
+    "note": "Simulator evidence only; physical iPad review remains a device gate."
+  },
+  "staleExcludedPatterns": [
+    "kraken-ios-android-",
+    "kraken-ios-chat",
+    "kraken-ios-native-chats.png",
+    "kraken-ios-launch.png",
+    "kraken-ios-native-launch.png",
+    "tmp-"
+  ],
+  "notes": [
+    "Only currentScreenshots are current iOS UI evidence.",
+    "Older kraken-ios-android-* and kraken-ios-chat* captures are stale comparison files.",
+    "tmp-* files are manual debug captures and are not current UI evidence.",
+    "Launch screen evidence is verified structurally through UILaunchScreen and LaunchGlyph assets.",
+    "Non-welcome screenshots are pixel-checked so early LaunchGlyph frames cannot pass as tab evidence."
+  ]
+}

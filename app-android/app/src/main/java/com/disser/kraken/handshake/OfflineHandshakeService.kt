@@ -250,22 +250,22 @@ class OfflineHandshakeService(
         nowEpochMillis: Long,
     ): String? =
         when {
-            payload.type != HandshakeResponsePayload.TYPE -> "Unsupported response payload type."
-            payload.version != HandshakeResponsePayload.VERSION -> "Unsupported response payload version."
-            payload.responseId.isBlank() -> "Missing response_id."
-            payload.inviteId.isBlank() -> "Missing invite_id."
-            payload.responderFingerprint.isBlank() -> "Missing responder fingerprint."
-            payload.responderPublicKeyEncoded.isBlank() -> "Missing responder public key."
-            payload.inviterFingerprint != localIdentity.fingerprint -> "This response is addressed to another identity."
+            payload.type != HandshakeResponsePayload.TYPE -> "Неподдерживаемый тип ответа."
+            payload.version != HandshakeResponsePayload.VERSION -> "Неподдерживаемая версия ответа."
+            payload.responseId.isBlank() -> "В ответе отсутствует идентификатор."
+            payload.inviteId.isBlank() -> "В ответе отсутствует приглашение."
+            payload.responderFingerprint.isBlank() -> "В ответе отсутствует отпечаток."
+            payload.responderPublicKeyEncoded.isBlank() -> "В ответе отсутствует ключ."
+            payload.inviterFingerprint != localIdentity.fingerprint -> "Ответ адресован другому профилю."
             payload.responderFingerprint == localIdentity.fingerprint ||
                 payload.responderPublicKeyEncoded == localIdentity.publicKeyEncoded ->
-                "Self-handshake is not allowed."
+                "Нельзя выполнить сопряжение с собственным профилем."
             knownInviteLifecycle != null && knownInviteLifecycle.inviteId != payload.inviteId ->
-                "This response references an unknown invite."
-            knownInviteLifecycle?.revoked == true -> "This invite was revoked locally."
-            knownInviteLifecycle?.consumed == true -> "This invite was already consumed locally."
+                "Ответ ссылается на неизвестное приглашение."
+            knownInviteLifecycle?.revoked == true -> "Это приглашение уже отозвано."
+            knownInviteLifecycle?.consumed == true -> "Это приглашение уже использовано."
             knownInviteLifecycle?.expiresAtEpochMillis != null && nowEpochMillis >= knownInviteLifecycle.expiresAtEpochMillis ->
-                "This invite is expired locally."
+                "Срок действия приглашения истёк."
             else -> null
         }
 
@@ -276,20 +276,20 @@ class OfflineHandshakeService(
         nowEpochMillis: Long,
     ): String? {
         val certificate = payload.membershipCertificate ?: return null
-        val realmId = payload.realmId ?: return "Membership confirmation is missing realm_id."
+        val realmId = payload.realmId ?: return "В подтверждении членства отсутствует реалм."
         return when {
             relationship.realmId != null && relationship.realmId != realmId ->
-                "This membership confirmation belongs to another realm."
+                "Подтверждение членства относится к другому реалму."
             certificate.realmId != realmId ->
-                "Membership certificate realm does not match the confirmation."
+                "Реалм сертификата членства не совпадает с подтверждением."
             certificate.memberPublicKey != localIdentity.publicKeyEncoded ->
-                "Membership certificate is addressed to another identity."
+                "Сертификат членства адресован другому профилю."
             certificate.issuedByPublicKey != relationship.peerPublicKey ->
-                "Membership certificate issuer does not match the inviter."
+                "Автор сертификата членства не совпадает с пригласившим контактом."
             certificate.expiresAtEpochMillis != null && nowEpochMillis >= certificate.expiresAtEpochMillis ->
-                "Membership certificate is expired."
+                "Срок действия сертификата членства истёк."
             certificate.capabilities.isEmpty() ->
-                "Membership certificate has no capabilities."
+                "В сертификате членства отсутствуют права."
             else -> null
         }
     }
@@ -299,13 +299,13 @@ class OfflineHandshakeService(
         payload: HandshakeConfirmationPayload,
     ): String? =
         when {
-            payload.type != HandshakeConfirmationPayload.TYPE -> "Unsupported confirmation payload type."
-            payload.version != HandshakeConfirmationPayload.VERSION -> "Unsupported confirmation payload version."
-            payload.confirmationId.isBlank() -> "Missing confirmation_id."
-            payload.responseId.isBlank() -> "Missing response_id."
-            payload.inviteId.isBlank() -> "Missing invite_id."
-            payload.responderFingerprint != localIdentity.fingerprint -> "This confirmation is addressed to another identity."
-            payload.inviterFingerprint == localIdentity.fingerprint -> "Self-handshake confirmation is not allowed."
+            payload.type != HandshakeConfirmationPayload.TYPE -> "Неподдерживаемый тип подтверждения."
+            payload.version != HandshakeConfirmationPayload.VERSION -> "Неподдерживаемая версия подтверждения."
+            payload.confirmationId.isBlank() -> "В подтверждении отсутствует идентификатор."
+            payload.responseId.isBlank() -> "В подтверждении отсутствует ответ."
+            payload.inviteId.isBlank() -> "В подтверждении отсутствует приглашение."
+            payload.responderFingerprint != localIdentity.fingerprint -> "Подтверждение адресовано другому профилю."
+            payload.inviterFingerprint == localIdentity.fingerprint -> "Нельзя подтвердить сопряжение с собственным профилем."
             else -> null
         }
 

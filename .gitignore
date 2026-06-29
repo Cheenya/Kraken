@@ -23,3 +23,15 @@ local.properties
 *.xcuserstate
 
 app-windows/output/
+
+# Curated iOS smoke evidence is intentionally tracked.
+artifacts/*
+!artifacts/
+!artifacts/ios-smoke/
+artifacts/ios-smoke/*
+!artifacts/ios-smoke/README.md
+!artifacts/ios-smoke/current-manifest.json
+!artifacts/ios-smoke/kraken-ios-launch-reference.png
+!artifacts/ios-smoke/kraken-ios-native-*.png
+!artifacts/ios-smoke/kraken-ios-compact-*.png
+!artifacts/ios-smoke/kraken-ios-tablet-*.png

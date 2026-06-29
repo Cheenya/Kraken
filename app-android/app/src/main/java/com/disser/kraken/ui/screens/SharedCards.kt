@@ -8,11 +8,11 @@ import com.disser.kraken.ui.components.formatEpoch
 @Composable
 fun IdentitySummaryCard(identity: LocalIdentity) {
     InfoCard(
-        "Моя личность",
+        "Мой профиль",
         listOf(
             "Имя: ${identity.displayName}",
             "Отпечаток: ${identity.fingerprint}",
-            "Статус: создано локально",
+            "Статус: профиль готов",
             "Создано: ${formatEpoch(identity.createdAtEpochMillis)}",
         )
     )

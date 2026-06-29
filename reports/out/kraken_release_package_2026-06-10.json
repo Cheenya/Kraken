@@ -1,0 +1,31 @@
+{
+  "report": "kraken_release_package",
+  "report_date": "2026-06-10",
+  "artifact_built_at": "2026-06-08 10:27:00 MSK",
+  "artifact_root": "artifacts/releases/20260608-kraken-release-0c37fb8",
+  "zip": "artifacts/releases/20260608-kraken-release-0c37fb8/Kraken_release_2026-06-08_0c37fb8.zip",
+  "apk": "artifacts/releases/20260608-kraken-release-0c37fb8/Kraken_release/Kraken_release.apk",
+  "readme": "artifacts/releases/20260608-kraken-release-0c37fb8/Kraken_release/README.txt",
+  "metadata": "artifacts/releases/20260608-kraken-release-0c37fb8/Kraken_release/metadata.json",
+  "package": "com.disser.kraken",
+  "version_name": "0.1.0",
+  "git_sha": "0c37fb8",
+  "branch": "codex/android-research-panel-report-viewer",
+  "build_type": "debug research demo",
+  "debuggable": true,
+  "min_sdk": 26,
+  "target_sdk": 35,
+  "sha256": "10118b7f73f1598c9e91d1de498fa200a506aa382cd660830210569ca0410a45",
+  "size": "19M",
+  "validation": {
+    "gradle_test_debug_unit_test": "passed",
+    "pytest_policy_codec_relay": "50 passed",
+    "clean_assemble_debug": "passed",
+    "apksigner_verify": "passed_v2_debug_certificate",
+    "checksum_verify": "passed",
+    "zip_integrity": "passed",
+    "smoke_install_samsung": "passed",
+    "smoke_install_xiaomi": "passed"
+  },
+  "claim_boundary": "Installable research/demo APK for friend testing. This is not a production secure messenger release and does not claim production encryption, production Keystore identity, signed QR proofs or full Wi-Fi Direct route evidence."
+}

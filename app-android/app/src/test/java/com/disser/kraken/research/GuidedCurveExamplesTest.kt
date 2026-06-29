@@ -15,7 +15,7 @@ class GuidedCurveExamplesTest {
     @Test
     fun manifestParsesAndUsesAndroidReportVersion() {
         assertEquals(ANDROID_CURVE_REPORT_VERSION, manifest.reportVersion)
-        assertTrue(manifest.researchWarning.contains("диагност", ignoreCase = true))
+        assertTrue(manifest.researchWarning.contains("диагностики профилей", ignoreCase = true))
         assertTrue(manifest.examples.isNotEmpty())
     }
 
@@ -35,14 +35,14 @@ class GuidedCurveExamplesTest {
     }
 
     @Test
-    fun researchScaleExamplesKeepDiagnosticScope() {
+    fun researchScaleExamplesUseRussianDiagnosticCaveat() {
         val researchScale = manifest.examples.filter { it.category == GuidedCurveExampleCategory.RESEARCH_SCALE }
 
         assertTrue(researchScale.isNotEmpty())
-        assertTrue(researchScale.all { !it.cryptographicSafetyClaim })
-        assertTrue(researchScale.all { it.validationStatus == "SageMath direct match" })
+        assertTrue(researchScale.all { !it.productionCryptoClaim })
+        assertTrue(researchScale.all { it.validationStatus == "совпадает с SageMath" })
         assertTrue(researchScale.all { it.teachingOnly.not() })
-        assertTrue(researchScale.all { it.caveat?.contains("SageMath") == true })
+        assertTrue(researchScale.all { it.caveat?.contains("Диагностика над Q") == true })
     }
 
     @Test
@@ -50,25 +50,26 @@ class GuidedCurveExamplesTest {
         val researchScale = manifest.examples.filter { it.category == GuidedCurveExampleCategory.RESEARCH_SCALE }
 
         assertTrue(researchScale.size >= 3)
-        assertTrue(researchScale.count { it.validationStatus == "SageMath direct match" } >= 3)
+        assertTrue(researchScale.count { it.validationStatus == "совпадает с SageMath" } >= 3)
         assertTrue(researchScale.all { it.assetPath != null })
-        assertTrue(researchScale.any { it.coefficientSize.contains("128-bit-ish") })
+        assertTrue(researchScale.any { it.coefficientSize.contains("128 бит") })
         assertTrue(researchScale.all { it.b != "0" })
     }
 
     @Test
-    fun noExampleClaimsCryptographicSafety() {
+    fun noExampleClaimsProductionCryptographicSafety() {
         val forbiddenClaims = listOf(
-            "публичная криптографическая стойкость",
-            "готовый криптографический контур",
-            "усиленная криптография",
+            "production cryptographic safety",
+            "production crypto safe",
+            "secure for production",
+            "improves cryptography",
         )
         val manifestText = manifestFile.readText().lowercase()
 
         forbiddenClaims.forEach { phrase ->
-            assertFalse("В manifest найдено лишнее обещание: $phrase", manifestText.contains(phrase))
+            assertFalse("Forbidden overclaim phrase found: $phrase", manifestText.contains(phrase))
         }
-        assertTrue(manifest.examples.all { !it.cryptographicSafetyClaim })
+        assertTrue(manifest.examples.all { !it.productionCryptoClaim })
     }
 
     @Test
@@ -90,7 +91,7 @@ class GuidedCurveExamplesTest {
         val teaching = manifest.examples.first { it.category == GuidedCurveExampleCategory.TEACHING }
         assertEquals("2", teaching.a)
         assertEquals("3", teaching.b)
-        assertTrue(teaching.expectedResult.contains("Nonsingular"))
+        assertTrue(teaching.expectedResult.contains("Невырожденная"))
     }
 
     @Test
@@ -101,7 +102,7 @@ class GuidedCurveExamplesTest {
             "lc128_large_a_small_b_no_two_torsion",
             "lcstruct_lutz_large_discriminant_stress",
         )
-        val directMatches = manifest.examples.filter { it.validationStatus == "SageMath direct match" }
+        val directMatches = manifest.examples.filter { it.validationStatus == "совпадает с SageMath" }
 
         assertTrue(directMatches.isNotEmpty())
         directMatches.forEach { example ->
@@ -126,8 +127,8 @@ class GuidedCurveExamplesTest {
         assertEquals(5, summary.benchmarkRuns)
         assertEquals(22.8673, summary.medianTotalRuntimeMs, 0.0001)
         assertEquals(24.1665, summary.p95TotalRuntimeMs, 0.0001)
-        assertTrue(summary.caveat.contains("рациональных кривых"))
-        assertTrue(summary.caveat.contains("SageMath"))
+        assertTrue(summary.caveat.contains("Рациональная диагностика над Q"))
+        assertFalse(summary.caveat.contains("not production", ignoreCase = true))
     }
 
     @Test

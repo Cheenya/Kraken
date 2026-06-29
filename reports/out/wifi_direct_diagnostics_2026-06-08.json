@@ -1,0 +1,71 @@
+{
+  "report": "wifi_direct_diagnostics",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "source_capture": "artifacts/debug-route-evidence/20260608-101915-wifi-direct-diagnostics-clean-82cb6ff/manifest.json",
+  "git": {
+    "sha": "82cb6ff",
+    "source_state": "clean"
+  },
+  "transport_profile": "wifi-direct-only",
+  "permission_policy": {
+    "android_13_plus": "NEARBY_WIFI_DEVICES with neverForLocation",
+    "android_12_and_below": "ACCESS_FINE_LOCATION capped at maxSdkVersion 32 for legacy Wi-Fi Direct discovery",
+    "background_location": false,
+    "coarse_location": false,
+    "user_toggle": "Settings Wi-Fi Direct switch disables the route and avoids requesting its runtime permission"
+  },
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "selected_route": "none",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "registration_state": "wifi-direct:registered:_kraken._tcp",
+      "discovery_state": "wifi-direct:discovering:_kraken._tcp",
+      "transport_discovered_peer_count": 0,
+      "manual_peer_count": 0,
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      },
+      "recent_route_attempt_count": 0
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "selected_route": "none",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "registration_state": "wifi-direct:registered:_kraken._tcp",
+      "discovery_state": "wifi-direct:discovering:_kraken._tcp",
+      "transport_discovered_peer_count": 0,
+      "manual_peer_count": 0,
+      "wifi_direct": {
+        "permission_granted": true,
+        "radio_enabled": true,
+        "service_available": true,
+        "active": true,
+        "inactive_reasons": []
+      },
+      "recent_route_attempt_count": 0
+    }
+  ],
+  "closed_gap": "wifi_direct_permission_registration_and_discovery_start_diagnostics",
+  "not_closed": [
+    "wifi_direct_peer_discovery_success",
+    "wifi_direct_selected_route_delivery",
+    "wifi_direct_negative_tests",
+    "wifi_direct_latency_loss_retry_benchmark",
+    "production_wifi_direct_security_claim"
+  ],
+  "claim_boundary": "This proves clean-build Wi-Fi Direct-only permission/radio/service readiness plus DNS-SD service registration and discovery start on both phones. It does not prove peer discovery, message delivery, negative-case rejection, repeatable reliability or production security."
+}

@@ -92,7 +92,7 @@ struct ChatView: View {
 
     private var pairingStatus: PairingContinuationStatus {
         if store.pendingHandshakeConfirmation != nil {
-            return .finalQrReady
+            return .confirmationQrReady
         }
         if store.selectedMessages.contains(where: { $0.direction == .outgoing && $0.status == .failed }) {
             return .transportFailed
@@ -250,7 +250,7 @@ private struct TransportInspector: View {
                 } label: {
                     Image(systemName: "person.crop.circle.badge.checkmark")
                 }
-                .help("Выбрать LAN/ADB конечную точку как узел")
+                .help("Выбрать адрес LAN/ADB для устройства")
 
                 Button {
                     store.startLanListener()
@@ -300,7 +300,7 @@ private struct TransportInspector: View {
                 Button {
                     store.bindCurrentLanEndpointToSelectedPeer()
                 } label: {
-                    Label("Привязать конечную точку к выбранному контакту", systemImage: "link")
+                    Label("Привязать адрес к выбранному контакту", systemImage: "link")
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
@@ -348,14 +348,14 @@ private struct TransportInspector: View {
 }
 
 private enum PairingContinuationStatus {
-    case finalQrReady
+    case confirmationQrReady
     case transportFailed
     case transportChecking
     case manualAvailable
 
     var title: String {
         switch self {
-        case .finalQrReady: "Финальный QR готов"
+        case .confirmationQrReady: "QR подтверждения готов"
         case .transportFailed: "Маршрут не сработал"
         case .transportChecking: "Проверка маршрута"
         case .manualAvailable: "QR-сопряжение"
@@ -364,8 +364,8 @@ private enum PairingContinuationStatus {
 
     var subtitle: String {
         switch self {
-        case .finalQrReady:
-            "Покажите финальный QR второму устройству или отсканируйте его ответ."
+        case .confirmationQrReady:
+            "Покажите QR подтверждения второму устройству или отсканируйте его ответ."
         case .transportFailed:
             "Сообщение не доставлено. Продолжите сопряжение вручную через QR."
         case .transportChecking:
@@ -377,7 +377,7 @@ private enum PairingContinuationStatus {
 
     var icon: String {
         switch self {
-        case .finalQrReady: "qrcode"
+        case .confirmationQrReady: "qrcode"
         case .transportFailed: "exclamationmark.triangle"
         case .transportChecking: "antenna.radiowaves.left.and.right"
         case .manualAvailable: "qrcode.viewfinder"

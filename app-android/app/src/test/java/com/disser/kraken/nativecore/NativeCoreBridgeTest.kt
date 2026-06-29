@@ -8,6 +8,6 @@ class NativeCoreBridgeTest {
     fun statusFallbackIsAvailableOnHostJvm() {
         val status = NativeCoreBridge.statusOrUnavailable()
 
-        assertTrue(status.contains("Kraken native core"))
+        assertTrue(status.contains("Нативное ядро Kraken"))
     }
 }

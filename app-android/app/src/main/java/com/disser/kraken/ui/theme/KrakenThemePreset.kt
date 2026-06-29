@@ -55,21 +55,21 @@ enum class KrakenThemePreset(
     COMPACT_MESSENGER(
         storageKey = "compact_messenger",
         displayName = "Компактный мессенджер",
-        description = "Компактная раскладка мессенджера для плотных списков и частого тестирования.",
+        description = "Компактная раскладка мессенджера для плотных списков и частого использования.",
         densityMode = KrakenDensityMode.COMPACT,
         surfaceStyle = KrakenSurfaceStyle.SOLID,
     ),
     AMOLED_BLACK(
         storageKey = "amoled_black",
         displayName = "AMOLED чёрная",
-        description = "Настоящий чёрный фон для OLED/AMOLED экранов с аккуратными cyan-акцентами.",
+        description = "Настоящий чёрный фон для OLED/AMOLED экранов с аккуратными бирюзовыми акцентами.",
         densityMode = KrakenDensityMode.COMPACT,
         surfaceStyle = KrakenSurfaceStyle.SOLID,
     ),
     RESEARCH_CONSOLE(
         storageKey = "research_console",
-        displayName = "Техническая консоль",
-        description = "Технический стиль для проверочных и демонстрационных экранов.",
+        displayName = "Исследовательская консоль",
+        description = "Технический стиль для диагностики и демонстрационных экранов.",
         densityMode = KrakenDensityMode.TECHNICAL,
         surfaceStyle = KrakenSurfaceStyle.CONSOLE,
     );

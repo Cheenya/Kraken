@@ -86,10 +86,10 @@ data class KrakenPacket(
     @SerialName("profile_policy_version")
     val profilePolicyVersion: Int? = KrakenCryptoProfileDefaults.ADMISSION_POLICY_VERSION,
     @SerialName("proof_mode")
-    val proofMode: String = LOCAL_PROOF_MODE,
+    val proofMode: String = PROTOTYPE_PROOF_MODE,
 ) {
     companion object {
-        const val LOCAL_PROOF_MODE = "local-admission-check-v1"
+        const val PROTOTYPE_PROOF_MODE = "prototype-placeholder"
     }
 }
 

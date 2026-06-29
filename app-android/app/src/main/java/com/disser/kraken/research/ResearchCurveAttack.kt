@@ -124,7 +124,7 @@ object StartupResearchCurveAttack {
             add(
                 ResearchCurveAttackChallenge(
                     challengeId = "candidate_budget_pass_${index + 1}_p127_v1",
-                    label = "Candidate ${index + 1}: validation passes",
+                    label = "Кандидат ${index + 1}: проверка пройдена",
                     curve = curveEquation,
                     fieldPrime = p.toString(),
                     coefficientA = a.toString(),
@@ -136,13 +136,13 @@ object StartupResearchCurveAttack {
                             scalar = hiddenSecretOutsideBudget,
                             a = a,
                             p = p,
-                        ) ?: error("Pass candidate public point must not be infinity."),
+                    ) ?: error("Публичная точка проходного кандидата не должна быть бесконечной."),
                     ),
                     candidateLimit = profile.candidateBudgetPerChallenge,
                     expectedWeakSecretForDemo = null,
                     validationGateExpectedDecision = "PASS",
-                    validationGateReason = "Generated scalar is outside the configured bounded attack budget.",
-                    scope = "Research-scale finite-field ECDLP candidate over a 127-bit prime field.",
+                    validationGateReason = "Сгенерированный скаляр находится вне заданного бюджета атаки.",
+                    scope = "Исследовательский кандидат ECDLP над конечным полем с простым модулем 127 бит.",
                 )
             )
         }
@@ -150,7 +150,7 @@ object StartupResearchCurveAttack {
         add(
             ResearchCurveAttackChallenge(
                 challengeId = "candidate_weak_recovered_p127_v1",
-                label = "Candidate ${profile.passCandidateCount + 1}: weak without validation",
+                label = "Кандидат ${profile.passCandidateCount + 1}: слабый без проверки",
                 curve = curveEquation,
                 fieldPrime = p.toString(),
                 coefficientA = a.toString(),
@@ -162,13 +162,13 @@ object StartupResearchCurveAttack {
                         scalar = profile.weakSecret,
                         a = a,
                         p = p,
-                    ) ?: error("Weak candidate public point must not be infinity."),
+                    ) ?: error("Публичная точка слабого кандидата не должна быть бесконечной."),
                 ),
                 candidateLimit = profile.candidateBudgetPerChallenge,
                 expectedWeakSecretForDemo = profile.weakSecret,
                 validationGateExpectedDecision = "REJECT",
-                validationGateReason = "Generated scalar falls inside the bounded ECDLP attack budget.",
-                scope = "Controlled weak candidate used to show why validation must run before accepting parameters.",
+                validationGateReason = "Сгенерированный скаляр попадает в заданный бюджет атаки ECDLP.",
+                scope = "Контролируемый слабый кандидат показывает, почему проверка должна выполняться до принятия параметров.",
             )
         )
     }
@@ -201,7 +201,7 @@ object StartupResearchCurveAttack {
                             testedChallenges = log.testedChallenges,
                             validationCheckedChallenges = log.validationCheckedChallenges,
                             validationRejectedChallenges = log.validationRejectedChallenges,
-                            candidateLabel = log.weakChallengeId ?: "validation complete",
+                            candidateLabel = log.weakChallengeId ?: "проверка завершена",
                             recoveredSecret = log.recoveredSecret,
                         ),
                         log = log,
@@ -251,7 +251,7 @@ object StartupResearchCurveAttack {
             )
         }
 
-        emit(0, 0, "candidate queue", null)
+        emit(0, 0, "очередь кандидатов", null)
 
         challenges.forEachIndexed { index, challenge ->
             val bigA = BigInteger(challenge.coefficientA)
@@ -279,7 +279,7 @@ object StartupResearchCurveAttack {
                     val elapsedMs = (System.nanoTime() - startNanos) / 1_000_000
                     val log = ResearchCurveAttackLog(
                         challengeId = challenge.challengeId,
-                        attackName = "Parallel validation-gate vs unvalidated ECDLP attack",
+                        attackName = "Параллельная проверка профиля против атаки ECDLP без проверки",
                         status = "weak_candidate_found",
                         testedChallenges = index + 1,
                         weakChallengeId = challenge.challengeId,
@@ -289,10 +289,10 @@ object StartupResearchCurveAttack {
                         publicPoint = challenge.publicPoint,
                         validationCheckedChallenges = validationChecked,
                         validationRejectedChallenges = validationRejected,
-                        validationDecision = "REJECT: validation gate отклонил слабого кандидата до принятия.",
+                        validationDecision = "REJECT: проверка профиля отметила слабого кандидата до принятия параметров.",
                         elapsedMs = elapsedMs,
-                        summary = "Проверка ${challenge.label} нашла восстанавливаемое значение d=$candidate; validation gate отклонил кандидата до принятия.",
-                        caveat = "Сценарий работает на подготовленных данных и фиксирует поведение выбранного метода.",
+                        summary = "Без проверки ${challenge.label} даёт Q=dG с восстанавливаемым d=$candidate. С проверкой кандидат отклоняется до принятия параметров.",
+                        caveat = "Контролируемая исследовательская демонстрация на выделенных тестовых параметрах Kraken.",
                     )
                     emit(totalChecked, index + 1, challenge.label, candidate)
                     emitLog?.invoke(log)
@@ -304,7 +304,7 @@ object StartupResearchCurveAttack {
         val elapsedMs = (System.nanoTime() - startNanos) / 1_000_000
         val log = ResearchCurveAttackLog(
             challengeId = "startup_ecdlp_validation_gate_v1",
-            attackName = "Параллельная проверка validation gate и ECDLP-сценария",
+            attackName = "Параллельная проверка профиля против атаки ECDLP без проверки",
             status = "no_weak_candidate_found",
             testedChallenges = challenges.size,
             weakChallengeId = null,
@@ -314,10 +314,10 @@ object StartupResearchCurveAttack {
             publicPoint = challenges.last().publicPoint,
             validationCheckedChallenges = validationChecked,
             validationRejectedChallenges = validationRejected,
-            validationDecision = "PASS: в заданном бюджете кандидат не восстановлен.",
+            validationDecision = "PASS: в заданном бюджете атаки секрет кандидата не восстановлен.",
             elapsedMs = elapsedMs,
-            summary = "В заданном бюджете startup-проверки слабый кандидат не найден.",
-            caveat = "Сценарий работает на подготовленных данных и фиксирует поведение выбранного метода.",
+            summary = "В заданном стартовом бюджете атаки слабый кандидат не найден.",
+            caveat = "Контролируемая исследовательская демонстрация на выделенных тестовых параметрах Kraken.",
         )
         emitLog?.invoke(log)
         return log
@@ -333,15 +333,15 @@ object StartupResearchCurveAttack {
         recoveredSecret: Int?,
     ): ResearchCurveAttackProgress {
         val attackPhase = when {
-            recoveredSecret != null -> "Без validation: слабый секрет восстановлен"
-            testedChallenges == 0 -> "Без validation: подготовка атаки"
-            testedChallenges <= profile.passCandidateCount -> "Без validation: атака candidate #$testedChallenges"
-            else -> "Без validation: финальная атака weak candidate"
+            recoveredSecret != null -> "Без проверки: слабый секрет восстановлен"
+            testedChallenges == 0 -> "Без проверки: подготовка атаки"
+            testedChallenges <= profile.passCandidateCount -> "Без проверки: атака кандидата #$testedChallenges"
+            else -> "Без проверки: финальная атака слабого кандидата"
         }
         val validationPhase = when {
-            validationRejectedChallenges > 0 -> "Validation gate: weak candidate rejected"
-            validationCheckedChallenges == 0 -> "Validation gate: ожидание candidate"
-            else -> "Validation gate: проверено $validationCheckedChallenges, rejected 0"
+            validationRejectedChallenges > 0 -> "Проверка профиля: слабый кандидат отклонён"
+            validationCheckedChallenges == 0 -> "Проверка профиля: ожидание кандидата"
+            else -> "Проверка профиля: проверено $validationCheckedChallenges, отклонено 0"
         }
         return ResearchCurveAttackProgress(
             checkedCandidates = checkedCandidates,

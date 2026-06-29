@@ -11,17 +11,17 @@ object IssuedInviteLifecyclePolicy {
     ): Result<KnownInviteLifecycle> =
         runCatching {
             val issuedInvite = issuedInvites.firstOrNull { it.inviteId == payload.inviteId }
-                ?: throw IllegalArgumentException("Это ответ на неизвестное локальное invite.")
+                ?: throw IllegalArgumentException("Это ответ на неизвестное локальное приглашение.")
             if (payload.realmId == null && !payload.requiresApproval) {
                 if (
                     issuedInvite.scope != InviteScope.DIRECT_CONTACT ||
                     issuedInvite.realmId != null ||
                     issuedInvite.inviterFingerprint != localFingerprint
                 ) {
-                    throw IllegalArgumentException("Этот ответ относится к другому типу invite.")
+                    throw IllegalArgumentException("Этот ответ относится к другому типу приглашения.")
                 }
             } else if (issuedInvite.scope != InviteScope.REALM_MEMBERSHIP || issuedInvite.realmId != payload.realmId) {
-                throw IllegalArgumentException("Этот ответ относится к другому типу invite или другому реалму.")
+                throw IllegalArgumentException("Этот ответ относится к другому типу приглашения или другому реалму.")
             }
             issuedInvite.toKnownInviteLifecycle()
         }

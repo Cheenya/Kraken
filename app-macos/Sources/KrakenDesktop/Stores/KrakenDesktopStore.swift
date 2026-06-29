@@ -178,11 +178,11 @@ final class KrakenDesktopStore: ObservableObject {
 
     var lanBridgeBindingTitle: String {
         guard let relationship = selectedRelationship else {
-            return "LAN/ADB узел не выбран"
+            return "Устройство LAN/ADB не выбрано"
         }
         return lanBridgeSelectedPeerMatchesEndpoint
             ? "LAN/ADB привязан к \(relationship.peerDisplayName)"
-            : "Отпечаток конечной точки не совпадает с выбранным узлом"
+            : "Отпечаток адреса LAN/ADB не совпадает с выбранным устройством"
     }
 
     func selectRelationship(_ relationshipId: String) {
@@ -241,7 +241,7 @@ final class KrakenDesktopStore: ObservableObject {
             peerFingerprint: relationship.peerFingerprint,
             now: Date()
         )
-        state.lastEvent = "LAN/ADB конечная точка привязана к \(relationship.peerDisplayName)"
+        state.lastEvent = "Адрес LAN/ADB привязан к \(relationship.peerDisplayName)"
     }
 
     func createIdentity(displayName: String) {
@@ -301,7 +301,7 @@ final class KrakenDesktopStore: ObservableObject {
                     identity: identity
                 )
             } catch {
-                return "Ответный QR Kraken считан, но его данные неполные: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+                return "QR-ответ Kraken считан, но его данные неполные: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
             }
         case .confirmation:
             do {
@@ -310,12 +310,12 @@ final class KrakenDesktopStore: ObservableObject {
                     identity: identity
                 )
             } catch {
-                return "Финальный QR Kraken считан, но его данные неполные: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+                return "QR подтверждения Kraken считан, но его данные неполные: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
             }
         case .unknown:
-            return "QR считан, но этот тип полезной нагрузки пока не поддержан в Kraken Desktop. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+            return "QR считан, но этот тип данных пока не поддержан в Kraken Desktop. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
         case .invalid:
-            return "Этот QR не является JSON-полезной нагрузкой Kraken. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
+            return "Этот QR не похож на JSON-данные Kraken. \(KrakenHandshakeQrCodec.payloadSummary(trimmedPayload))"
         }
     }
 
@@ -328,7 +328,7 @@ final class KrakenDesktopStore: ObservableObject {
         do {
             payload = try decoder.decode(DesktopInvitePayload.self, from: data)
         } catch {
-            return "QR-приглашение неполное: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). Если вы сканируете ответ Samsung, откройте на Samsung именно «Показать ответный QR» в карточке сопряжения, а не «Мой QR»."
+            return "QR-приглашение неполное: \(KrakenHandshakeQrCodec.decodeFailureDescription(error)). Если вы сканируете ответ Samsung, откройте на Samsung QR подтверждения в карточке сопряжения, а не «Мой QR»."
         }
         guard payload.version == 1 else {
             return "Версия QR-приглашения не поддерживается."
@@ -405,26 +405,26 @@ final class KrakenDesktopStore: ObservableObject {
         identity: LocalIdentity
     ) -> String? {
         guard payload.version == 1 else {
-            return "Версия ответного QR не поддерживается."
+            return "Версия QR-ответа не поддерживается."
         }
         guard !payload.responseId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В ответном QR нет response_id."
+            return "В QR-ответе нет response_id."
         }
         guard !payload.inviteId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В ответном QR нет invite_id."
+            return "В QR-ответе нет invite_id."
         }
         guard Self.normalizedFingerprint(payload.inviterFingerprint) == Self.normalizedFingerprint(identity.fingerprint) else {
-            return "Этот ответный QR адресован другой личности Kraken."
+            return "Этот QR-ответ адресован другому профилю Kraken."
         }
         guard !payload.responderFingerprint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В ответном QR нет отпечатка второго устройства."
+            return "В QR-ответе нет отпечатка второго устройства."
         }
         guard !payload.responderPublicKeyEncoded.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В ответном QR нет публичного ключа второго устройства."
+            return "В QR-ответе нет публичного ключа второго устройства."
         }
         if Self.normalizedFingerprint(payload.responderFingerprint) == Self.normalizedFingerprint(identity.fingerprint) ||
             payload.responderPublicKeyEncoded == identity.publicKeyEncoded {
-            return "Нельзя принять собственный ответный QR."
+            return "Нельзя принять собственный QR-ответ."
         }
 
         let now = Date()
@@ -476,7 +476,7 @@ final class KrakenDesktopStore: ObservableObject {
             peerDisplayName: displayName,
             createdAt: now
         )
-        state.lastEvent = "Ответный QR принят: \(displayName)"
+        state.lastEvent = "QR-ответ принят: \(displayName)"
         return nil
     }
 
@@ -488,25 +488,25 @@ final class KrakenDesktopStore: ObservableObject {
             return "Версия финального QR не поддерживается."
         }
         guard !payload.confirmationId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В финальном QR нет confirmation_id."
+            return "В QR подтверждения нет confirmation_id."
         }
         guard !payload.responseId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В финальном QR нет response_id."
+            return "В QR подтверждения нет response_id."
         }
         guard !payload.inviteId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В финальном QR нет invite_id."
+            return "В QR подтверждения нет invite_id."
         }
         guard !payload.inviterFingerprint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В финальном QR нет отпечатка владельца приглашения."
+            return "В QR подтверждения нет отпечатка владельца приглашения."
         }
         guard !payload.responderFingerprint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            return "В финальном QR нет отпечатка второго устройства."
+            return "В QR подтверждения нет отпечатка второго устройства."
         }
         guard Self.normalizedFingerprint(payload.responderFingerprint) == Self.normalizedFingerprint(identity.fingerprint) else {
-            return "Этот финальный QR адресован другой личности Kraken."
+            return "Этот QR подтверждения адресован другому профилю Kraken."
         }
         guard Self.normalizedFingerprint(payload.inviterFingerprint) != Self.normalizedFingerprint(identity.fingerprint) else {
-            return "Этот финальный QR предназначен второму устройству, а не владельцу приглашения."
+            return "Этот QR подтверждения предназначен второму устройству, а не владельцу приглашения."
         }
 
         let now = Date()
@@ -557,7 +557,7 @@ final class KrakenDesktopStore: ObservableObject {
         selectedSection = .chat
         pendingHandshakeConfirmation = nil
         Self.saveRelationships(state.relationships)
-        state.lastEvent = "Финальный QR принят: \(displayName)"
+        state.lastEvent = "QR подтверждения принят: \(displayName)"
         return nil
     }
 
@@ -713,16 +713,16 @@ final class KrakenDesktopStore: ObservableObject {
     func selectLanBridgeEndpointPeer() {
         let endpointFingerprint = lanTargetFingerprint.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !endpointFingerprint.isEmpty else {
-            state.lastEvent = "LAN/ADB узел не выбран: отпечаток устройства пустой"
+            state.lastEvent = "Устройство LAN/ADB не выбрано: отпечаток пустой"
             return
         }
         guard let port = Int(lanTargetPort), port > 0, port <= 65535 else {
-            state.lastEvent = "LAN/ADB узел не выбран: неверный порт назначения"
+            state.lastEvent = "Устройство LAN/ADB не выбрано: неверный порт назначения"
             return
         }
         let host = lanTargetHost.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !host.isEmpty else {
-            state.lastEvent = "LAN/ADB узел не выбран: адрес пустой"
+            state.lastEvent = "Устройство LAN/ADB не выбрано: адрес пустой"
             return
         }
 
@@ -767,8 +767,8 @@ final class KrakenDesktopStore: ObservableObject {
         selectedSection = .chat
         transportPanelVisible = true
         Self.saveRelationships(state.relationships)
-        state.lastEvent = "LAN/ADB конечная точка выбрана как узел: \(displayName)"
-        flushReadyOutbox(reason: "LAN/ADB конечная точка выбрана")
+        state.lastEvent = "Адрес LAN/ADB выбран для устройства: \(displayName)"
+        flushReadyOutbox(reason: "Адрес LAN/ADB выбран")
     }
 
     private func sendLanMessage(body: String, relationship: Relationship, existingMessageId: String? = nil) {
@@ -814,7 +814,7 @@ final class KrakenDesktopStore: ObservableObject {
                 relationship: relationship,
                 existingMessageId: existingMessageId,
                 error: "endpoint-fingerprint-mismatch",
-                eventMessage: "LAN-отправка остановлена: конечная точка не совпадает с выбранным узлом"
+                eventMessage: "LAN-отправка остановлена: адрес не совпадает с выбранным устройством"
             )
             return
         }
@@ -978,7 +978,7 @@ final class KrakenDesktopStore: ObservableObject {
                 selectedRelationship: selectedRelationship,
                 selectedRoute: selectedRoute,
                 events: bleEvents,
-                boundary: "Артефакт проверки CoreBluetooth BLE-транспорта Kraken Desktop; он фиксирует UUID/framing, central/peripheral роли, события и macOS authorization state. Доставка с телефоном доказана только при обнаруженном peer или accepted/queued BLE events."
+                boundary: "Артефакт проверки CoreBluetooth BLE-транспорта Kraken Desktop: UUID/кадры, роли central/peripheral, события и macOS authorization state. Доставка с телефоном подтверждена только при обнаруженном устройстве или accepted/queued BLE-событиях."
             )
             lastEvidencePath = directory.path
             state.lastEvent = "Артефакт Bluetooth сохранён: \(directory.lastPathComponent)"
@@ -1068,7 +1068,7 @@ final class KrakenDesktopStore: ObservableObject {
             ? "LAN \(lanDirectionTitle(event.direction)): ошибка, ждём повтор"
             : "LAN \(lanDirectionTitle(event.direction)): \(lanStatusTitle(event.status))"
         if !rescheduled {
-            flushReadyOutbox(reason: "LAN-маршрут обновлён")
+            flushReadyOutbox(reason: "LAN route обновлён")
         }
     }
 
@@ -1091,7 +1091,7 @@ final class KrakenDesktopStore: ObservableObject {
             ? "Bluetooth \(bleDirectionTitle(event.direction)): ошибка, ждём повтор"
             : "Bluetooth \(bleDirectionTitle(event.direction)): \(bleStatusTitle(event.status))"
         if !rescheduled {
-            flushReadyOutbox(reason: "Bluetooth-маршрут обновлён")
+            flushReadyOutbox(reason: "Bluetooth route обновлён")
         }
     }
 
@@ -1527,13 +1527,13 @@ final class KrakenDesktopStore: ObservableObject {
             "admission_decision_hash": payload.admissionDecisionHash ?? NSNull(),
             "profile_policy_version": payload.profilePolicyVersion.map { $0 as Any } ?? NSNull(),
             "native_backend_version": payload.nativeBackendVersion ?? NSNull(),
-            "proof_placeholder": "offline-qr-confirmation-check-v1",
+            "proof_placeholder": "prototype-offline-qr-confirmation-not-production-crypto",
         ]
         let data = (try? JSONSerialization.data(withJSONObject: confirmation, options: [.sortedKeys])) ?? Data()
         let payloadJson = String(data: data, encoding: .utf8) ?? "{}"
         let qrPayload = (try? KrakenHandshakeQrCodec.encodedQrPayload(payloadJson)) ?? payloadJson
         return HandshakeConfirmationSnapshot(
-            title: "Финальный QR",
+            title: "QR подтверждения",
             subtitle: peerDisplayName,
             payload: qrPayload,
             details: [

@@ -111,10 +111,10 @@ fun KrakenApp(
             onLaunchReady()
             return@LaunchedEffect
         }
-        appState.ensureMeshStarted()
+        val meshStartupAllowed = appState.ensureMeshStarted()
         val launchWasRequested = appState.meshSnapshot.lastPacketStatus == "service-start-requested"
         val meshIsStartingOrRunning = appState.meshSnapshot.state !in setOf(MeshState.OFF, MeshState.ERROR)
-        if (launchWasRequested || meshIsStartingOrRunning) {
+        if (!meshStartupAllowed || launchWasRequested || meshIsStartingOrRunning) {
             onLaunchReady()
         }
     }

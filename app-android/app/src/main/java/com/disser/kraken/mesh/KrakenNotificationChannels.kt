@@ -15,10 +15,10 @@ object KrakenNotificationChannels {
         manager.createNotificationChannel(
             NotificationChannel(
                 MESH_STATUS_CHANNEL_ID,
-                "Kraken mesh",
+                "Локальная связь Kraken",
                 NotificationManager.IMPORTANCE_MIN,
             ).apply {
-                description = "Тихое постоянное уведомление фоновой связи рядом."
+                description = "Тихое постоянное уведомление фоновой локальной связи."
                 setShowBadge(false)
                 setSound(null, null)
                 enableVibration(false)
@@ -30,7 +30,7 @@ object KrakenNotificationChannels {
                 "Сообщения",
                 NotificationManager.IMPORTANCE_HIGH,
             ).apply {
-                description = "Локальные уведомления о входящих mesh-сообщениях."
+                description = "Локальные уведомления о входящих сообщениях."
                 enableVibration(true)
                 setShowBadge(true)
             },

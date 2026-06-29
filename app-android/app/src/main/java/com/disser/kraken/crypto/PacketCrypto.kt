@@ -28,12 +28,12 @@ interface PacketDecryptor {
     fun decrypt(ciphertext: PacketCiphertext, privateKeyReference: PrivateKeyReference): KrakenPacket
 }
 
-object LocalPacketCrypto : PacketSigner, PacketVerifier, PacketEncryptor {
-    const val ALGORITHM = "local-packet-check-v1"
-    const val WARNING = "Локальный контур подписи и шифрования используется только в debug-сборках."
+object DebugPlaintextPacketCrypto : PacketSigner, PacketVerifier, PacketEncryptor {
+    const val ALGORITHM = "debug-plaintext-packet-compat"
+    const val WARNING = "Debug packet compatibility path: plaintext compatibility signature/envelope marker."
 
     fun isAllowedForBuildType(buildType: String): Boolean =
-        buildType.lowercase() !in setOf("release", "prod", "public")
+        buildType.lowercase() !in setOf("release", "prod", "production")
 
     override fun sign(packet: KrakenPacket, privateKeyReference: PrivateKeyReference): PacketSignature =
         PacketSignature(
@@ -53,6 +53,6 @@ object LocalPacketCrypto : PacketSigner, PacketVerifier, PacketEncryptor {
     override fun encrypt(packet: KrakenPacket, recipientPublicKey: PublicKeyMaterial): PacketCiphertext =
         PacketCiphertext(
             algorithm = ALGORITHM,
-            payload = "local-payload:${packet.packetId}:${recipientPublicKey.encoded}",
+            payload = "debug-plaintext:${packet.packetId}:${recipientPublicKey.encoded}",
         )
 }

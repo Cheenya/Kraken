@@ -52,7 +52,7 @@ struct DesktopEvidenceWriter {
             "not_closed": [
                 "ble_corebluetooth_transport",
                 "wifi_direct_native_android_style_transport_on_macos",
-                "full_key_storage_and_packet_signature_check",
+                "production_crypto_security",
             ],
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
@@ -120,7 +120,7 @@ struct DesktopEvidenceWriter {
             "not_closed": [
                 "phone_peer_discovery_unless_events_or_peer_count_prove_it",
                 "native_android_style_wifi_direct_transport_on_macos",
-                "full_key_storage_and_packet_signature_check",
+                "production_crypto_security",
             ],
         ]
         let jsonData = try JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
@@ -187,19 +187,19 @@ struct DesktopEvidenceWriter {
         boundary: String
     ) -> String {
         var lines = [
-            "# Подтверждения macOS LAN-транспорта",
+            "# Evidence macOS LAN",
             "",
             "Сформировано: `\(generatedAt)`.",
             "",
-            "## Область",
+            "## Область проверки",
             "",
             boundary,
             "",
-            "## Конечные точки",
+            "## Адреса",
             "",
-            "- macOS-слушатель: `\(listenerPort.map(String.init) ?? "not-running")`.",
+            "- приёмник macOS: `\(listenerPort.map(String.init) ?? "not-running")`.",
             "- цель: `\(endpoint.host):\(endpoint.port)` / `\(endpoint.fingerprint)`.",
-            "- выбранный узел: `\(selectedRelationship?.peerDisplayName ?? "-")` / `\(selectedRelationship?.peerFingerprint ?? "-")`.",
+            "- выбранное устройство: `\(selectedRelationship?.peerDisplayName ?? "-")` / `\(selectedRelationship?.peerFingerprint ?? "-")`.",
             "- выбранный маршрут: `\(selectedRoute?.kind.rawValue ?? "-")` / `\(selectedRoute?.transportId ?? "-")`.",
             "",
             "## События",
@@ -208,7 +208,7 @@ struct DesktopEvidenceWriter {
         if events.isEmpty {
             lines.append("- События не записаны.")
         } else {
-            lines.append("| Direction | Status | Packet | Message | Peer | Payload | Error |")
+            lines.append("| Направление | Статус | Пакет | Сообщение | Устройство | Данные | Ошибка |")
             lines.append("| --- | --- | --- | --- | --- | --- | --- |")
             for event in events {
                 lines.append(
@@ -218,11 +218,11 @@ struct DesktopEvidenceWriter {
         }
         lines += [
             "",
-            "## Отдельные проверки",
+            "## Что не закрывает этот артефакт",
             "",
-            "- BLE/CoreBluetooth-транспорт проверяется отдельным прогоном.",
-            "- Wi-Fi Direct относится к Android-сборке.",
-            "- Полный контур хранения ключей и подписи пакетов проверяется отдельно.",
+            "- BLE/CoreBluetooth-транспорт.",
+            "- Android Wi-Fi Direct на macOS.",
+            "- Полную криптографическую проверку приложения.",
             "",
         ]
         return lines.joined(separator: "\n")
@@ -237,11 +237,11 @@ struct DesktopEvidenceWriter {
         boundary: String
     ) -> String {
         var lines = [
-            "# Подтверждения macOS BLE-транспорта",
+            "# Evidence macOS BLE",
             "",
             "Сформировано: `\(generatedAt)`.",
             "",
-            "## Область",
+            "## Область проверки",
             "",
             boundary,
             "",
@@ -249,19 +249,19 @@ struct DesktopEvidenceWriter {
             "",
             "- режим: `\(status.modeId)`.",
             "- service UUID: `\(status.serviceUuid)`.",
-            "- identity characteristic UUID: `\(status.identityCharacteristicUuid)`.",
-            "- packet characteristic UUID: `\(status.packetCharacteristicUuid)`.",
-            "- авторизация: `\(status.authorizationState)`.",
-            "- роль central: `\(status.centralState)`.",
-            "- роль peripheral: `\(status.peripheralState)`.",
-            "- обнаруженные узлы: `\(status.discoveredPeerCount)`.",
+            "- UUID профиля: `\(status.identityCharacteristicUuid)`.",
+            "- UUID пакета: `\(status.packetCharacteristicUuid)`.",
+            "- разрешение: `\(status.authorizationState)`.",
+            "- central: `\(status.centralState)`.",
+            "- peripheral: `\(status.peripheralState)`.",
+            "- найдено устройств: `\(status.discoveredPeerCount)`.",
             "- фрагменты вход/выход: `\(status.inboundChunks)/\(status.outboundChunks)`.",
             "- собранные пакеты: `\(status.reassembledPackets)`.",
             "- последняя ошибка: `\(status.lastError ?? "-")`.",
             "",
-            "## Выбранный узел",
+            "## Выбранное устройство",
             "",
-            "- выбранный узел: `\(selectedRelationship?.peerDisplayName ?? "-")` / `\(selectedRelationship?.peerFingerprint ?? "-")`.",
+            "- выбранное устройство: `\(selectedRelationship?.peerDisplayName ?? "-")` / `\(selectedRelationship?.peerFingerprint ?? "-")`.",
             "- выбранный маршрут: `\(selectedRoute?.kind.rawValue ?? "-")` / `\(selectedRoute?.transportId ?? "-")`.",
             "",
             "## События",
@@ -270,7 +270,7 @@ struct DesktopEvidenceWriter {
         if events.isEmpty {
             lines.append("- События не записаны.")
         } else {
-            lines.append("| Direction | Status | Packet | Message | Peer | Chunks | Payload | Error |")
+            lines.append("| Направление | Статус | Пакет | Сообщение | Устройство | Фрагменты | Данные | Ошибка |")
             lines.append("| --- | --- | --- | --- | --- | --- | --- | --- |")
             for event in events {
                 lines.append(
@@ -280,11 +280,11 @@ struct DesktopEvidenceWriter {
         }
         lines += [
             "",
-            "## Отдельные проверки",
+            "## Что не закрывает этот артефакт",
             "",
-            "- Обнаружение телефонного узла подтверждается `discovered peers` или событиями accepted/queued.",
-            "- Wi-Fi Direct относится к Android-сборке.",
-            "- Полный контур хранения ключей и подписи пакетов проверяется отдельно.",
+            "- Обнаружение телефона, если это не подтверждают счётчики найденных устройств или события accepted/queued.",
+            "- Android Wi-Fi Direct на macOS.",
+            "- Полную криптографическую проверку приложения.",
             "",
         ]
         return lines.joined(separator: "\n")

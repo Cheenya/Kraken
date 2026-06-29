@@ -1,0 +1,37 @@
+{
+  "report": "physical_inline_relay_runner",
+  "date": "2026-06-10",
+  "timezone": "Europe/Moscow",
+  "script": "scripts/run_physical_inline_relay_trials.sh",
+  "status": "runner_ready_external_physical_path_required",
+  "default_modes": [
+    "normal",
+    "drop",
+    "duplicate",
+    "tamper"
+  ],
+  "requires": [
+    "two_connected_adb_devices",
+    "sender_and_target_are_distinct",
+    "mac_lan_host_reachable_from_sender",
+    "target_android_lan_listener_reachable_from_mac",
+    "debug_apk_installed_on_both_phones"
+  ],
+  "outputs": [
+    "artifacts/physical-inline-relay/<timestamp>-<label>/manifest.json",
+    "target-before/manifest.json",
+    "mode-<mode>/sender-send/manifest.json",
+    "mode-<mode>/target-after/manifest.json",
+    "mode-<mode>/*/android_inline_lan_relay.json"
+  ],
+  "not_run_reason": "Samsung R5CY22X6MSB and Xiaomi d948ffd0 are now both visible in ADB. The remaining blocker is the external physical path: a Mac LAN host reachable from the sender and direct Mac to Android target listener reachability for normal/drop/duplicate/tamper captures.",
+  "closed_gap": "repeatable_physical_inline_relay_procedure",
+  "not_closed": [
+    "physical_android_a_mac_android_b_successful_normal_run",
+    "physical_drop_duplicate_tamper_attack_evidence",
+    "android_side_mitm_rejection_counters_for_attack_modes",
+    "cryptographic_mitm_resistance",
+    "production_relay_security"
+  ],
+  "claim_boundary": "The runner closes the procedure gap only. It does not close physical attack evidence until it is executed on two phones and the generated before/send/relay/after artifacts show the expected mode behavior."
+}

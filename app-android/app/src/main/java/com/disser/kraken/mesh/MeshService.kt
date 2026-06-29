@@ -112,7 +112,7 @@ data class MeshServiceSnapshot(
     val realmRelayCandidates: List<MeshRealmRelayCandidateSnapshot> = emptyList(),
     val foregroundServiceEnabled: Boolean = false,
     val lastServiceStartedAtEpochMillis: Long? = null,
-    val transportNotice: String = "Локальная связь: сообщения идут через защищённый payload path; хранение ключей и replay-hardening вынесены в отдельный контур.",
+    val compatibilityNotice: String = "Локальная связь использует защищённый путь доставки данных; хранение ключей и защита от повторной отправки вынесены в отдельный слой.",
 )
 
 data class MeshSyncResult(

@@ -1,0 +1,33 @@
+{
+  "report": "route_benchmark_preflight",
+  "date": "2026-06-11",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "artifact": "artifacts/route-benchmark/20260611-002802-route-benchmark-preflight-2026-06-11/manifest.json",
+  "devices": [
+    "R5CY22X6MSB",
+    "d948ffd0"
+  ],
+  "command": "scripts/run_route_benchmark_trials.sh --device R5CY22X6MSB --device d948ffd0 --trials 3 --label route-benchmark-preflight-2026-06-11 --transport-profile all --sync-attempts 3 --sleep-between 1 --min-samples-per-route 3",
+  "overall_status": "insufficient_n_for_reliability_claim",
+  "routes": [
+    {
+      "route": "lan-nsd-tcp",
+      "latency_sample_count": 0,
+      "delivery_record_count": 0,
+      "delivered_record_count": 0,
+      "route_attempt_success_count": 0,
+      "route_attempt_failure_count": 3,
+      "benchmark_status": "insufficient_n_for_reliability_claim"
+    }
+  ],
+  "closed_gap": "benchmark_runner_executed_on_two_adb_devices",
+  "not_closed": [
+    "route_reliability_min_sample_gate",
+    "median_p95_loss_retry_claims",
+    "wifi_direct_benchmark_samples",
+    "production_network_reliability"
+  ],
+  "claim_boundary": "Debug preflight only. It does not prove route reliability, production network reliability or production security."
+}

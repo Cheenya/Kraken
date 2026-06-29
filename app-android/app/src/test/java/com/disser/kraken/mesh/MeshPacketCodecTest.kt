@@ -13,7 +13,7 @@ class MeshPacketCodecTest {
         val decoded = MeshPacketCodec.decode(MeshPacketCodec.encode(packet)).getOrThrow()
 
         assertEquals(packet, decoded)
-        assertEquals(KrakenPacket.LOCAL_PROOF_MODE, decoded.proofMode)
+        assertEquals(KrakenPacket.PROTOTYPE_PROOF_MODE, decoded.proofMode)
         assertEquals(packet.cryptoProfileId, decoded.cryptoProfileId)
         assertEquals(packet.admissionDecisionHash, decoded.admissionDecisionHash)
         assertEquals(packet.profilePolicyVersion, decoded.profilePolicyVersion)

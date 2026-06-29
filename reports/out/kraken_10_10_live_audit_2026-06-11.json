@@ -1,0 +1,141 @@
+{
+  "report": "kraken_10_10_live_audit",
+  "complete": false,
+  "connected_device_count": 2,
+  "connected_devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "state": "device",
+      "model": "SM_S938B"
+    },
+    {
+      "serial": "d948ffd0",
+      "state": "device",
+      "model": "2201122G"
+    }
+  ],
+  "open_gate_count": 5,
+  "items": [
+    {
+      "requirement": "Current blocker audit JSON",
+      "status": "complete",
+      "evidence": "reports/out/kraken_10_10_current_blocker_audit_2026-06-11.json"
+    },
+    {
+      "requirement": "Friend-test package JSON",
+      "status": "complete",
+      "evidence": "reports/out/kraken_release_package_2026-06-11.json"
+    },
+    {
+      "requirement": "Current blocker audit forbids false 10/10 claim",
+      "status": "complete",
+      "evidence": "completion_claim_allowed=False; current_10_10_verdict=not_complete"
+    },
+    {
+      "requirement": "At least two Android devices visible for physical route validation",
+      "status": "complete",
+      "evidence": "connected_device_count=2"
+    },
+    {
+      "requirement": "Required still-open gate is tracked: physical_hostile_packet_injection_lan_ble_wifi_direct",
+      "status": "complete",
+      "evidence": "status=open"
+    },
+    {
+      "requirement": "Required still-open gate is tracked: physical_mac_inline_relay_modes",
+      "status": "complete",
+      "evidence": "status=open"
+    },
+    {
+      "requirement": "Required still-open gate is tracked: route_benchmark_min_n",
+      "status": "complete",
+      "evidence": "status=open"
+    },
+    {
+      "requirement": "Required still-open gate is tracked: wifi_direct_negative_tests",
+      "status": "complete",
+      "evidence": "status=open"
+    },
+    {
+      "requirement": "Required still-open gate is tracked: wifi_direct_route_delivery",
+      "status": "complete",
+      "evidence": "status=open"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: apkanalyzer_manifest",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: apksigner_verify",
+      "status": "complete",
+      "evidence": "passed_v2_debug_certificate"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: assemble_debug",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: checksum_verify",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: git_diff_check",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: lint_debug",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: pytest_android_policy_guards",
+      "status": "complete",
+      "evidence": "53 passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: smoke_install_samsung",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: smoke_launch_samsung",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: targeted_gradle_unit_tests",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Friend-test package validation recorded: zip_integrity",
+      "status": "complete",
+      "evidence": "passed"
+    },
+    {
+      "requirement": "Next-step command script exists: closure_suite",
+      "status": "complete",
+      "evidence": "scripts/run_10_10_closure_suite.sh --sender-device R5CY22X6MSB --target-device d948ffd0 --mac-host <MAC_LAN_IP>"
+    },
+    {
+      "requirement": "Next-step command script exists: physical_inline_relay",
+      "status": "complete",
+      "evidence": "scripts/run_physical_inline_relay_trials.sh --sender-device R5CY22X6MSB --target-device d948ffd0 --mac-host <MAC_LAN_IP>"
+    },
+    {
+      "requirement": "Next-step command script exists: route_benchmark",
+      "status": "complete",
+      "evidence": "scripts/run_route_benchmark_trials.sh --device R5CY22X6MSB --device d948ffd0 --min-samples-per-route 10"
+    },
+    {
+      "requirement": "Next-step command script exists: wifi_direct_two_device",
+      "status": "complete",
+      "evidence": "scripts/capture_debug_route_evidence.sh --device R5CY22X6MSB --device d948ffd0 --label wifi-direct-binding-diagnostics-2026-06-11 --start-mesh-before-export --transport-profile wifi-direct-only --start-mesh-settle-ms 16000 --debug-send-body wifi-direct-binding-diagnostics --sync-after-debug-send --sync-attempts 1"
+    }
+  ],
+  "claim_boundary": "Live/current-state audit only. complete=false is expected until two-device Wi-Fi Direct, physical attack, route benchmark and any in-scope production security gates are proven by current evidence."
+}

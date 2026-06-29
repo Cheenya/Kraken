@@ -22,12 +22,15 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -65,6 +68,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
@@ -73,18 +77,22 @@ import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.foundation.verticalScroll
 import androidx.navigation.NavHostController
 import com.disser.kraken.handshake.OfflineHandshakeService
 import com.disser.kraken.identity.LocalIdentity
@@ -105,6 +113,7 @@ import com.disser.kraken.realm.RealmCommunicationDecision
 import com.disser.kraken.realm.RealmCommunicationPolicy
 import com.disser.kraken.realm.RealmSnapshot
 import com.disser.kraken.relationship.ComplaintEvent
+import com.disser.kraken.relationship.OfflineHandshakeRole
 import com.disser.kraken.relationship.Relationship
 import com.disser.kraken.relationship.RelationshipService
 import com.disser.kraken.relationship.RelationshipState
@@ -842,6 +851,7 @@ private fun ChatConversation(
     val localReactions = remember(relationship.relationshipId) { mutableStateMapOf<String, String>() }
     var clearConversationRequested by remember { mutableStateOf(false) }
     var backgroundPickerOpen by remember { mutableStateOf(false) }
+    var composerEmojiPanelOpen by remember(relationship.relationshipId) { mutableStateOf(false) }
 
     LaunchedEffect(conversationId, latestMessageKey) {
         if (latestMessageKey != null) {
@@ -980,7 +990,9 @@ private fun ChatConversation(
                     modifier = Modifier
                         .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
                         .windowInsetsPadding(WindowInsets.ime.exclude(WindowInsets.navigationBars)),
+                    emojiPanelOpen = composerEmojiPanelOpen,
                     onDraftChanged = { draft = it },
+                    onEmojiPanelOpenChanged = { composerEmojiPanelOpen = it },
                     onCancelReply = { quotedMessage = null },
                     onSend = {
                         val trimmed = draft.trim()
@@ -1041,7 +1053,7 @@ private fun ChatConversation(
         AlertDialog(
             onDismissRequest = { clearConversationRequested = false },
             title = { Text("Очистить чат?") },
-            text = { Text("Сообщения будут удалены только на этом устройстве. Контакт и QR-доверие останутся.") },
+            text = { Text("Переписка будет очищена. Сопряжение сохранится.") },
             confirmButton = {
                 Button(
                     onClick = {
@@ -1346,11 +1358,26 @@ private fun ChatComposer(
     blockReason: String,
     quotedMessage: LocalMessage?,
     modifier: Modifier = Modifier,
+    emojiPanelOpen: Boolean,
     onDraftChanged: (String) -> Unit,
+    onEmojiPanelOpenChanged: (Boolean) -> Unit,
     onCancelReply: () -> Unit,
     onSend: () -> Unit,
 ) {
     val canSubmit = canSend && draft.isNotBlank()
+    val focusManager = LocalFocusManager.current
+    var draftField by remember { mutableStateOf(TextFieldValue(draft, selection = TextRange(draft.length))) }
+
+    LaunchedEffect(draft) {
+        if (draft != draftField.text) {
+            draftField = TextFieldValue(draft, selection = TextRange(draft.length))
+        }
+    }
+
+    BackHandler(enabled = emojiPanelOpen) {
+        onEmojiPanelOpenChanged(false)
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -1413,36 +1440,76 @@ private fun ChatComposer(
                                 }
                             }
                         }
-                        TextButton(onClick = onCancelReply) {
-                            Text("×")
-                        }
-                    }
-                }
-                ClassicEmojiStrip(
-                    enabled = canSend,
-                    onEmojiSelected = { emoji -> onDraftChanged(draft + emoji) },
-                )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    BasicTextField(
-                        value = draft,
-                        onValueChange = onDraftChanged,
-                        enabled = canSend,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-                        keyboardActions = KeyboardActions(onSend = { onSend() }),
+	                        TextButton(onClick = onCancelReply) {
+	                            Text("×")
+	                        }
+	                    }
+	                }
+	                if (emojiPanelOpen) {
+	                    ClassicEmojiPanel(
+	                        enabled = canSend,
+	                        onEmojiSelected = { emoji ->
+	                            val nextValue = draftField.insertAtSelection(emoji)
+	                            draftField = nextValue
+	                            onDraftChanged(nextValue.text)
+	                        },
+	                    )
+	                }
+	                Row(
+	                    verticalAlignment = Alignment.CenterVertically,
+	                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+	                ) {
+		                    IconButton(
+		                        onClick = {
+		                            onEmojiPanelOpenChanged(!emojiPanelOpen)
+		                        },
+	                        enabled = canSend,
+	                        modifier = Modifier
+	                            .size(44.dp)
+	                            .semantics {
+	                                contentDescription = if (emojiPanelOpen) {
+	                                    "Закрыть смайлики"
+	                                } else {
+	                                    "Открыть смайлики"
+	                                }
+	                            },
+	                    ) {
+	                        Icon(
+	                            imageVector = KrakenIcons.Smile,
+	                            contentDescription = null,
+	                            tint = if (emojiPanelOpen) {
+	                                MaterialTheme.colorScheme.primary
+	                            } else {
+	                                MaterialTheme.colorScheme.onSurfaceVariant
+	                            },
+	                            modifier = Modifier.size(24.dp),
+	                        )
+	                    }
+	                    BasicTextField(
+	                        value = draftField,
+	                        onValueChange = { nextValue ->
+	                            draftField = nextValue
+	                            onDraftChanged(nextValue.text)
+	                        },
+	                        enabled = canSend,
+	                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+	                        keyboardActions = KeyboardActions(onSend = { onSend() }),
                         minLines = 1,
                         maxLines = 4,
                         textStyle = MaterialTheme.typography.bodyLarge.copy(
                             color = MaterialTheme.colorScheme.onSurface,
                         ),
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(vertical = 6.dp),
-                        decorationBox = { innerTextField ->
-                            Box(
-                                modifier = Modifier.fillMaxWidth(),
+		                        modifier = Modifier
+		                            .weight(1f)
+		                            .padding(vertical = 6.dp)
+		                            .onFocusChanged { state ->
+		                                if (state.isFocused && emojiPanelOpen) {
+		                                    onEmojiPanelOpenChanged(false)
+		                                }
+		                            },
+	                        decorationBox = { innerTextField ->
+	                            Box(
+	                                modifier = Modifier.fillMaxWidth(),
                                 contentAlignment = Alignment.CenterStart,
                             ) {
                                 if (draft.isEmpty()) {
@@ -1491,61 +1558,186 @@ private fun ChatComposer(
                 }
             }
         }
-    }
+	}
 }
 
-private val ClassicMessengerEmojis = listOf(
-    "🙂",
-    "😁",
-    "😉",
-    "😎",
-    "😢",
-    "😡",
-    "😘",
-    "😍",
-    "😜",
-    "😇",
-    "😴",
-    "🌼",
+private fun TextFieldValue.insertAtSelection(value: String): TextFieldValue {
+    val start = selection.start.coerceIn(0, text.length)
+    val end = selection.end.coerceIn(0, text.length)
+    val lower = minOf(start, end)
+    val upper = maxOf(start, end)
+    val nextText = text.replaceRange(lower, upper, value)
+    return copy(text = nextText, selection = TextRange(lower + value.length))
+}
+
+private val ClassicMessengerEmojiCategories = listOf(
+    "Лица" to listOf(
+        "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣",
+        "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "😘",
+        "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝",
+        "🤑", "🤗", "🤭", "🫢", "🫣", "🤫", "🤔", "🫡",
+        "🤐", "🤨", "😐", "😑", "😶", "🫥", "😏", "😒",
+        "🙄", "😬", "😮‍💨", "🤥", "😌", "😔", "😪", "🤤",
+        "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵",
+        "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "🥸", "😎",
+        "🤓", "🧐", "😕", "🫤", "😟", "🙁", "☹️", "😮",
+        "😯", "😲", "😳", "🥺", "🥹", "😦", "😧", "😨",
+        "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞",
+        "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬",
+    ),
+    "Жесты" to listOf(
+        "👍", "👎", "👌", "🤌", "🤏", "✌️", "🤞", "🫰",
+        "🤟", "🤘", "🤙", "👈", "👉", "👆", "👇", "☝️",
+        "🫵", "✋", "🤚", "🖐️", "🖖", "👋", "🤝", "👏",
+        "🙌", "🫶", "🙏", "✍️", "💪", "🦾", "🫳", "🫴",
+        "👀", "👁️", "🧠", "🫀", "🫁", "🦷", "🦴", "👂",
+        "👃", "👄", "👅", "🧑", "👤", "👥", "🗣️", "🫂",
+    ),
+    "Символы" to listOf(
+        "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍",
+        "🤎", "💔", "❣️", "💕", "💞", "💓", "💗", "💖",
+        "💘", "💝", "💟", "🔥", "✨", "⭐", "🌟", "💫",
+        "💥", "💢", "💦", "💨", "🕳️", "💬", "💭", "🗯️",
+        "✅", "☑️", "✔️", "❌", "❎", "⚠️", "⛔", "🚫",
+        "🔒", "🔓", "🔑", "📌", "📍", "📡", "🔔", "🔕",
+        "⬆️", "⬇️", "⬅️", "➡️", "↗️", "↘️", "↙️", "↖️",
+        "🔄", "🔁", "▶️", "⏸️", "⏹️", "⏭️", "⏮️", "⏱️",
+    ),
 )
 
 @Composable
-private fun ClassicEmojiStrip(
+private fun ClassicEmojiPanel(
     enabled: Boolean,
     onEmojiSelected: (String) -> Unit,
-) {
-    Row(
+	) {
+	    var selectedCategoryIndex by remember { mutableStateOf(0) }
+	    val selectedEmojis = ClassicMessengerEmojiCategories[selectedCategoryIndex].second
+	    val emojiScrollState = rememberScrollState()
+	    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(start = 0.dp, end = 8.dp, bottom = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .height(188.dp)
+            .padding(start = 0.dp, end = 8.dp, bottom = 6.dp),
+        shape = RoundedCornerShape(22.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f),
+        tonalElevation = 3.dp,
     ) {
-        ClassicMessengerEmojis.forEach { emoji ->
-            Surface(
+        Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 9.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Row(
                 modifier = Modifier
-                    .size(34.dp)
-                    .alpha(if (enabled) 1f else 0.42f)
-                    .clickable(enabled = enabled) { onEmojiSelected(emoji) }
-                    .semantics {
-                        contentDescription = "Добавить смайлик $emoji"
-                    },
-                shape = CircleShape,
-                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.72f),
-                tonalElevation = 0.dp,
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(
-                        emoji,
-                        style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center,
-                    )
+                ClassicMessengerEmojiCategories.forEachIndexed { index, category ->
+                    val selected = index == selectedCategoryIndex
+                    Surface(
+                        modifier = Modifier
+                            .clickable(enabled = enabled) { selectedCategoryIndex = index }
+	                            .semantics {
+	                                contentDescription = "Открыть категорию ${category.first}"
+	                            },
+                        shape = RoundedCornerShape(999.dp),
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.62f)
+                        },
+                    ) {
+                        Text(
+	                            category.first,
+	                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 5.dp),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = if (selected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
+                            maxLines = 1,
+                        )
+                    }
                 }
             }
-        }
-    }
-}
+	            BoxWithConstraints(
+	                modifier = Modifier
+	                    .fillMaxWidth()
+	                    .weight(1f),
+	            ) {
+	                Column(
+	                    modifier = Modifier
+	                        .fillMaxWidth()
+	                        .padding(end = 10.dp)
+	                        .verticalScroll(emojiScrollState),
+	                    verticalArrangement = Arrangement.spacedBy(8.dp),
+	                ) {
+	                    selectedEmojis.chunked(8).forEach { row ->
+	                        Row(
+	                            modifier = Modifier.fillMaxWidth(),
+	                            horizontalArrangement = Arrangement.SpaceBetween,
+	                            verticalAlignment = Alignment.CenterVertically,
+	                        ) {
+	                            row.forEach { emoji ->
+	                                Surface(
+	                                    modifier = Modifier
+	                                        .size(36.dp)
+	                                        .alpha(if (enabled) 1f else 0.42f)
+	                                        .clickable(enabled = enabled) { onEmojiSelected(emoji) }
+	                                        .semantics {
+	                                            contentDescription = "Добавить смайлик $emoji"
+	                                        },
+	                                    shape = CircleShape,
+	                                    color = Color.Transparent,
+	                                    tonalElevation = 0.dp,
+	                                ) {
+	                                    Box(contentAlignment = Alignment.Center) {
+	                                        Text(
+	                                            emoji,
+	                                            style = MaterialTheme.typography.titleLarge,
+	                                            textAlign = TextAlign.Center,
+	                                        )
+	                                    }
+	                                }
+	                            }
+	                            repeat(8 - row.size) {
+	                                Box(modifier = Modifier.size(36.dp))
+	                            }
+	                        }
+	                    }
+	                }
+	                if (emojiScrollState.maxValue > 0) {
+	                    val progress = emojiScrollState.value.toFloat() / emojiScrollState.maxValue.toFloat()
+	                    val thumbHeight = 34.dp
+	                    val thumbOffset = (maxHeight - thumbHeight).coerceAtLeast(0.dp) * progress
+	                    Box(
+	                        modifier = Modifier
+	                            .align(Alignment.CenterEnd)
+	                            .width(3.dp)
+	                            .fillMaxHeight()
+	                            .background(
+	                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.18f),
+	                                shape = RoundedCornerShape(999.dp),
+	                            ),
+	                    )
+	                    Box(
+	                        modifier = Modifier
+	                            .align(Alignment.TopEnd)
+	                            .offset(y = thumbOffset)
+	                            .width(3.dp)
+	                            .height(thumbHeight)
+	                            .background(
+	                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.78f),
+	                                shape = RoundedCornerShape(999.dp),
+	                            ),
+	                    )
+	                }
+	            }
+	        }
+	    }
+	}
 
 @Composable
 fun ContactProfileScreen(
@@ -1621,14 +1813,14 @@ fun ContactProfileScreen(
             WarningCard(
                 "Граница доверия",
                 listOf(
-                    "Контакт активируется только QR-рукопожатием.",
-                    "Обнаружение транспорта само по себе не создаёт доверие.",
-                    "Сообщения проходят через локальный контур обмена для выбранного маршрута.",
+                    "Контакт подтверждается через QR-рукопожатие.",
+                    "Поиск транспорта сам по себе не создаёт доверие.",
+                    "Параметры связи и профиля проверяются перед обработкой сообщений.",
                 ),
             )
-            ProfileLine("relationshipId", relationship.relationshipId)
-            ProfileLine("peerPublicKey", relationship.peerPublicKey.take(48))
-            ProfileLine("offlineRole", relationship.offlineHandshakeRole?.name ?: "none")
+            ProfileLine("ID контакта", relationship.relationshipId)
+            ProfileLine("Ключ контакта", relationship.peerPublicKey.take(48))
+            ProfileLine("Роль QR-рукопожатия", offlineHandshakeRoleLabel(relationship.offlineHandshakeRole))
         }
 
         if (actionSheetOpen) {
@@ -1817,7 +2009,7 @@ private fun ClearConversationSheet(
         ) {
             Text("Очистить переписку?", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(
-                "Сообщения с ${relationship.peerDisplayName ?: "контактом"} будут удалены только на этом устройстве. Сопряжение сохранится.",
+                "Переписка с ${relationship.peerDisplayName ?: "контактом"} будет очищена. Сопряжение сохранится.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -1847,7 +2039,7 @@ private fun ContactCancelPairingSheet(
         ) {
             Text("Отменить сопряжение?", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(
-                "Запись ${relationship.peerDisplayName ?: "контакта"} будет удалена только с этого устройства. Для новой попытки понадобится заново отсканировать QR.",
+                "Сопряжение с ${relationship.peerDisplayName ?: "контактом"} будет удалено. Для новой попытки отсканируйте QR заново.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -2007,7 +2199,7 @@ private fun TrustSummaryCard(relationship: Relationship) {
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text("Доверие", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(
-                    "${trustLabel(relationship.state)} · ${relationship.peerFingerprint.shortContactFingerprint()}",
+                    trustLabel(relationship.state),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
@@ -2221,8 +2413,12 @@ private fun relationshipBadge(state: RelationshipState): String =
 private fun trustLabel(state: RelationshipState): String =
     if (state == RelationshipState.ACTIVE) "Проверено QR" else "Не завершено"
 
-private fun String.shortContactFingerprint(): String =
-    if (length <= 12) this else "${take(4)}…${takeLast(4)}"
+private fun offlineHandshakeRoleLabel(role: OfflineHandshakeRole?): String =
+    when (role) {
+        OfflineHandshakeRole.INVITER -> "создатель приглашения"
+        OfflineHandshakeRole.RESPONDER -> "подтверждающее устройство"
+        null -> "нет"
+    }
 
 @Composable
 private fun DatePill(label: String) {
@@ -2606,7 +2802,7 @@ private fun MessageSelectionTopBar(
         }
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text("Выбрано: $selectedTotal", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text("Можно сохранить в избранное или удалить локально", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Можно сохранить в избранное или удалить", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

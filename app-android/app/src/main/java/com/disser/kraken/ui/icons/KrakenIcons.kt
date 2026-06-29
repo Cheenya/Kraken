@@ -408,6 +408,30 @@ object KrakenIcons {
         }
     }
 
+    val Smile = icon("KrakenSmile") {
+        path(
+            fill = null,
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 1.9f,
+            strokeLineCap = StrokeCap.Round,
+            strokeLineJoin = StrokeJoin.Round,
+        ) {
+            moveTo(12f, 21f)
+            curveTo(7f, 21f, 3f, 17f, 3f, 12f)
+            curveTo(3f, 7f, 7f, 3f, 12f, 3f)
+            curveTo(17f, 3f, 21f, 7f, 21f, 12f)
+            curveTo(21f, 17f, 17f, 21f, 12f, 21f)
+            close()
+            moveTo(8.4f, 9.5f)
+            lineTo(8.4f, 9.6f)
+            moveTo(15.6f, 9.5f)
+            lineTo(15.6f, 9.6f)
+            moveTo(8.2f, 14.2f)
+            curveTo(9.1f, 15.8f, 10.4f, 16.6f, 12f, 16.6f)
+            curveTo(13.6f, 16.6f, 14.9f, 15.8f, 15.8f, 14.2f)
+        }
+    }
+
     val ShieldOutline = icon("KrakenShieldOutline") {
         path(
             fill = null,

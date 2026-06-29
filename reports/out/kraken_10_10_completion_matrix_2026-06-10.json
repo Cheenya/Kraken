@@ -1,0 +1,119 @@
+{
+  "report": "kraken_10_10_completion_matrix",
+  "date": "2026-06-10",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "current_10_10_verdict": "not_complete",
+  "latest_adb_visibility": {
+    "visible_devices": [
+      "R5CY22X6MSB",
+      "d948ffd0"
+    ],
+    "missing_for_two_device_gates": []
+  },
+  "gates": [
+    {
+      "id": "wifi_direct_route_delivery",
+      "status": "open",
+      "required_evidence": "Two phones using wifi-direct-only; peer discovery succeeds; selected route is wifi-direct; message delivery and route attempts are captured.",
+      "current_evidence": [
+        "reports/out/wifi_direct_readiness_capture_2026-06-08.md",
+        "reports/out/wifi_direct_only_capture_2026-06-08.md",
+        "reports/out/wifi_direct_diagnostics_2026-06-08.md",
+        "reports/out/single_device_partial_evidence_2026-06-10.md",
+        "reports/out/wifi_direct_two_device_attempt_2026-06-10.md",
+        "reports/out/wifi_direct_two_device_delivery_2026-06-10.md",
+        "reports/out/wifi_direct_network_state_diagnostics_2026-06-11.md",
+        "reports/out/wifi_direct_p2p_bind_diagnostics_2026-06-11.md",
+        "reports/out/wifi_direct_af_inet_listener_attempt_2026-06-11.md"
+      ],
+      "gap": "Repeated Xiaomi to Samsung Wi-Fi Direct route-delivery evidence is captured, and P2P-bind diagnostics show bidirectional ping plus shell TCP works while remote TCP to Kraken app listeners still times out. Bidirectional app delivery and route-bound negative tests are not proven."
+    },
+    {
+      "id": "wifi_direct_negative_tests",
+      "status": "open",
+      "required_evidence": "Unknown peer, wrong recipient, duplicate/replay, TTL and malformed packet rejection captured while Wi-Fi Direct is the active route.",
+      "current_evidence": [
+        "reports/out/debug_route_evidence_capture_2026-06-08.md"
+      ],
+      "gap": "Current hostile counters are debug-local and not Wi-Fi Direct radio-path negative evidence."
+    },
+    {
+      "id": "physical_mac_inline_relay_modes",
+      "status": "open",
+      "required_evidence": "Android A -> Mac -> Android B physical LAN forwarding for normal/drop/duplicate/tamper with before/send/relay/after artifacts.",
+      "current_evidence": [
+        "reports/out/mac_inline_relay_attempt_2026-06-08.md",
+        "reports/out/mac_inline_relay_adb_forward_demo_2026-06-08.md",
+        "reports/out/physical_inline_relay_runner_2026-06-10.md"
+      ],
+      "gap": "Physical Mac -> Android B forwarding and attack modes are not proven."
+    },
+    {
+      "id": "physical_hostile_packet_injection_lan_ble_wifi_direct",
+      "status": "open",
+      "required_evidence": "LAN/BLE/Wi-Fi Direct external malformed, unknown, wrong-recipient and duplicate cases reach phone listeners and increment rejection counters.",
+      "current_evidence": [
+        "reports/out/lan_malformed_injection_attempt_2026-06-08.md",
+        "reports/out/debug_route_evidence_capture_2026-06-08.md"
+      ],
+      "gap": "LAN injector writes timed out; BLE/Wi-Fi Direct external injection is not captured."
+    },
+    {
+      "id": "route_benchmark_min_n",
+      "status": "open",
+      "required_evidence": "N-run two-device benchmark with minimum sample gate met for every claimed route; median, p95, loss and retry reported.",
+      "current_evidence": [
+        "reports/out/route_benchmark_summary_2026-06-08.md",
+        "reports/out/route_benchmark_runner_2026-06-10.md",
+        "reports/out/route_benchmark_preflight_2026-06-11.md"
+      ],
+      "gap": "Existing LAN/BLE samples are n=2 per route; 2026-06-11 two-device runner preflight produced zero delivered latency samples and remains insufficient for reliability claims."
+    },
+    {
+      "id": "release_like_prototype_hard_gate",
+      "status": "closed_for_minimal_gate",
+      "required_evidence": "Release-like builds fail while prototype crypto, placeholder identity and unsigned QR remain research-only.",
+      "current_evidence": [
+        "reports/out/kraken_release_hard_gate_2026-06-10.md"
+      ],
+      "gap": "Production security remains separate and open."
+    },
+    {
+      "id": "production_security_track",
+      "status": "open_if_in_scope",
+      "required_evidence": "Keystore identity, signed QR, reviewed encrypted packet envelope, release signing and security review.",
+      "current_evidence": [
+        "docs/kraken-production-readiness-roadmap.md"
+      ],
+      "gap": "Production secure messenger is roadmap-only and must not be claimed."
+    },
+    {
+      "id": "adamova_product_path_research",
+      "status": "closed_for_research_prototype",
+      "required_evidence": "Experimental profile metadata flows through QR/relationship/session/packet; weak/mismatch/native-unavailable blocked; standard profile is not Adamova-claimed.",
+      "current_evidence": [
+        "reports/out/adamova_product_path_demo.md",
+        "reports/out/adamova_effectiveness_experiment.md"
+      ],
+      "gap": "Not a production crypto security claim."
+    },
+    {
+      "id": "lan_ble_dissertation_smoke",
+      "status": "closed_for_smoke_not_reliability",
+      "required_evidence": "Route-specific LAN/BLE two-phone prototype evidence with counters and claim boundary.",
+      "current_evidence": [
+        "reports/out/two_device_route_specific_smoke_2026-06-08.md",
+        "reports/out/ble_two_device_delivery_evidence_2026-06-06.md"
+      ],
+      "gap": "Does not prove repeatable reliability."
+    }
+  ],
+  "commands": {
+    "wifi_direct_route_capture": "scripts/capture_debug_route_evidence.sh --device R5CY22X6MSB --device d948ffd0 --label wifi-direct-repeatability-check --transport-profile wifi-direct-only --reuse-running-mesh --debug-send-body \"wifi-direct repeatability check\" --sync-after-debug-send --sync-attempts 8",
+    "route_benchmark": "scripts/run_route_benchmark_trials.sh --device R5CY22X6MSB --device d948ffd0 --trials 10 --transport-profile all --min-samples-per-route 10",
+    "physical_inline_relay": "scripts/run_physical_inline_relay_trials.sh --sender-device R5CY22X6MSB --target-device d948ffd0 --mac-host <MAC_LAN_IP>"
+  },
+  "claim_boundary": "Completion-control artifact only. It does not claim production security, production reliability or completed 10/10."
+}

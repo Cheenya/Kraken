@@ -131,7 +131,7 @@ class RealmQrMembershipFlowTest {
         assertEquals(alice.publicKeyEncoded, bobSnapshot.inviteEdges.single().inviterPublicKey)
         assertEquals(realmInvite.inviteId, bobSnapshot.inviteEdges.single().inviteId)
         assertNotNull(finalConfirmation.membershipCertificate)
-        assertEquals("offline-qr-confirmation-check-v1", finalConfirmation.proofPlaceholder)
+        assertTrue(finalConfirmation.proofPlaceholder.contains("offline-qr-confirmation-proof"))
     }
 
     @Test
@@ -175,7 +175,7 @@ class RealmQrMembershipFlowTest {
         )
 
         assertTrue(ownerResult is OfflineHandshakeResult.Error)
-        assertTrue((ownerResult as OfflineHandshakeResult.Error).reason.contains("already consumed"))
+        assertTrue((ownerResult as OfflineHandshakeResult.Error).reason.contains("уже использовано"))
     }
 
     private fun identity(id: String, displayName: String, publicKey: String): LocalIdentity =

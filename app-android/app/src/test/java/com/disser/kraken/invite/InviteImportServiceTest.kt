@@ -60,7 +60,7 @@ class InviteImportServiceTest {
         )
 
         assertTrue(result is InviteImportResult.Error)
-        assertEquals("Self-invite is not allowed.", (result as InviteImportResult.Error).reason)
+        assertEquals("Нельзя добавить собственный QR.", (result as InviteImportResult.Error).reason)
     }
 
     @Test
@@ -82,7 +82,7 @@ class InviteImportServiceTest {
         )
 
         assertTrue(result is InviteImportResult.Error)
-        assertEquals("This invite was already imported.", (result as InviteImportResult.Error).reason)
+        assertEquals("Приглашение уже добавлено.", (result as InviteImportResult.Error).reason)
     }
 
     @Test

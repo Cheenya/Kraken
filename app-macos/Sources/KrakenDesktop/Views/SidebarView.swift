@@ -16,10 +16,13 @@ struct SidebarView: View {
 
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    if store.selectedSection == .chat {
+                    if store.selectedSection == .chat || store.selectedSection == .contacts {
                         ForEach(store.filteredRelationships) { relationship in
                             Button {
                                 store.selectRelationship(relationship.relationshipId)
+                                if store.selectedSection == .contacts {
+                                    store.selectedSection = .chat
+                                }
                             } label: {
                                 SidebarPeerRow(
                                     relationship: relationship,
@@ -40,7 +43,7 @@ struct SidebarView: View {
                                     store.selectRelationship(relationship.relationshipId)
                                     store.bindCurrentLanEndpointToSelectedPeer()
                                 } label: {
-                                    Label("Привязать LAN/ADB конечную точку", systemImage: "link")
+                                    Label("Привязать адрес LAN/ADB", systemImage: "link")
                                 }
 
                                 Divider()
@@ -286,12 +289,12 @@ private struct SidebarFooter: View {
                 HStack(spacing: 10) {
                     KrakenMark(size: 42)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(store.state.localIdentity?.displayName ?? "Создать личность")
+                        Text(store.state.localIdentity?.displayName ?? "Создать профиль")
                             .font(.subheadline.weight(.semibold))
                             .lineLimit(1)
 
                         HStack(spacing: 5) {
-                            Text(store.state.localIdentity.map { KrakenFormatters.compactFingerprint($0.fingerprint) } ?? "личность не создана")
+                            Text(store.state.localIdentity.map { KrakenFormatters.compactFingerprint($0.fingerprint) } ?? "профиль не создан")
                                 .font(.caption.weight(.semibold))
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
@@ -416,6 +419,8 @@ private struct SidebarSectionSummary: View {
         switch section {
         case .chat:
             "Диалоги и сообщения."
+        case .contacts:
+            "Сопряжённые устройства Kraken."
         case .mesh:
             "Локальные реалмы и приглашения."
         case .research:

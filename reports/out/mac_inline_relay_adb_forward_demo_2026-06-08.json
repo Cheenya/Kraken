@@ -1,0 +1,88 @@
+{
+  "report": "mac_inline_relay_adb_forward_demo",
+  "date": "2026-06-08",
+  "mode": "normal",
+  "transport_profile": "lan-only",
+  "artifacts": {
+    "xiaomi_target_before": "artifacts/debug-route-evidence/20260608-095257-xiaomi-lan-only-target-direct-send/manifest.json",
+    "samsung_send": "artifacts/debug-route-evidence/20260608-095340-inline-relay-normal-adb-forward-direct-send-samsung/manifest.json",
+    "mac_relay": "artifacts/desktop-relay-inline/20260608-095344/android_inline_lan_relay.json",
+    "xiaomi_after": "artifacts/debug-route-evidence/20260608-095824-inline-relay-normal-adb-forward-direct-xiaomi-sync-after/manifest.json"
+  },
+  "sender": {
+    "serial": "R5CY22X6MSB",
+    "model": "SM-S938B",
+    "fingerprint": "3C4E D5BA 9DB8 8F9B",
+    "manual_peer": {
+      "fingerprint": "B42B 3068 934E F618",
+      "host": "192.168.0.123",
+      "port": 49887,
+      "status": "manual-peer-added"
+    },
+    "debug_message_id": "message-38306df1-3ba1-4144-9ddc-bd4be9ed911a",
+    "debug_message_body": "inline relay direct normal 0953",
+    "debug_packet_id": "packet-9bc33267-1090-44f8-9a89-5cf9db047849",
+    "debug_send_success": true,
+    "selected_route": "lan-nsd-tcp",
+    "enabled_transport_modes": [
+      "lan-nsd-tcp"
+    ]
+  },
+  "mac_relay": {
+    "listen": "0.0.0.0:49887",
+    "target": "127.0.0.1:54035",
+    "frames_received": 1,
+    "frame": {
+      "source": "192.168.0.201:52400",
+      "sender_fingerprint": "3C4E D5BA 9DB8 8F9B",
+      "recipient_fingerprint": "B42B 3068 934E F618",
+      "packet_id": "packet-9bc33267-1090-44f8-9a89-5cf9db047849"
+    },
+    "decision": {
+      "accepted": true,
+      "reason": "attack-normal",
+      "forwarded": true,
+      "queued": false,
+      "dropped": false
+    },
+    "forward_attempt": {
+      "host": "127.0.0.1",
+      "port": 54035,
+      "success": true
+    }
+  },
+  "receiver_after": {
+    "serial": "d948ffd0",
+    "model": "2201122G",
+    "fingerprint": "B42B 3068 934E F618",
+    "accepted_connections": 1,
+    "inbound_packets": 1,
+    "malformed_frames_dropped": 0,
+    "packets_received_metric": 1,
+    "seen_packet_id": "packet-9bc33267-1090-44f8-9a89-5cf9db047849",
+    "accepted_message": {
+      "message_id": "message-38306df1-3ba1-4144-9ddc-bd4be9ed911a",
+      "direction": "INCOMING",
+      "status": "DELIVERED_TO_PEER",
+      "body": "inline relay direct normal 0953"
+    },
+    "queued_receipt": {
+      "packet_id": "packet-56c00d84-0ad0-4fdc-beb8-9f9f74f39619",
+      "status": "QUEUED",
+      "last_error": "UNKNOWN_PEER",
+      "receipt_for_packet_id": "packet-9bc33267-1090-44f8-9a89-5cf9db047849"
+    },
+    "last_sync_summary": "sent=0 received=0 receipts=0 rejected=2"
+  },
+  "closed_gap": "android_a_to_mac_to_android_b_debug_endpoint_delivery_via_adb_forward",
+  "not_closed": [
+    "physical_wifi_mac_to_android_b_forwarding",
+    "drop_duplicate_tamper_modes",
+    "full_bidirectional_receipt_delivery",
+    "android_before_after_rejection_counters_for_mitm_modes",
+    "cryptographic_mitm_resistance",
+    "wifi_direct_route_evidence",
+    "production_relay_security"
+  ],
+  "claim_boundary": "This proves Android A -> Mac relay -> Android B app-store delivery only through an ADB-forward target endpoint. It does not prove physical Wi-Fi Mac -> Android B forwarding, MITM resistance, Wi-Fi Direct delivery, or production relay security."
+}

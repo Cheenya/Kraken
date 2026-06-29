@@ -86,7 +86,7 @@ public struct KrakenDesktopSimulator: Sendable {
             fingerprint: String(makeId().replacingOccurrences(of: "-", with: "").prefix(16)).uppercased(),
             createdAt: current
         )
-        next.lastEvent = "Создана локальная личность"
+        next.lastEvent = "Создан профиль Kraken"
         return next
     }
 
@@ -234,7 +234,7 @@ public struct KrakenDesktopSimulator: Sendable {
                 riskFlags: [],
                 evaluatedAt: current
             )
-            next.lastEvent = "Экспериментальный профиль Adamova принят"
+            next.lastEvent = "Экспериментальный криптопрофиль принят"
         } else {
             next.admissionResult = AdmissionResult(
                 profileId: "experimental-adamova-risk-demo-v1",

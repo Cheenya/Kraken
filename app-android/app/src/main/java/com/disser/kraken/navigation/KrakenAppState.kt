@@ -275,7 +275,7 @@ class KrakenAppState(private val context: Context) {
             }
             is QrScanImportResult.HandshakeResponseAccepted,
             is QrScanImportResult.HandshakeConfirmationAccepted,
-            is QrScanImportResult.LanEndpointAccepted -> QrScanImportResult.Error("Ожидалось QR-приглашение, но получен другой payload Kraken.")
+            is QrScanImportResult.LanEndpointAccepted -> QrScanImportResult.Error("Ожидалось QR-приглашение, но получен другой QR Kraken.")
         }
     }
 
@@ -294,7 +294,7 @@ class KrakenAppState(private val context: Context) {
             HandshakePayloadKind.CONFIRMATION -> processHandshakeConfirmation(rawJson)
             HandshakePayloadKind.UNKNOWN,
             HandshakePayloadKind.INVALID -> processLanEndpointPayload(rawJson)
-                ?: QrScanImportResult.Error("Этот QR не является корректным payload рукопожатия Kraken.")
+                ?: QrScanImportResult.Error("Этот QR не является корректным QR подтверждения Kraken.")
         }
     }
 
@@ -320,9 +320,9 @@ class KrakenAppState(private val context: Context) {
 
     private fun processLanEndpointPayload(rawJson: String): QrScanImportResult? {
         val payload = LanEndpointPayloadCodec.decode(rawJson).getOrNull() ?: return null
-        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте локальную личность перед добавлением LAN-конечной точки.")
+        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте профиль Kraken перед добавлением LAN-адреса.")
         if (payload.fingerprint == identity.fingerprint) {
-            return QrScanImportResult.Error("Нельзя добавить собственную LAN-конечную точку.")
+            return QrScanImportResult.Error("Нельзя добавить собственный LAN-адрес.")
         }
         if (!addManualLanPeer(payload.fingerprint, payload.host, payload.port.toString())) {
             return QrScanImportResult.Error("QR-адрес связи не добавлен: ${meshSnapshot.lastPacketStatus}.")
@@ -336,9 +336,9 @@ class KrakenAppState(private val context: Context) {
     }
 
     private fun processHandshakeResponse(rawJson: String): QrScanImportResult {
-        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте локальную личность перед сканом ответного QR.")
-        val payload = HandshakePayloadCodec.decodeResponse(rawJson).getOrElse { error ->
-            return QrScanImportResult.Error(error.message ?: "Некорректный ответный QR рукопожатия.")
+        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте профиль Kraken перед сканированием QR подтверждения.")
+        val payload = HandshakePayloadCodec.decodeResponse(rawJson).getOrElse {
+            return QrScanImportResult.Error("Некорректный QR подтверждения.")
         }
         val lifecycle = responseLifecycleOrError(payload).getOrElse { reason ->
             completedRelationshipForResponse(payload)?.let { relationship ->
@@ -351,7 +351,7 @@ class KrakenAppState(private val context: Context) {
                     confirmationPayloadJson = confirmationJson,
                 )
             }
-            return QrScanImportResult.Error(reason.message ?: "Ответный QR не прошёл локальную проверку invite.")
+            return QrScanImportResult.Error(friendlyQrHandshakeError(reason.message))
         }
         return when (
             val result = offlineHandshakeService.processResponsePayload(
@@ -361,8 +361,8 @@ class KrakenAppState(private val context: Context) {
                 knownInviteLifecycle = lifecycle,
             )
         ) {
-            is OfflineHandshakeResult.Error -> QrScanImportResult.Error(result.reason)
-            is OfflineHandshakeResult.ConfirmationAccepted -> QrScanImportResult.Error("Ожидался ответ рукопожатия, но получено финальное подтверждение.")
+            is OfflineHandshakeResult.Error -> QrScanImportResult.Error(friendlyQrHandshakeError(result.reason))
+            is OfflineHandshakeResult.ConfirmationAccepted -> QrScanImportResult.Error("Ожидался QR подтверждения, но получено другое подтверждение.")
             is OfflineHandshakeResult.ResponseAccepted -> {
                 upsertRelationship(result.relationship)
                 if (!payload.requiresApproval && payload.realmId == null) {
@@ -437,9 +437,9 @@ class KrakenAppState(private val context: Context) {
     }
 
     private fun processHandshakeConfirmation(rawJson: String): QrScanImportResult {
-        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте локальную личность перед сканом финального QR.")
-        val payload = HandshakePayloadCodec.decodeConfirmation(rawJson).getOrElse { error ->
-            return QrScanImportResult.Error(error.message ?: "Некорректный финальный QR рукопожатия.")
+        val identity = localIdentity ?: return QrScanImportResult.Error("Создайте профиль Kraken перед сканированием QR подтверждения.")
+        val payload = HandshakePayloadCodec.decodeConfirmation(rawJson).getOrElse {
+            return QrScanImportResult.Error("Некорректный QR подтверждения.")
         }
         return when (
             val result = offlineHandshakeService.processConfirmationPayload(
@@ -448,8 +448,8 @@ class KrakenAppState(private val context: Context) {
                 payload = payload,
             )
         ) {
-            is OfflineHandshakeResult.Error -> QrScanImportResult.Error(result.reason)
-            is OfflineHandshakeResult.ResponseAccepted -> QrScanImportResult.Error("Ожидалось финальное подтверждение, но получен ответ рукопожатия.")
+            is OfflineHandshakeResult.Error -> QrScanImportResult.Error(friendlyQrHandshakeError(result.reason))
+            is OfflineHandshakeResult.ResponseAccepted -> QrScanImportResult.Error("Ожидался QR подтверждения, но получен ответ рукопожатия.")
             is OfflineHandshakeResult.ConfirmationAccepted -> {
                 upsertRelationship(result.relationship)
                 applyRealmMembershipConfirmation(payload, result.relationship)
@@ -460,6 +460,16 @@ class KrakenAppState(private val context: Context) {
             }
         }
     }
+
+    private fun friendlyQrHandshakeError(raw: String?): String =
+        when {
+            raw == null -> "QR подтверждения не прошёл проверку."
+            raw.contains("already", ignoreCase = true) || raw.contains("known", ignoreCase = true) -> "Ключ уже знаком"
+            raw.contains("addressed to another", ignoreCase = true) -> "Этот QR предназначен для другого профиля Kraken."
+            raw.contains("self", ignoreCase = true) -> "Нельзя подтвердить собственный QR."
+            raw.contains("expired", ignoreCase = true) -> "Срок действия QR истёк."
+            else -> "QR подтверждения не прошёл проверку."
+        }
 
     private fun applyRealmMembershipConfirmation(
         payload: com.disser.kraken.handshake.HandshakeConfirmationPayload,
@@ -547,7 +557,7 @@ class KrakenAppState(private val context: Context) {
             )
             return
         }
-        ensureMeshStarted()
+        val meshAvailable = ensureMeshStarted()
         val message = MessageService.createOutgoingMessage(
             localIdentity = identity,
             relationship = relationship,
@@ -555,8 +565,12 @@ class KrakenAppState(private val context: Context) {
             replyToMessage = replyToMessage,
         )
         messages = meshRuntime.addOutgoingMessage(message)
-        MeshForegroundService.syncNow(context)
-        meshSnapshot = meshRuntime.snapshot()
+        if (meshAvailable) {
+            MeshForegroundService.syncNow(context)
+            meshSnapshot = meshRuntime.snapshot()
+        } else {
+            meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "message-queued-network-stopped")
+        }
     }
 
     fun upsertMessage(message: LocalMessage) {
@@ -566,9 +580,13 @@ class KrakenAppState(private val context: Context) {
 
     fun retryMessage(messageId: String) {
         messages = meshRuntime.requeueMessage(messageId)
-        ensureMeshStarted()
-        MeshForegroundService.syncNow(context)
-        meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "message-retry-requested")
+        val meshAvailable = ensureMeshStarted()
+        if (meshAvailable) {
+            MeshForegroundService.syncNow(context)
+            meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "message-retry-requested")
+        } else {
+            meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "message-retry-queued-network-stopped")
+        }
     }
 
     fun deleteMessage(messageId: String) {
@@ -672,10 +690,14 @@ class KrakenAppState(private val context: Context) {
         }
     }
 
-    fun ensureMeshStarted() {
-        if (localIdentity != null && meshSnapshot.state in setOf(MeshState.OFF, MeshState.ERROR)) {
+    fun ensureMeshStarted(): Boolean {
+        if (localIdentity == null) return false
+        if (!meshRuntime.prefs.meshEnabled) return false
+        if (meshSnapshot.state in setOf(MeshState.OFF, MeshState.ERROR)) {
             startMesh()
         }
+        return meshSnapshot.state !in setOf(MeshState.OFF, MeshState.ERROR) ||
+            meshSnapshot.lastPacketStatus.startsWith("service-start-requested")
     }
 
     fun stopMesh() {
@@ -695,7 +717,10 @@ class KrakenAppState(private val context: Context) {
     }
 
     fun addManualLanPeer(fingerprint: String, host: String, portText: String): Boolean {
-        ensureMeshStarted()
+        if (!ensureMeshStarted()) {
+            meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "manual-peer-failed-network-stopped")
+            return false
+        }
         val port = portText.trim().toIntOrNull()
         if (port == null) {
             meshSnapshot = meshRuntime.snapshot().copy(lastPacketStatus = "manual-peer-failed:invalid-port")

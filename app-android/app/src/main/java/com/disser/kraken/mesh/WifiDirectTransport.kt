@@ -870,7 +870,7 @@ class WifiDirectTransport(
                     LanFrameCodec.writeAck(client.getOutputStream())
                 }
             } catch (_: SocketTimeoutException) {
-                // Poll running flag.
+                // Expected accept timeout; loop re-checks service state.
             } catch (error: Exception) {
                 updateDiagnostics {
                     it.copy(

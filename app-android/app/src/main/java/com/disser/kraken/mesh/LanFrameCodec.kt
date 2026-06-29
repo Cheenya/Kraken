@@ -48,7 +48,7 @@ object LanFrameCodec {
             )
         }
         val payload = encoded.encodeToByteArray()
-        require(payload.size <= MAX_FRAME_BYTES) { "Kraken packet frame exceeds $MAX_FRAME_BYTES bytes." }
+        require(payload.size <= MAX_FRAME_BYTES) { "Кадр пакета Kraken больше $MAX_FRAME_BYTES байт." }
         val output = ByteArrayOutputStream(LENGTH_PREFIX_BYTES + payload.size)
         output.write(ByteBuffer.allocate(LENGTH_PREFIX_BYTES).putInt(payload.size).array())
         output.write(payload)
@@ -58,10 +58,10 @@ object LanFrameCodec {
     fun decode(input: InputStream): KrakenPacket {
         val lengthBytes = input.readFully(LENGTH_PREFIX_BYTES)
         val length = ByteBuffer.wrap(lengthBytes).int
-        require(length in 1..MAX_FRAME_BYTES) { "Invalid Kraken packet frame length." }
+        require(length in 1..MAX_FRAME_BYTES) { "Некорректная длина кадра пакета Kraken." }
         val payload = input.readFully(length).decodeToString()
         return MeshPacketCodec.decode(payload).getOrElse {
-            throw IllegalArgumentException("Malformed Kraken packet frame.", it)
+            throw IllegalArgumentException("Повреждённый кадр пакета Kraken.", it)
         }
     }
 
@@ -72,7 +72,7 @@ object LanFrameCodec {
                 .validated()
         }.getOrElse {
             val packet = MeshPacketCodec.decode(payload).getOrElse { error ->
-                throw IllegalArgumentException("Malformed Kraken packet frame.", error)
+                throw IllegalArgumentException("Повреждённый кадр пакета Kraken.", error)
             }
             LanFrameEnvelope(
                 senderPeerId = "lan-${packet.senderFingerprint}",
@@ -89,12 +89,12 @@ object LanFrameCodec {
 
     fun readAck(input: InputStream) {
         val ack = input.read()
-        require(ack == ACK_BYTE) { "Kraken packet frame ACK was not received." }
+        require(ack == ACK_BYTE) { "Подтверждение кадра пакета Kraken не получено." }
     }
 
     private fun LanFrameEnvelope.validated(): LanFrameEnvelope {
         require(senderFingerprint == packet.senderFingerprint) {
-            "LAN frame sender fingerprint does not match packet sender."
+            "Отпечаток отправителя LAN-кадра не совпадает с отправителем пакета."
         }
         return this
     }
@@ -102,7 +102,7 @@ object LanFrameCodec {
     private fun readPayload(input: InputStream): String {
         val lengthBytes = input.readFully(LENGTH_PREFIX_BYTES)
         val length = ByteBuffer.wrap(lengthBytes).int
-        require(length in 1..MAX_FRAME_BYTES) { "Invalid Kraken packet frame length." }
+        require(length in 1..MAX_FRAME_BYTES) { "Некорректная длина кадра пакета Kraken." }
         return input.readFully(length).decodeToString()
     }
 

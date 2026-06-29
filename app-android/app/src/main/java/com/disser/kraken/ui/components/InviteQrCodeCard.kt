@@ -60,7 +60,7 @@ fun InviteQrCodeCard(model: InviteQrDisplayModel, modifier: Modifier = Modifier)
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                LabeledValue("Инвайт", model.shortInviteId, Modifier.weight(1f))
+                LabeledValue("ID приглашения", model.shortInviteId, Modifier.weight(1f))
                 LabeledValue("Статус", model.stateLabel, Modifier.weight(1f))
             }
             Row(

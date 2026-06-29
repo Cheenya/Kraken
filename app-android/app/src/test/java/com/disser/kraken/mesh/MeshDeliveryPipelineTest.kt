@@ -297,7 +297,7 @@ class MeshDeliveryPipelineTest {
     }
 
     @Test
-    fun encryptedProtectionPolicyRejectsOutboundPlaintextWithoutProtector() {
+    fun productionProtectionPolicyRejectsOutboundPlaintextWithoutProtector() {
         val activeRelationship = relationship(alice, bob, RelationshipState.ACTIVE)
         val transport = InMemoryTwoNodeTransport(alicePeer, InMemoryTwoNodeTransport.SharedBus()) {
             1_700_000_000_000
@@ -318,7 +318,7 @@ class MeshDeliveryPipelineTest {
     }
 
     @Test
-    fun encryptedProtectionPolicyRejectsInboundPlaintextMessage() {
+    fun productionProtectionPolicyRejectsInboundPlaintextMessage() {
         val packet = validMessagePacket()
 
         val result = MeshInboxProcessor(
@@ -449,7 +449,7 @@ class MeshDeliveryPipelineTest {
             override fun stop() = Unit
             override fun observePeers(): List<DiscoveredPeer> = listOf(bobPeer)
             override fun send(peer: DiscoveredPeer, packet: KrakenPacket): TransportSendResult =
-                TransportSendResult(false, "Kraken packet frame exceeds 262144 bytes.")
+                TransportSendResult(false, "Кадр пакета Kraken больше 262144 байт.")
             override fun observePackets(): List<ReceivedPacket> = emptyList()
         }
 

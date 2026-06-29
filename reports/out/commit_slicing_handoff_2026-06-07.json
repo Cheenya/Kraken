@@ -1,0 +1,167 @@
+{
+  "report_date": "2026-06-07",
+  "read_only": true,
+  "executed": false,
+  "stage_commit_push_executed": false,
+  "source_dirty_tree": "reports/out/dirty_tree_commit_slices_2026-06-07.json",
+  "source_verification_passed": true,
+  "repositories": {
+    "android": {
+      "dirty_file_count": 13,
+      "unassigned": [],
+      "missing_slice_files": []
+    },
+    "math": {
+      "dirty_file_count": 0,
+      "unassigned": [],
+      "missing_slice_files": []
+    }
+  },
+  "slices": [
+    {
+      "name": "android_mesh_ble_manual_evidence_docs",
+      "repository": "android",
+      "root": "/Users/cheenya/Projects/kraken-android-research-panel",
+      "purpose": "Update LAN/Wi-Fi and BLE manual evidence boundaries plus capture helper docs/tests.",
+      "dirty_file_count": 1,
+      "files": [
+        "docs/research-notes-index.md"
+      ],
+      "stage_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "add",
+        "--",
+        "docs/research-notes-index.md"
+      ],
+      "review_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "commit_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "commit",
+        "-m",
+        "Refresh LAN and BLE manual evidence docs"
+      ],
+      "commit_subject": "Refresh LAN and BLE manual evidence docs"
+    },
+    {
+      "name": "android_branch_tree_cleanup_and_retention",
+      "repository": "android",
+      "root": "/Users/cheenya/Projects/kraken-android-research-panel",
+      "purpose": "Document branch/stash/raw evidence cleanup and verify it read-only.",
+      "dirty_file_count": 9,
+      "files": [
+        "reports/out/cleanup_execution_status_2026-06-07.json",
+        "reports/out/cleanup_execution_status_2026-06-07.md",
+        "reports/out/commit_slicing_handoff_2026-06-07.json",
+        "reports/out/commit_slicing_handoff_2026-06-07.md",
+        "reports/out/dirty_tree_commit_slices_2026-06-07.json",
+        "reports/out/dirty_tree_commit_slices_2026-06-07.md",
+        "reports/out/non_phone_cleanup_status_2026-06-07.json",
+        "reports/out/non_phone_cleanup_status_2026-06-07.md",
+        "scripts/audit_dirty_tree_slices.py"
+      ],
+      "stage_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "add",
+        "--",
+        "reports/out/cleanup_execution_status_2026-06-07.json",
+        "reports/out/cleanup_execution_status_2026-06-07.md",
+        "reports/out/commit_slicing_handoff_2026-06-07.json",
+        "reports/out/commit_slicing_handoff_2026-06-07.md",
+        "reports/out/dirty_tree_commit_slices_2026-06-07.json",
+        "reports/out/dirty_tree_commit_slices_2026-06-07.md",
+        "reports/out/non_phone_cleanup_status_2026-06-07.json",
+        "reports/out/non_phone_cleanup_status_2026-06-07.md",
+        "scripts/audit_dirty_tree_slices.py"
+      ],
+      "review_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "commit_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "commit",
+        "-m",
+        "Document branch cleanup and retention plan"
+      ],
+      "commit_subject": "Document branch cleanup and retention plan"
+    },
+    {
+      "name": "android_june_7_readiness_and_policy_guards",
+      "repository": "android",
+      "root": "/Users/cheenya/Projects/kraken-android-research-panel",
+      "purpose": "Make June 7 readiness and 10/10 research-prototype planning the current entrypoint.",
+      "dirty_file_count": 3,
+      "files": [
+        "README.md",
+        "reports/out/current_project_readiness_2026-06-07.md",
+        "tests/test_android_policy_guards.py"
+      ],
+      "stage_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "add",
+        "--",
+        "README.md",
+        "reports/out/current_project_readiness_2026-06-07.md",
+        "tests/test_android_policy_guards.py"
+      ],
+      "review_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "commit_command": [
+        "git",
+        "-C",
+        "/Users/cheenya/Projects/kraken-android-research-panel",
+        "commit",
+        "-m",
+        "Refresh June 7 Kraken readiness guards"
+      ],
+      "commit_subject": "Refresh June 7 Kraken readiness guards"
+    }
+  ],
+  "post_commit_checks": [
+    [
+      "/Users/cheenya/Projects/disser-messenger-project/.venv/bin/python",
+      "-m",
+      "pytest"
+    ],
+    [
+      "./gradlew",
+      "test"
+    ],
+    [
+      "./gradlew",
+      "assembleDebug"
+    ],
+    [
+      "git",
+      "diff",
+      "--check"
+    ]
+  ]
+}

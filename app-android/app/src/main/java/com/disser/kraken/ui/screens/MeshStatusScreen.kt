@@ -32,7 +32,9 @@ import com.disser.kraken.realm.RealmSnapshot
 import com.disser.kraken.relationship.Relationship
 import com.disser.kraken.relay.ForwardingAllowedEvaluator
 import com.disser.kraken.relay.RelayDeviceContext
+import com.disser.kraken.relay.RelayMode
 import com.disser.kraken.relay.RelayPolicyState
+import com.disser.kraken.relay.RelayRuntimeState
 import com.disser.kraken.ui.components.InfoCard
 import com.disser.kraken.ui.components.PayloadQrCodeCard
 import com.disser.kraken.ui.components.ScreenContainer
@@ -59,6 +61,7 @@ fun MeshStatusScreen(
     var manualPort by remember { mutableStateOf("") }
     val localLanEndpointPayload = localLanEndpointPayload(localIdentity, meshSnapshot)
     val meshRunning = meshSnapshot.state !in setOf(MeshState.OFF, MeshState.ERROR)
+    val meshServiceActive = meshRunning || meshSnapshot.foregroundServiceEnabled
 
     ScreenContainer("Диагностика связи", navController) {
         InfoCard(
@@ -67,7 +70,7 @@ fun MeshStatusScreen(
                 "LAN: ${lanRouteLabel(meshSnapshot)}",
                 "BLE: ${bleRouteLabel(meshSnapshot)}",
                 "Очередь: ${queueSummary(meshSnapshot)}",
-                "Последняя ошибка: ${meshSnapshot.transportDiagnostics.lastError ?: meshSnapshot.queue.lastError ?: "нет"}",
+                "Последняя ошибка: ${transportErrorLabel(meshSnapshot.transportDiagnostics.lastError ?: meshSnapshot.queue.lastError?.name)}",
             ),
         )
         InfoCard(
@@ -77,7 +80,7 @@ fun MeshStatusScreen(
                 "Профиль транспорта: ${transportProfileLabel(selectedTransportProfile)}",
                 "Фоновая служба: ${if (meshSnapshot.foregroundServiceEnabled) "включена" else "выключена"}",
                 "Последний старт службы: ${meshSnapshot.lastServiceStartedAtEpochMillis?.toString() ?: "нет"}",
-                "Устройств рядом: ${meshSnapshot.discoveredPeers.size}",
+                "Найдено устройств: ${meshSnapshot.discoveredPeers.size}",
                 "Сообщений в очереди: ${meshSnapshot.queuedPackets}",
             ),
         )
@@ -85,7 +88,7 @@ fun MeshStatusScreen(
             InfoCard(
                 "Найденные устройства",
                 meshSnapshot.discoveredPeers.take(6).mapIndexed { index, peer ->
-                    "${index + 1}. ${peer.displayName ?: "Устройство рядом"}"
+                    "${index + 1}. ${peer.displayName ?: "Устройство"}"
                 },
             )
         }
@@ -93,7 +96,7 @@ fun MeshStatusScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            if (meshRunning) {
+            if (meshServiceActive) {
                 Button(onClick = {}, enabled = false, modifier = Modifier.weight(1f)) {
                     Text("Запущено")
                 }
@@ -106,7 +109,7 @@ fun MeshStatusScreen(
                 }
             }
         }
-        if (meshRunning) {
+        if (meshServiceActive) {
             OutlinedButton(
                 onClick = {
                     onStopMesh()
@@ -144,7 +147,7 @@ fun MeshStatusScreen(
                     listOf(
                         "Включите локальную связь, чтобы показать QR для второго телефона.",
                         "QR-адрес помогает найти устройство в локальной сети, если автообнаружение не сработало.",
-                        "Этот QR передаёт только LAN endpoint; доверие создаётся через взаимное QR-рукопожатие.",
+                        "Этот QR не создаёт доверие и не заменяет взаимное QR-рукопожатие.",
                     ),
                 )
             } else {
@@ -278,6 +281,56 @@ private fun bleRouteLabel(meshSnapshot: MeshServiceSnapshot): String {
     }
 }
 
+private fun transportModesLabel(meshSnapshot: MeshServiceSnapshot): String {
+    val modes = meshSnapshot.transportDiagnostics.transportModes.ifEmpty { listOf(meshSnapshot.transportMode) }
+    return modes.joinToString { transportModeLabel(it) }
+}
+
+private fun transportModeLabel(mode: String): String =
+    when (mode) {
+        "lan-nsd-tcp", "lan-wifi" -> "Wi‑Fi/LAN"
+        "ble-gatt", "bluetooth" -> "Bluetooth"
+        "wifi-direct" -> "Wi‑Fi Direct"
+        "loopback-local", "in-memory" -> "локальный тестовый контур"
+        "multi-route" -> "несколько маршрутов"
+        else -> mode
+    }
+
+private fun routeAttemptLabel(route: String, success: Boolean): String =
+    "${transportModeLabel(route)}: ${if (success) "успех" else "сбой"}"
+
+private fun relayModeLabel(mode: RelayMode): String =
+    when (mode) {
+        RelayMode.ONLY_MY_MESSAGES -> "только мои сообщения"
+        RelayMode.HELP_A_LITTLE -> "помогать понемногу"
+        RelayMode.HELP_ON_CHARGING_WIFI -> "помогать на зарядке и Wi‑Fi"
+        RelayMode.ACTIVE_COURIER -> "активная ретрансляция"
+        RelayMode.RESEARCH_MODE -> "исследовательский режим"
+    }
+
+private fun relayRuntimeStateLabel(state: RelayRuntimeState): String =
+    when (state) {
+        RelayRuntimeState.OFFLINE -> "выключено"
+        RelayRuntimeState.IDLE -> "ожидание"
+        RelayRuntimeState.PASSIVE_SCAN -> "пассивный поиск"
+        RelayRuntimeState.ACTIVE_HANDSHAKE -> "активное подтверждение"
+        RelayRuntimeState.ONLINE_SESSION -> "сеанс связи"
+        RelayRuntimeState.TRANSIT_FORWARDING -> "ретрансляция"
+        RelayRuntimeState.LOW_POWER -> "экономия энергии"
+    }
+
+private fun booleanLabel(value: Boolean): String =
+    if (value) "да" else "нет"
+
+private fun transportErrorLabel(error: String?): String =
+    when {
+        error.isNullOrBlank() -> "нет"
+        error.contains("peer-not-found", ignoreCase = true) -> "устройство не найдено"
+        error.contains("invalid", ignoreCase = true) -> "некорректные данные"
+        error.contains("timeout", ignoreCase = true) -> "истёк таймаут"
+        else -> error
+    }
+
 private fun String.shortMeshFingerprint(): String =
     if (length <= 12) this else "${take(4)}…${takeLast(4)}"
 
@@ -314,7 +367,9 @@ private fun DebugMeshDiagnostics(
     val reliability = RelayReliabilityScore(successfulSessions = 0, failedSessions = 0)
     val routePreview = meshSnapshot.transportDiagnostics.recentRouteAttempts
         .takeLast(5)
-        .joinToString { "${it.route}:${it.success}" }
+        .joinToString { routeAttemptLabel(it.route, it.success) }
+        .ifBlank { "нет" }
+    val relayRuntimeState = ForwardingAllowedEvaluator.runtimeStateFor(relayPolicyState, demoContext)
 
     SelectionContainer {
         InfoCard(
@@ -322,19 +377,19 @@ private fun DebugMeshDiagnostics(
             listOf(
                 "Личность: ${localIdentity?.displayName ?: "не создана"}",
                 "Отпечаток: ${localIdentity?.fingerprint ?: "нет"}",
-                "Режимы связи: ${meshSnapshot.transportDiagnostics.transportModes.takeIf { it.isNotEmpty() }?.joinToString() ?: meshSnapshot.transportMode}",
+                "Режимы связи: ${transportModesLabel(meshSnapshot)}",
                 "Bluetooth-реклама: ${meshSnapshot.transportDiagnostics.bleAdvertisingState}",
                 "Bluetooth-сканирование: ${meshSnapshot.transportDiagnostics.bleScanningState}",
                 "Bluetooth GATT-сервер: ${meshSnapshot.transportDiagnostics.bleGattServerState}",
-                "Bluetooth-пиры: ${meshSnapshot.transportDiagnostics.bleConnectedPeerCount}",
+                "Bluetooth-устройства: ${meshSnapshot.transportDiagnostics.bleConnectedPeerCount}",
                 "Ожидаемое NSD-имя: ${localIdentity?.fingerprint?.let(::expectedNsdServiceName) ?: "нет"}",
                 "IPv4: ${meshSnapshot.transportDiagnostics.localAddresses.takeIf { it.isNotEmpty() }?.joinToString() ?: "нет"}",
                 "TCP-порт: ${meshSnapshot.transportDiagnostics.localPort?.toString() ?: "нет"}",
                 "Регистрация: ${meshSnapshot.transportDiagnostics.registrationState}",
                 "Обнаружение: ${meshSnapshot.transportDiagnostics.discoveryState}",
-                "Multicast-блокировка: ${meshSnapshot.transportDiagnostics.multicastLockHeld}",
+                "Блокировка multicast: ${booleanLabel(meshSnapshot.transportDiagnostics.multicastLockHeld)}",
                 "Ручные устройства: ${meshSnapshot.transportDiagnostics.manualPeerCount}",
-                "Последняя ошибка транспорта: ${meshSnapshot.transportDiagnostics.lastError ?: "нет"}",
+                "Последняя ошибка транспорта: ${transportErrorLabel(meshSnapshot.transportDiagnostics.lastError)}",
             ),
         )
     }
@@ -349,14 +404,14 @@ private fun DebugMeshDiagnostics(
         OutlinedTextField(
             value = manualFingerprint,
             onValueChange = onManualFingerprintChanged,
-            label = { Text("Отпечаток узла") },
+            label = { Text("Отпечаток устройства") },
             modifier = Modifier.fillMaxWidth(),
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
                 value = manualHost,
                 onValueChange = onManualHostChanged,
-                label = { Text("IP / хост") },
+                label = { Text("IP или адрес") },
                 modifier = Modifier.weight(1f),
             )
             OutlinedTextField(
@@ -375,7 +430,7 @@ private fun DebugMeshDiagnostics(
         }
     }
     InfoCard(
-        "Метрики прототипа",
+        "Метрики связи",
         listOf(
                 "В очереди: ${meshSnapshot.metrics.packetsQueued}",
                 "Отправлено: ${meshSnapshot.metrics.packetsSent}",
@@ -383,22 +438,22 @@ private fun DebugMeshDiagnostics(
                 "Подтверждений: ${meshSnapshot.metrics.receiptsReceived}",
                 "Дубли отброшены: ${meshSnapshot.metrics.duplicatesDropped}",
                 "Истекшие отброшены: ${meshSnapshot.metrics.expiredDropped}",
-                "Неизвестные пиры отклонены: ${meshSnapshot.metrics.unknownPeerRejected}",
+                "Неизвестные устройства отклонены: ${meshSnapshot.metrics.unknownPeerRejected}",
                 "Ошибочные получатели отклонены: ${meshSnapshot.metrics.wrongRecipientRejected}",
-                "Через relay: ${meshSnapshot.metrics.relayForwarded}",
+                "Через ретрансляцию: ${meshSnapshot.metrics.relayForwarded}",
                 "Последняя задержка, мс: ${meshSnapshot.metrics.lastDeliveryLatencyMs?.toString() ?: "нет"}",
                 "Хранилище очереди: ${meshSnapshot.queue.storedOutboxPackets}, отклонено: ${meshSnapshot.queue.rejectedPackets}, истекло: ${meshSnapshot.queue.expiredPackets}",
                 "Следующая попытка: ${meshSnapshot.queue.nextAttemptAtEpochMillis?.toString() ?: "нет"}, ошибка очереди: ${meshSnapshot.queue.lastError ?: "нет"}",
-                "Транспорт: принято ${meshSnapshot.transportDiagnostics.acceptedConnections}, входящих ${meshSnapshot.transportDiagnostics.inboundPackets}, некорректных кадров ${meshSnapshot.transportDiagnostics.malformedFramesDropped}, сбоев отправки ${meshSnapshot.transportDiagnostics.sendFailures}",
+                "Транспорт: принято ${meshSnapshot.transportDiagnostics.acceptedConnections}, входящих ${meshSnapshot.transportDiagnostics.inboundPackets}, битых кадров ${meshSnapshot.transportDiagnostics.malformedFramesDropped}, сбоев отправки ${meshSnapshot.transportDiagnostics.sendFailures}",
             "Маршруты: $routePreview",
         ),
     )
     InfoCard(
         "Политика ретрансляции",
         listOf(
-            "Режим: ${relayPolicyState.mode}",
-            "Состояние: ${ForwardingAllowedEvaluator.runtimeStateFor(relayPolicyState, demoContext)}",
-            "Передача через relay в тестовом контексте: $forwardingAllowed",
+            "Режим: ${relayModeLabel(relayPolicyState.mode)}",
+            "Состояние: ${relayRuntimeStateLabel(relayRuntimeState)}",
+            "Передача через ретрансляцию в проверочном контексте: ${booleanLabel(forwardingAllowed)}",
             "Оценка переносчика: ${courierSnapshot.localScore}",
             "Надёжность ретрансляции: ${reliability.reliabilityPercent}%",
         ),
@@ -409,9 +464,9 @@ private fun DebugMeshDiagnostics(
                 "Ожидаемый сценарий для ручной проверки; доказательства для этой сборки могут быть ещё не сняты.",
                 "1. Установите один APK на оба устройства.",
                 "2. Завершите QR-рукопожатие до активного контакта с обеих сторон.",
-                "3. Откройте этот экран на обоих телефонах и сравните fingerprints.",
-                "4. Отправьте A -> B, пока оба приложения открыты.",
-                "5. B получает сообщение; A показывает прототипное подтверждение доставки.",
+                "3. Откройте этот экран на обоих телефонах и сравните отпечатки.",
+                "4. Отправьте сообщение с телефона A на телефон B, пока оба приложения открыты.",
+                "5. Телефон B получает сообщение; телефон A показывает подтверждение доставки.",
             ),
         )
 }
@@ -423,7 +478,7 @@ private fun meshStateLabel(state: MeshState): String =
     when (state) {
         MeshState.OFF -> "выключена"
         MeshState.STARTING -> "запускается"
-        MeshState.SCANNING -> "ищет устройства рядом"
+        MeshState.SCANNING -> "ищет устройства"
         MeshState.PEER_FOUND -> "устройство найдено"
         MeshState.CONNECTED -> "связь установлена"
         MeshState.DEGRADED -> "нестабильная связь"

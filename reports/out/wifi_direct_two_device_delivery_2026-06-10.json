@@ -1,0 +1,42 @@
+{
+  "report": "wifi_direct_two_device_delivery_smoke",
+  "date": "2026-06-10",
+  "devices": [
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "role": "sender",
+      "selected_route": "wifi-direct",
+      "transport_discovered_peer_count": 1,
+      "relationship_peer_seen_by_transport": true,
+      "debug_send_success": true,
+      "packets_sent": 1,
+      "route_attempt_success": true
+    },
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM_S938B",
+      "role": "receiver",
+      "selected_route": "wifi-direct",
+      "transport_discovered_peer_count": 1,
+      "relationship_peer_seen_by_transport": true,
+      "accepted_connections": 1,
+      "inbound_packets": 1,
+      "packets_received": 1,
+      "last_sync_summary": "sent=0 received=1 receipts=0 rejected=10"
+    }
+  ],
+  "artifacts": {
+    "send": "artifacts/debug-route-evidence/20260610-235735-wifi-direct-ipv4-bind-retry-2026-06-10/manifest.json",
+    "receive_sync": "artifacts/debug-route-evidence/20260610-235851-wifi-direct-samsung-sync-after-inbound-2026-06-10/manifest.json",
+    "fresh_repeat_attempt": "artifacts/debug-route-evidence/20260611-000347-wifi-direct-bidir-step1-xiaomi-send-2026-06-10/manifest.json"
+  },
+  "verdict": "wifi_direct_one_way_two_device_delivery_smoke_captured_full_gate_still_open",
+  "not_closed": [
+    "fresh_repeatability",
+    "bidirectional_owner_to_client_delivery",
+    "wifi_direct_radio_path_negative_tests",
+    "n_run_wifi_direct_reliability_benchmark"
+  ],
+  "claim_boundary": "One-way prototype Wi-Fi Direct route-delivery smoke only; no production security, production reliability, hostile packet resistance or completed 10/10 claim."
+}

@@ -12,8 +12,8 @@ object ChannelService {
         val channel = Channel(
             channelId = "channel-${UUID.randomUUID()}",
             realmId = realm.realmId,
-            name = "${realm.name} Announcements",
-            description = "Local demo channel inside an invite-only realm.",
+            name = "${realm.name}: объявления",
+            description = "Локальный демо-канал внутри реалма по приглашению.",
             policy = ChannelPolicy(),
         )
         return DemoChannelCreation(

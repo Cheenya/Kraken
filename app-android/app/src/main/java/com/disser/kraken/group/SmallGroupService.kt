@@ -14,8 +14,8 @@ object SmallGroupService {
         val group = SmallGroup(
             groupId = "small-group-${UUID.randomUUID()}",
             realmId = realm.realmId,
-            name = "${realm.name} small group",
-            description = "Strictly limited local group inside an invite-only realm.",
+            name = "${realm.name}: малая группа",
+            description = "Закрытая локальная группа внутри реалма по приглашению.",
             policy = SmallGroupPolicy(maxMembers = realm.policy.smallGroupMaxMembers),
         )
         return DemoSmallGroupCreation(

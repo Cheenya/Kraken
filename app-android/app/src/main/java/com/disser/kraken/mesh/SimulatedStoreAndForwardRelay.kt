@@ -21,7 +21,7 @@ data class RelaySimulationResult(
 )
 
 class SimulatedStoreAndForwardRelay(
-    private val localRelayEnabled: Boolean,
+    private val relayEnabled: Boolean,
     private val now: () -> Long = { System.currentTimeMillis() },
 ) {
     fun relayInRealm(
@@ -61,7 +61,7 @@ class SimulatedStoreAndForwardRelay(
         transport: PeerTransport,
         alreadySeen: Boolean = false,
     ): RelaySimulationResult {
-        if (!localRelayEnabled) {
+        if (!relayEnabled) {
             return RelaySimulationResult(RelaySimulationStatus.RELAY_DISABLED)
         }
         val frameSizeValid = runCatching { LanFrameCodec.encode(packet).size <= LanFrameCodec.MAX_FRAME_BYTES + 4 }

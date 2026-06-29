@@ -51,7 +51,7 @@ class OfflineHandshakeServiceTest {
         assertEquals("invite-alice-1", response.inviteId)
         assertEquals(bob.fingerprint, response.responderFingerprint)
         assertEquals(alice.fingerprint, response.inviterFingerprint)
-        assertEquals("offline-qr-handshake-check-v1", response.proofPlaceholder)
+        assertEquals("offline-qr-handshake-proof-placeholder-v1", response.proofPlaceholder)
     }
 
     @Test
@@ -315,7 +315,7 @@ class OfflineHandshakeServiceTest {
         )
 
         assertTrue(responderResult is OfflineHandshakeResult.Error)
-        assertTrue((responderResult as OfflineHandshakeResult.Error).reason.contains("another identity"))
+        assertTrue((responderResult as OfflineHandshakeResult.Error).reason.contains("другому профилю"))
     }
 
     @Test
@@ -326,7 +326,7 @@ class OfflineHandshakeServiceTest {
         val result = service.processResponsePayload(bob, emptyList(), response)
 
         assertTrue(result is OfflineHandshakeResult.Error)
-        assertTrue((result as OfflineHandshakeResult.Error).reason.contains("Self-handshake"))
+        assertTrue((result as OfflineHandshakeResult.Error).reason.contains("собственным профилем"))
     }
 
     @Test
@@ -337,7 +337,7 @@ class OfflineHandshakeServiceTest {
         val result = service.processResponsePayload(alice, emptyList(), response)
 
         assertTrue(result is OfflineHandshakeResult.Error)
-        assertTrue((result as OfflineHandshakeResult.Error).reason.contains("another identity"))
+        assertTrue((result as OfflineHandshakeResult.Error).reason.contains("другому профилю"))
     }
 
     @Test

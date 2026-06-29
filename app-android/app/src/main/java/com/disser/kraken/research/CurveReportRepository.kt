@@ -22,13 +22,13 @@ object CurveReportRepository {
 
     fun loadReportAsset(context: Context, assetPath: String): CurveReportLoadResult {
         if (!assetPath.startsWith("research/")) {
-            return CurveReportLoadResult.Error("Report asset path is outside the research bundle.")
+            return CurveReportLoadResult.Error("Путь к отчёту находится вне исследовательского набора.")
         }
         return runCatching {
             context.assets.open(assetPath).bufferedReader().use { it.readText() }
         }.fold(
             onSuccess = ::parseReport,
-            onFailure = { CurveReportLoadResult.Error("Bundled report could not be read: ${it.message}") },
+            onFailure = { CurveReportLoadResult.Error("Не удалось прочитать встроенный отчёт: ${it.message}") },
         )
     }
 
@@ -37,17 +37,17 @@ object CurveReportRepository {
             val report = json.decodeFromString<AndroidCurveDiagnosticReport>(rawJson)
             validate(report)
         } catch (exception: IllegalArgumentException) {
-            CurveReportLoadResult.Error(exception.message ?: "Report validation failed.")
+            CurveReportLoadResult.Error(exception.message ?: "Проверка отчёта завершилась ошибкой.")
         } catch (exception: SerializationException) {
-            CurveReportLoadResult.Error("Report JSON is invalid or missing required fields.")
+            CurveReportLoadResult.Error("JSON отчёта повреждён или не содержит обязательные поля.")
         }
 
     private fun validate(report: AndroidCurveDiagnosticReport): CurveReportLoadResult {
         if (report.reportVersion != ANDROID_CURVE_REPORT_VERSION) {
-            return CurveReportLoadResult.Error("Unsupported report version: ${report.reportVersion}")
+            return CurveReportLoadResult.Error("Неподдерживаемая версия отчёта: ${report.reportVersion}")
         }
-        if (!report.uiWording.securityNote.contains("диагност", ignoreCase = true)) {
-            return CurveReportLoadResult.Error("Report must include diagnostic context wording.")
+        if (!report.uiWording.securityNote.contains("Диагност", ignoreCase = true)) {
+            return CurveReportLoadResult.Error("Отчёт должен содержать диагностическое описание.")
         }
         return CurveReportLoadResult.Success(report)
     }

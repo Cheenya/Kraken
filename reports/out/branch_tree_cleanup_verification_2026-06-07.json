@@ -1,0 +1,87 @@
+{
+  "audit_date": "2026-06-07",
+  "verification_passed": true,
+  "read_only": true,
+  "checks": [
+    {
+      "name": "active_android_branch",
+      "passed": true,
+      "detail": "codex/android-research-panel-report-viewer@e542ea0"
+    },
+    {
+      "name": "android_upstream_synced",
+      "passed": true,
+      "detail": "origin/codex/android-research-panel-report-viewer@e542ea0"
+    },
+    {
+      "name": "linked_math_worktree_present",
+      "passed": true,
+      "detail": "math worktree listed by git worktree list --porcelain"
+    },
+    {
+      "name": "android_ancestor_main",
+      "passed": true,
+      "detail": "main ancestor of Android HEAD"
+    },
+    {
+      "name": "android_ancestor_codex/android-identity-invite-relationship-realm",
+      "passed": true,
+      "detail": "codex/android-identity-invite-relationship-realm ancestor of Android HEAD"
+    },
+    {
+      "name": "android_ancestor_codex/android-skeleton",
+      "passed": true,
+      "detail": "codex/android-skeleton ancestor of Android HEAD"
+    },
+    {
+      "name": "android_ancestor_codex/protocol-spec-core-models",
+      "passed": true,
+      "detail": "codex/protocol-spec-core-models ancestor of Android HEAD"
+    },
+    {
+      "name": "math_ancestor_codex/dissertation-research-alignment",
+      "passed": true,
+      "detail": "codex/dissertation-research-alignment ancestor of codex/math-experiment-evidence-pack"
+    },
+    {
+      "name": "math_ancestor_codex/math-core-curve-diagnostics",
+      "passed": true,
+      "detail": "codex/math-core-curve-diagnostics ancestor of codex/math-experiment-evidence-pack"
+    },
+    {
+      "name": "math_ancestor_codex/math-core-reference-validation",
+      "passed": true,
+      "detail": "codex/math-core-reference-validation ancestor of codex/math-experiment-evidence-pack"
+    },
+    {
+      "name": "math_ancestor_codex/math-research-panel-integration-plan",
+      "passed": true,
+      "detail": "codex/math-research-panel-integration-plan ancestor of codex/math-experiment-evidence-pack"
+    },
+    {
+      "name": "qr_branch_patch_unique_but_not_wholesale_merge_candidate",
+      "passed": true,
+      "detail": "+ 79e9006e49717276b6f0e0a93a87b0a52201b5cf Add one-time QR invite lifecycle"
+    },
+    {
+      "name": "remote_scaffold_v2_has_no_patch_unique_commits",
+      "passed": true,
+      "detail": "patch_unique_count=0"
+    },
+    {
+      "name": "remote_scaffold_still_needs_manual_review",
+      "passed": true,
+      "detail": "patch_unique_count=13"
+    },
+    {
+      "name": "stash_inventory_still_indexed",
+      "passed": true,
+      "detail": "stash@{0}: On codex/android-research-panel-report-viewer: two phone qa artifacts before clean rebuild | stash@{1}: On codex/android-research-panel-report-viewer: local xiaomi ui audit artifacts before clean build"
+    },
+    {
+      "name": "cleanup_audit_keeps_destructive_actions_approval_only",
+      "passed": true,
+      "detail": "branch, stash, remote and raw evidence cleanup remain documented as approval-only"
+    }
+  ]
+}

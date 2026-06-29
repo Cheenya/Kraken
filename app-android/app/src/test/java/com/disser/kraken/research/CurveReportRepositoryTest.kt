@@ -4,6 +4,7 @@ import java.io.File
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -30,7 +31,7 @@ class CurveReportRepositoryTest {
         val result = CurveReportRepository.parseReport(modified)
 
         assertTrue(result is CurveReportLoadResult.Error)
-        assertTrue((result as CurveReportLoadResult.Error).reason.contains("Unsupported report version"))
+        assertTrue((result as CurveReportLoadResult.Error).reason.contains("Неподдерживаемая версия отчёта"))
     }
 
     @Test
@@ -41,14 +42,14 @@ class CurveReportRepositoryTest {
     }
 
     @Test
-    fun displayModelKeepsDiagnosticContextVisible() {
+    fun displayModelKeepsDiagnosticWarningVisible() {
         val rawJson = File("src/main/assets/research/sample_curve_diagnostic_report.json").readText()
         val report = (CurveReportRepository.parseReport(rawJson) as CurveReportLoadResult.Success).report
 
         val displayModel = report.toDisplayModel()
 
-        assertTrue(displayModel.warning.contains("Диагностический"))
-        assertTrue(displayModel.warning.contains("параметров кривой"))
+        assertTrue(displayModel.warning.contains("Диагностический расчёт профиля"))
+        assertFalse(displayModel.warning.contains("not production encryption", ignoreCase = true))
         assertTrue(displayModel.benchmarkSummary.contains("offline-python"))
     }
 

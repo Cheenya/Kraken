@@ -17,7 +17,7 @@ object InvitePayloadCodec {
         runCatching { json.decodeFromString<OneTimeInvitePayload>(rawJson) }
             .recoverCatching { error ->
                 if (error is SerializationException || error is IllegalArgumentException) {
-                    throw IllegalArgumentException("Invalid invite JSON.")
+                    throw IllegalArgumentException("Не удалось прочитать QR Kraken.")
                 }
                 throw error
             }

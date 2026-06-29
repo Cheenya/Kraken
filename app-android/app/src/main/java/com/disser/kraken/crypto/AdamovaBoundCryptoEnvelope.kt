@@ -51,7 +51,7 @@ class AdamovaBoundCryptoEnvelope(
 
     fun associatedData(context: AdamovaCryptoPolicyContext): ByteArray =
         listOf(
-            "kraken-message-crypto-v1",
+            "kraken-production-crypto-v1",
             "adamova_profile_id=${context.profileId}",
             "adamova_profile_hash=${context.profileHash}",
             "adamova_admission_decision_hash=${context.admissionDecisionHash}",

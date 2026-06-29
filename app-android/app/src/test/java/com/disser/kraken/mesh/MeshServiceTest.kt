@@ -26,7 +26,7 @@ import org.junit.Test
 
 class MeshServiceTest {
     @Test
-    fun meshStartsOnlyWithIdentityAndReportsTransportNotice() {
+    fun meshStartsOnlyWithIdentityAndReportsCompatibilityNotice() {
         val service = MeshService()
 
         val error = service.start(null)
@@ -37,7 +37,7 @@ class MeshServiceTest {
         assertEquals(MeshState.SCANNING, started.state)
         assertEquals("loopback-local", started.transportMode)
         assertEquals("loopback-ready", started.lastPacketStatus)
-        assertTrue(started.transportNotice.contains("сообщения идут через защищённый payload path"))
+        assertTrue(started.compatibilityNotice.contains("защищённый путь доставки данных"))
     }
 
     @Test
@@ -850,7 +850,7 @@ class MeshServiceTest {
             localFingerprint = alice.fingerprint,
             peers = listOf(bobPeer),
             failSends = true,
-            failureError = "Kraken packet frame exceeds 262144 bytes.",
+            failureError = "Кадр пакета Kraken больше 262144 байт.",
         )
         val service = MeshService(
             transportManager = TransportManager().apply { setForTest(transport) },

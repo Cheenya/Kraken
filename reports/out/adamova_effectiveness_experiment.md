@@ -1,33 +1,29 @@
-# Эксперимент допуска по критерию Адамовой
+# Adamova Effectiveness Experiment
 
-ID эксперимента: `adamova_effectiveness_experiment_20260605`.
+Experiment id: `adamova_effectiveness_experiment_20260605`.
 Seed: `20260605`.
 Git SHA: `e542ea0`.
-Версия политики профиля: `1`.
-Backend проверки: `host_cpp_native_core_cli_from_android_source`.
-Версия native backend: `Kraken native C++: диагностика Adamova Stage A для signed 128-bit и smooth arbitrary-size коэффициентов.`.
-Путь native CLI: `build/adamova-host/adamova_native_cli`.
-Хранение native CLI: `generated_on_demand_build_output`.
+Profile policy version: `1`.
+Gate backend: `host_cpp_native_core_cli_from_android_source`.
+Native backend version: `Kraken native C++ research core: Adamova Stage A diagnostics available for signed 128-bit and smooth arbitrary-size coefficients; no protocol, production crypto or networking logic.`.
+Native CLI path: `/Users/cheenya/Projects/kraken-android-research-panel/build/adamova-host/adamova_native_cli`.
+Native CLI retention: `generated_on_demand_disposable_build_output`.
 
-Native CLI пересобирается по запросу в каталоге `build/`; в репозитории
-хранятся исходные файлы и сохранённые отчёты.
+The native CLI is rebuilt on demand under root `build/`; that directory
+is disposable generated output and is not the source of truth for this
+evidence pack.
 
-## Область проверки
+## Claim Boundary
 
-Контролируемый эксперимент с подстановкой профилей рациональных кривых. Он
-показывает работу admission/precheck-логики для выбранного набора профилей.
+Controlled profile-substitution experiment over rational curve parameters. It measures admission/precheck behavior for Kraken experimental profiles, not production message cryptographic security.
 
-## Короткий вывод
+## Thesis Statement
 
-В контролируемой модели подстановки профилей критерий Адамовой снизил число
-принятых weak/invalid-профилей с 8/10 без precheck и 6/10 при проверке только
-дискриминанта до 0/10. Случаи с превышением размера и неподдержанными
-параметрами отправлены на reference validation до использования в сессии или
-сообщении.
+In the controlled experimental-profile substitution model, Adamova admission gate reduced accepted weak/invalid profiles from 8/10 without precheck and 6/10 with discriminant-only precheck to 0/10, while routing size/unsupported cases to reference validation before session or message use.
 
-## Метрики
+## Metrics
 
-| Метрика | Значение |
+| Metric | Value |
 | --- | ---: |
 | `profiles_total` | 20 |
 | `weak_or_invalid_total` | 10 |
@@ -48,9 +44,9 @@ Native CLI пересобирается по запросу в каталоге 
 | `median_gate_latency_ms` | 10.632542 |
 | `p95_gate_latency_ms` | 15.835666 |
 
-## Результаты
+## Results
 
-| Сценарий | Группа | Риск | Эталон | Без precheck | Только дискриминант | Решение Adamova | Принят Adamova |
+| Scenario | Family | Risk | Reference | No precheck | Discriminant only | Adamova decision | Adamova accepted |
 | --- | --- | ---: | --- | ---: | ---: | --- | ---: |
 | `singular_zero_zero` | singular | True | constructed_singular | True | False | `REJECT_SINGULAR` | False |
 | `singular_minus3_2` | singular | True | constructed_singular | True | False | `REJECT_SINGULAR` | False |
@@ -73,9 +69,9 @@ Native CLI пересобирается по запросу в каталоге 
 | `generated_accept_control_06` | accepted_control | False | generated_stage_a_accept_control | True | True | `ACCEPT` | True |
 | `generated_accept_control_07` | accepted_control | False | generated_stage_a_accept_control | True | True | `ACCEPT` | True |
 
-## Интерпретация
+## Interpretation
 
-- `no_precheck` моделирует принятие любого синтаксически корректного профиля.
-- `discriminant_only` отсекает сингулярные кривые, но пропускает индикаторы rational 2/3-torsion.
-- `adamova_gate` отсекает сингулярные и small-torsion-risk профили, а malformed/size-guarded случаи не допускает автоматически.
-- Эксперимент фиксирует поведение admission-логики на проверенном корпусе.
+- `no_precheck` models accepting any syntactically usable experimental profile.
+- `discriminant_only` rejects singular curves but misses rational 2/3-torsion indicators.
+- `adamova_gate` rejects singular and small-torsion-risk profiles and blocks malformed/size-guarded cases from automatic admission.
+- This experiment is controlled evidence for profile admission policy, not a proof of production message security.

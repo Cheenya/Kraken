@@ -1,0 +1,865 @@
+{
+  "report": "two_device_route_specific_smoke",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "status": "current_lan_and_ble_retry_delivered_after_stale_peer_fix",
+  "claim_boundary": "prototype_p2p_integrity_and_adamova_admission_only_not_production_secure_messaging",
+  "source": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "git_sha": "f6538bd",
+    "source_state": "dirty_working_tree_based_on_f6538bd",
+    "apk": "app-android/app/build/outputs/apk/debug/app-debug.apk",
+    "physical_delivery_apk_sha256": "28cbe980833716b94913f67387c305e3baa3799d7beebb2a9ccdc40088534272",
+    "current_debug_apk_sha256": "5810480172db4ae9ec93dd322caace05cfaa3187b010887fe15b3cb8e872f439",
+    "stale_peer_fix_debug_apk_sha256": "5810480172db4ae9ec93dd322caace05cfaa3187b010887fe15b3cb8e872f439"
+  },
+  "devices": [
+    {
+      "role": "samsung",
+      "serial": "R5CY22X6MSB",
+      "manufacturer": "samsung",
+      "model": "SM-S938B"
+    },
+    {
+      "role": "xiaomi",
+      "serial": "d948ffd0",
+      "manufacturer": "Xiaomi",
+      "model": "2201122G"
+    }
+  ],
+  "time_evidence": {
+    "timezone": "Europe/Moscow",
+    "ble_retry_delivered_export_msk": "Samsung 2026-06-08 01:33:56 MSK / Xiaomi 2026-06-08 01:33:56 MSK",
+    "ble_retry_delivered_capture_host_msk": "2026-06-08 01:34:37 MSK",
+    "lan_bt_off_mixed_capture_host_msk": "2026-06-08 01:38:26 MSK",
+    "lan_stale_peer_fix_export_msk": "Samsung 2026-06-08 01:44:45 MSK / Xiaomi 2026-06-08 01:44:47 MSK",
+    "lan_stale_peer_fix_capture_host_msk": "2026-06-08 01:47:25 MSK"
+  },
+  "artifact_root": "artifacts/two-phone-test/route-specific-20260607-205617-baseline",
+  "evidence": {
+    "fresh_final_ui_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-apk-post-sends",
+    "debug_export_screen": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-debug-export-screen",
+    "debug_exported_route_evidence": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-debug-exported-route-evidence",
+    "post_interrupt_state": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/post-interrupt-state",
+    "after_manual_sync": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/final-after-manual-sync",
+    "fresh_current_apk_debug_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-debug-export",
+    "fresh_current_apk_p0_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-p0-capture",
+    "fresh_current_apk_post_radio_debug_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-export",
+    "fresh_current_apk_post_radio_debug_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-post-radio-debug-capture",
+    "fresh_current_apk_retry_delivered_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-export",
+    "fresh_current_apk_retry_delivered_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-retry-delivered-capture",
+    "fresh_current_apk_lan_bt_off_mixed_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-export",
+    "fresh_current_apk_lan_bt_off_mixed_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-bt-off-mixed-capture",
+    "fresh_current_apk_lan_stale_peer_fix_export": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-export",
+    "fresh_current_apk_lan_stale_peer_fix_capture": "artifacts/two-phone-test/route-specific-20260607-205617-baseline/fresh-current-apk-lan-stale-peer-fix-capture"
+  },
+  "scenarios": [
+    {
+      "id": "lan_samsung_to_xiaomi",
+      "status": "passed_current_lan_bt_off_after_stale_peer_fix",
+      "messages": [
+        "lanS2X2057",
+        "lanFinal2104"
+      ],
+      "proof": "Fresh current APK after stale-peer cleanup selected lan-nsd-tcp with Bluetooth off; Samsung retry was sent and delivered with receipt/latency. The previous stale Xiaomi port 42817 failure is retained under current_apk_lan_bt_off_regression_before_fix.",
+      "current_apk_lan_after_stale_peer_fix": {
+        "selected_route": "lan-nsd-tcp",
+        "ble_active": false,
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": true,
+        "message_status_after_restart": "DELIVERED_TO_PEER",
+        "queue_retry_body": "queueRetry247196",
+        "last_delivery_latency_ms": 1391,
+        "recent_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872249080
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250641
+          }
+        ]
+      },
+      "current_apk_lan_bt_off_regression_before_fix": {
+        "selected_route": "lan-nsd-tcp",
+        "sent_after_transport_restart": false,
+        "delivered_after_transport_restart": false,
+        "message_status_after_restart": "FAILED",
+        "recent_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40566) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871792475
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40582) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871793105
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40598) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871795565
+          }
+        ]
+      }
+    },
+    {
+      "id": "lan_xiaomi_to_samsung",
+      "status": "passed_current_lan_bt_off_after_stale_peer_fix",
+      "messages": [
+        "lanX2S2058"
+      ],
+      "proof": "Fresh current APK after stale-peer cleanup selected lan-nsd-tcp with Bluetooth off; Xiaomi retry was sent and delivered with receipt/latency. The export also records an initial stale Samsung port refusal followed by successful fresh LAN attempts.",
+      "current_apk_lan_after_stale_peer_fix": {
+        "selected_route": "lan-nsd-tcp",
+        "ble_active": false,
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": true,
+        "message_status_after_restart": "DELIVERED_TO_PEER",
+        "queue_retry_body": "queueRetry247693",
+        "last_delivery_latency_ms": 929,
+        "recent_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.201 (port 41157) from /192.168.0.121 (port 49708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780872248325
+          },
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "ble-peer-not-ready",
+            "attempted_at_epoch_millis": 1780872248529
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "peer-not-found",
+            "attempted_at_epoch_millis": 1780872248529
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250459
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250716
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250977
+          }
+        ]
+      },
+      "current_apk_lan_bt_off_regression_before_fix": {
+        "selected_route": "lan-nsd-tcp",
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": false,
+        "message_status_after_restart": "SENT_TO_TRANSPORT",
+        "recent_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871757399
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871773064
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871788735
+          }
+        ]
+      }
+    },
+    {
+      "id": "ble_samsung_to_xiaomi",
+      "status": "passed_current_ble_route_counter_export_and_older_physical_ui",
+      "messages": [
+        "bleS2X2101",
+        "bleFinal2105"
+      ],
+      "proof": "Fresh current APK retry-delivered export selected ble-gatt on both phones with sent=true, delivered=true, receipts and latency. Older physical UI evidence also showed BLE message delivery.",
+      "current_apk_ble": {
+        "samsung": {
+          "queue_retry_message_id": "message-2af44e9e-d201-42b6-9551-10c77a1931f2",
+          "queue_retry_body": "queueRetry590867",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        },
+        "xiaomi": {
+          "queue_retry_message_id": "message-508680eb-1841-4af4-a475-fb19b7095397",
+          "queue_retry_body": "queueRetry591404",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        },
+        "samsung_latency_ms": 7192,
+        "xiaomi_latency_ms": 7145,
+        "selected_route_samsung": "ble-gatt",
+        "selected_route_xiaomi": "ble-gatt"
+      }
+    },
+    {
+      "id": "unknown_peer_rejection",
+      "status": "passed_current_debug_counter_evidence",
+      "samsung_counter": 2,
+      "xiaomi_counter": 2,
+      "proof": "Fresh current APK BLE/retry delivered probe incremented exported unknown_peer_rejected counters."
+    },
+    {
+      "id": "wrong_recipient_rejection",
+      "status": "passed_current_debug_counter_evidence",
+      "samsung_counter": 1,
+      "xiaomi_counter": 1,
+      "proof": "Fresh current APK BLE/retry delivered probe incremented exported wrong_recipient_rejected counters."
+    },
+    {
+      "id": "duplicate_packet_rejection",
+      "status": "passed_current_debug_counter_evidence",
+      "samsung_counter": 1,
+      "xiaomi_counter": 1,
+      "proof": "Fresh current APK BLE/retry delivered probe incremented exported duplicates_dropped counters."
+    },
+    {
+      "id": "queue_retry_after_transport_restart",
+      "status": "passed_current_ble_and_lan_observed_retry_delivered",
+      "samsung": {
+        "queue_retry_message_id": "message-2af44e9e-d201-42b6-9551-10c77a1931f2",
+        "queue_retry_body": "queueRetry590867",
+        "queued_before_transport_restart": true,
+        "queue_size_before_restart": 1,
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": true,
+        "queue_size_after_restart": 0,
+        "message_status_after_restart": "DELIVERED_TO_PEER"
+      },
+      "xiaomi": {
+        "queue_retry_message_id": "message-508680eb-1841-4af4-a475-fb19b7095397",
+        "queue_retry_body": "queueRetry591404",
+        "queued_before_transport_restart": true,
+        "queue_size_before_restart": 1,
+        "sent_after_transport_restart": true,
+        "delivered_after_transport_restart": true,
+        "queue_size_after_restart": 0,
+        "message_status_after_restart": "DELIVERED_TO_PEER"
+      },
+      "proof": "Fresh current APK BLE-observed run and fresh current APK Bluetooth-off LAN run both prove retry queue preservation, resend, receipt and delivered status for specific queueRetry messages.",
+      "samsung_metrics": {
+        "packets_sent": 2,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "last_delivery_latency_ms": 7192
+      },
+      "xiaomi_metrics": {
+        "packets_sent": 2,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "last_delivery_latency_ms": 7145
+      },
+      "lan_bt_off_partial": {
+        "samsung": {
+          "queue_retry_message_id": "message-ff7c57d1-a0fc-4e05-964e-a57ac2ed146f",
+          "queue_retry_body": "queueRetry739692",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": false,
+          "delivered_after_transport_restart": false,
+          "queue_size_after_restart": 1,
+          "message_status_after_restart": "FAILED"
+        },
+        "xiaomi": {
+          "queue_retry_message_id": "message-fbbd4597-b259-4818-9b08-923c0e3d7100",
+          "queue_retry_body": "queueRetry740291",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": false,
+          "queue_size_after_restart": 1,
+          "message_status_after_restart": "SENT_TO_TRANSPORT"
+        }
+      },
+      "lan_after_stale_peer_fix": {
+        "samsung": {
+          "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+          "ran_at_epoch_millis": 1780872251029,
+          "unknown_peer_injected": true,
+          "wrong_recipient_injected": true,
+          "duplicate_injected": true,
+          "queue_retry_message_id": "message-abdf5867-7bce-47b0-ac3d-af32de894f4b",
+          "queue_retry_body": "queueRetry247196",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        },
+        "xiaomi": {
+          "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+          "ran_at_epoch_millis": 1780872254203,
+          "unknown_peer_injected": true,
+          "wrong_recipient_injected": true,
+          "duplicate_injected": true,
+          "queue_retry_message_id": "message-e2a8b47b-c82a-4226-8db5-4b870478bc1c",
+          "queue_retry_body": "queueRetry247693",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        },
+        "samsung_metrics": {
+          "queue_size": 0,
+          "packets_queued": 0,
+          "packets_sent": 2,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 1,
+          "wrong_recipient_rejected": 1,
+          "relay_forwarded": 0,
+          "last_delivery_latency_ms": 1391
+        },
+        "xiaomi_metrics": {
+          "queue_size": 0,
+          "packets_queued": 0,
+          "packets_sent": 3,
+          "packets_received": 1,
+          "receipts_received": 1,
+          "duplicates_dropped": 1,
+          "expired_dropped": 0,
+          "unknown_peer_rejected": 46,
+          "wrong_recipient_rejected": 1,
+          "relay_forwarded": 0,
+          "last_delivery_latency_ms": 929
+        }
+      }
+    }
+  ],
+  "route_evidence": {
+    "older_physical_export": {
+      "samsung": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "selected_route_at_export": "none",
+        "queue_size": 0,
+        "packets_sent": 4,
+        "packets_received": 2,
+        "receipts_received": 1,
+        "duplicates_dropped": 1,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 2,
+        "wrong_recipient_rejected": 1,
+        "last_delivery_latency_ms": null
+      },
+      "xiaomi": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "selected_route_at_export": "ble-gatt",
+        "route_attempts": 1,
+        "queue_size": 0,
+        "packets_sent": 3,
+        "packets_received": 1,
+        "receipts_received": 2,
+        "duplicates_dropped": 3,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 4,
+        "wrong_recipient_rejected": 2,
+        "last_delivery_latency_ms": null
+      }
+    },
+    "current_apk_ble_retry_delivered_export": {
+      "samsung": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780871636881,
+        "generated_at_msk": "2026-06-08 01:33:56 MSK",
+        "selected_route_at_export": "ble-gatt",
+        "lan_wifi_active": true,
+        "ble_active": true,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871597135
+          },
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871601184
+          }
+        ],
+        "queue_size": 0,
+        "packets_sent": 2,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "duplicates_dropped": 1,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 2,
+        "wrong_recipient_rejected": 1,
+        "last_delivery_latency_ms": 7192,
+        "debug_queue_retry": {
+          "queue_retry_message_id": "message-2af44e9e-d201-42b6-9551-10c77a1931f2",
+          "queue_retry_body": "queueRetry590867",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        }
+      },
+      "xiaomi": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780871636986,
+        "generated_at_msk": "2026-06-08 01:33:56 MSK",
+        "selected_route_at_export": "ble-gatt",
+        "lan_wifi_active": true,
+        "ble_active": true,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.201 (port 41135) from /192.168.0.121 (port 37700) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871592940
+          },
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871597791
+          },
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871601571
+          }
+        ],
+        "queue_size": 0,
+        "packets_sent": 2,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "duplicates_dropped": 1,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 2,
+        "wrong_recipient_rejected": 1,
+        "last_delivery_latency_ms": 7145,
+        "debug_queue_retry": {
+          "queue_retry_message_id": "message-508680eb-1841-4af4-a475-fb19b7095397",
+          "queue_retry_body": "queueRetry591404",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        }
+      }
+    },
+    "current_apk_lan_bt_off_mixed_export": {
+      "samsung": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780871795662,
+        "generated_at_msk": "2026-06-08 01:36:35 MSK",
+        "selected_route_at_export": "lan-nsd-tcp",
+        "lan_wifi_active": true,
+        "ble_active": false,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39672) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871779179
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39678) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871779485
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39694) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871781438
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39702) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871782868
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871783695
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39722) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871786041
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39730) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871788396
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40536) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871789317
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40550) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871790749
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40566) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871792475
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40582) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871793105
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40598) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780871795565
+          }
+        ],
+        "queue_size": 1,
+        "packets_sent": 2,
+        "packets_received": 2,
+        "receipts_received": 1,
+        "duplicates_dropped": 5,
+        "expired_dropped": 1,
+        "unknown_peer_rejected": 48,
+        "wrong_recipient_rejected": 2,
+        "last_delivery_latency_ms": 7192,
+        "debug_queue_retry": {
+          "queue_retry_message_id": "message-ff7c57d1-a0fc-4e05-964e-a57ac2ed146f",
+          "queue_retry_body": "queueRetry739692",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": false,
+          "delivered_after_transport_restart": false,
+          "queue_size_after_restart": 1,
+          "message_status_after_restart": "FAILED"
+        }
+      },
+      "xiaomi": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780871795439,
+        "generated_at_msk": "2026-06-08 01:36:35 MSK",
+        "selected_route_at_export": "lan-nsd-tcp",
+        "lan_wifi_active": true,
+        "ble_active": false,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871742281
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871757399
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871773064
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780871788735
+          }
+        ],
+        "queue_size": 1,
+        "packets_sent": 6,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "duplicates_dropped": 2,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 3,
+        "wrong_recipient_rejected": 2,
+        "last_delivery_latency_ms": 7145,
+        "debug_queue_retry": {
+          "queue_retry_message_id": "message-fbbd4597-b259-4818-9b08-923c0e3d7100",
+          "queue_retry_body": "queueRetry740291",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": false,
+          "queue_size_after_restart": 1,
+          "message_status_after_restart": "SENT_TO_TRANSPORT"
+        }
+      }
+    },
+    "current_apk_lan_after_stale_peer_fix_export": {
+      "samsung": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780872285935,
+        "generated_at_msk": "2026-06-08 01:44:45 MSK",
+        "selected_route_at_export": "lan-nsd-tcp",
+        "lan_wifi_active": true,
+        "ble_active": false,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872249080
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250641
+          }
+        ],
+        "queue_size": 0,
+        "packets_sent": 2,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "duplicates_dropped": 1,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 1,
+        "wrong_recipient_rejected": 1,
+        "last_delivery_latency_ms": 1391,
+        "debug_queue_retry": {
+          "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+          "ran_at_epoch_millis": 1780872251029,
+          "unknown_peer_injected": true,
+          "wrong_recipient_injected": true,
+          "duplicate_injected": true,
+          "queue_retry_message_id": "message-abdf5867-7bce-47b0-ac3d-af32de894f4b",
+          "queue_retry_body": "queueRetry247196",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        }
+      },
+      "xiaomi": {
+        "report_version": "kraken.mesh.evidence.snapshot.v2",
+        "generated_at_epoch_millis": 1780872287946,
+        "generated_at_msk": "2026-06-08 01:44:47 MSK",
+        "selected_route_at_export": "lan-nsd-tcp",
+        "lan_wifi_active": true,
+        "ble_active": false,
+        "wifi_direct_active": false,
+        "route_attempts": [
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "failed to connect to /192.168.0.201 (port 41157) from /192.168.0.121 (port 49708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+            "attempted_at_epoch_millis": 1780872248325
+          },
+          {
+            "path": "ble-gatt",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "ble-peer-not-ready",
+            "attempted_at_epoch_millis": 1780872248529
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": false,
+            "error": "peer-not-found",
+            "attempted_at_epoch_millis": 1780872248529
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250459
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250716
+          },
+          {
+            "path": "lan-nsd-tcp",
+            "peer_id": "unknown",
+            "peer_fingerprint": "unknown",
+            "success": true,
+            "error": null,
+            "attempted_at_epoch_millis": 1780872250977
+          }
+        ],
+        "queue_size": 0,
+        "packets_sent": 3,
+        "packets_received": 1,
+        "receipts_received": 1,
+        "duplicates_dropped": 1,
+        "expired_dropped": 0,
+        "unknown_peer_rejected": 46,
+        "wrong_recipient_rejected": 1,
+        "last_delivery_latency_ms": 929,
+        "debug_queue_retry": {
+          "evidence_mode": "debug_only_local_packet_counter_and_queue_retry_probe",
+          "ran_at_epoch_millis": 1780872254203,
+          "unknown_peer_injected": true,
+          "wrong_recipient_injected": true,
+          "duplicate_injected": true,
+          "queue_retry_message_id": "message-e2a8b47b-c82a-4226-8db5-4b870478bc1c",
+          "queue_retry_body": "queueRetry247693",
+          "queued_before_transport_restart": true,
+          "queue_size_before_restart": 1,
+          "sent_after_transport_restart": true,
+          "delivered_after_transport_restart": true,
+          "queue_size_after_restart": 0,
+          "message_status_after_restart": "DELIVERED_TO_PEER"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Negative rejection scenarios are debug-only local P0 evidence probes, not external hostile packet injection.",
+    "Fresh current APK Bluetooth-off LAN run passed after stale-peer cleanup, but it is still a two-device prototype smoke, not a production reliability proof.",
+    "The pre-fix LAN Bluetooth-off run exposed stale LAN endpoint behavior: ECONNREFUSED to a non-listening remembered port. It is retained as regression evidence.",
+    "Older physical LAN/BLE chat UI evidence was captured before the latest APK instrumentation rebuild and remains separated from current debug-counter evidence.",
+    "Latency values are last-delivery samples from current BLE and LAN runs, not statistically meaningful percentiles.",
+    "No production reliability, production encryption, or production secure messaging claim is made."
+  ]
+}

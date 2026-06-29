@@ -1,0 +1,65 @@
+{
+  "report": "lan_malformed_injection_attempt",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "baseline_artifact_root": "artifacts/debug-route-evidence/20260608-090206-lan-injection-baseline-after-e4eedb6",
+  "after_artifact_root": "artifacts/debug-route-evidence/20260608-090341-lan-injection-after-e4eedb6",
+  "injector_artifact": "artifacts/debug-route-evidence/20260608-090206-lan-injection-baseline-after-e4eedb6/lan_malformed_injection_wifi_subnet_only.json",
+  "git": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "sha": "e4eedb6",
+    "capture_source_state": "clean",
+    "app_source_state": "clean_commit_e4eedb6"
+  },
+  "injector": {
+    "script": "scripts/inject_lan_malformed_frames.py",
+    "address_prefixes": [
+      "192.168.0."
+    ],
+    "cases": [
+      "zero_length_prefix",
+      "oversized_length_prefix",
+      "invalid_json_payload",
+      "truncated_payload"
+    ],
+    "attempts": 8,
+    "successful_connections": 0,
+    "failed_connections": 8
+  },
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "wifi_endpoint": "192.168.0.201:38147",
+      "android_listener_observed": "*:38147",
+      "mac_ping_reachable": true,
+      "injector_attempts": 4,
+      "successful_tcp_writes": 0,
+      "malformed_frames_before": 0,
+      "malformed_frames_after": 0,
+      "malformed_frames_delta": 0
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "wifi_endpoint": "192.168.0.121:43113",
+      "android_listener_observed": "*:43113",
+      "mac_ping_reachable": true,
+      "injector_attempts": 4,
+      "successful_tcp_writes": 0,
+      "malformed_frames_before": 0,
+      "malformed_frames_after": 0,
+      "malformed_frames_delta": 0
+    }
+  ],
+  "closed_gap": "external_lan_malformed_injector_and_transport_diagnostics_export",
+  "not_closed": [
+    "physical_hostile_lan_packet_rejection",
+    "physical_hostile_ble_packet_injection",
+    "physical_hostile_wifi_direct_packet_injection",
+    "unknown_peer_wrong_recipient_duplicate_valid_packet_injection_over_physical_transport",
+    "mac_inline_relay_attack_against_android_devices",
+    "repeated_route_benchmark"
+  ],
+  "claim_boundary": "External LAN malformed-frame injector exists and was run against same-subnet Android Wi-Fi endpoints, but TCP attempts timed out and Android malformed counters did not move. Physical hostile LAN injection remains open."
+}

@@ -1,0 +1,338 @@
+{
+  "report": "kraken_10_10_current_blocker_audit",
+  "audited_at_msk": "2026-06-11 15:46:40 MSK",
+  "branch": "codex/android-research-panel-report-viewer",
+  "git_sha": "7d5f27a+report-update-pending",
+  "current_10_10_verdict": "not_complete",
+  "completion_claim_allowed": false,
+  "adb_devices_observed": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM_S938B",
+      "status": "device"
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "status": "device"
+    }
+  ],
+  "device_visibility_correction": "At this audit point Samsung R5CY22X6MSB and Xiaomi d948ffd0 are both visible in ADB. The earlier same-day blocker text saying Xiaomi was absent is stale and must not be used as current device-state evidence.",
+  "latest_two_device_closure_attempt": {
+    "closure_suite_artifact_root": "artifacts/10-10-closure-suite/20260611-132456-closure-suite-2026-06-11",
+    "physical_relay_retry_artifact_root": "artifacts/physical-inline-relay/20260611-133356-physical-inline-relay-2026-06-11-retry",
+    "wifi_direct_sender_to_target": {
+      "status": "not_message_capable",
+      "selected_route": "none",
+      "debug_send_success": false,
+      "debug_send_error": "UNKNOWN_PEER",
+      "evidence": "wifi-direct-sender-to-target/manifest.json"
+    },
+    "wifi_direct_target_to_sender": {
+      "status": "not_message_capable",
+      "selected_route_observed_on_samsung": "wifi-direct",
+      "debug_send_success": false,
+      "debug_send_error": "UNKNOWN_PEER",
+      "evidence": "wifi-direct-target-to-sender/manifest.json"
+    },
+    "route_benchmark": {
+      "status": "insufficient_n_for_reliability_claim",
+      "latency_samples": {
+        "ble-gatt": 0,
+        "lan-nsd-tcp": 0,
+        "wifi-direct": 0
+      },
+      "evidence": "route-benchmark/manifest.json"
+    },
+    "physical_inline_relay": {
+      "status": "not_closed",
+      "frames_received_per_mode": {
+        "normal": 1,
+        "drop": 1,
+        "duplicate": 1,
+        "tamper": 1
+      },
+      "normal_forward_result": "failed: timed out",
+      "duplicate_forward_result": "failed: connection refused",
+      "tamper_forward_result": "failed: connection refused",
+      "target_after_inbound_packets_per_mode": {
+        "normal": 0,
+        "drop": 0,
+        "duplicate": 0,
+        "tamper": 0
+      },
+      "evidence": "manifest.json"
+    }
+  },
+  "latest_fix_validation": {
+    "wifi_direct_group_owner_host_fallback": {
+      "status": "implemented_but_delivery_still_open",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectArpTable.kt",
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectTransport.kt"
+      ],
+      "live_evidence": "artifacts/debug-route-evidence/20260611-135810-wifi-direct-p2p-arp-samsung-send-2026-06-11",
+      "observed": "transport_discovered_peer_count=0; debug_send_success=false; debug_send_error=UNKNOWN_PEER"
+    },
+    "xiaomi_debug_receiver_anr_guard": {
+      "status": "closed_for_debug_capture_robustness",
+      "live_evidence": "artifacts/debug-route-evidence/20260611-140151-xiaomi-debug-receiver-anr-guard-2026-06-11",
+      "observed": "last_sync_summary=skipped_after_failed_direct_send; no fresh ANR in checked logcat window"
+    },
+    "physical_relay_stale_target_port": {
+      "status": "closed_for_runner_correctness",
+      "live_evidence": "artifacts/physical-inline-relay/20260611-140357-physical-relay-fresh-port-normal-2026-06-11-retry",
+      "observed": "target port stayed 39279 -> 39279 and relay used 39279; forward still timed out"
+    },
+    "wifi_direct_binding_diagnostics": {
+      "status": "closed_for_diagnostics_only_delivery_still_open",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectPeerBinding.kt",
+        "app-android/app/src/main/java/com/disser/kraken/mesh/PeerTransport.kt",
+        "app-android/app/src/main/java/com/disser/kraken/mesh/MeshEvidenceExport.kt",
+        "scripts/capture_debug_route_evidence.sh"
+      ],
+      "live_evidence": "artifacts/debug-route-evidence/20260611-141456-wifi-direct-binding-diagnostics-2026-06-11",
+      "observed": "Samsung: p2p_visible_device_count=2, p2p_service_found_count=0, p2p_txt_record_count=0. Xiaomi: p2p_txt_bound_peer_count=2, relationship_peer_seen_by_transport=true, but TCP connect to Samsung 192.168.49.1:37549 timed out."
+    },
+    "wifi_direct_java_server_socket_listener": {
+      "status": "implemented_but_delivery_still_open",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectTransport.kt"
+      ],
+      "live_evidence": "artifacts/debug-route-evidence/20260611-142132-wifi-direct-server-socket-2026-06-11",
+      "observed": "Xiaomi bound Samsung TXT, selected wifi-direct, and attempted 192.168.49.1:39259; the send still timed out."
+    },
+    "wifi_direct_shell_tcp_control": {
+      "status": "p2p_system_tcp_path_available_app_lifecycle_still_open",
+      "live_evidence": "manual adb shell nc control during 2026-06-11 14:20 MSK run",
+      "observed": "Xiaomi shell delivered payload kraken to a Samsung shell nc listener on 192.168.49.1:45678; Kraken app UID listener sockets were absent from /proc/net/tcp shortly after debug broadcast completion."
+    },
+    "wifi_direct_sender_wait_post_hold_capture": {
+      "status": "closed_for_orchestration_observability_delivery_still_open",
+      "code": [
+        "app-android/app/src/debug/java/com/disser/kraken/debug/DebugEvidenceReceiver.kt",
+        "scripts/capture_debug_route_evidence.sh"
+      ],
+      "live_evidence": [
+        "artifacts/debug-route-evidence/20260611-150651-wifi-direct-sender-ack-short-wait-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-150620-wifi-direct-target-ack-short-wait-post-hold-2026-06-11"
+      ],
+      "observed": "Sender: debug_send_wait_satisfied=false, debug_send_success=false, debug_send_error=UNKNOWN_PEER. Target: post_hold_refresh_wait_sec=93, accepted_connections=0, inbound_packets=0."
+    },
+    "tcp_frame_ack_semantics": {
+      "status": "closed_for_write_only_success_overclaim",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/LanFrameCodec.kt",
+        "app-android/app/src/main/java/com/disser/kraken/mesh/DirectLanTransport.kt",
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectTransport.kt",
+        "app-android/app/src/test/java/com/disser/kraken/mesh/LanFrameCodecTest.kt"
+      ],
+      "observed": "Direct LAN and Wi-Fi Direct now require LanFrameCodec.readAck before TransportSendResult(true); receiver writes ACK after decode/enqueue."
+    },
+    "wifi_direct_fixed_port_fallback": {
+      "status": "implemented_delivery_slice_improved",
+      "code_commit": "4794326",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/WifiDirectTransport.kt",
+        "tests/test_android_policy_guards.py"
+      ],
+      "observed": "WifiDirectTransport binds DEFAULT_WIFI_DIRECT_PORT=48381 with dynamic fallback if occupied and creates fallback relationship peers from group owner address or single P2P client ARP when DNS-SD/TXT is missing."
+    },
+    "wifi_direct_xiaomi_to_samsung_delivery_slice": {
+      "status": "closed_for_one_foreground_target_slice",
+      "live_evidence": [
+        "artifacts/debug-route-evidence/20260611-152444-wifi-direct-sender-fixed-port-foreground-target-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-152406-wifi-direct-target-fixed-port-foreground-2026-06-11"
+      ],
+      "observed": "Sender selected wifi-direct and ACK-backed debug_send_success=true to 192.168.49.1:48381; target post-send selected wifi-direct with accepted_connections=1, inbound_packets=1 and relationship_peer_seen_by_transport=true.",
+      "claim_boundary": "One foreground-target Xiaomi -> Samsung delivery slice only; not bidirectional reliability, negative tests, or production claim."
+    },
+    "wifi_direct_samsung_to_xiaomi_sender_slice": {
+      "status": "sender_side_ack_success_target_counter_proof_missing",
+      "live_evidence": [
+        "artifacts/debug-route-evidence/20260611-152749-wifi-direct-sender-samsung-fixed-port-foreground-target-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-152716-wifi-direct-target-xiaomi-fixed-port-foreground-2026-06-11"
+      ],
+      "observed": "Samsung sender selected wifi-direct, used fallback endpoint 192.168.49.59:48381, and debug_send_success=true with p2p_txt_bound_peer_count=0; paired Xiaomi target artifact was pre-send and does not prove accepted/inbound counters."
+    },
+    "debug_wifi_direct_foreground_evidence_mode": {
+      "status": "closed_for_diagnostic_tooling",
+      "code_commit": "7d5f27a",
+      "code": [
+        "app-android/app/src/main/java/com/disser/kraken/mesh/MeshForegroundService.kt",
+        "app-android/app/src/debug/java/com/disser/kraken/debug/DebugEvidenceReceiver.kt",
+        "scripts/capture_debug_route_evidence.sh"
+      ],
+      "observed": "Debug receiver can request ACTION_START_DEBUG_WIFI_DIRECT_ONLY through --start-foreground-wifi-direct, gated by BuildConfig.DEBUG."
+    },
+    "wifi_direct_reverse_foreground_service_attempt": {
+      "status": "still_open",
+      "live_evidence": [
+        "artifacts/debug-route-evidence/20260611-153635-wifi-direct-target-xiaomi-foreground-service-start-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-153947-wifi-direct-target-xiaomi-foreground-service-settled-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-153816-wifi-direct-sender-samsung-to-foreground-service-xiaomi-2026-06-11",
+        "artifacts/debug-route-evidence/20260611-154023-wifi-direct-sender-samsung-to-foreground-service-settled-xiaomi-2026-06-11"
+      ],
+      "observed": "Background foreground-service start was denied by Android. Starting after bringing Xiaomi app foreground produced a Wi-Fi Direct listener on 192.168.49.59:48381, but Samsung sender attempts still ended UNKNOWN_PEER or invalid missing files."
+    }
+  },
+  "closed_since_previous_audit": [
+    {
+      "id": "legacy_wifi_direct_location_permission_lint",
+      "status": "closed",
+      "evidence": [
+        "commit 05ba28d Fix legacy Wi-Fi Direct location permissions",
+        "./gradlew :app:lintDebug passed",
+        "ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are both capped at maxSdkVersion 32 for Android <=12",
+        "Android 13+ remains NEARBY_WIFI_DEVICES with neverForLocation"
+      ],
+      "claim_boundary": "This closes the Android manifest/lint policy issue only; it does not prove Wi-Fi Direct delivery."
+    },
+    {
+      "id": "friend_test_release_package_05ba28d",
+      "status": "closed_for_research_demo_packaging",
+      "evidence": [
+        "reports/out/kraken_release_package_2026-06-11.md",
+        "artifacts/releases/20260611-kraken-release-05ba28d/Kraken_release_2026-06-11_05ba28d.zip",
+        "Samsung R5CY22X6MSB install and launch passed"
+      ],
+      "claim_boundary": "Debug research demo package for friend testing; not production secure release evidence."
+    },
+    {
+      "id": "physical_relay_stale_target_port_runner",
+      "status": "closed_for_runner_correctness",
+      "evidence": [
+        "scripts/run_physical_inline_relay_trials.sh captures a fresh target port per mode",
+        "target-after capture no longer restarts the target listener",
+        "artifacts/physical-inline-relay/20260611-140357-physical-relay-fresh-port-normal-2026-06-11-retry kept target port stable at 39279"
+      ],
+      "claim_boundary": "Closes a runner sequencing bug only; physical Mac -> Xiaomi forwarding still timed out."
+    },
+    {
+      "id": "debug_receiver_failed_send_anr_guard",
+      "status": "closed_for_debug_capture_robustness",
+      "evidence": [
+        "DebugEvidenceReceiver records skipped_after_failed_direct_send after failed direct debug send",
+        "artifacts/debug-route-evidence/20260611-140151-xiaomi-debug-receiver-anr-guard-2026-06-11 returned command JSON on Xiaomi"
+      ],
+      "claim_boundary": "Closes debug capture robustness only; it does not prove Wi-Fi Direct delivery."
+    },
+    {
+      "id": "wifi_direct_txt_binding_observability",
+      "status": "closed_for_diagnostics",
+      "evidence": [
+        "WifiDirectPeerBinding covers valid, missing fingerprint, self fingerprint and invalid port TXT records",
+        "MeshTransportDiagnostics exports p2p_service_found_count, p2p_txt_record_count, p2p_txt_rejected_count, p2p_txt_bound_peer_count and p2p_unbound_visible_device_count",
+        "artifacts/debug-route-evidence/20260611-141456-wifi-direct-binding-diagnostics-2026-06-11 demonstrates asymmetric service/TXT binding and TCP timeout separately"
+      ],
+      "claim_boundary": "Closes observability only; Wi-Fi Direct delivery remains open."
+    },
+    {
+      "id": "wifi_direct_raw_listener_replacement",
+      "status": "closed_as_implementation_experiment",
+      "evidence": [
+        "WifiDirectTransport now uses Java ServerSocket like DirectLanTransport instead of raw Os.socket/Os.accept",
+        "./gradlew :app:testDebugUnitTest targeted Wi-Fi Direct/export tests passed",
+        "./gradlew :app:assembleDebug passed and APK installed on both phones",
+        "artifacts/debug-route-evidence/20260611-142132-wifi-direct-server-socket-2026-06-11 still timed out, so this was not sufficient for delivery"
+      ],
+      "claim_boundary": "Closes a raw-listener implementation hypothesis only; Wi-Fi Direct delivery remains open."
+    },
+    {
+      "id": "tcp_frame_write_only_success",
+      "status": "closed_as_misleading_success_criterion",
+      "evidence": [
+        "LanFrameCodec.writeAck/readAck",
+        "DirectLanTransport and WifiDirectTransport require ACK before TransportSendResult(true)",
+        "LanFrameCodecTest and policy guards passed"
+      ],
+      "claim_boundary": "Closes sender-side write-only overclaim only; bidirectional physical route evidence remains open."
+    },
+    {
+      "id": "wifi_direct_fixed_port_endpoint_fallback",
+      "status": "closed_for_implementation_slice",
+      "evidence": [
+        "4794326 Add Wi-Fi Direct fixed-port fallback",
+        "Policy guard requires DEFAULT_WIFI_DIRECT_PORT, fallbackPeerForRelationshipPeer and wifi-direct-dns-sd-fallback diagnostics"
+      ],
+      "claim_boundary": "Closes DNS-SD-only endpoint dependency; does not close full two-direction reliability or negative route evidence."
+    },
+    {
+      "id": "debug_wifi_direct_foreground_evidence_mode",
+      "status": "closed_for_diagnostic_tooling",
+      "evidence": [
+        "7d5f27a Add debug Wi-Fi Direct foreground evidence mode",
+        "Policy guard requires ACTION_START_DEBUG_WIFI_DIRECT_ONLY, BuildConfig.DEBUG and --start-foreground-wifi-direct"
+      ],
+      "claim_boundary": "Helps lifecycle captures; does not override Android background foreground-service restrictions and does not close reverse route proof."
+    }
+  ],
+  "open_gates": [
+    {
+      "id": "wifi_direct_route_delivery",
+      "status": "open",
+      "missing_evidence": "Two connected phones on current build, Wi-Fi Direct-only peer discovery, selected_route=wifi-direct, ACK-backed delivery, bidirectional delivery and post-send counters.",
+      "current_blocker": "Improved but still open: fixed-port fallback produced a proven foreground-target Xiaomi -> Samsung slice with target accepted_connections=1 and inbound_packets=1. Samsung -> Xiaomi has one sender-side fallback success, but later foreground-service attempts still failed to produce a valid reverse target-counter proof: UNKNOWN_PEER or missing sender files. Remaining work is reverse route formation plus reliable post-send target counters, then repeated bidirectional evidence."
+    },
+    {
+      "id": "wifi_direct_negative_tests",
+      "status": "open",
+      "missing_evidence": "Unknown peer, wrong recipient, duplicate/replay, TTL and malformed packet rejection captured while Wi-Fi Direct is the active route.",
+      "current_blocker": "Requires a working two-phone Wi-Fi Direct message route first; current Wi-Fi Direct attempt is not message-capable."
+    },
+    {
+      "id": "physical_mac_inline_relay_modes",
+      "status": "open",
+      "missing_evidence": "Android A -> Mac -> Android B physical LAN forwarding for normal/drop/duplicate/tamper with before/send/relay/after artifacts.",
+      "current_blocker": "Runner now keeps target port stable, but Mac -> Xiaomi normal forwarding still times out and target inbound stays 0."
+    },
+    {
+      "id": "physical_hostile_packet_injection_lan_ble_wifi_direct",
+      "status": "open",
+      "missing_evidence": "External malformed, unknown, wrong-recipient and duplicate cases reach LAN/BLE/Wi-Fi Direct phone listeners and increment rejection counters."
+    },
+    {
+      "id": "route_benchmark_min_n",
+      "status": "open",
+      "missing_evidence": "N-run two-device route benchmark with min sample gate met for each claimed route and median/p95/loss/retry reported.",
+      "current_blocker": "Current two-device benchmark has zero delivered latency samples and fails the min sample gate."
+    },
+    {
+      "id": "production_security_track",
+      "status": "open_if_in_scope",
+      "missing_evidence": "Android Keystore identity, signed QR, reviewed encrypted packet envelope, release signing and security review.",
+      "claim_boundary": "Production secure messenger remains out of scope for current research demo claims."
+    }
+  ],
+  "research_prototype_closed_gates": [
+    {
+      "id": "adamova_product_path",
+      "status": "closed_for_research_prototype",
+      "evidence": [
+        "reports/out/adamova_product_path_demo.md",
+        "ProductCryptoAdmissionGate",
+        "OfflineHandshakeServiceTest",
+        "MeshDeliveryPipelineTest",
+        "AdamovaAdmissionAttackDemoRunnerTest"
+      ],
+      "claim_boundary": "Adamova participates in experimental profile admission policy; it is not production encryption or a production crypto security proof."
+    },
+    {
+      "id": "release_like_prototype_hard_gate",
+      "status": "closed_for_minimal_gate",
+      "evidence": [
+        "reports/out/kraken_release_hard_gate_2026-06-10.md",
+        "assembleRelease blocked by :app:krakenReleasePrototypeGate"
+      ],
+      "claim_boundary": "Blocks accidental release-like builds while prototype crypto remains; does not implement production security."
+    }
+  ],
+  "next_commands_when_xiaomi_and_mac_are_available": {
+    "closure_suite": "scripts/run_10_10_closure_suite.sh --sender-device R5CY22X6MSB --target-device d948ffd0 --mac-host <MAC_LAN_IP>",
+    "wifi_direct_two_device": "scripts/capture_debug_route_evidence.sh --device R5CY22X6MSB --device d948ffd0 --label wifi-direct-ack-wait-two-device-2026-06-11 --start-mesh-before-export --transport-profile wifi-direct-only --start-mesh-settle-ms 16000 --debug-send-wait-ms 25000 --debug-send-body wifi-direct-binding-diagnostics --sync-after-debug-send --sync-attempts 1",
+    "route_benchmark": "scripts/run_route_benchmark_trials.sh --device R5CY22X6MSB --device d948ffd0 --min-samples-per-route 10",
+    "physical_inline_relay": "scripts/run_physical_inline_relay_trials.sh --sender-device R5CY22X6MSB --target-device d948ffd0 --mac-host <MAC_LAN_IP>"
+  },
+  "claim_boundary": "This audit is a current blocker report. It proves that 10/10 is not yet closed; it must not be cited as a completed 10/10 claim."
+}

@@ -1,0 +1,50 @@
+{
+  "report": "debug_route_evidence_capture",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "artifact_root": "artifacts/debug-route-evidence/20260608-083438-local-hostile-probe-after-6853fc3",
+  "git": {
+    "branch": "codex/android-research-panel-report-viewer",
+    "sha": "6853fc3",
+    "capture_source_state": "clean",
+    "app_source_state": "clean_commit_6853fc3"
+  },
+  "capture_mode": "debug_adb_broadcast_route_evidence_export",
+  "run_local_hostile_probe": true,
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "model": "SM-S938B",
+      "selected_route": "none",
+      "evidence_mode": "debug_local_inbox_packet_injection_and_queue_retry_probe",
+      "unknown_peer_injected": true,
+      "wrong_recipient_injected": true,
+      "duplicate_injected": true,
+      "unknown_peer_rejected": 1,
+      "wrong_recipient_rejected": 1,
+      "duplicates_dropped": 1,
+      "route_json": "R5CY22X6MSB/route_specific_evidence_latest.json"
+    },
+    {
+      "serial": "d948ffd0",
+      "model": "2201122G",
+      "selected_route": "none",
+      "evidence_mode": "debug_local_inbox_packet_injection_and_queue_retry_probe",
+      "unknown_peer_injected": true,
+      "wrong_recipient_injected": true,
+      "duplicate_injected": true,
+      "unknown_peer_rejected": 1,
+      "wrong_recipient_rejected": 1,
+      "duplicates_dropped": 1,
+      "route_json": "d948ffd0/route_specific_evidence_latest.json"
+    }
+  ],
+  "closed_gap": "fresh_phone_export_after_local_inbox_hostile_packet_probe_change",
+  "not_closed": [
+    "physical_hostile_packet_injection_over_lan_ble",
+    "wifi_direct_route_evidence_and_negative_tests",
+    "mac_inline_relay_attack_against_android_devices",
+    "repeated_route_benchmark"
+  ],
+  "claim_boundary": "Debug-only ADB capture of in-app route evidence. Local hostile probe does not prove physical LAN/BLE/Wi-Fi Direct hostile packet injection, production reliability or production security."
+}

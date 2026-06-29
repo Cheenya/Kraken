@@ -2,6 +2,7 @@ import SwiftUI
 
 enum DesktopSection: String, CaseIterable, Identifiable {
     case chat
+    case contacts
     case mesh
     case research
     case settings
@@ -11,6 +12,7 @@ enum DesktopSection: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .chat: "Чаты"
+        case .contacts: "Контакты"
         case .mesh: "Реалмы"
         case .research: "Исследования"
         case .settings: "Настройки"
@@ -20,6 +22,7 @@ enum DesktopSection: String, CaseIterable, Identifiable {
     var shortTitle: String {
         switch self {
         case .chat: "Чаты"
+        case .contacts: "Контакты"
         case .mesh: "Реалмы"
         case .research: "Исслед."
         case .settings: "Настр."
@@ -29,13 +32,14 @@ enum DesktopSection: String, CaseIterable, Identifiable {
     var systemImage: String {
         switch self {
         case .chat: "bubble.left.and.bubble.right"
-        case .mesh: "person.3.sequence"
-        case .research: "function"
+        case .contacts: "person.crop.circle"
+        case .mesh: "person.3"
+        case .research: "chart.xyaxis.line"
         case .settings: "gearshape"
         }
     }
 
-    static let primaryTabs: [DesktopSection] = [.chat, .mesh, .research]
+    static let primaryTabs: [DesktopSection] = [.chat, .contacts, .mesh]
 }
 
 enum SettingsPane: String, CaseIterable, Identifiable {

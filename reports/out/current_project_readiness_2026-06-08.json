@@ -1,0 +1,331 @@
+{
+  "report": "current_project_readiness",
+  "date": "2026-06-08",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "head": "see_git_head_for_current_commit",
+  "supersedes": [
+    "reports/out/current_project_readiness_2026-06-07.md",
+    "reports/out/kraken_10_10_readiness_plan_2026-06-07.md"
+  ],
+  "current_source_of_truth": [
+    "reports/out/current_project_readiness_2026-06-08.md",
+    "reports/out/kraken_10_10_gap_audit_2026-06-08.md",
+    "reports/out/kraken_10_10_followup_audit_2026-06-10.md",
+    "reports/out/kraken_10_10_completion_matrix_2026-06-10.md",
+    "reports/out/kraken_10_10_completion_matrix_audit_2026-06-10.md",
+    "reports/out/kraken_release_hard_gate_2026-06-10.md",
+    "reports/out/route_benchmark_runner_2026-06-10.md",
+    "reports/out/route_benchmark_preflight_2026-06-11.md",
+    "reports/out/physical_inline_relay_runner_2026-06-10.md",
+    "reports/out/single_device_partial_evidence_2026-06-10.md",
+    "reports/out/wifi_direct_two_device_delivery_2026-06-10.md",
+    "reports/out/wifi_direct_network_state_diagnostics_2026-06-11.md",
+    "reports/out/two_device_route_specific_smoke_2026-06-08.md",
+    "reports/out/debug_route_evidence_capture_2026-06-08.md",
+    "reports/out/wifi_direct_readiness_capture_2026-06-08.md",
+    "reports/out/wifi_direct_only_capture_2026-06-08.md",
+    "reports/out/wifi_direct_diagnostics_2026-06-08.md",
+    "reports/out/lan_malformed_injection_attempt_2026-06-08.md",
+    "reports/out/mac_inline_relay_tcp_preflight_2026-06-08.md",
+    "reports/out/mac_inline_relay_attempt_2026-06-08.md",
+    "reports/out/mac_inline_relay_adb_forward_demo_2026-06-08.md",
+    "reports/out/route_benchmark_summary_2026-06-08.md",
+    "reports/out/route_evidence_consistency_audit_2026-06-08.md",
+    "reports/out/adamova_product_path_demo.md",
+    "reports/out/dissertation_final_insert_packet_2026-06-08.md",
+    "docs/kraken-production-readiness-roadmap.md"
+  ],
+  "scores": {
+    "dissertation_research_prototype": "8/10",
+    "route_attack_evidence_packet": "7/10",
+    "production_secure_messenger": "not_ready_not_scored"
+  },
+  "done_since_2026_06_07_snapshot": [
+    "route_specific_lan_ble_smoke_2026_06_08",
+    "adamova_product_path_demo",
+    "dissertation_final_insert_packet",
+    "production_security_roadmap_separation",
+    "route_evidence_consistency_audit",
+    "branded_welcome_tagline_installed_on_xiaomi_and_samsung",
+    "debug_rejection_probe_uses_local_inbox_hostile_packet_injection",
+    "fresh_debug_route_evidence_phone_export_after_local_hostile_probe",
+    "wifi_direct_service_readiness_active_on_two_phones_route_pending",
+    "wifi_direct_only_debug_capture_without_fallback_route_pending",
+    "wifi_direct_permission_registration_and_discovery_start_diagnostics_route_pending",
+    "external_lan_malformed_injector_added_but_current_tcp_path_blocked",
+    "mac_inline_relay_tcp_reachability_preflight_system_listener",
+    "mac_inline_relay_android_a_to_mac_frame_captured_forward_to_b_blocked",
+    "mac_inline_relay_adb_forward_endpoint_delivery_demo",
+    "route_benchmark_aggregator_added_insufficient_n",
+    "wifi_direct_prototype_transport_implemented_phone_evidence_pending",
+    "minimal_release_like_hard_gate_added_2026_06_10",
+    "route_benchmark_runner_added_2026_06_10",
+    "physical_inline_relay_runner_added_2026_06_10",
+    "single_device_partial_evidence_captured_2026_06_10",
+    "wifi_direct_xiaomi_to_samsung_delivery_captured_2026_06_10_and_repeated_with_network_state_2026_06_11",
+    "route_benchmark_preflight_executed_on_two_devices_2026_06_11_but_insufficient_n"
+  ],
+  "verified_current_evidence": {
+    "lan_samsung_to_xiaomi": "passed_current_lan_bt_off_after_stale_peer_fix",
+    "lan_xiaomi_to_samsung": "passed_current_lan_bt_off_after_stale_peer_fix",
+    "ble_samsung_to_xiaomi": "passed_current_ble_route_counter_export_and_older_physical_ui",
+    "queue_retry_after_transport_restart": "passed_current_ble_and_lan_observed_retry_delivered",
+    "debug_route_evidence_phone_export": {
+      "artifact_root": "artifacts/debug-route-evidence/20260608-083438-local-hostile-probe-after-6853fc3",
+      "git_sha": "6853fc3",
+      "app_source_state": "clean_commit_6853fc3",
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "selected_route": "none",
+          "evidence_mode": "debug_local_inbox_packet_injection_and_queue_retry_probe",
+          "unknown_peer_rejected": 1,
+          "wrong_recipient_rejected": 1,
+          "duplicates_dropped": 1
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "selected_route": "none",
+          "evidence_mode": "debug_local_inbox_packet_injection_and_queue_retry_probe",
+          "unknown_peer_rejected": 1,
+          "wrong_recipient_rejected": 1,
+          "duplicates_dropped": 1
+        }
+      ],
+      "boundary": "debug-only local hostile probe; not physical transport injection"
+    },
+    "wifi_direct_readiness": {
+      "artifact_root": "artifacts/debug-route-evidence/20260608-084228-mesh-start-readiness-after-cd1adf5",
+      "git_sha": "cd1adf5",
+      "app_source_state": "clean_commit_cd1adf5",
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "mesh_state": "PEER_FOUND",
+          "selected_route": "lan-nsd-tcp",
+          "wifi_direct_active": true
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "mesh_state": "PEER_FOUND",
+          "selected_route": "lan-nsd-tcp",
+          "wifi_direct_active": true
+        }
+      ],
+      "boundary": "service readiness only; selected route remained lan-nsd-tcp"
+    },
+    "wifi_direct_only_capture": {
+      "artifact_root": "artifacts/debug-route-evidence/20260608-085525-wifi-direct-only-after-254b209",
+      "git_sha": "254b209",
+      "app_source_state": "clean_commit_254b209",
+      "transport_profile": "wifi-direct-only",
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "mesh_state": "SCANNING",
+          "enabled_transport_modes": [
+            "wifi-direct"
+          ],
+          "selected_route": "none",
+          "wifi_direct_active": true,
+          "recent_route_attempt_count": 0
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "mesh_state": "SCANNING",
+          "enabled_transport_modes": [
+            "wifi-direct"
+          ],
+          "selected_route": "none",
+          "wifi_direct_active": true,
+          "recent_route_attempt_count": 0
+        }
+      ],
+      "boundary": "debug Wi-Fi Direct-only capture without BLE/LAN fallback; selected_route remained none"
+    },
+    "wifi_direct_diagnostics": {
+      "artifact": "reports/out/wifi_direct_diagnostics_2026-06-08.json",
+      "artifact_root": "artifacts/debug-route-evidence/20260608-101915-wifi-direct-diagnostics-clean-82cb6ff",
+      "git_sha": "82cb6ff",
+      "app_source_state": "clean_commit_82cb6ff",
+      "transport_profile": "wifi-direct-only",
+      "permission_policy": {
+        "android_13_plus": "NEARBY_WIFI_DEVICES with neverForLocation",
+        "android_12_and_below": "ACCESS_FINE_LOCATION capped at maxSdkVersion 32",
+        "background_location": false,
+        "user_toggle": true
+      },
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "enabled_transport_modes": [
+            "wifi-direct"
+          ],
+          "selected_route": "none",
+          "registration_state": "wifi-direct:registered:_kraken._tcp",
+          "discovery_state": "wifi-direct:discovering:_kraken._tcp",
+          "transport_discovered_peer_count": 0,
+          "manual_peer_count": 0,
+          "wifi_direct_active": true,
+          "recent_route_attempt_count": 0
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "enabled_transport_modes": [
+            "wifi-direct"
+          ],
+          "selected_route": "none",
+          "registration_state": "wifi-direct:registered:_kraken._tcp",
+          "discovery_state": "wifi-direct:discovering:_kraken._tcp",
+          "transport_discovered_peer_count": 0,
+          "manual_peer_count": 0,
+          "wifi_direct_active": true,
+          "recent_route_attempt_count": 0
+        }
+      ],
+      "boundary": "permission/radio/service readiness and registration/discovery start are proven; peer discovery, selected-route delivery and negative tests remain open"
+    },
+    "lan_malformed_injection_attempt": {
+      "baseline_artifact_root": "artifacts/debug-route-evidence/20260608-090206-lan-injection-baseline-after-e4eedb6",
+      "after_artifact_root": "artifacts/debug-route-evidence/20260608-090341-lan-injection-after-e4eedb6",
+      "injector_artifact": "artifacts/debug-route-evidence/20260608-090206-lan-injection-baseline-after-e4eedb6/lan_malformed_injection_wifi_subnet_only.json",
+      "git_sha": "e4eedb6",
+      "app_source_state": "clean_commit_e4eedb6",
+      "address_prefixes": [
+        "192.168.0."
+      ],
+      "attempts": 8,
+      "successful_connections": 0,
+      "failed_connections": 8,
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "wifi_endpoint": "192.168.0.201:38147",
+          "mac_ping_reachable": true,
+          "malformed_frames_delta": 0
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "wifi_endpoint": "192.168.0.121:43113",
+          "mac_ping_reachable": true,
+          "malformed_frames_delta": 0
+        }
+      ],
+      "boundary": "injector exists but same-subnet TCP attempts timed out; physical LAN rejection remains open"
+    },
+    "route_benchmark_summary": {
+      "artifact": "reports/out/route_benchmark_summary_2026-06-08.json",
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "min_samples_per_route": 10,
+      "overall_status": "insufficient_n_for_reliability_claim",
+      "routes": [
+        {
+          "route": "ble-gatt",
+          "latency_sample_count": 2,
+          "median_latency_ms": 7168.5,
+          "p95_latency_ms": 7189.65,
+          "benchmark_status": "insufficient_n_for_reliability_claim"
+        },
+        {
+          "route": "lan-nsd-tcp",
+          "latency_sample_count": 2,
+          "median_latency_ms": 1160.0,
+          "p95_latency_ms": 1367.9,
+          "benchmark_status": "insufficient_n_for_reliability_claim"
+        }
+      ],
+      "boundary": "descriptive aggregation only; not repeatable reliability evidence"
+    },
+    "mac_inline_relay_tcp_preflight": {
+      "artifact": "reports/out/mac_inline_relay_tcp_preflight_2026-06-08.json",
+      "mac_ip": "192.168.0.123",
+      "devices": [
+        {
+          "serial": "R5CY22X6MSB",
+          "model": "SM-S938B",
+          "ping_to_mac_loss_percent": 0,
+          "system_nc_listener_payload_seen_on_mac": "samsung-nc-listener"
+        },
+        {
+          "serial": "d948ffd0",
+          "model": "2201122G",
+          "ping_to_mac_loss_percent": 0,
+          "system_nc_listener_payload_seen_on_mac": "xiaomi-nc-listener"
+        }
+      ],
+      "boundary": "Android-to-Mac TCP reachability only; not Android inline relay/MITM evidence"
+    },
+    "mac_inline_relay_attempt": {
+      "artifact": "reports/out/mac_inline_relay_attempt_2026-06-08.json",
+      "mode": "normal",
+      "transport_profile": "lan-only",
+      "frames_received_by_mac_relay": 1,
+      "sender_fingerprint": "3C4E D5BA 9DB8 8F9B",
+      "recipient_fingerprint": "B42B 3068 934E F618",
+      "packet_id": "packet-fbfa95d2-d77d-4507-ae07-36ce62dc4f9c",
+      "forward_to_android_b_success": false,
+      "forward_to_android_b_error": "timed out",
+      "android_b_inbound_packets_after": 0,
+      "boundary": "Android A -> Mac frame capture only; Mac -> Android B forwarding and MITM counters remain open"
+    },
+    "mac_inline_relay_adb_forward_demo": {
+      "artifact": "reports/out/mac_inline_relay_adb_forward_demo_2026-06-08.json",
+      "mode": "normal",
+      "transport_profile": "lan-only",
+      "frames_received_by_mac_relay": 1,
+      "sender_fingerprint": "3C4E D5BA 9DB8 8F9B",
+      "recipient_fingerprint": "B42B 3068 934E F618",
+      "packet_id": "packet-9bc33267-1090-44f8-9a89-5cf9db047849",
+      "forward_to_android_b_endpoint_success": true,
+      "android_b_accepted_connections_after": 1,
+      "android_b_inbound_packets_after": 1,
+      "android_b_packets_received_metric": 1,
+      "android_b_message_id": "message-38306df1-3ba1-4144-9ddc-bd4be9ed911a",
+      "android_b_message_status": "INCOMING_DELIVERED_TO_PEER",
+      "return_receipt_status": "QUEUED_UNKNOWN_PEER",
+      "boundary": "Android A -> Mac relay -> Android B app-store delivery through ADB-forward target endpoint only; physical Wi-Fi Mac -> Android B forwarding, MITM attack modes, Wi-Fi Direct delivery and production relay security remain open"
+    },
+    "route_evidence_consistency": "passed_with_quarantined_raw_mismatches",
+    "adamova_gate": {
+      "profiles_total": 20,
+      "weak_or_invalid_total": 10,
+      "accepted_without_precheck_weak": 8,
+      "accepted_by_discriminant_only_weak": 6,
+      "accepted_by_adamova_gate_weak": 0,
+      "rejected_or_blocked_by_adamova_gate_weak": 10,
+      "accepted_controls_by_adamova_gate": 10,
+      "median_gate_latency_ms": 10.632542,
+      "p95_gate_latency_ms": 15.835666
+    },
+    "followup_2026_06_10": {
+      "artifact": "reports/out/kraken_10_10_followup_audit_2026-06-10.json",
+      "current_10_10_verdict": "not_complete",
+      "release_hard_gate": "minimal_gradle_release_like_prototype_hard_gate_closed",
+      "route_benchmark_runner": "runner_ready_not_executed",
+      "physical_inline_relay_runner": "runner_ready_not_executed",
+      "completion_matrix": "not_complete",
+      "completion_matrix_audit": "metadata_audit_passed_complete_false_open_gate_count_5",
+      "single_device_partial_evidence": "captured_on_xiaomi_only",
+      "boundary": "06-10 layer improves procedure and release gating but does not close two-device Wi-Fi Direct, physical attack or reliability evidence"
+    }
+  },
+  "open_p0_gates_to_full_10_10_route_attack_security_coverage": [
+    "mac_inline_relay_attack_against_android_devices_normal_drop_duplicate_tamper",
+    "physical_hostile_packet_injection_over_lan_ble_wifi_direct",
+    "repeated_lan_ble_wifi_direct_route_benchmark_median_p95_loss_retry",
+    "wifi_direct_route_evidence_and_negative_tests_after_peer_discovery"
+  ],
+  "claim_boundary": "research_prototype_and_dissertation_evidence_packet_not_production_secure_messenger"
+}

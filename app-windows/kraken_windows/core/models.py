@@ -199,7 +199,7 @@ class KrakenPacket:
     session_profile_id: str | None = None
     admission_decision_hash: str | None = "sha256:standard-reviewed-primitives-v1:not-applicable:v1"
     profile_policy_version: int | None = 1
-    proof_mode: str = "local-admission-check-v1"
+    proof_mode: str = "prototype-placeholder"
 
 
 @dataclass(slots=True)
@@ -210,14 +210,6 @@ class LanFrameEnvelope:
     frame_version: int = 1
     sender_display_name: str | None = None
     sender_reply_port: int | None = None
-
-
-@dataclass(slots=True)
-class LanEndpoint:
-    host: str
-    port: int
-    fingerprint: str
-    display_name: str | None = None
 
 
 @dataclass(slots=True)
@@ -302,7 +294,7 @@ def packet_from_dict(value: dict[str, Any]) -> KrakenPacket:
             "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
         ),
         profile_policy_version=value.get("profile_policy_version", 1),
-        proof_mode=str(value.get("proof_mode", "local-admission-check-v1")),
+        proof_mode=str(value.get("proof_mode", "prototype-placeholder")),
     )
 
 
@@ -342,91 +334,3 @@ def state_to_jsonable(value: Any) -> Any:
     if isinstance(value, dict):
         return {key: state_to_jsonable(item) for key, item in value.items()}
     return value
-
-
-def parse_datetime(value: str | datetime | None) -> datetime | None:
-    if value is None or isinstance(value, datetime):
-        return value
-    normalized = value.replace("Z", "+00:00")
-    parsed = datetime.fromisoformat(normalized)
-    return parsed if parsed.tzinfo else parsed.replace(tzinfo=UTC)
-
-
-def _required_datetime(value: str | datetime) -> datetime:
-    parsed = parse_datetime(value)
-    if parsed is None:
-        raise ValueError("datetime_required")
-    return parsed
-
-
-def identity_from_dict(value: dict[str, Any] | None) -> LocalIdentity | None:
-    if value is None:
-        return None
-    return LocalIdentity(
-        identity_id=str(value["identity_id"]),
-        display_name=str(value["display_name"]),
-        public_key_encoded=str(value["public_key_encoded"]),
-        private_key_reference=str(value["private_key_reference"]),
-        fingerprint=str(value["fingerprint"]),
-        created_at=_required_datetime(value["created_at"]),
-    )
-
-
-def relationship_from_dict(value: dict[str, Any]) -> Relationship:
-    return Relationship(
-        relationship_id=str(value["relationship_id"]),
-        peer_display_name=str(value["peer_display_name"]),
-        peer_fingerprint=str(value["peer_fingerprint"]),
-        state=RelationshipState(value["state"]),
-        crypto_profile_id=str(value["crypto_profile_id"]),
-        admission_decision_hash=str(value["admission_decision_hash"]),
-        updated_at=_required_datetime(value["updated_at"]),
-        profile_policy_version=value.get("profile_policy_version", 1),
-    )
-
-
-def message_from_dict(value: dict[str, Any]) -> LocalMessage:
-    return LocalMessage(
-        message_id=str(value["message_id"]),
-        relationship_id=str(value["relationship_id"]),
-        peer_fingerprint=str(value["peer_fingerprint"]),
-        direction=MessageDirection(value["direction"]),
-        status=MessageStatus(value["status"]),
-        body=str(value["body"]),
-        created_at=_required_datetime(value["created_at"]),
-        updated_at=_required_datetime(value["updated_at"]),
-    )
-
-
-def route_from_dict(value: dict[str, Any]) -> PeerRouteSnapshot:
-    return PeerRouteSnapshot(
-        relationship_id=str(value["relationship_id"]),
-        peer_fingerprint=str(value["peer_fingerprint"]),
-        kind=PeerRouteKind(value["kind"]),
-        transport_id=value.get("transport_id"),
-        bandwidth_class=BandwidthClass(value["bandwidth_class"]),
-        hop_count=value.get("hop_count"),
-        last_seen_at=parse_datetime(value.get("last_seen_at")),
-    )
-
-
-def admission_from_dict(value: dict[str, Any]) -> AdmissionResult:
-    return AdmissionResult(
-        profile_id=str(value["profile_id"]),
-        decision=AdamovaAdmissionDecision(value["decision"]),
-        decision_hash=str(value["decision_hash"]),
-        native_backend_version=str(value["native_backend_version"]),
-        risk_flags=list(value.get("risk_flags", [])),
-        evaluated_at=_required_datetime(value["evaluated_at"]),
-    )
-
-
-def state_from_dict(value: dict[str, Any]) -> KrakenDesktopState:
-    return KrakenDesktopState(
-        local_identity=identity_from_dict(value.get("local_identity")),
-        relationships=[relationship_from_dict(item) for item in value.get("relationships", [])],
-        messages=[message_from_dict(item) for item in value.get("messages", [])],
-        routes=[route_from_dict(item) for item in value.get("routes", [])],
-        admission_result=admission_from_dict(value["admission_result"]),
-        last_event=str(value.get("last_event", "")),
-    )

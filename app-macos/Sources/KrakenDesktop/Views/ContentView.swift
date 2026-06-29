@@ -229,6 +229,8 @@ private struct DetailContainer: View {
                 onShowIdentityQr: onShowIdentityQr,
                 onScanQr: onScanQr
             )
+        case .contacts:
+            ContactsView()
         case .mesh:
             RealmsView(onShowRealmQr: onShowRealmQr)
         case .research:

@@ -29,6 +29,7 @@ import androidx.navigation.NavHostController
 import com.disser.kraken.BuildConfig
 import com.disser.kraken.mesh.MeshEvidenceExporter
 import com.disser.kraken.mesh.MeshEvidenceRouteAttemptExport
+import com.disser.kraken.mesh.MeshEvidenceSnapshotExport
 import com.disser.kraken.mesh.MeshEvidenceTransportExport
 import com.disser.kraken.mesh.MeshEvidenceTransportPathExport
 import com.disser.kraken.mesh.MeshServiceSnapshot
@@ -97,7 +98,7 @@ fun TwoPhoneChecklistScreen(
         )
         if (!readiness.bluetooth.ready && !readiness.wifi.ready) {
             WarningCard(
-                "Устройство пока не готово к связи рядом",
+                "Устройство пока не готово к локальной связи",
                 listOf(
                     "Включите Wi‑Fi и локальную связь перед проверкой.",
                     "Если тест идёт через LAN, оба телефона должны быть в одной локальной сети.",
@@ -109,33 +110,33 @@ fun TwoPhoneChecklistScreen(
             items = listOf(
                 "install_apk" to "Свежий APK установлен на оба телефона",
                 "version_visible" to "На стартовом экране видна версия/сборка",
-                "identity_ready" to "На обоих телефонах есть профиль на устройстве",
+                "identity_ready" to "На обоих телефонах создан профиль Kraken",
                 "permissions_ready" to "Wi‑Fi включён, локальная связь запущена",
                 "scan_invite" to "Телефон B сканирует QR-приглашение телефона A",
                 "one_qr_active" to "QR-рукопожатие довело контакт до активного состояния",
-                "fallback_qr" to "Если локальная связь не сработала, ручной QR проверен",
+                "fallback_qr" to "Если локальная связь не сработала, QR подтверждения проверен",
                 "messages_a_b" to "3 сообщения A -> B доставлены",
                 "messages_b_a" to "3 сообщения B -> A доставлены",
-                "order_receipts" to "Порядок сообщений и receipt проверены",
-                "routerless" to "Bluetooth напрямую проверен; Wi‑Fi Direct требует отдельного smoke",
-                "relay_mac" to "Relay-прототип проверен только при наличии path evidence",
+                "order_receipts" to "Порядок сообщений и подтверждения доставки проверены",
+                "routerless" to "Bluetooth напрямую проверен; Wi‑Fi Direct требует отдельной проверки",
+                "relay_mac" to "Ретрансляция проверена только при наличии подтверждения пути",
                 "attack_modes" to "Сброс, дубль и изменение пакета проверены",
             ),
         )
         InfoCard(
             "Отчёт проверки",
             listOf(
-                "Источник: ${evidenceSnapshot.sourceState}",
+                "Источник: ${sourceStateLabel(evidenceSnapshot.sourceState)}",
                 "Выбранный маршрут: ${routeLabel(evidenceSnapshot.transport.selectedRoute)}",
-                "Wi‑Fi/LAN активен: ${evidenceSnapshot.transport.lanWifi?.active ?: false}",
-                "Bluetooth активен: ${evidenceSnapshot.transport.ble?.active ?: false}",
-                "Wi‑Fi Direct активен: ${evidenceSnapshot.transport.wifiDirect?.active ?: false}",
+                "Wi‑Fi/LAN: ${yesNo(evidenceSnapshot.transport.lanWifi?.active == true)}",
+                "Bluetooth: ${yesNo(evidenceSnapshot.transport.ble?.active == true)}",
+                "Wi‑Fi Direct: ${yesNo(evidenceSnapshot.transport.wifiDirect?.active == true)}",
                 "Попыток маршрута: ${evidenceSnapshot.transport.recentRouteAttempts.size}",
                 "Отклонено не тому получателю: ${evidenceSnapshot.metrics.wrongRecipientRejected}",
-                "Отклонено неизвестных пиров: ${evidenceSnapshot.metrics.unknownPeerRejected}",
+                "Отклонено неизвестных устройств: ${evidenceSnapshot.metrics.unknownPeerRejected}",
                 "Дублей отброшено: ${evidenceSnapshot.metrics.duplicatesDropped}",
                 "Очередь: ${evidenceSnapshot.queueSize}",
-                "Проверка retry: в очереди=${evidenceSnapshot.debugSmoke.queuedBeforeTransportRestart}, отправлено=${evidenceSnapshot.debugSmoke.sentAfterTransportRestart}, доставлено=${evidenceSnapshot.debugSmoke.deliveredAfterTransportRestart}",
+                "Повторная отправка: ${retryStateLabel(evidenceSnapshot)}",
                 "Последние пути: $routePreview",
                 "Размер: ${evidenceJson.length} символов",
             ),
@@ -153,7 +154,7 @@ fun TwoPhoneChecklistScreen(
             enabled = !debugProbeRunning,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(if (debugProbeRunning) "Проверка выполняется" else "Проверить отказы и retry")
+            Text(if (debugProbeRunning) "Проверка выполняется" else "Проверить отказы и повторную отправку")
         }
         debugStatus?.let { StateBadge(it) }
         OutlinedButton(
@@ -245,7 +246,7 @@ private fun TransportPathReadiness.readinessLabel(): String =
         ready -> "активен"
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "выключен адаптер"
-        !transportImplemented -> "в очереди"
+        !transportImplemented -> "не реализован"
         !serviceRunning -> "служба недоступна"
         else -> "не активен"
     }
@@ -258,7 +259,7 @@ private fun routeLabel(route: String?): String =
         null, "", "none" -> "нет маршрута"
         "ble-gatt", "bluetooth" -> "Bluetooth напрямую"
         "lan-nsd-tcp", "lan-wifi" -> "Wi‑Fi/LAN напрямую"
-        "routed-mesh", "relay-local" -> "через relay"
+        "routed-mesh", "relay-prototype" -> "через ретрансляцию"
         "wifi-direct" -> "Wi‑Fi Direct"
         else -> "нет маршрута"
     }
@@ -267,7 +268,7 @@ private fun meshStateLabel(state: MeshState): String =
     when (state) {
         MeshState.OFF -> "выключена"
         MeshState.STARTING -> "запускается"
-        MeshState.SCANNING -> "поиск устройств рядом"
+        MeshState.SCANNING -> "поиск устройств"
         MeshState.PEER_FOUND -> "устройство найдено"
         MeshState.CONNECTED -> "связь установлена"
         MeshState.DEGRADED -> "нестабильная связь"
@@ -280,6 +281,23 @@ private fun friendlyTransportError(raw: String?): String =
         "EXPIRED" -> "срок действия приглашения истёк"
         else -> raw
     }
+
+private fun sourceStateLabel(sourceState: String): String =
+    when {
+        sourceState.contains("dirty", ignoreCase = true) -> "текущая сборка с локальными изменениями"
+        sourceState.contains("clean", ignoreCase = true) -> "чистая сборка"
+        sourceState.isBlank() -> "не указан"
+        else -> sourceState
+    }
+
+private fun retryStateLabel(evidenceSnapshot: MeshEvidenceSnapshotExport): String =
+    listOf(
+        "поставлено в очередь — ${yesNo(evidenceSnapshot.debugSmoke.queuedBeforeTransportRestart)}",
+        "отправлено — ${yesNo(evidenceSnapshot.debugSmoke.sentAfterTransportRestart)}",
+        "доставлено — ${yesNo(evidenceSnapshot.debugSmoke.deliveredAfterTransportRestart)}",
+    ).joinToString(", ")
+
+private fun yesNo(value: Boolean): String = if (value) "да" else "нет"
 
 private fun saveEvidenceFile(filesDir: File, fileName: String, content: String) {
     val evidenceDir = File(filesDir, "evidence")

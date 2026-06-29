@@ -1,0 +1,77 @@
+{
+  "report": "mac_inline_relay_attempt",
+  "date": "2026-06-08",
+  "mode": "normal",
+  "transport_profile": "lan-only",
+  "artifacts": {
+    "lan_only_endpoints_before": "artifacts/debug-route-evidence/20260608-094116-lan-only-endpoints-before-inline-relay/manifest.json",
+    "samsung_send": "artifacts/debug-route-evidence/20260608-094149-inline-relay-normal-lan-only-send-samsung/manifest.json",
+    "mac_relay": "artifacts/desktop-relay-inline/20260608-094157/android_inline_lan_relay.json",
+    "xiaomi_after": "artifacts/debug-route-evidence/20260608-094220-inline-relay-normal-lan-only-after-xiaomi/manifest.json"
+  },
+  "sender": {
+    "serial": "R5CY22X6MSB",
+    "model": "SM-S938B",
+    "fingerprint": "3C4E D5BA 9DB8 8F9B",
+    "lan_endpoint_before_send": "192.168.0.201:46733",
+    "manual_peer": {
+      "fingerprint": "B42B 3068 934E F618",
+      "host": "192.168.0.123",
+      "port": 49884,
+      "status": "manual-peer-added"
+    },
+    "debug_message_id": "message-fd879d79-a11c-4aa4-a218-aec626c67a4a",
+    "debug_message_body": "inline relay lan only normal 0942",
+    "selected_route": "lan-nsd-tcp",
+    "enabled_transport_modes": [
+      "lan-nsd-tcp"
+    ],
+    "recent_route_attempt_count": 2
+  },
+  "mac_relay": {
+    "listen": "0.0.0.0:49884",
+    "target": "192.168.0.121:42735",
+    "frames_received": 1,
+    "frame": {
+      "source": "192.168.0.201:48078",
+      "sender_fingerprint": "3C4E D5BA 9DB8 8F9B",
+      "recipient_fingerprint": "B42B 3068 934E F618",
+      "packet_id": "packet-fbfa95d2-d77d-4507-ae07-36ce62dc4f9c"
+    },
+    "decision": {
+      "accepted": true,
+      "reason": "attack-normal",
+      "forwarded": false,
+      "queued": false,
+      "dropped": false
+    },
+    "forward_attempt": {
+      "host": "192.168.0.121",
+      "port": 42735,
+      "success": false,
+      "error": "timed out"
+    }
+  },
+  "receiver_after": {
+    "serial": "d948ffd0",
+    "model": "2201122G",
+    "fingerprint": "B42B 3068 934E F618",
+    "accepted_connections": 0,
+    "inbound_packets": 0,
+    "malformed_frames_dropped": 0,
+    "selected_route": "lan-nsd-tcp",
+    "enabled_transport_modes": [
+      "lan-nsd-tcp"
+    ]
+  },
+  "closed_gap": "android_a_to_mac_lan_frame_capture_for_inline_relay_harness",
+  "not_closed": [
+    "mac_to_android_b_forwarding",
+    "android_a_to_mac_to_android_b_delivery",
+    "drop_duplicate_tamper_modes",
+    "android_before_after_rejection_counters_for_mitm_modes",
+    "cryptographic_mitm_resistance",
+    "production_relay_security"
+  ],
+  "claim_boundary": "This proves a lan-only Android sender can route a Kraken LAN frame to the Mac inline relay harness. The Mac relay accepted the frame but forwarding to Android B timed out, so Android A -> Mac -> Android B delivery and MITM resistance are not proven."
+}

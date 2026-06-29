@@ -40,7 +40,7 @@ class WelcomeBrandingGuardTest {
         val welcomeSource = File("src/main/java/com/disser/kraken/ui/screens/WelcomeScreen.kt").readText()
 
         assertTrue(welcomeSource.contains("M E S S E N G E R"))
-        assertTrue(welcomeSource.contains("ПРИВАТНО  •  РЯДОМ  •  СВОБОДНО"))
+        assertTrue(welcomeSource.contains("ПРИВАТНО  •  ЛОКАЛЬНО  •  СВОБОДНО"))
         assertTrue(welcomeSource.contains("ОТКРЫТЬ KRAKEN"))
         assertTrue(welcomeSource.contains("route = KrakenRoute.Chat"))
         assertFalse(welcomeSource.contains("Л И Ч Н О  •  О Ф Л А Й Н  •  Л О К А Л Ь Н О"))

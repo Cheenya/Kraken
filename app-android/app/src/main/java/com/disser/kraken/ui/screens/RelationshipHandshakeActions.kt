@@ -59,7 +59,7 @@ internal fun RelationshipHandshakeActions(
                 onClick = {
                     val identity = localIdentity
                     if (identity == null) {
-                        onError("Сначала создайте профиль на этом устройстве.")
+                        onError("Сначала создайте профиль Kraken.")
                     } else {
                         val handshaking = RelationshipService.startHandshake(relationship)
                         onRelationshipUpdated(handshaking)
@@ -68,22 +68,22 @@ internal fun RelationshipHandshakeActions(
                                 onSuccess = { payload ->
                                     onPayloadReady(
                                         HandshakeQrPayloadView(
-                                            title = "Ручной QR подтверждения",
+                                            title = "QR подтверждения",
                                             payloadJson = HandshakePayloadCodec.encodeResponse(payload),
                                             details = listOf(
                                                 "Покажите этот QR устройству, которое создало приглашение.",
-                                                "Это резервный путь, если Bluetooth-подтверждение рядом не сработало.",
-                                                "После сканирования там появится следующий резервный шаг.",
+                                                "Этот QR завершает подтверждение контакта.",
+                                                "После сканирования контакт продолжит сопряжение.",
                                             ),
                                         )
                                     )
                                 },
-                                onFailure = { onError(it.message ?: "Не удалось создать резервный QR.") },
+                                onFailure = { onError(it.message ?: "Не удалось создать QR подтверждения.") },
                             )
                     }
                 }
             ) {
-                Text("Завершить вручную через QR")
+                Text("Завершить через QR")
             }
         }
         if (relationship.state == RelationshipState.PENDING_HANDSHAKE && showManualFallback) {
@@ -91,34 +91,34 @@ internal fun RelationshipHandshakeActions(
                 onClick = {
                     val identity = localIdentity
                     if (identity == null) {
-                        onError("Сначала создайте профиль на этом устройстве.")
+                        onError("Сначала создайте профиль Kraken.")
                     } else {
                         handshakeService.generateResponsePayload(identity, relationship)
                             .fold(
                                 onSuccess = { payload ->
                                     onPayloadReady(
                                         HandshakeQrPayloadView(
-                                            title = "Ручной QR подтверждения",
+                                            title = "QR подтверждения",
                                             payloadJson = HandshakePayloadCodec.encodeResponse(payload),
                                             details = listOf(
                                                 "Покажите этот QR устройству, которое создало приглашение.",
                                                 "Это устройство пока ждёт завершение сопряжения.",
-                                                "Это резервный способ, если подтверждение рядом недоступно.",
+                                                "Этот QR завершает подтверждение контакта.",
                                             ),
                                         )
                                     )
                                 },
-                                onFailure = { onError(it.message ?: "Не удалось создать резервный QR.") },
+                                onFailure = { onError(it.message ?: "Не удалось создать QR подтверждения.") },
                             )
                     }
                 }
             ) {
-                Text("Показать ручной QR")
+                Text("Показать QR")
             }
         }
         if (relationship.state == RelationshipState.PENDING_HANDSHAKE && showManualFallback) {
             OutlinedButton(onClick = { navController.navigate(KrakenRoute.QrScanner.route) }) {
-                Text("Сканировать ручной QR")
+                Text("Сканировать QR")
             }
         }
     }

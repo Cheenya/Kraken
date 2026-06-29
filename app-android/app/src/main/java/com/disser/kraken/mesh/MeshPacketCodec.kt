@@ -17,7 +17,7 @@ object MeshPacketCodec {
         runCatching { InvitePayloadCodec.json.decodeFromString<KrakenPacket>(encoded) }
             .recoverCatching { error ->
                 if (error is SerializationException || error is IllegalArgumentException) {
-                    throw IllegalArgumentException("Invalid Kraken packet.")
+                    throw IllegalArgumentException("Некорректный пакет Kraken.")
                 }
                 throw error
             }

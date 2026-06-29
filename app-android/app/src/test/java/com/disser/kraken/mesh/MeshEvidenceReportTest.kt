@@ -1,0 +1,45 @@
+package com.disser.kraken.mesh
+
+import java.io.File
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class MeshEvidenceReportTest {
+    @Test
+    fun p2pEvidenceReportsStateEvidenceScope() {
+        val files = listOf(
+            "../../reports/out/mesh_delivery_simulation.md",
+            "../../reports/out/android_p2p_smoke_report.md",
+            "../../reports/out/two_device_delivery_evidence.md",
+            "../../reports/out/mesh_metrics_summary.json",
+        )
+
+        files.forEach { path ->
+            val content = File(path).readText()
+            assertTrue(
+                "Evidence file must mention scope: $path",
+                content.contains("scope", ignoreCase = true) ||
+                    content.contains("Scope") ||
+                    content.contains("Граница Evidence"),
+            )
+            assertFalse("Evidence file must avoid old production boundary wording: $path", content.contains("production-secure"))
+        }
+    }
+
+    @Test
+    fun twoDeviceEvidenceClaimsOnlyManualScope() {
+        val report = File("../../reports/out/two_device_delivery_evidence.md").readText()
+
+        assertTrue(report.contains("Status: manual two-phone LAN NSD/TCP and BLE evidence exists"))
+        assertTrue(report.contains("UI-visible delivery states"))
+        assertTrue(report.contains("Wi-Fi Direct closure remain"))
+        assertTrue(report.contains("Repeatable capture bundle"))
+        assertTrue(report.contains("automated message-send/receipt orchestration"))
+        assertTrue(report.contains("still needed"))
+        val claimText = report.substringBefore("Outside this report:")
+        val outsideScopeText = report.substringAfter("Outside this report:")
+        assertFalse(claimText.contains("audited packet signatures"))
+        assertTrue(outsideScopeText.contains("audited packet signatures"))
+    }
+}

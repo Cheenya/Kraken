@@ -104,7 +104,7 @@ class KrakenDesktopSimulator:
             fingerprint=self._make_id().replace("-", "")[:16].upper(),
             created_at=current,
         )
-        state.last_event = "Создана локальная личность"
+        state.last_event = "Создан профиль Kraken"
         return state
 
     def import_peer(self, state: KrakenDesktopState, name: str) -> KrakenDesktopState:
@@ -223,7 +223,7 @@ class KrakenDesktopSimulator:
                 risk_flags=[],
                 evaluated_at=current,
             )
-            state.last_event = "Экспериментальный профиль Adamova принят"
+            state.last_event = "Экспериментальный криптопрофиль принят"
         else:
             state.admission_result = AdmissionResult(
                 profile_id="experimental-adamova-risk-demo-v1",
@@ -233,7 +233,7 @@ class KrakenDesktopSimulator:
                 risk_flags=["rational_2_torsion"],
                 evaluated_at=current,
             )
-            state.last_event = "Рискованный профиль Adamova отклонён"
+            state.last_event = "Рискованный криптопрофиль отклонён"
         return state
 
     def apply_inbound_lan_message(

@@ -53,11 +53,11 @@ data class AdamovaAttackDemoReport(
 ) {
     fun toMarkdown(): String =
         buildString {
-            appendLine("# Проверка admission gate по критерию Адамовой")
+            appendLine("# Проверка допуска профилей Adamova")
             appendLine()
-            appendLine("Статус: запуск из Android Research Mode.")
+            appendLine("Статус: прогон из Research Mode на Android.")
             appendLine()
-            appendLine("## Контур проверки")
+            appendLine("## Граница Вывода")
             appendLine()
             appendLine("- $safeClaim")
             appendLine("- $claimBoundary")
@@ -78,9 +78,9 @@ data class AdamovaAttackDemoReport(
             appendLine("| median_gate_latency_ms | ${"%.6f".format(java.util.Locale.US, metrics.medianGateLatencyMs)} |")
             appendLine("| p95_gate_latency_ms | ${"%.6f".format(java.util.Locale.US, metrics.p95GateLatencyMs)} |")
             appendLine()
-            appendLine("## Scenarios")
+            appendLine("## Сценарии")
             appendLine()
-            appendLine("| Scenario | Kind | No precheck | Discriminant only | Adamova decision | Adamova accepted | Latency ms |")
+            appendLine("| Сценарий | Тип | Без предварительной проверки | Только дискриминант | Решение Adamova | Принят Adamova | Задержка, мс |")
             appendLine("| --- | --- | ---: | ---: | --- | ---: | ---: |")
             results.forEach { result ->
                 appendLine(
@@ -129,9 +129,9 @@ data class AdamovaAttackDemoReport(
 
     companion object {
         const val SAFE_CLAIM =
-            "Adamova gate rejects or blocks weak experimental curve profiles before session/message use."
+            "Контур допуска Adamova отклоняет или блокирует слабые экспериментальные профили до использования в сессии и сообщениях."
         const val CLAIM_BOUNDARY =
-            "Experiment records profile admission behavior for the tested corpus."
+            "Граница evidence: проверка допуска Adamova отклоняет слабые экспериментальные профили до использования в сессии и сообщениях."
 
         private fun jsonString(value: String?): String =
             value?.replace("\\", "\\\\")

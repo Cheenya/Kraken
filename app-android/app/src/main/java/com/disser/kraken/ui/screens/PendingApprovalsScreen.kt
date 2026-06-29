@@ -29,6 +29,7 @@ import com.disser.kraken.navigation.KrakenRoute
 import com.disser.kraken.realm.ApprovalDecision
 import com.disser.kraken.realm.ApprovalDecisionType
 import com.disser.kraken.realm.ApprovalEvaluator
+import com.disser.kraken.realm.ApprovalMode
 import com.disser.kraken.realm.ApprovalOutcome
 import com.disser.kraken.realm.ApprovalRequestGrouper
 import com.disser.kraken.realm.MembershipCertificate
@@ -101,9 +102,9 @@ fun PendingApprovalsScreen(
                 onOpenContacts = { navController.navigate(KrakenRoute.Contacts.route) },
             )
         }
-        KrakenSectionHeader("На ревью")
+                    KrakenSectionHeader("На проверке")
         if (groups.pendingReview.isEmpty()) {
-            EmptyState("Заявок пока нет", "Заявки появятся после скана ответного QR от вступающего устройства.")
+            EmptyState("Заявок пока нет", "Заявки появятся после сканирования QR-ответа участника.")
         } else {
             groups.pendingReview.forEach { request ->
                 PendingRequestCard(
@@ -138,13 +139,13 @@ fun PendingApprovalsScreen(
         InfoCard(
             "Права ожидающего участника",
             listOf(
-                "До одобрения участник не может писать первым, публиковать, приглашать других или получать backlog.",
-                "Одобрение создаёт локальное подтверждение доступа; его нужно передать финальным QR.",
+                "До одобрения участник не может писать первым, публиковать, приглашать других или получать историю.",
+                "Одобрение создаёт подтверждение доступа; его нужно передать через QR подтверждения.",
             )
         )
         val aggregates = ComplaintModerator.aggregate(complaints)
         if (aggregates.isEmpty()) {
-            EmptyState("Модерация пуста", "Жалобы после негативной отвязки будут собираться здесь для локального ревью.")
+            EmptyState("Модерация пуста", "Жалобы после негативной отвязки будут собираться здесь для проверки.")
         } else {
             aggregates.forEach { aggregate ->
                 val action = ComplaintModerator.recommendedAction(aggregate)
@@ -161,9 +162,9 @@ fun PendingApprovalsScreen(
                 TechnicalDetailsDisclosure("Технические данные жалоб") {
                     Text("ID реалма: ${aggregate.realmId}", style = MaterialTheme.typography.bodySmall)
                     Text("Ключ участника: ${aggregate.targetPublicKey}", style = MaterialTheme.typography.bodySmall)
-                    Text("Категория: ${aggregate.category.name}", style = MaterialTheme.typography.bodySmall)
+                    Text("Категория: ${complaintCategoryLabel(aggregate.category)}", style = MaterialTheme.typography.bodySmall)
                     Text("Связей-источников: ${aggregate.sourceRelationshipIds.size}", style = MaterialTheme.typography.bodySmall)
-                    Text("Локальное действие: ${action.name}", style = MaterialTheme.typography.bodySmall)
+                    Text("Действие: ${moderationActionLabel(action)}", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -193,7 +194,7 @@ private fun ApprovedRequestFinalQr(
         "Заявка одобрена",
         listOf(
             "Сертификат участника создан.",
-            "Покажите ручной QR подтверждения вступающему устройству, чтобы оно стало участником реалма.",
+            "Покажите QR подтверждения участнику, чтобы завершить вступление в реалм.",
         ),
     )
 
@@ -206,25 +207,24 @@ private fun ApprovedRequestFinalQr(
         ).fold(
             onSuccess = { payload ->
                 PayloadQrCodeCard(
-                    title = "Ручной QR подтверждения",
+                    title = "QR подтверждения",
                     payloadJson = HandshakePayloadCodec.encodeConfirmation(payload),
                     details = listOf(
-                        "Покажите этот QR вступающему устройству.",
-                        "QR несёт локальное подтверждение доступа к реалму.",
-                        "Подтверждение передаётся офлайн.",
+                        "Покажите этот QR участнику реалма.",
+                        "QR подтверждает доступ к реалму.",
                     ),
                 )
             },
             onFailure = { error ->
-                WarningCard("Ручной QR недоступен", listOf(error.message ?: "Не удалось создать ручной QR."))
+                WarningCard("QR подтверждения недоступен", listOf(error.message ?: "Не удалось создать QR подтверждения."))
             },
         )
     } else {
         WarningCard(
-            "Ручной QR недоступен",
+            "QR подтверждения недоступен",
             listOf(
-                "Не найден активный inviter-contact для одобренной заявки.",
-                "Откройте Контакты и проверьте состояние offline QR handshake.",
+                "Не найден активный контакт для одобренной заявки.",
+                "Откройте контакты и проверьте состояние QR-сопряжения.",
             ),
         )
     }
@@ -271,8 +271,8 @@ private fun PendingRequestCard(
             Text("Заявка на вступление через QR-приглашение.", style = MaterialTheme.typography.bodySmall)
             Text("Решения: $approvalCount/${request.approvalPolicy.requiredApprovals}")
 
-            if (request.approvalPolicy.mode.name == "SINGLE_ADMIN") {
-                WarningCard("Одобрение владельцем или админом", listOf("После одобрения нужно показать ручной QR подтверждения вступающему устройству."))
+            if (request.approvalPolicy.mode == ApprovalMode.SINGLE_ADMIN) {
+                WarningCard("Одобрение владельцем или администратором", listOf("После одобрения покажите QR подтверждения участнику."))
             }
 
             if (request.state == PendingMembershipState.PENDING_REVIEW && localIdentity != null && approvalRole != null) {
@@ -314,8 +314,8 @@ private fun PendingRequestCard(
             TechnicalDetailsDisclosure("Технические данные заявки") {
                 Text("Пригласил: ${request.inviterPublicKey.take(32)}...", style = MaterialTheme.typography.bodySmall)
                 Text("Ключ участника: ${request.inviteePublicKey.take(32)}...", style = MaterialTheme.typography.bodySmall)
-                Text("Состояние: ${request.state.name}", style = MaterialTheme.typography.bodySmall)
-                Text("Политика: ${request.approvalPolicy.mode.name}", style = MaterialTheme.typography.bodySmall)
+                Text("Состояние: ${pendingRequestStateDetailsLabel(request.state)}", style = MaterialTheme.typography.bodySmall)
+                Text("Политика: ${approvalModeLabel(request.approvalPolicy.mode)}", style = MaterialTheme.typography.bodySmall)
             }
         }
     }
@@ -330,6 +330,21 @@ private fun pendingRequestStateLabel(state: PendingMembershipState): String =
         PendingMembershipState.CANCELLED -> "ОТМЕНЕНО"
     }
 
+private fun pendingRequestStateDetailsLabel(state: PendingMembershipState): String =
+    when (state) {
+        PendingMembershipState.PENDING_REVIEW -> "ожидает проверки"
+        PendingMembershipState.APPROVED -> "одобрена"
+        PendingMembershipState.REJECTED -> "отклонена"
+        PendingMembershipState.EXPIRED -> "истекла"
+        PendingMembershipState.CANCELLED -> "отменена"
+    }
+
+private fun approvalModeLabel(mode: ApprovalMode): String =
+    when (mode) {
+        ApprovalMode.SINGLE_ADMIN -> "одобрение владельцем или администратором"
+        ApprovalMode.THRESHOLD -> "пороговое одобрение"
+    }
+
 private fun complaintCategoryLabel(category: ComplaintCategory): String =
     when (category) {
         ComplaintCategory.UNWANTED_MESSAGES -> "нежелательные сообщения"
@@ -342,7 +357,7 @@ private fun complaintCategoryLabel(category: ComplaintCategory): String =
 private fun moderationActionLabel(action: ModerationAction): String =
     when (action) {
         ModerationAction.NONE -> "действие не требуется"
-        ModerationAction.WATCH -> "наблюдать локально"
+        ModerationAction.WATCH -> "наблюдать"
         ModerationAction.RESTRICT_INVITES -> "ограничить приглашения"
         ModerationAction.RESTRICT_POSTING -> "ограничить сообщения"
         ModerationAction.REMOVE_FROM_REALM -> "удалить из реалма"

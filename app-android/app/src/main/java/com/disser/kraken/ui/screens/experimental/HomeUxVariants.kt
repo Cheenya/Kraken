@@ -24,6 +24,7 @@ import com.disser.kraken.invite.PendingInviteImport
 import com.disser.kraken.realm.RealmSnapshot
 import com.disser.kraken.relationship.ComplaintEvent
 import com.disser.kraken.relationship.Relationship
+import com.disser.kraken.relationship.RelationshipState
 import com.disser.kraken.ui.components.MetricPill
 import com.disser.kraken.ui.components.SectionHeader
 import com.disser.kraken.ui.components.StateBadge
@@ -52,14 +53,14 @@ fun MessengerHubHomeVariant(
 ) {
     VariantShell(
         title = "Центр сообщений",
-        subtitle = "Недавние диалоги, профиль на устройстве и быстрые QR-действия.",
+        subtitle = "Недавние диалоги, профиль Kraken и быстрые QR-действия.",
     ) {
         IdentityMini(localIdentity)
         relationships.take(3).forEach {
             CompactListRow(
                 title = it.peerDisplayName ?: "Контакт",
                 detail = it.peerFingerprint,
-                badge = it.state.name,
+                badge = relationshipStateBadge(it.state),
             )
         }
         if (relationships.isEmpty()) {
@@ -68,7 +69,7 @@ fun MessengerHubHomeVariant(
         QuickActionRow("Мой QR", "Скан QR", "Сопряжение", "Реалмы")
         MetricRow(
             "Ожидают" to pendingInvites.size.toString(),
-            "Чаты" to relationships.count { it.state.name == "ACTIVE" }.toString(),
+            "Чаты" to relationships.count { it.state == RelationshipState.ACTIVE }.toString(),
             "Реалмы" to realmSnapshot.realms.size.toString(),
         )
     }
@@ -81,9 +82,9 @@ fun PrivacyOnboardingHomeVariant(
 ) {
     VariantShell(
         title = "Первый запуск",
-        subtitle = "Сначала профиль на устройстве и QR-подтверждение, потом чаты.",
+        subtitle = "Сначала профиль Kraken и QR-подтверждение, потом чаты.",
     ) {
-        StepRow("1", "Создать локальную личность", if (localIdentity == null) "нужно" else "готово")
+        StepRow("1", "Создать профиль Kraken", if (localIdentity == null) "нужно" else "готово")
         StepRow("2", "Показать одноразовый QR", "только рукопожатие")
         StepRow("3", "Сканировать приглашение", "${pendingInvites.size} ожидают")
         StepRow("4", "Завершить рукопожатие", "без обхода доступа")
@@ -100,7 +101,7 @@ fun MeshOperationsHomeVariant(
 ) {
     VariantShell(
         title = "Панель проверки связи",
-        subtitle = "Технический вид для реалмов, relay и локальных проверок.",
+        subtitle = "Технический вид для реалмов, ретрансляции и локальных проверок.",
     ) {
         MetricRow(
             "Ожидают" to pendingInvites.size.toString(),
@@ -147,11 +148,22 @@ fun LiquidGlassInspiredHomeVariant(
         GlassPanel("Kraken", localIdentity?.displayName ?: "Личность не создана", "по QR")
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
             GlassPanel("QR", "Рукопожатие", pendingInvites.size.toString(), Modifier.weight(1f))
-            GlassPanel("Чаты", "Активных ${relationships.count { it.state.name == "ACTIVE" }}", relationships.size.toString(), Modifier.weight(1f))
+            GlassPanel("Чаты", "Активных ${relationships.count { it.state == RelationshipState.ACTIVE }}", relationships.size.toString(), Modifier.weight(1f))
         }
         GlassPanel("Реалмы", "Без публичного поиска", realmSnapshot.realms.size.toString())
     }
 }
+
+private fun relationshipStateBadge(state: RelationshipState): String =
+    when (state) {
+        RelationshipState.ACTIVE -> "АКТИВЕН"
+        RelationshipState.PENDING_IMPORT,
+        RelationshipState.PENDING_HANDSHAKE -> "ОЖИДАЕТ"
+        RelationshipState.UNLINK_REQUESTED -> "ОТВЯЗКА"
+        RelationshipState.UNLINKED -> "ЗАВЕРШЁН"
+        RelationshipState.BLOCKED_BY_PEER -> "БЛОК"
+        RelationshipState.REJOIN_REQUIRED -> "НОВЫЙ QR"
+    }
 
 @Composable
 private fun VariantShell(
@@ -184,9 +196,9 @@ private fun VariantShell(
 @Composable
 private fun IdentityMini(localIdentity: LocalIdentity?) {
     CompactListRow(
-        title = localIdentity?.displayName ?: "Личность не создана",
-        detail = localIdentity?.fingerprint ?: "Сначала создайте локальную личность.",
-        badge = if (localIdentity == null) "НУЖНО" else "НА УСТРОЙСТВЕ",
+        title = localIdentity?.displayName ?: "Профиль не создан",
+        detail = localIdentity?.fingerprint ?: "Сначала создайте профиль Kraken.",
+        badge = if (localIdentity == null) "НУЖНО" else "ПРОФИЛЬ",
     )
 }
 

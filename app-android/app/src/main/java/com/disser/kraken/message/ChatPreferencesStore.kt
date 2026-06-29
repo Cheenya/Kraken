@@ -66,8 +66,8 @@ class ChatPreferencesStore(context: Context) {
         val BACKGROUND_PRESETS = listOf(
             ChatBackgroundPreset(
                 key = DEFAULT_BACKGROUND,
-                title = "Kraken grid",
-                description = "Фирменный тёмный фон с тихим mesh-рисунком.",
+                title = "Сетка Kraken",
+                description = "Фирменный тёмный фон с тонким рисунком связи.",
             ),
             ChatBackgroundPreset(
                 key = "solid_dark",

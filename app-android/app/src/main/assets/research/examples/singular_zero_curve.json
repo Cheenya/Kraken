@@ -16,7 +16,7 @@
     "lutz_nagell": {
       "candidate_count": 0,
       "candidates": [],
-      "summary": "candidate diagnostic only; not a complete torsion proof"
+      "summary": "Диагностическая проверка структуры точек кручения"
     },
     "singular": true,
     "torsion_probe_results": [],
@@ -39,10 +39,10 @@
     "generator_version": "research"
   },
   "ui_wording": {
-    "security_note": "Диагностический отчёт для проверки параметров кривой.",
-    "summary": "Офлайн-отчёт по диагностике параметров кривой.",
-    "title": "Rational curve diagnostic",
-    "unsupported_note": "Unsupported cases are intentionally shown instead of guessed."
+    "security_note": "Диагностический расчёт профиля для проверки математического контура Kraken.",
+    "summary": "Диагностический отчёт, подготовленный математическим контуром Kraken.",
+    "title": "Диагностика рациональной кривой",
+    "unsupported_note": "Неподдерживаемые случаи явно помечаются, а не угадываются."
   },
   "unsupported_cases": [
     "singular curve"

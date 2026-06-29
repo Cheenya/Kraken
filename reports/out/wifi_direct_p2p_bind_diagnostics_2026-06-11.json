@@ -1,0 +1,39 @@
+{
+  "report": "wifi_direct_p2p_bind_diagnostics",
+  "date": "2026-06-11",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "artifact": "artifacts/debug-route-evidence/20260611-004859-wifi-direct-p2p-bind-preflight-2026-06-11/manifest.json",
+  "devices": [
+    {
+      "serial": "R5CY22X6MSB",
+      "p2p_ip": "192.168.49.1",
+      "wifi_direct_server_bind_address": "192.168.49.1",
+      "app_port": 34273
+    },
+    {
+      "serial": "d948ffd0",
+      "p2p_ip": "192.168.49.59",
+      "wifi_direct_server_bind_address": "192.168.49.59",
+      "app_port": 41817
+    }
+  ],
+  "network_findings": {
+    "p2p_ping_bidirectional": "passed",
+    "shell_tcp_samsung_to_xiaomi": "passed",
+    "shell_tcp_xiaomi_to_samsung": "passed",
+    "app_listener_local_reachability": "passed",
+    "remote_tcp_to_app_listener": "timeout"
+  },
+  "closed_gap": "wifi_direct_listener_bind_address_is_now_explicit_and_p2p_ipv4_preferred",
+  "not_closed": [
+    "wifi_direct_message_delivery",
+    "wifi_direct_bidirectional_reliability",
+    "wifi_direct_route_bound_negative_tests",
+    "route_benchmark_min_n",
+    "production_network_reliability"
+  ],
+  "narrowed_blocker": "Android P2P TCP works between device shell listeners, but remote traffic to the Kraken app listener times out even when the listener is bound to the device P2P IPv4 address and locally reachable.",
+  "claim_boundary": "Diagnostic evidence only. It does not prove Wi-Fi Direct delivery, bidirectional reliability, route-bound hostile packet resistance, production network reliability or production security."
+}

@@ -24,7 +24,7 @@ data class CurveDiagnosticResult(
     val diagnosticBackend: String = "kotlin-bigint-fallback",
 ) {
     val diagnosticOnlyWarning: String =
-        "Диагностический результат для проверки параметров кривой."
+        "Диагностический расчёт профиля для проверки математического контура Kraken."
 }
 
 object ResearchDiagnosticService {
@@ -61,15 +61,15 @@ object ResearchDiagnosticService {
                 classificationCase = if (native.singular) "SINGULAR" else native.classificationCase,
                 allowedTorsionTypes = allowedTorsionTypes(native.classificationCase),
                 note = if (nativeSupported) {
-                    "Native C++ backend Adamova Stage A v3 для signed 128-bit и smooth arbitrary-size коэффициентов."
+                    "Нативный C++ контур выполнил локальную проверку профиля для 128-битных и больших коэффициентов."
                 } else {
-                    "Native C++ exact BigInt discriminant completed; full torsion divisor enumeration skipped because factorization or divisor count exceeded the safety budget."
+                    "Нативный C++ контур вычислил дискриминант; полный перебор делителей пропущен из-за лимита проверки."
                 },
                 localDiagnosticSupported = nativeSupported,
                 unsupportedReasons = if (nativeSupported) {
                     emptyList()
                 } else {
-                    listOf("native C++ BigInt path skipped full torsion divisor enumeration for this input")
+                    listOf("нативный C++ контур пропустил полный перебор делителей для этого ввода")
                 },
                 diagnosticBackend = "native-cpp-adamova-v3",
             )
@@ -82,13 +82,13 @@ object ResearchDiagnosticService {
         val twoTorsionRootCount = if (isDivisorScanSupported(input.b)) {
             countIntegerTwoTorsionRoots(input)
         } else {
-            unsupportedReasons += "2-torsion integer-root scan skipped: |b| requires divisor enumeration above $MAX_EXACT_DIVISOR_SCAN."
+            unsupportedReasons += "поиск целых корней для точек кручения 2 порядка пропущен: |b| требует перебора делителей выше $MAX_EXACT_DIVISOR_SCAN."
             0
         }
         val hasThreeTorsionIndicator = if (isThreeTorsionScanSupported(input)) {
             hasIntegerThreeTorsionIndicator(input)
         } else {
-            unsupportedReasons += "3-torsion indicator skipped: |a| requires divisor enumeration above $MAX_EXACT_DIVISOR_SCAN."
+            unsupportedReasons += "поиск индикатора точек кручения 3 порядка пропущен: |a| требует перебора делителей выше $MAX_EXACT_DIVISOR_SCAN."
             false
         }
         val localDiagnosticSupported = unsupportedReasons.isEmpty()
@@ -102,9 +102,9 @@ object ResearchDiagnosticService {
             )
         }
         val note = if (localDiagnosticSupported) {
-            "Android MVP mirrors the research workflow shape. Full classifier parity belongs in the future C++/JNI core."
+            "Android-контур повторяет структуру исследовательской проверки. Полное совпадение классификатора относится к C++/JNI-контуру."
         } else {
-            "Android local diagnostics skipped exhaustive divisor enumeration for this input. Use the bundled offline math-core report for validated large-coefficient evidence."
+            "Локальная диагностика Android пропустила полный перебор делителей для этого ввода. Для крупных коэффициентов используйте встроенный отчёт math-core."
         }
 
         return CurveDiagnosticResult(
@@ -142,7 +142,7 @@ object ResearchDiagnosticService {
             "A1" -> listOf("Z/3Z", "Z/9Z")
             "A2" -> listOf("Z/6Z", "Z/12Z")
             "A3" -> listOf("Z/2Z x Z/6Z")
-            "A4" -> listOf("trivial", "odd-order cyclic candidate")
+            "A4" -> listOf("тривиальный случай", "циклический кандидат нечётного порядка")
             "A5" -> listOf("Z/2Z", "Z/4Z", "Z/8Z", "Z/10Z")
             "A6" -> listOf("Z/2Z x Z/2Z", "Z/2Z x Z/4Z", "Z/2Z x Z/8Z")
             "SIZE_GUARDED" -> emptyList()

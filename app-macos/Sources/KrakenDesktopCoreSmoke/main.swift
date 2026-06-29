@@ -79,7 +79,7 @@ let androidEnvelopePayload = """
         "session_profile_id": null,
         "admission_decision_hash": "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
         "profile_policy_version": 1,
-        "proof_mode": "local-admission-check-v1"
+        "proof_mode": "prototype-placeholder"
     }
 }
 """
@@ -300,7 +300,7 @@ let androidHandshakeResponseQr = """
     "admission_decision_hash": "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
     "profile_policy_version": 1,
     "native_backend_version": "android-fixture",
-    "proof_placeholder": "offline-qr-handshake-check-v1"
+    "proof_placeholder": "prototype-offline-qr-handshake-not-production-crypto"
 }
 """
 precondition(
@@ -327,7 +327,7 @@ precondition(
     "QR encoder output should round-trip through scanner decoder"
 )
 
-let deflatedResponsePayload = String(macEncodedResponseQr.split(separator: "p=", maxSplits: 1).last ?? "")
+let deflatedResponsePayload = "fVJNa9wwEP0rxedqqQMtxbfQjxxKmoDTs9Ba4_WwsqSMZDemFEqv_TPpsZT2N3j_UUb2ejdLIL5Y1nvz5s0bf8uUbjEEdFZqqHA6NCo0WZGFRp29flOEqKxWpAVBj_AVtPCELUbsIYg-L6yLQnlvsFJrA0WfZy-zikBF0FJFCd5VjWzRGAxZkb99dXwSb_DRSU-uRgP7xrYz5gmEOjl63go3Rttj3LPnswiqDZ3dHECSNdoNEJfayLTL83dX5fsP5aebq2s2lVSsSpJyraotWC17oJQLc7k9OdSixrvYETB18ecdBzAcqfkEuVp6oyponNFALMB30cXBg3B1bdCCuCXRsCyHvQWRsmSK7qrIKmLOgLtwnKadpprDITAqMUKDXjbzHI_vlqGFZ_84DU9w2yFBkLwrcr0yWVErEyAhwTvL_qTGwHYHaVULrFjOIi_Gv-P9-Hv8v_sx3u9-Tu9_u1_jn-xx7Wmo5fll-eXzxcfr_arzE67v1pyW3MIgwVZOw7TcxfIECgYPNWG_0eVLnK5WHLpxRQqXqVviPO3qEO1qqV1N_8lxT98fAA"
 let androidWebResponseQr = "https://kraken.local/qr?v=2&z=d&p=\(deflatedResponsePayload)"
 precondition(
     KrakenHandshakeQrCodec.detectKind(androidWebResponseQr) == .response,
@@ -436,7 +436,7 @@ let androidHandshakeConfirmationQr = """
     "admission_decision_hash": "sha256:standard-reviewed-primitives-v1:not-applicable:v1",
     "profile_policy_version": 1,
     "native_backend_version": "android-fixture",
-    "proof_placeholder": "offline-qr-confirmation-check-v1"
+    "proof_placeholder": "prototype-offline-qr-confirmation-not-production-crypto"
 }
 """
 precondition(

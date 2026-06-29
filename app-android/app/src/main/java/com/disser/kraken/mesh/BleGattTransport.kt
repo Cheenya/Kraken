@@ -508,7 +508,7 @@ class BleGattTransport(
             runCatching { gatt.readCharacteristic(identityCharacteristic) }
         }
 
-        @Deprecated("Deprecated in Android API")
+        @Deprecated("Kept for pre-Android 13 BluetoothGatt callback compatibility")
         override fun onCharacteristicRead(
             gatt: BluetoothGatt,
             characteristic: BluetoothGattCharacteristic,

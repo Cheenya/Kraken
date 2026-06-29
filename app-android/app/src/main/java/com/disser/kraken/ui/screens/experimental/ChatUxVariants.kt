@@ -164,7 +164,7 @@ private fun ChatListMock(
         Column(modifier = Modifier.padding(vertical = 6.dp)) {
             ChatTopLine("Чаты", accent)
             ChatRowPreview(displayName, "Вы: сообщение не отправлено", "01:21", accent, rowDivider, showUnread)
-            ChatRowPreview("Аня", "BLE рядом · можно отправлять", "Вчера", accent, rowDivider, false)
+            ChatRowPreview("Аня", "BLE найден · можно отправлять", "Вчера", accent, rowDivider, false)
             ChatRowPreview("Группа проверки", "Новый QR принят", "Пн", accent, rowDivider, false)
         }
     }

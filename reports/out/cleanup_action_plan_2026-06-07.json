@@ -1,0 +1,247 @@
+{
+  "plan_date": "2026-06-07",
+  "read_only": true,
+  "executed": false,
+  "approval_required_before_any_action": true,
+  "actions": [
+    {
+      "name": "delete_safe_merged_android_archive_branches",
+      "category": "local_branch_cleanup",
+      "repository": "android",
+      "approval_required": true,
+      "status": "ready_after_user_approval",
+      "rationale": "These local branches are verified ancestors of the active Android branch.",
+      "verification_before": [
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "main",
+          "HEAD"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/android-identity-invite-relationship-realm",
+          "HEAD"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/android-skeleton",
+          "HEAD"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/protocol-spec-core-models",
+          "HEAD"
+        ]
+      ],
+      "commands_after_approval": [
+        [
+          "git",
+          "branch",
+          "-d",
+          "codex/android-identity-invite-relationship-realm",
+          "codex/android-skeleton",
+          "codex/protocol-spec-core-models"
+        ]
+      ],
+      "do_not_touch": [
+        "codex/android-research-panel-report-viewer",
+        "codex/math-experiment-evidence-pack",
+        "main"
+      ]
+    },
+    {
+      "name": "delete_audited_math_and_qr_local_archive_branches",
+      "category": "local_branch_cleanup",
+      "repository": "android",
+      "approval_required": true,
+      "status": "requires_separate_user_approval",
+      "rationale": "Math branches are ancestors of the active math worktree branch; the QR branch has one patch-unique commit whose useful metadata was salvaged without wholesale merging the old service model.",
+      "verification_before": [
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/dissertation-research-alignment",
+          "codex/math-experiment-evidence-pack"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/math-core-curve-diagnostics",
+          "codex/math-experiment-evidence-pack"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/math-core-reference-validation",
+          "codex/math-experiment-evidence-pack"
+        ],
+        [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "codex/math-research-panel-integration-plan",
+          "codex/math-experiment-evidence-pack"
+        ],
+        [
+          "git",
+          "cherry",
+          "-v",
+          "HEAD",
+          "codex/qr-one-time-invite"
+        ]
+      ],
+      "commands_after_approval": [
+        [
+          "git",
+          "branch",
+          "-D",
+          "codex/dissertation-research-alignment",
+          "codex/math-core-curve-diagnostics",
+          "codex/math-core-reference-validation",
+          "codex/math-research-panel-integration-plan",
+          "codex/qr-one-time-invite"
+        ]
+      ],
+      "do_not_touch": [
+        "codex/android-research-panel-report-viewer",
+        "codex/math-experiment-evidence-pack",
+        "main"
+      ]
+    },
+    {
+      "name": "delete_low_risk_remote_scaffold_v2",
+      "category": "remote_branch_cleanup",
+      "repository": "origin",
+      "approval_required": true,
+      "status": "requires_separate_user_approval",
+      "rationale": "Remote scaffold v2 has no patch-unique commits relative to active Android HEAD.",
+      "verification_before": [
+        [
+          "git",
+          "cherry",
+          "-v",
+          "HEAD",
+          "origin/chore/research-mvp-scaffold-v2"
+        ]
+      ],
+      "commands_after_approval": [
+        [
+          "git",
+          "push",
+          "origin",
+          "--delete",
+          "chore/research-mvp-scaffold-v2"
+        ]
+      ],
+      "do_not_touch": [
+        "origin/chore/research-mvp-scaffold"
+      ]
+    },
+    {
+      "name": "drop_raw_artifact_stashes",
+      "category": "stash_cleanup",
+      "repository": "android",
+      "approval_required": true,
+      "status": "requires_user_confirmation_after_stat_review",
+      "rationale": "Both stash entries contain raw UI/two-phone artifacts whose summaries now exist in tracked reports.",
+      "verification_before": [
+        [
+          "git",
+          "stash",
+          "show",
+          "--include-untracked",
+          "--stat",
+          "stash@{1}"
+        ],
+        [
+          "git",
+          "stash",
+          "show",
+          "--include-untracked",
+          "--stat",
+          "stash@{0}"
+        ]
+      ],
+      "commands_after_approval": [
+        [
+          "git",
+          "stash",
+          "drop",
+          "stash@{1}"
+        ],
+        [
+          "git",
+          "stash",
+          "drop",
+          "stash@{0}"
+        ]
+      ],
+      "do_not_touch": []
+    },
+    {
+      "name": "review_android_raw_evidence_retention_window",
+      "category": "raw_evidence_retention",
+      "repository": "android",
+      "approval_required": true,
+      "status": "retention_window_not_chosen",
+      "rationale": "Android raw evidence directories are ignored/local and classified by reports/out/raw_evidence_retention_manifest_2026-06-06.md.",
+      "verification_before": [
+        [
+          "du",
+          "-sh",
+          "artifacts/phone-preflight/",
+          "artifacts/device-screenshots/",
+          "artifacts/live-screenshots/",
+          "artifacts/screenshots/",
+          "artifacts/ui-ux-device/",
+          "artifacts/android-adamova-live/",
+          "artifacts/two-phone-test/",
+          "app-android/app/build/"
+        ]
+      ],
+      "commands_after_approval": [],
+      "do_not_touch": [
+        "artifacts/two-phone-test/ while current reports reference local raw captures",
+        "tracked curated screenshots/assets"
+      ]
+    },
+    {
+      "name": "review_math_local_output_retention_window",
+      "category": "local_output_retention",
+      "repository": "math",
+      "approval_required": true,
+      "status": "retention_window_not_chosen",
+      "rationale": "Linked math local outputs and .venv are classified by reports/out/local_output_retention_manifest_2026-06-07.md.",
+      "verification_before": [
+        [
+          "du",
+          "-sh",
+          ".venv",
+          "reports/out/benchmark-runs",
+          "reports/out/large-coefficient-benchmark-runs",
+          "reports/out/math-core",
+          "reports/out/math-core-extended",
+          "reports/out/math-core-repeated-smoke",
+          "reports/out/torsion-reproduction"
+        ]
+      ],
+      "commands_after_approval": [],
+      "do_not_touch": [
+        "tracked aggregate reports",
+        "Sage reproducibility packs",
+        "supervisor packet files"
+      ]
+    }
+  ]
+}

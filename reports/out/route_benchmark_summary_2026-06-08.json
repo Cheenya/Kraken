@@ -1,0 +1,386 @@
+{
+  "report": "route_benchmark_summary",
+  "date": "2026-06-08",
+  "sources": [
+    "reports/out/two_device_route_specific_smoke_2026-06-08.json"
+  ],
+  "min_samples_per_route": 10,
+  "overall_status": "insufficient_n_for_reliability_claim",
+  "claim_boundary": "Descriptive route benchmark aggregation from existing evidence. Do not claim repeatable reliability unless each claimed route passes the minimum sample gate with fresh comparable runs.",
+  "routes": [
+    {
+      "route": "ble-gatt",
+      "latency_sample_count": 2,
+      "delivery_record_count": 2,
+      "delivered_record_count": 2,
+      "failed_delivery_record_count": 0,
+      "route_attempt_success_count": 4,
+      "route_attempt_failure_count": 1,
+      "median_latency_ms": 7168.5,
+      "p95_latency_ms": 7189.65,
+      "min_latency_ms": 7145.0,
+      "max_latency_ms": 7192.0,
+      "benchmark_status": "insufficient_n_for_reliability_claim"
+    },
+    {
+      "route": "lan-nsd-tcp",
+      "latency_sample_count": 2,
+      "delivery_record_count": 6,
+      "delivered_record_count": 2,
+      "failed_delivery_record_count": 4,
+      "route_attempt_success_count": 9,
+      "route_attempt_failure_count": 15,
+      "median_latency_ms": 1160.0,
+      "p95_latency_ms": 1367.9,
+      "min_latency_ms": 929.0,
+      "max_latency_ms": 1391.0,
+      "benchmark_status": "insufficient_n_for_reliability_claim"
+    }
+  ],
+  "latency_samples": [
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.xiaomi",
+      "route": "ble-gatt",
+      "latency_ms": 7145,
+      "queue_retry_body": "queueRetry591404"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.samsung",
+      "route": "ble-gatt",
+      "latency_ms": 7192,
+      "queue_retry_body": "queueRetry590867"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix",
+      "route": "lan-nsd-tcp",
+      "latency_ms": 929,
+      "queue_retry_body": "queueRetry247693"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_after_stale_peer_fix",
+      "route": "lan-nsd-tcp",
+      "latency_ms": 1391,
+      "queue_retry_body": "queueRetry247196"
+    }
+  ],
+  "delivery_records": [
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_after_stale_peer_fix",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": true,
+      "message_status_after_restart": "DELIVERED_TO_PEER",
+      "last_delivery_latency_ms": 1391,
+      "queue_retry_body": "queueRetry247196"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_bt_off_regression_before_fix",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": false,
+      "delivered_after_transport_restart": false,
+      "message_status_after_restart": "FAILED",
+      "last_delivery_latency_ms": null,
+      "queue_retry_body": null
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": true,
+      "message_status_after_restart": "DELIVERED_TO_PEER",
+      "last_delivery_latency_ms": 929,
+      "queue_retry_body": "queueRetry247693"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_bt_off_regression_before_fix",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": false,
+      "message_status_after_restart": "SENT_TO_TRANSPORT",
+      "last_delivery_latency_ms": null,
+      "queue_retry_body": null
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.samsung",
+      "route": "ble-gatt",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": true,
+      "message_status_after_restart": "DELIVERED_TO_PEER",
+      "last_delivery_latency_ms": 7192,
+      "queue_retry_body": "queueRetry590867"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.xiaomi",
+      "route": "ble-gatt",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": true,
+      "message_status_after_restart": "DELIVERED_TO_PEER",
+      "last_delivery_latency_ms": 7145,
+      "queue_retry_body": "queueRetry591404"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": false,
+      "delivered_after_transport_restart": false,
+      "message_status_after_restart": "FAILED",
+      "last_delivery_latency_ms": 7192,
+      "queue_retry_body": "queueRetry739692"
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.xiaomi",
+      "route": "lan-nsd-tcp",
+      "sent_after_transport_restart": true,
+      "delivered_after_transport_restart": false,
+      "message_status_after_restart": "SENT_TO_TRANSPORT",
+      "last_delivery_latency_ms": 7145,
+      "queue_retry_body": "queueRetry740291"
+    }
+  ],
+  "route_attempts": [
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_after_stale_peer_fix.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780872249080
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_after_stale_peer_fix.recent_attempts[1]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780872250641
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_bt_off_regression_before_fix.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40566) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871792475
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_bt_off_regression_before_fix.recent_attempts[1]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40582) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871793105
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[0].current_apk_lan_bt_off_regression_before_fix.recent_attempts[2]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40598) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871795565
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.201 (port 41157) from /192.168.0.121 (port 49708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780872248325
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[1]",
+      "route": "ble-gatt",
+      "success": false,
+      "error": "ble-peer-not-ready",
+      "attempted_at_epoch_millis": 1780872248529
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[2]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "peer-not-found",
+      "attempted_at_epoch_millis": 1780872248529
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[3]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780872250459
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[4]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780872250716
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_after_stale_peer_fix.recent_attempts[5]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780872250977
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_bt_off_regression_before_fix.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871757399
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_bt_off_regression_before_fix.recent_attempts[1]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871773064
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.scenarios[1].current_apk_lan_bt_off_regression_before_fix.recent_attempts[2]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871788735
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.samsung.recent_attempts[0]",
+      "route": "ble-gatt",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871597135
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.samsung.recent_attempts[1]",
+      "route": "ble-gatt",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871601184
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.xiaomi.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.201 (port 41135) from /192.168.0.121 (port 37700) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871592940
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.xiaomi.recent_attempts[1]",
+      "route": "ble-gatt",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871597791
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_ble_retry_delivered_export.xiaomi.recent_attempts[2]",
+      "route": "ble-gatt",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871601571
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39672) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871779179
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[1]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39678) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871779485
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[2]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39694) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871781438
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[3]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39702) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871782868
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[4]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39708) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871783695
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[5]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39722) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871786041
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[6]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 39730) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871788396
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[7]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40536) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871789317
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.samsung.recent_attempts[8]",
+      "route": "lan-nsd-tcp",
+      "success": false,
+      "error": "failed to connect to /192.168.0.121 (port 42817) from /192.168.0.201 (port 40550) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)",
+      "attempted_at_epoch_millis": 1780871790749
+    },
+    {
+      "source": "reports/out/two_device_route_specific_smoke_2026-06-08.json",
+      "path": "$.route_evidence.current_apk_lan_bt_off_mixed_export.xiaomi.recent_attempts[0]",
+      "route": "lan-nsd-tcp",
+      "success": true,
+      "error": null,
+      "attempted_at_epoch_millis": 1780871742281
+    }
+  ]
+}

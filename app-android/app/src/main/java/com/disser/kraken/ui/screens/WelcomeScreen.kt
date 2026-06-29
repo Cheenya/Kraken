@@ -146,7 +146,7 @@ fun WelcomeScreen(
                 )
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    text = "ПРИВАТНО  •  РЯДОМ  •  СВОБОДНО",
+                    text = "ПРИВАТНО  •  ЛОКАЛЬНО  •  СВОБОДНО",
                     color = Color(0xFF23DAD4),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,

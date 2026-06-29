@@ -9,25 +9,25 @@ import org.junit.Test
 
 class PacketCryptoTest {
     @Test
-    fun localPacketCryptoHasDebugScopeNotice() {
-        assertTrue(LocalPacketCrypto.ALGORITHM.contains("local-packet-check"))
-        assertTrue(LocalPacketCrypto.WARNING.contains("debug-сборках"))
+    fun debugPacketCryptoIsVisiblyCompatibilityPath() {
+        assertTrue(DebugPlaintextPacketCrypto.ALGORITHM.contains("debug-plaintext"))
+        assertTrue(DebugPlaintextPacketCrypto.WARNING.contains("compatibility path"))
     }
 
     @Test
-    fun localPacketCryptoIsBlockedForReleaseLikeBuildTypes() {
-        assertTrue(LocalPacketCrypto.isAllowedForBuildType("debug"))
-        assertFalse(LocalPacketCrypto.isAllowedForBuildType("release"))
-        assertFalse(LocalPacketCrypto.isAllowedForBuildType("prod"))
-        assertFalse(LocalPacketCrypto.isAllowedForBuildType("public"))
+    fun debugPacketCryptoIsBlockedForReleaseLikeBuildTypes() {
+        assertTrue(DebugPlaintextPacketCrypto.isAllowedForBuildType("debug"))
+        assertFalse(DebugPlaintextPacketCrypto.isAllowedForBuildType("release"))
+        assertFalse(DebugPlaintextPacketCrypto.isAllowedForBuildType("prod"))
+        assertFalse(DebugPlaintextPacketCrypto.isAllowedForBuildType("production"))
     }
 
     @Test
-    fun localSignatureRoundTripUsesPacketProof() {
+    fun debugSignatureRoundTripIsOnlyPlaceholderProof() {
         val packet = packet()
-        val signature = LocalPacketCrypto.sign(packet, PrivateKeyReference("placeholder-private-ref:alice"))
+        val signature = DebugPlaintextPacketCrypto.sign(packet, PrivateKeyReference("placeholder-private-ref:alice"))
 
-        assertTrue(LocalPacketCrypto.verify(packet, signature, PublicKeyMaterial("placeholder-pub:alice")))
+        assertTrue(DebugPlaintextPacketCrypto.verify(packet, signature, PublicKeyMaterial("placeholder-pub:alice")))
         assertTrue(signature.value.startsWith("unsigned:"))
     }
 

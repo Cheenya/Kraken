@@ -20,7 +20,7 @@ class CryptoAbstractionsTest {
         )
 
         assertArrayEquals(plaintext.bytes, opened.bytes)
-        assertEquals("test-local-crypto", ciphertext.algorithm)
+        assertEquals("test-only-plaintext-compat", ciphertext.algorithm)
     }
 
     @Test
@@ -62,7 +62,7 @@ private class TestOnlyCryptoBox : CryptoBox {
         Ciphertext(
             bytes = plaintext.bytes.reversedArray(),
             recipientPublicKey = recipientPublicKey.encoded,
-            algorithm = "test-local-crypto",
+            algorithm = "test-only-plaintext-compat",
         )
 
     override fun decrypt(

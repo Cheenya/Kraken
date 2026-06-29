@@ -1,0 +1,114 @@
+{
+  "report": "kraken_10_10_followup_audit",
+  "date": "2026-06-10",
+  "timezone": "Europe/Moscow",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "base_head_before_wip": "86a1d67",
+  "superseded_by": [
+    "reports/out/kraken_10_10_completion_matrix_2026-06-10.md",
+    "reports/out/wifi_direct_network_state_diagnostics_2026-06-11.md"
+  ],
+  "subagent_cross_checks": {
+    "attack_mitm_physical_injection": {
+      "verdict": "not_10_10",
+      "open": [
+        "physical_android_a_mac_android_b_inline_relay_without_adb_forward",
+        "physical_drop_duplicate_tamper_attack_modes",
+        "physical_hostile_packet_injection_over_lan_ble_wifi_direct",
+        "cryptographic_mitm_resistance"
+      ]
+    },
+    "release_security_boundary": {
+      "verdict": "friend_test_apk_honest_and_release_like_gradle_builds_blocked",
+      "open": [
+        "production_crypto",
+        "android_keystore_identity",
+        "signed_qr_handshake",
+        "release_signing_and_security_review"
+      ]
+    },
+    "evidence_consistency": {
+      "verdict": "completion_matrix_current_source_of_truth_wifi_direct_one_way_evidence_captured",
+      "open": [
+        "raw_route_summaries_quarantined_when_json_mismatch",
+        "wifi_direct_bidirectional_delivery_and_negative_tests",
+        "benchmark_min_sample_gate",
+        "release_package_reference_for_current_handoff"
+      ]
+    }
+  },
+  "current_wip": {
+    "area": "wifi_direct_peer_discovery",
+    "code_changes": [
+      "periodic_wifi_direct_rediscovery_loop",
+      "wifi_p2p_peers_changed_broadcast_handling",
+      "requestPeers_p2p_visible_device_count_diagnostics",
+      "this_device_status_diagnostics",
+      "discovery_cycle_count_export"
+    ],
+    "claim_boundary": "Code-side diagnostics and rediscovery improvement only. Later captures prove bounded Xiaomi to Samsung Wi-Fi Direct delivery, but not bidirectional delivery, route-bound negative tests or reliability."
+  },
+  "release_hard_gate": {
+    "artifact": "reports/out/kraken_release_hard_gate_2026-06-10.md",
+    "status": "minimal_gradle_release_like_prototype_hard_gate_closed",
+    "blocked_tasks": [
+      "assembleRelease",
+      "bundleRelease",
+      "packageRelease"
+    ],
+    "claim_boundary": "The hard gate blocks accidental release-like builds but does not implement production security."
+  },
+  "route_benchmark_runner": {
+    "artifact": "reports/out/route_benchmark_runner_2026-06-10.md",
+    "script": "scripts/run_route_benchmark_trials.sh",
+    "status": "runner_ready_preflight_executed_insufficient_n",
+    "latest_preflight": "reports/out/route_benchmark_preflight_2026-06-11.md",
+    "not_run_reason": "The runner now executed on Samsung R5CY22X6MSB and Xiaomi d948ffd0, but the preflight produced zero delivered latency samples and remains insufficient for reliability claims.",
+    "claim_boundary": "Repeatable benchmark procedure is ready, but reliability evidence remains open until a two-device N-run capture passes the sample gate."
+  },
+  "physical_inline_relay_runner": {
+    "artifact": "reports/out/physical_inline_relay_runner_2026-06-10.md",
+    "script": "scripts/run_physical_inline_relay_trials.sh",
+    "status": "runner_ready_external_physical_path_required",
+    "not_run_reason": "Samsung R5CY22X6MSB and Xiaomi d948ffd0 are now both visible in ADB. The remaining blocker is the external physical path: a Mac LAN host reachable from the sender and direct Mac to Android target listener reachability for normal/drop/duplicate/tamper captures.",
+    "claim_boundary": "Repeatable physical relay procedure is ready, but attack evidence remains open until two-phone before/send/relay/after artifacts prove every claimed mode."
+  },
+  "completion_matrix": {
+    "artifact": "reports/out/kraken_10_10_completion_matrix_2026-06-10.md",
+    "audit_artifact": "reports/out/kraken_10_10_completion_matrix_audit_2026-06-10.md",
+    "status": "not_complete",
+    "claim_boundary": "Completion-control artifact only; records the required evidence before any 10/10 claim."
+  },
+  "single_device_partial_evidence": {
+    "artifact": "reports/out/single_device_partial_evidence_2026-06-10.md",
+    "status": "historical_captured_on_xiaomi_only",
+    "device": "d948ffd0",
+    "closed_gap": "current_apk_single_device_install_and_partial_debug_export",
+    "claim_boundary": "Single-device evidence only; does not close peer discovery, route delivery, physical attack or reliability gates."
+  },
+  "validation_so_far": {
+    "gradle_targeted_tests": "passed",
+    "pytest_policy_guards": "49 passed after follow-up drift update",
+    "completion_matrix_audit_py_compile": "passed",
+    "completion_matrix_audit": "passed_metadata_audit_complete_false_open_gate_count_5",
+    "pytest_desktop_relay_and_lan_frame_codec": "12 passed",
+    "physical_inline_relay_runner_syntax": "passed",
+    "capture_script_syntax": "passed",
+    "git_diff_check": "passed",
+    "assemble_debug": "passed"
+  },
+  "device_validation": {
+    "status": "two_devices_visible_wifi_direct_one_way_only",
+    "reason": "Samsung R5CY22X6MSB and Xiaomi d948ffd0 are visible in ADB. Repeated Xiaomi to Samsung Wi-Fi Direct evidence exists, but bidirectional route delivery, route-bound negative tests, benchmark min-n and physical attack validation remain open.",
+    "required_next_capture": "scripts/capture_debug_route_evidence.sh --device R5CY22X6MSB --device d948ffd0 --label wifi-direct-bidir-preflight --start-mesh-before-export --transport-profile wifi-direct-only --start-mesh-settle-ms 30000"
+  },
+  "current_10_10_verdict": "not_complete",
+  "open_p0_gates": [
+    "wifi_direct_peer_discovery_delivery_negative_tests",
+    "physical_mac_inline_relay_attack_modes",
+    "physical_hostile_packet_injection_lan_ble_wifi_direct",
+    "repeatable_route_benchmark_min_n",
+    "production_release_security_track_if_10_10_includes_production"
+  ]
+}

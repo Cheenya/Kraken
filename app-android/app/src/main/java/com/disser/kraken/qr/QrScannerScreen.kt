@@ -120,7 +120,7 @@ fun QrScannerScreen(
                 "Доступ к камере",
                 listOf(
                     "Камера нужна только для сканирования Kraken QR.",
-                    "Если доступ запрещён, контакт рядом нельзя подтвердить через QR.",
+                    "Если доступ запрещён, локальное подтверждение контакта через QR недоступно.",
                 )
             )
             Button(
@@ -163,7 +163,7 @@ fun QrScannerScreen(
 	                        listOf(
 	                            "Имя: ${result.pendingImport.inviterDisplayName}",
 	                            "Отпечаток: ${result.pendingImport.inviterFingerprint}",
-	                            "Переходим к подтверждению контакта рядом.",
+	                            "Переходим к локальному подтверждению контакта.",
 	                        )
 	                    )
                     if (!transportReadiness.anyReady) {
@@ -217,14 +217,14 @@ fun QrScannerScreen(
                         if (isRealmResponse) {
                             listOf(
 	                                "Контакт: ${result.relationship.peerDisplayName ?: "неизвестно"}",
-	                                "На этом устройстве контакт активен.",
-                                "Для реалма сначала откройте заявки, одобрите участника, затем используйте ручное завершение через QR.",
+                                "Контакт активен.",
+                                "Для реалма откройте заявки, одобрите участника и покажите QR подтверждения.",
 	                            )
 	                        } else {
 	                            listOf(
 	                                "Контакт: ${result.relationship.peerDisplayName ?: "неизвестно"}",
-	                                "На этом устройстве контакт активен.",
-                                "На втором устройстве может потребоваться ручное завершение через QR.",
+                                "Контакт активен.",
+                                "На втором устройстве может потребоваться QR подтверждения.",
 	                            )
 	                        }
 	                    )
@@ -253,17 +253,17 @@ fun QrScannerScreen(
                     }
                 }
                 is QrScanImportResult.HandshakeConfirmationAccepted -> {
-                    InfoCard(
-                        "Рукопожатие завершено",
-                        listOf(
+	                    InfoCard(
+	                        "Рукопожатие завершено",
+	                        listOf(
 	                            "Контакт: ${result.relationship.peerDisplayName ?: "неизвестно"}",
-	                            "Контакт активен на этом устройстве.",
+	                            "Контакт активен.",
 	                            if (result.realmMembershipApplied) {
-	                                "Сертификат реалма применён локально."
+	                                "Сертификат реалма применён."
 	                            } else {
 	                                "Этот QR не менял участие в реалме."
 	                            },
-                            "Локальное QR-рукопожатие привязало контакт к текущему устройству.",
+                            "Локальное QR-рукопожатие завершено.",
 	                        )
 	                    )
 	                    StateBadge(relationshipStateLabel(result.relationship.state))
@@ -316,7 +316,7 @@ private fun QueuedNearbyHandshakeWarning() {
         "Локальная связь не активна",
         listOf(
             "QR обработан, но устройство сейчас не выглядит готовым к передаче или приёму.",
-            "Включите Wi‑Fi/Bluetooth и держите второй телефон рядом.",
+            "Проверьте Wi‑Fi/Bluetooth на обоих устройствах.",
         ),
     )
 }
@@ -340,7 +340,7 @@ private fun ScannerTopCopy() {
             fontWeight = FontWeight.SemiBold,
         )
         Text(
-            "Обычный сценарий: один скан QR, затем подтверждение контакта рядом. Резервные ручные шаги доступны в карточке контакта, если Bluetooth недоступен.",
+            "Обычный сценарий: один скан QR, затем локальное подтверждение контакта. Если Bluetooth недоступен, QR подтверждения доступен в карточке контакта.",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

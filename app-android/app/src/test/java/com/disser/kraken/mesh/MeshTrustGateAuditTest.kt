@@ -10,7 +10,9 @@ import com.disser.kraken.realm.RealmSnapshot
 import com.disser.kraken.relationship.OfflineHandshakeRole
 import com.disser.kraken.relationship.Relationship
 import com.disser.kraken.relationship.RelationshipState
+import java.io.File
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -98,6 +100,18 @@ class MeshTrustGateAuditTest {
         )
 
         assertEquals(MeshRejectionReason.REALM_MEMBERSHIP_BLOCKED, result.rejectionReason)
+    }
+
+    @Test
+    fun trustAuditDocListsRequiredRejectionReasons() {
+        val doc = File("../../docs/mesh-trust-gating-audit.md").readText()
+
+        MeshRejectionReason.entries.forEach { reason ->
+            assertTrue("Missing rejection reason in audit doc: $reason", doc.contains(reason.name))
+        }
+        assertTrue(doc.contains("LAN NSD discovery"))
+        assertTrue(doc.contains("создать contact/chat/trust"))
+        assertFalse(doc.contains("LAN peer = trusted contact"))
     }
 
     private fun identity(id: String, fingerprint: String): LocalIdentity =

@@ -25,7 +25,7 @@
           "y": "1"
         }
       ],
-      "summary": "candidate diagnostic only; not a complete torsion proof"
+      "summary": "Диагностическая проверка структуры точек кручения"
     },
     "singular": false,
     "torsion_probe_results": [
@@ -52,7 +52,7 @@
     ],
     "two_torsion": {
       "points": [],
-      "summary": "no rational 2-torsion"
+      "summary": "рациональные точки кручения 2 порядка не найдены"
     }
   },
   "generated_at": "2026-05-18T21:22:41Z",
@@ -69,13 +69,13 @@
     "generator_version": "research"
   },
   "ui_wording": {
-    "security_note": "Диагностический отчёт для проверки параметров кривой.",
-    "summary": "Офлайн-отчёт по диагностике параметров кривой.",
-    "title": "Rational curve diagnostic",
-    "unsupported_note": "Unsupported cases are intentionally shown instead of guessed."
+    "security_note": "Диагностический расчёт профиля для проверки математического контура Kraken.",
+    "summary": "Диагностический отчёт, подготовленный математическим контуром Kraken.",
+    "title": "Диагностика рациональной кривой",
+    "unsupported_note": "Неподдерживаемые случаи явно помечаются, а не угадываются."
   },
   "unsupported_cases": [],
   "warnings": [
-    "candidate diagnostic only; not a complete torsion subgroup proof"
+    "Диагностическая проверка структуры точек кручения"
   ]
 }

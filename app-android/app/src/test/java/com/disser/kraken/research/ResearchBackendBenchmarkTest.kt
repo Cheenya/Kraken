@@ -36,7 +36,7 @@ class ResearchBackendBenchmarkTest {
     }
 
     @Test
-    fun reportSerializationKeepsNeutralCryptoScope() {
+    fun reportSerializationDoesNotClaimProductionCrypto() {
         val report = fakeReport(
             kotlinNs = 10_000,
             nativeNs = 5_000,
@@ -46,10 +46,10 @@ class ResearchBackendBenchmarkTest {
         val markdown = report.toMarkdown()
         val json = report.toJson()
 
-        assertTrue(markdown.contains("Бенчмарк показывает время работы"))
-        assertTrue(json.contains("Бенчмарк показывает время работы"))
-        assertFalse(markdown.contains("готовый криптографический контур", ignoreCase = true))
-        assertFalse(json.contains("готовый криптографический контур", ignoreCase = true))
+        assertTrue(markdown.contains("Диагностический замер"))
+        assertTrue(json.contains("Диагностический замер"))
+        assertFalse(markdown.contains("production cryptographic security", ignoreCase = true))
+        assertFalse(json.contains("production cryptographic security", ignoreCase = true))
     }
 
     private fun fakeReport(

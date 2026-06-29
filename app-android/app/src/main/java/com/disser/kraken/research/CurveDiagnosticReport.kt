@@ -134,29 +134,29 @@ fun AndroidCurveDiagnosticReport.toDisplayModel(): CurveReportDisplayModel {
         .groupingBy { it }
         .eachCount()
         .toSortedMap()
-        .map { (order, count) -> "order $order: $count" }
+        .map { (order, count) -> "порядок $order: $count" }
     val probeSummary = if (diagnostics.torsionProbeResults.isEmpty()) {
-        "No bounded torsion probe rows in this report."
+        "В отчёте нет строк ограниченной проверки кручения."
     } else {
-        "${diagnostics.torsionProbeResults.size} probe rows; ${exactOrders.joinToString().ifBlank { "no exact orders" }}"
+        "${diagnostics.torsionProbeResults.size} строк проверки; ${exactOrders.joinToString().ifBlank { "точные порядки не найдены" }}"
     }
-    val runtime = benchmark.runtimeMs?.let { "%.3f ms".format(it) } ?: "not measured"
+    val runtime = benchmark.runtimeMs?.let { "%.3f ms".format(it) } ?: "не измерено"
 
     return CurveReportDisplayModel(
         title = uiWording.title,
         warning = uiWording.securityNote,
         curveEquation = curve.equation,
         invariantRows = listOf(
-            "Discriminant" to invariants.discriminant,
-            "Singular" to invariants.singular.toString(),
-            "j-invariant" to (invariants.jInvariant ?: "unsupported"),
-            "Generated" to generatedAt,
-            "Generator" to source.generator,
+            "Дискриминант" to invariants.discriminant,
+            "Сингулярная" to if (invariants.singular) "да" else "нет",
+            "j-инвариант" to (invariants.jInvariant ?: "не поддерживается"),
+            "Сформирован" to generatedAt,
+            "Источник" to source.generator,
         ),
-        twoTorsionSummary = "${diagnostics.twoTorsion.summary}; points: ${diagnostics.twoTorsion.points.size}",
-        lutzNagellSummary = "${diagnostics.lutzNagell.summary}; candidates: ${diagnostics.lutzNagell.candidateCount}",
+        twoTorsionSummary = "${diagnostics.twoTorsion.summary}; точек: ${diagnostics.twoTorsion.points.size}",
+        lutzNagellSummary = "${diagnostics.lutzNagell.summary}; кандидатов: ${diagnostics.lutzNagell.candidateCount}",
         torsionProbeSummary = probeSummary,
-        benchmarkSummary = "Runtime: $runtime; environment: ${benchmark.environment}",
+        benchmarkSummary = "Время выполнения: $runtime; среда: ${benchmark.environment}",
         warnings = warnings,
         unsupportedCases = unsupportedCases,
     )

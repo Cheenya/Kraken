@@ -86,7 +86,7 @@ fun RealmsScreen(
 
     ScreenContainer("Реалмы", navController, showTitle = true, showBack = false) {
         if (localIdentity == null) {
-            EmptyState("Нужен профиль на этом устройстве", "Создайте профиль перед созданием реалма.")
+            EmptyState("Нужен профиль Kraken", "Создайте профиль перед созданием реалма.")
         } else {
             if (realmSnapshot.realms.isEmpty()) {
                 EmptyState("Локальных реалмов нет", "Вход только по приглашению. Публичного поиска нет.")
@@ -364,13 +364,13 @@ fun RealmManageScreen(
             }
             Text("$pendingReviewCount заявок требуют проверки.")
             Text(
-                "Решения остаются локальными, пока другое устройство не получит ручной QR подтверждения.",
+                "Решения вступят в силу после QR подтверждения на втором устройстве.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             if (approvedWithAccessCount > 0) {
                 Text(
-                    "$approvedWithAccessCount одобренных заявок могут снова показать ручной QR подтверждения.",
+                    "$approvedWithAccessCount одобренных заявок ждут QR подтверждения.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -383,7 +383,7 @@ fun RealmManageScreen(
                     onClick = { navController.navigate(KrakenRoute.PendingApprovals.route) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(if (pendingReviewCount > 0) "Открыть заявки" else "Открыть ручной QR")
+                    Text(if (pendingReviewCount > 0) "Открыть заявки" else "Открыть QR")
                 }
             }
             }
@@ -414,7 +414,7 @@ fun RealmManageScreen(
                 "Локальная очистка",
                 listOf(
                     "Удаляет локальную запись реалма, сертификат, связи приглашений и заявки.",
-                    "Не связывается с пирами и ничего не отзывает удалённо.",
+                    "Не связывается с другими устройствами и ничего не отзывает удалённо.",
                 )
             )
             Button(
@@ -457,7 +457,7 @@ private fun RealmMemberRosterCard(
     KrakenCompactCard {
         Text("Использовано ${members.size} из ${realm.capacityState.capacity} локальных мест.")
         Text(
-            "Правила применяются локально. Для другого устройства используется отдельное подтверждение.",
+            "Ограничения применяются локально. Для другого устройства потребуется отдельное подтверждение.",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -502,10 +502,10 @@ private fun RealmMemberRosterCard(
                 }
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (RealmManagementPolicy.canPromoteMember(actorRole, realm, member)) {
-                        OutlinedButton(onClick = { onPromoteMember(member) }) { Text("Сделать админом") }
+                        OutlinedButton(onClick = { onPromoteMember(member) }) { Text("Сделать администратором") }
                     }
                     if (RealmManagementPolicy.canDemoteMember(actorRole, realm, member)) {
-                        OutlinedButton(onClick = { onDemoteMember(member) }) { Text("Снять админа") }
+                        OutlinedButton(onClick = { onDemoteMember(member) }) { Text("Снять администратора") }
                     }
                     if (restricted) {
                         if (RealmManagementPolicy.canRestrictMember(actorRole, realm, member)) {
@@ -557,12 +557,12 @@ private fun RealmActionPanel(
         }
     }
     if (canCreateApprovalRequest && BuildConfig.DEBUG) {
-        TechnicalDetailsDisclosure("Инструменты разработчика") {
+        TechnicalDetailsDisclosure("Проверка заявок") {
             WarningCard(
                 "Служебная проверка экрана заявок",
                 listOf(
-                    "Основной поток заявок идёт через QR: приглашение, ответ, одобрение, финальное подтверждение.",
-                    "Кнопка открывает проверочный сценарий интерфейса.",
+                    "Основной поток заявок идёт через QR: приглашение, ответ и подтверждение.",
+                    "Кнопка добавляет заявку для проверки состояния экрана.",
                 ),
             )
             OutlinedButton(
@@ -616,25 +616,25 @@ private enum class RealmManagementAction(
 ) {
     PAUSE(
         confirmTitle = "Поставить реалм на паузу?",
-        confirmText = "Локальная запись перестанет считаться активной, пока вы не возобновите реалм.",
+        confirmText = "Реалм будет приостановлен до возобновления.",
         confirmLabel = "Пауза",
         destructive = false,
     ),
     RESUME(
         confirmTitle = "Возобновить реалм?",
-        confirmText = "Реалм снова будет считаться активным на этом устройстве.",
+        confirmText = "Реалм снова будет активен в Kraken.",
         confirmLabel = "Возобновить",
         destructive = false,
     ),
     ARCHIVE(
         confirmTitle = "Архивировать реалм?",
-        confirmText = "Реалм уйдёт в архив локально. Перед дальнейшим использованием потребуется отдельное управление записью.",
+        confirmText = "Реалм будет перемещён в архив.",
         confirmLabel = "В архив",
         destructive = true,
     ),
     LEAVE(
         confirmTitle = "Покинуть реалм?",
-        confirmText = "Локальная запись будет помечена как покинутая. Для повторного входа понадобится новый QR-flow.",
+        confirmText = "Ваше участие будет завершено. Для повторного входа понадобится новое QR-подтверждение.",
         confirmLabel = "Покинуть",
         destructive = true,
     ),
@@ -662,7 +662,7 @@ private fun TechnicalDetailsCard(
         LabeledValue("Отчёты о прочтении", if (realm.policy.readReceiptsDefault) "включены" else "выключены")
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         Text(
-            "Технические детали являются локальными данными прототипа. Управление реалмом не расшифровывает сообщения.",
+            "Эти данные используются для управления участниками и приглашениями реалма.",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -740,7 +740,7 @@ private fun IssuedInviteRow(
             onDismissRequest = { confirmRevoke = false },
             title = { Text("Отозвать приглашение?") },
             text = {
-                Text("QR ${invite.inviteId.removePrefix("invite-").take(8)} станет недействительным локально. Действие нельзя отменить.")
+                Text("QR ${invite.inviteId.removePrefix("invite-").take(8)} станет недействительным. Действие нельзя отменить.")
             },
             confirmButton = {
                 Button(
@@ -807,9 +807,9 @@ private fun RealmInviteQrDialog(
                     details = listOf(
                         "Реалм: ${payload.realmName ?: realmName}",
                         "Приглашение: ${payload.inviteId.removePrefix("invite-").take(8)}",
-                        "Приглашение учтено локально для проверки ответа.",
+                        "Приглашение готово к проверке ответа.",
                         "После скана появится заявка на проверку.",
-                        "После принятия ответного QR приглашение считается использованным.",
+                        "После подтверждения приглашение считается использованным.",
                         "Технические данные скрыты в деталях.",
                     ),
                 )

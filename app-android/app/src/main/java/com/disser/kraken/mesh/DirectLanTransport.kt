@@ -274,9 +274,9 @@ class DirectLanTransport(
                     LanFrameCodec.writeAck(client.getOutputStream())
                 }
             } catch (_: SocketTimeoutException) {
-                // Poll running flag.
+                // Expected accept timeout; loop re-checks service state.
             } catch (error: Exception) {
-                // Malformed frames are dropped by design; metrics are recorded by the inbox layer.
+                // Malformed frames are dropped by design and counted in transport diagnostics.
                 updateDiagnostics {
                     it.copy(
                         malformedFramesDropped = it.malformedFramesDropped + 1,

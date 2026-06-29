@@ -59,8 +59,8 @@ data class GuidedCurveExample(
     val why: String,
     @SerialName("teaching_only")
     val teachingOnly: Boolean,
-    @SerialName("cryptographic_safety_claim")
-    val cryptographicSafetyClaim: Boolean,
+    @SerialName("production_crypto_claim")
+    val productionCryptoClaim: Boolean,
     val caveat: String? = null,
 ) {
     fun toInput(): Result<CurveInput> =
@@ -74,9 +74,9 @@ data class GuidedCurveExample(
 
 @Serializable
 enum class GuidedCurveExampleCategory(val label: String) {
-    TEACHING("Teaching"),
-    VALIDATION("Validation"),
-    RESEARCH_SCALE("Research-scale"),
+    TEACHING("Учебные"),
+    VALIDATION("Валидация"),
+    RESEARCH_SCALE("Исследовательский масштаб"),
 }
 
 sealed class GuidedCurveExamplesLoadResult {
@@ -92,7 +92,7 @@ object GuidedCurveExampleRepository {
             context.assets.open(MANIFEST_ASSET_PATH).bufferedReader().use { it.readText() }
         }.fold(
             onSuccess = ::parseManifest,
-            onFailure = { GuidedCurveExamplesLoadResult.Error("Guided examples manifest could not be read: ${it.message}") },
+            onFailure = { GuidedCurveExamplesLoadResult.Error("Не удалось прочитать manifest примеров: ${it.message}") },
         )
 
     fun parseManifest(rawJson: String): GuidedCurveExamplesLoadResult =
@@ -100,25 +100,25 @@ object GuidedCurveExampleRepository {
             val manifest = CurveReportRepository.json.decodeFromString<GuidedCurveExampleManifest>(rawJson)
             validate(manifest)
         } catch (exception: IllegalArgumentException) {
-            GuidedCurveExamplesLoadResult.Error(exception.message ?: "Guided examples validation failed.")
+            GuidedCurveExamplesLoadResult.Error(exception.message ?: "Проверка набора примеров завершилась ошибкой.")
         } catch (exception: SerializationException) {
-            GuidedCurveExamplesLoadResult.Error("Guided examples manifest JSON is invalid or missing required fields.")
+            GuidedCurveExamplesLoadResult.Error("Manifest примеров повреждён или не содержит обязательные поля.")
         }
 
     private fun validate(manifest: GuidedCurveExampleManifest): GuidedCurveExamplesLoadResult {
         if (manifest.reportVersion != ANDROID_CURVE_REPORT_VERSION) {
-            return GuidedCurveExamplesLoadResult.Error("Unsupported guided examples version: ${manifest.reportVersion}")
+            return GuidedCurveExamplesLoadResult.Error("Неподдерживаемая версия набора примеров: ${manifest.reportVersion}")
         }
-        if (!manifest.researchWarning.contains("диагност", ignoreCase = true)) {
-            return GuidedCurveExamplesLoadResult.Error("Guided examples must include diagnostic context wording.")
+        if (!manifest.researchWarning.contains("Диагност", ignoreCase = true)) {
+            return GuidedCurveExamplesLoadResult.Error("Набор примеров должен содержать диагностическое описание.")
         }
-        if (manifest.examples.any { it.cryptographicSafetyClaim }) {
-            return GuidedCurveExamplesLoadResult.Error("Guided examples use diagnostic profile metadata only.")
+        if (manifest.examples.any { it.productionCryptoClaim }) {
+            return GuidedCurveExamplesLoadResult.Error("Примеры не должны заявлять криптографическую безопасность.")
         }
         val sageDirectMatchExamples = manifest.examples
-            .filter { it.validationStatus == "SageMath direct match" }
+            .filter { it.validationStatus == "совпадает с SageMath" }
         if (sageDirectMatchExamples.any { it.assetPath == null }) {
-            return GuidedCurveExamplesLoadResult.Error("SageMath direct match examples must be backed by bundled reports.")
+            return GuidedCurveExamplesLoadResult.Error("Примеры со сверкой SageMath должны ссылаться на встроенные отчёты.")
         }
         return GuidedCurveExamplesLoadResult.Success(manifest)
     }

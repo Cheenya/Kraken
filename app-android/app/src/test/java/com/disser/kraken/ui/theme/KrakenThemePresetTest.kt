@@ -19,7 +19,7 @@ class KrakenThemePresetTest {
     }
 
     @Test
-    fun catalogListsPublicPresetOptions() {
+    fun catalogListsProductionPresetOptions() {
         val options = KrakenThemePresetCatalog.options(KrakenThemePreset.ABYSS)
 
         assertEquals(KrakenThemePreset.entries.size - 1, options.size)

@@ -1,0 +1,50 @@
+{
+  "report": "kraken_10_10_readiness_plan",
+  "date": "2026-06-07",
+  "scope": "research_prototype_not_production_secure_messenger",
+  "overall_research_prototype_score": 7.5,
+  "scores": {
+    "math_sage_evidence": 9,
+    "adamova_cpp_admission_gate": 8,
+    "android_messenger_ux": 7,
+    "qr_trust_relationship_state": 8,
+    "lan_wifi_delivery": 8,
+    "ble_direct_route": 7,
+    "routed_mesh_relay": 5,
+    "security_boundary": 7,
+    "dissertation_packet": 8,
+    "branch_repo_hygiene": 6
+  },
+    "p0_to_10_10": [
+        "commit_slicing_and_tree_cleanup",
+        "route_specific_evidence_export",
+        "fresh_route_specific_two_phone_smoke_with_counters",
+    "message_ordering_and_status_audit",
+    "final_russian_ui_pass",
+    "adamova_end_to_end_demo_path",
+    "dissertation_insertion_packet"
+  ],
+  "production_gates_separate": [
+    "android_keystore_identity_provider",
+    "signed_qr_payloads",
+    "signed_packet_envelope",
+    "encrypted_message_payloads",
+    "replay_protection",
+    "key_rotation_revocation_model",
+    "release_prototype_build_separation",
+    "security_review"
+  ],
+    "primary_artifacts": [
+    "reports/out/adamova_effectiveness_experiment.md",
+    "reports/out/adamova_effectiveness_completion_audit.md",
+    "reports/out/two_device_delivery_evidence.md",
+    "reports/out/ble_two_device_delivery_evidence_2026-06-06.md",
+    "docs/kraken-attack-scenarios-evidence.md"
+    ],
+    "recent_phone_capture": {
+        "status": "adb_visible_bluetooth_direct_open_chat_ui_evidence",
+        "path": "artifacts/two-phone-test/repeatable-20260607-201329-fresh-20260607-open-chat/",
+        "claim_boundary": "not_automated_fresh_send_or_counter_evidence"
+    },
+    "claim_boundary": "dissertation_grade_research_prototype_not_production_secure_messenger"
+}

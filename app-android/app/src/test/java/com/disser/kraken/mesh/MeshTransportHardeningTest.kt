@@ -3,6 +3,7 @@ package com.disser.kraken.mesh
 import com.disser.kraken.message.LocalMessage
 import com.disser.kraken.message.MessageDirection
 import com.disser.kraken.message.MessageStatus
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -65,6 +66,18 @@ class MeshTransportHardeningTest {
         assertEquals(MeshRejectionReason.MALFORMED, MeshTransportHardening.isolateMalformedFrame(0))
         assertEquals(MeshRejectionReason.MALFORMED, MeshTransportHardening.isolateMalformedFrame(LanFrameCodec.MAX_FRAME_BYTES + 5))
         assertNull(MeshTransportHardening.isolateMalformedFrame(128))
+    }
+
+    @Test
+    fun hardeningDocListsLifecycleRules() {
+        val doc = File("../../docs/mesh-transport-hardening.md").readText()
+
+        listOf(
+            "Outbox stays persisted through app/service restart",
+            "Corrupted inbound packet must not crash the app",
+            "Blocked peer packets are dropped by trust gate",
+            "Rate limits apply before transport send",
+        ).forEach { required -> assertTrue(doc.contains(required)) }
     }
 
     private fun message(status: MessageStatus): LocalMessage =

@@ -46,7 +46,7 @@ object KrakenQrPayloadCodec {
 
     fun normalizeScannedText(scannedText: String): Result<String> = runCatching {
         val trimmed = scannedText.trim()
-        require(trimmed.isNotBlank()) { "QR payload is blank." }
+        require(trimmed.isNotBlank()) { "QR пустой." }
         if (isSupportedUri(trimmed)) {
             decodeUri(trimmed)
         } else {
@@ -79,21 +79,21 @@ object KrakenQrPayloadCodec {
             uri.scheme.equals(SCHEME, ignoreCase = true) ||
                 uri.scheme.equals(WEB_SCHEME, ignoreCase = true) ||
                 uri.scheme.equals(ANDROID_INTENT_SCHEME, ignoreCase = true),
-        ) { "Unsupported QR scheme." }
+        ) { "Неподдерживаемый формат QR." }
         if (uri.scheme.equals(WEB_SCHEME, ignoreCase = true)) {
-            require(uri.host.equals(WEB_HOST, ignoreCase = true)) { "Unsupported QR host." }
-            require(uri.path.equals(WEB_PATH, ignoreCase = true)) { "Unsupported QR path." }
+            require(uri.host.equals(WEB_HOST, ignoreCase = true)) { "Неподдерживаемый адрес QR." }
+            require(uri.path.equals(WEB_PATH, ignoreCase = true)) { "Неподдерживаемый путь QR." }
         } else {
-            require(uri.host.equals(HOST, ignoreCase = true)) { "Unsupported QR host." }
+            require(uri.host.equals(HOST, ignoreCase = true)) { "Неподдерживаемый адрес QR." }
         }
         if (uri.scheme.equals(ANDROID_INTENT_SCHEME, ignoreCase = true)) {
             require(uri.rawFragment.orEmpty().contains("scheme=$SCHEME", ignoreCase = true)) {
-                "Unsupported QR intent target."
+                "Неподдерживаемая цель QR."
             }
         }
         val query = parseQuery(uri.rawQuery)
         val payload = query[COMPACT_PAYLOAD_QUERY] ?: query[PAYLOAD_QUERY]
-            ?: throw IllegalArgumentException("Kraken QR payload is missing.")
+            ?: throw IllegalArgumentException("В QR Kraken отсутствуют данные.")
         val decodedBytes = Base64.getUrlDecoder().decode(payload)
         val decoded = if (query[COMPRESSION_QUERY] in setOf(DEFLATE_COMPRESSION, COMPACT_DEFLATE_COMPRESSION)) {
             inflate(decodedBytes).toString(Charsets.UTF_8)
@@ -105,14 +105,14 @@ object KrakenQrPayloadCodec {
 
     private fun compactPayload(rawPayload: String): String {
         val trimmed = rawPayload.trim()
-        require(trimmed.isNotBlank()) { "QR payload is blank." }
+        require(trimmed.isNotBlank()) { "QR пустой." }
         return try {
             val element = compactJson.parseToJsonElement(trimmed)
             compactJson.encodeToString(JsonElement.serializer(), element)
         } catch (error: SerializationException) {
-            throw IllegalArgumentException("Invalid Kraken QR payload.", error)
+            throw IllegalArgumentException("Не удалось прочитать QR Kraken.", error)
         } catch (error: IllegalArgumentException) {
-            throw IllegalArgumentException("Invalid Kraken QR payload.", error)
+            throw IllegalArgumentException("Не удалось прочитать QR Kraken.", error)
         }
     }
 

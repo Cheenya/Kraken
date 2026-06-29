@@ -50,6 +50,10 @@ class MeshForegroundService : Service() {
                 return START_NOT_STICKY
             }
             ACTION_SYNC_NOW -> {
+                if (!runtime.prefs.meshEnabled) {
+                    stopSelf(startId)
+                    return START_NOT_STICKY
+                }
                 ensureForeground()
                 startLoopIfNeeded()
                 serviceScope.launch {
@@ -74,12 +78,20 @@ class MeshForegroundService : Service() {
                     ?.toString()
                     ?.trim()
                 if (!relationshipId.isNullOrBlank() && !replyText.isNullOrBlank()) {
+                    if (!runtime.prefs.meshEnabled) {
+                        serviceScope.launch {
+                            runtime.markRelationshipNotificationsRead(relationshipId)
+                            runtime.addOutgoingTextMessage(relationshipId, replyText)
+                            stopSelf(startId)
+                        }
+                        return START_NOT_STICKY
+                    }
                     ensureForeground()
                     startLoopIfNeeded()
                     serviceScope.launch {
-                        runtime.startHotspotCompatible()
                         runtime.markRelationshipNotificationsRead(relationshipId)
                         runtime.addOutgoingTextMessage(relationshipId, replyText)
+                        runtime.startHotspotCompatible()
                         syncAndNotify()
                     }
                 }
@@ -118,7 +130,7 @@ class MeshForegroundService : Service() {
     }
 
     private fun ensureForeground() {
-        val status = lastMeshStatusText ?: "Запуск mesh..."
+        val status = lastMeshStatusText ?: "Запуск локальной связи..."
         lastMeshStatusText = status
         val notification = meshStatusNotification(status)
         if (!foregroundStarted || !isMeshStatusNotificationActive()) {
@@ -177,7 +189,7 @@ class MeshForegroundService : Service() {
 
     private fun meshStatusText(snapshot: MeshServiceSnapshot): String =
         when {
-            snapshot.discoveredPeers.isNotEmpty() -> "Устройств рядом: ${snapshot.discoveredPeers.size}"
+            snapshot.discoveredPeers.isNotEmpty() -> "Найдено устройств: ${snapshot.discoveredPeers.size}"
             snapshot.queuedPackets > 0 -> "Ждёт маршрут: ${snapshot.queuedPackets}"
             else -> "BLE/LAN поиск активен"
         }
@@ -185,7 +197,7 @@ class MeshForegroundService : Service() {
     private fun meshStatusNotification(status: String): Notification {
         return Notification.Builder(this, KrakenNotificationChannels.MESH_STATUS_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_kraken_notification)
-            .setContentTitle("Kraken mesh активен")
+            .setContentTitle("Локальная связь Kraken активна")
             .setContentText(status)
             .setOngoing(true)
             .setShowWhen(false)
@@ -213,13 +225,15 @@ class MeshForegroundService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
-    private fun serviceIntent(action: String, requestCode: Int): PendingIntent =
-        PendingIntent.getService(
-            this,
-            requestCode,
-            Intent(this, MeshForegroundService::class.java).setAction(action),
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-        )
+    private fun serviceIntent(action: String, requestCode: Int): PendingIntent {
+        val intent = Intent(this, MeshForegroundService::class.java).setAction(action)
+        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(this, requestCode, intent, flags)
+        } else {
+            PendingIntent.getService(this, requestCode, intent, flags)
+        }
+    }
 
     companion object {
         const val ACTION_START_MESH = "com.disser.kraken.mesh.action.START_MESH"

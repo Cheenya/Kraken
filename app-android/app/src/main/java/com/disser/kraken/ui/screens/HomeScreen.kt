@@ -69,7 +69,7 @@ fun HomeScreen(
         } else {
             EmptyState(
                 title = "Профиль не создан",
-                detail = "Создайте профиль на этом устройстве перед показом QR.",
+                detail = "Создайте профиль Kraken перед показом QR.",
                 actionLabel = "Создать",
                 route = KrakenRoute.CreateIdentity,
                 navController = navController,
@@ -106,7 +106,7 @@ fun HomeScreen(
                 )
                 meshSnapshot.transportDiagnostics.lastError?.let { error ->
                     Text(
-                        "Последняя ошибка: $error",
+                        "Последняя ошибка: ${friendlyHomeTransportError(error)}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                     )
@@ -172,7 +172,7 @@ private fun TransportPathReadiness.homeStatusLabel(pathLabel: String): String =
         ready -> "активен"
         !permissionGranted -> "нет разрешения"
         !radioEnabled -> "$pathLabel выключен"
-        !transportImplemented -> "в очереди"
+        !transportImplemented -> "не реализован"
         !serviceRunning -> "запускается"
         else -> "не активен"
     }
@@ -183,7 +183,7 @@ private fun homeTransportAddress(meshSnapshot: MeshServiceSnapshot): String {
     return if (host != null && port != null) {
         "QR-адрес связи: $host:$port"
     } else {
-        "QR-адрес связи появится после запуска связи рядом."
+        "QR-адрес связи появится после запуска локальной связи."
     }
 }
 
@@ -195,6 +195,17 @@ private fun notificationPermissionLabel(context: Context): String =
         "разрешены"
     } else {
         "нет разрешения"
+    }
+
+private fun friendlyHomeTransportError(raw: String): String =
+    when {
+        raw.contains("wifi", ignoreCase = true) ||
+            raw.contains("ble", ignoreCase = true) ||
+            raw.contains("bluetooth", ignoreCase = true) ||
+            raw.contains("peer", ignoreCase = true) ||
+            raw.contains("transport", ignoreCase = true) ->
+            "Не удалось запустить локальную связь. Проверьте Wi‑Fi и Bluetooth."
+        else -> "Не удалось обновить локальную связь."
     }
 
 @Composable

@@ -25,7 +25,7 @@ class ResearchCurveAttackTest {
         assertEquals(expectedChecked, result.checkedCandidates)
         assertTrue(result.validationDecision.startsWith("REJECT"))
         assertEquals(1, result.validationRejectedChallenges)
-        assertTrue(result.caveat.contains("подготовленных данных"))
+        assertTrue(result.caveat.contains("тестовых параметрах Kraken"))
     }
 
     @Test

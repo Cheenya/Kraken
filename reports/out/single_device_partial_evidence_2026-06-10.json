@@ -1,0 +1,58 @@
+{
+  "report": "single_device_partial_evidence",
+  "date": "2026-06-10",
+  "repository": "/Users/cheenya/Projects/kraken-android-research-panel",
+  "branch": "codex/android-research-panel-report-viewer",
+  "git_sha": "cfc0171",
+  "source_state": "clean",
+  "device": {
+    "serial": "d948ffd0",
+    "model": "2201122G",
+    "last_update_time": "2026-06-10 22:47:26",
+    "version_name": "0.1.0"
+  },
+  "captures": {
+    "local_hostile_probe": {
+      "artifact": "artifacts/debug-route-evidence/20260610-224732-single-device-current-local-hostile-cfc0171/manifest.json",
+      "transport_profile": "all",
+      "enabled_transport_modes": [
+        "wifi-direct",
+        "ble-gatt",
+        "lan-nsd-tcp"
+      ],
+      "selected_route": "none",
+      "registration_state": "wifi-direct:registered:_kraken._tcp | ble-gatt:ble-advertising-started | lan-nsd-tcp:registered:Kraken-B42B3068934EF618",
+      "discovery_state": "wifi-direct:discovering:_kraken._tcp | ble-gatt:ble-scan-started | lan-nsd-tcp:started:_kraken._tcp.",
+      "transport_discovered_peer_count": 0,
+      "p2p_visible_device_count": 0,
+      "discovery_cycle_count": 1,
+      "unknown_peer_rejected": 1,
+      "wrong_recipient_rejected": 1,
+      "duplicates_dropped": 1
+    },
+    "wifi_direct_only": {
+      "artifact": "artifacts/debug-route-evidence/20260610-224803-single-device-wifi-direct-rediscovery-cfc0171/manifest.json",
+      "transport_profile": "wifi-direct-only",
+      "enabled_transport_modes": [
+        "wifi-direct"
+      ],
+      "selected_route": "none",
+      "registration_state": "wifi-direct:registered:_kraken._tcp",
+      "discovery_state": "wifi-direct:discovering:_kraken._tcp",
+      "transport_discovered_peer_count": 0,
+      "p2p_visible_device_count": 0,
+      "p2p_this_device_status": null,
+      "discovery_cycle_count": 1,
+      "wifi_direct_active": true
+    }
+  },
+  "closed_gap": "single_device_current_apk_install_and_partial_debug_evidence",
+  "not_closed": [
+    "wifi_direct_peer_discovery",
+    "wifi_direct_message_delivery",
+    "two_device_route_benchmark",
+    "physical_mac_inline_relay",
+    "physical_hostile_packet_injection"
+  ],
+  "claim_boundary": "This is single-device debug evidence from Xiaomi only. It proves current APK install and local diagnostic counters on one phone, not two-device route delivery, peer discovery, physical hostile injection or reliability."
+}

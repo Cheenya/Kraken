@@ -30,6 +30,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.disser.kraken.crypto.AdamovaAttackDemoReport
+import com.disser.kraken.crypto.AdamovaAttackScenarioKind
+import com.disser.kraken.crypto.AdamovaAdmissionDecision
 import com.disser.kraken.crypto.AdamovaAdmissionAttackDemoRunner
 import com.disser.kraken.crypto.ProductCryptoAdmissionGate
 import com.disser.kraken.nativecore.NativeCoreBridge
@@ -113,7 +115,7 @@ fun ResearchScreen(navController: NavHostController) {
                         }
                     }
                 }.onFailure { error ->
-                    attackError = error.message ?: "Демонстрационный расчёт не выполнен."
+                    attackError = error.message ?: "Проверочный расчёт не выполнен."
                 }
                 attackRunning = false
             }
@@ -175,10 +177,10 @@ fun ResearchScreen(navController: NavHostController) {
 
         TechnicalDetailsDisclosure("Состояние расчётов") {
             WarningCard(
-                "Расчёты",
+                "Только диагностика",
                 listOf(
-                    "Математические отчёты загружены локально.",
-                    "Python внутри Android не запускается.",
+                    "Математические отчёты относятся к диагностике профилей.",
+                    "Расчёты выполняются встроенными средствами приложения.",
                 )
             )
             KrakenListRow(
@@ -288,7 +290,7 @@ fun ResearchScreen(navController: NavHostController) {
         TechnicalDetailsDisclosure("Встроенный отчёт") {
             BundledCurveReportCard(bundledReportResult)
         }
-        InfoCard("Экспорт отчётов", listOf("Файлы отчётов остаются локальными артефактами проекта."))
+        InfoCard("Экспорт отчётов", listOf("Файлы отчётов остаются локальными артефактами для диссертации."))
     }
 }
 
@@ -306,13 +308,13 @@ private fun ResearchOverviewCards(
 ) {
     KrakenCompactCard {
         Text("Сценарии", fontWeight = FontWeight.SemiBold)
-        Text("Учебные, валидационные и проверочные примеры для локальной проверки.")
+        Text("Учебные, валидационные и диагностические примеры для локальной проверки.")
         Button(
             onClick = onRunDemoCalculation,
             enabled = !attackRunning,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(if (attackRunning) "Идёт расчёт..." else "Запустить демонстрационный расчёт")
+            Text(if (attackRunning) "Идёт расчёт..." else "Запустить проверочный расчёт")
         }
         lastAttackStatus?.let { Text("Последний расчёт: $it") }
     }
@@ -355,9 +357,9 @@ private fun AdamovaAdmissionGateCard(
         "Проверка допуска профиля",
         listOf(
             "Проверяет профиль кривой до сессии и политики пакета.",
-            "Выбранный профиль отклоняется до переписки, если C++-проверка находит слабую структуру.",
-            "Стандартные примитивы получают статус «не применимо» для этого сценария проверки.",
-            "Фильтр фиксирует результат admission/precheck для выбранного профиля.",
+            "Экспериментальный профиль отклоняется до переписки, если C++-проверка находит слабую структуру.",
+            "Проверенные стандартные примитивы получают статус «не применимо», без ложной проверки экспериментального контура.",
+            "Результат связывается с политикой сессии и обработкой пакетов.",
         ),
     )
     Button(
@@ -380,7 +382,7 @@ private fun AdamovaAdmissionGateCard(
                 "Принято только по дискриминанту: ${metrics.acceptedByDiscriminantOnly}.",
                 "Принято проверкой допуска: ${metrics.acceptedByAdamovaGate}.",
                 "Отклонено проверкой допуска: ${metrics.rejectedByAdamovaGate}.",
-                "Нужна эталонная проверка: ${metrics.needsReferenceValidation}; превышение размера: ${metrics.sizeGuarded}.",
+                "Нужна эталонная проверка: ${metrics.needsReferenceValidation}; ограничено размером: ${metrics.sizeGuarded}.",
                 "Медианная задержка: ${formatAdmissionLatency(metrics.medianGateLatencyMs)} мс; p95: ${formatAdmissionLatency(metrics.p95GateLatencyMs)} мс.",
                 "Отчёт сохранён локально в каталоге profile_admission_gate.",
             ),
@@ -389,7 +391,7 @@ private fun AdamovaAdmissionGateCard(
             it.results.forEach { result ->
                 KrakenListRow(
                     title = result.scenarioId,
-                    subtitle = "${result.kind} · решение проверки=${result.adamovaDecision ?: "нет"} · принято=${result.adamovaAccepted}",
+                    subtitle = "Тип: ${attackScenarioKindLabel(result.kind)} · решение: ${admissionDecisionLabel(result.adamovaDecision)} · принято: ${yesNo(result.adamovaAccepted)}",
                     leadingText = if (result.adamovaAccepted) "ДА" else "СТОП",
                     badge = when {
                         result.adamovaAccepted -> "принято"
@@ -412,8 +414,8 @@ private fun BackendBenchmarkCard(
     InfoCard(
         "Замер Kotlin и C++",
         listOf(
-            "Ручной замер одной диагностической задачи на Kotlin BigInteger и C++.",
-            "Замер показывает время работы выбранной задачи.",
+            "Проверочный замер одной диагностической задачи на Kotlin BigInteger и C++.",
+            "Результат показывает стоимость локальной диагностической проверки.",
         ),
     )
     Button(
@@ -452,15 +454,15 @@ private fun StartupAttackEvidenceCard(
 ) {
     if (log == null) {
         InfoCard(
-            "Демонстрационный расчёт",
+            "Проверочный расчёт",
             listOf(
-                "Запускается вручную из раздела проверок, обычный старт приложения больше не блокируется.",
+                "Запускается из раздела диагностики, обычный старт приложения больше не блокируется.",
                 "Расчёт выполняется локально против контролируемой ослабленной ECDLP-задачи.",
             ),
         )
     } else {
         InfoCard(
-            "Демонстрационный расчёт",
+            "Проверочный расчёт",
             listOf(
                 "${log.attackName}: ${researchAttackStatusDisplay(log.status)}.",
                 "Проверено наборов-кандидатов: ${log.testedChallenges}; слабый кандидат: ${log.weakChallengeId ?: "не найден"}.",
@@ -485,14 +487,14 @@ private fun StartupAttackEvidenceCard(
         )
     }
     error?.let {
-        WarningCard("Демонстрационный расчёт не выполнен", listOf(it))
+        WarningCard("Проверочный расчёт не выполнен", listOf(it))
     }
     Button(
         onClick = onRunAttack,
         enabled = !running,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text(if (running) "Идёт расчёт..." else "Запустить демонстрационный расчёт")
+        Text(if (running) "Идёт расчёт..." else "Запустить проверочный расчёт")
     }
 }
 
@@ -611,18 +613,18 @@ private fun LargeCoefficientSummaryCard(summary: LargeCoefficientValidationSumma
 private fun SelectedExampleCard(example: GuidedCurveExample) {
     val caveats = buildList {
         if (example.teachingOnly) {
-            add("Учебный пример с малыми коэффициентами.")
+            add("Учебный пример, не криптографический масштаб.")
         }
         if (example.category == GuidedCurveExampleCategory.RESEARCH_SCALE) {
-            add("Большие коэффициенты над Q; сверка идёт по рациональной модели.")
+            add("Большие коэффициенты над Q для расширенной диагностической проверки.")
         }
-        if (!example.validationStatus.equals("SageMath direct match", ignoreCase = true)) {
-            add("Для примера используется локальный статус эталонной проверки.")
+        if (!example.validationStatus.equals("совпадает с SageMath", ignoreCase = true)) {
+            add("Эталонная проверка для примера не завершена.")
         }
         example.caveat?.let { add(caveatDisplay(it)) }
     }
     if (caveats.isNotEmpty()) {
-        WarningCard("Примечания к примеру", caveats)
+        WarningCard("Ограничения примера", caveats)
     }
 }
 
@@ -635,15 +637,14 @@ private fun categoryDisplayLabel(category: GuidedCurveExampleCategory): String =
 
 private fun validationStatusDisplayLabel(status: String): String =
     when (status) {
-        "SageMath direct match" -> "SageMath: совпало"
-        "Unsupported local torsion comparison" -> "локально не поддержано"
-        "Local teaching example" -> "учебный пример"
+        "совпадает с SageMath" -> "SageMath: совпало"
+        "локальный учебный пример" -> "учебный пример"
         else -> status
     }
 
 private fun summaryTitleDisplay(title: String): String =
     when (title) {
-        "Large coefficient validation corpus" -> "Корпус больших коэффициентов"
+        "Набор проверок с крупными коэффициентами" -> "Корпус больших коэффициентов"
         else -> title
     }
 
@@ -671,24 +672,21 @@ private fun coefficientSizeDisplay(value: String): String =
 
 private fun expectedResultDisplay(value: String): String =
     when (value) {
-        "Nonsingular sanity-check with nonzero a and b." ->
-            "Невырожденная учебная проверка с ненулевыми a и b."
-        "Full rational 2-torsion with three nontrivial points." ->
-            "Полное рациональное кручение порядка 2: три нетривиальные точки."
-        "Singular curve; group diagnostics are skipped." ->
+        "Сингулярная кривая; групповая диагностика пропущена." ->
             "Сингулярная кривая; групповая диагностика пропущена."
-        "No rational 2-torsion." ->
+        "Рациональные точки кручения 2 порядка не найдены." ->
             "Рациональное кручение порядка 2 не найдено."
-        "One rational 2-torsion point with bounded order-four probe points." ->
-            "Одна рациональная точка кручения порядка 2 и ограниченная проверка порядка 4."
-        "One nontrivial rational 2-torsion point." ->
-            "Одна нетривиальная рациональная точка кручения порядка 2."
-        "No rational 2-torsion; local Lutz-Nagell helper is size-guarded." ->
+        "Нет рациональных точек кручения 2 порядка; локальная проверка Лутца-Нагелля ограничена по размеру." ->
             "Нет рационального кручения порядка 2; проверка Lutz-Nagell ограничена размером."
         else -> value
     }
 
-private fun caveatDisplay(value: String): String = value
+private fun caveatDisplay(value: String): String =
+    when {
+        value.contains("rational", ignoreCase = true) && value.contains("over Q", ignoreCase = true) ->
+            "Рациональная диагностика над Q для проверки структуры профиля."
+        else -> value
+    }
 
 private fun formatBenchmarkMs(ns: Long): String =
     String.format(Locale.US, "%.4f", ns.toDouble() / 1_000_000.0)
@@ -698,6 +696,31 @@ private fun formatBenchmarkRatio(value: Double): String =
 
 private fun formatAdmissionLatency(value: Double): String =
     String.format(Locale.US, "%.6f", value)
+
+private fun attackScenarioKindLabel(kind: AdamovaAttackScenarioKind): String =
+    when (kind) {
+        AdamovaAttackScenarioKind.SINGULAR_CURVE_PROFILE -> "сингулярная кривая"
+        AdamovaAttackScenarioKind.TWO_TORSION_PROFILE -> "точки кручения порядка 2"
+        AdamovaAttackScenarioKind.THREE_TORSION_INDICATOR_PROFILE -> "индикатор кручения порядка 3"
+        AdamovaAttackScenarioKind.LARGE_SIZE_GUARDED_PROFILE -> "ограничение размера"
+        AdamovaAttackScenarioKind.MALFORMED_PROFILE -> "некорректный профиль"
+        AdamovaAttackScenarioKind.DOWNGRADE_PROFILE -> "подмена профиля"
+        AdamovaAttackScenarioKind.PACKET_PROFILE_MISMATCH -> "несовпадение профиля пакета"
+    }
+
+private fun admissionDecisionLabel(decision: AdamovaAdmissionDecision?): String =
+    when (decision) {
+        AdamovaAdmissionDecision.ACCEPT -> "принять"
+        AdamovaAdmissionDecision.REJECT_SINGULAR -> "отклонить сингулярную кривую"
+        AdamovaAdmissionDecision.REJECT_SMALL_TORSION_RISK -> "отклонить слабый профиль"
+        AdamovaAdmissionDecision.REFERENCE_VALIDATION_REQUIRED -> "нужна эталонная проверка"
+        AdamovaAdmissionDecision.SIZE_GUARDED -> "ограничено размером"
+        AdamovaAdmissionDecision.NATIVE_UNAVAILABLE -> "нативная проверка недоступна"
+        AdamovaAdmissionDecision.NOT_APPLICABLE_STANDARD_PROFILE -> "стандартный профиль"
+        null -> "нет"
+    }
+
+private fun yesNo(value: Boolean): String = if (value) "да" else "нет"
 
 private fun researchAttackStatusDisplay(status: String): String =
     when (status) {
@@ -725,7 +748,7 @@ private fun ResearchResultCard(result: CurveDiagnosticResult) {
         when {
             !result.localDiagnosticSupported -> listOf(
                 "Локальный Android-расчёт ограничен размером входа.",
-                "Откройте встроенный math-core отчёт для проверенного evidence по этому примеру.",
+                "Откройте встроенный math-core отчёт с подтверждениями по этому примеру.",
             )
             result.allowedTorsionTypes.isEmpty() -> listOf("Для сингулярной кривой список не строится.")
             else -> result.allowedTorsionTypes
@@ -776,9 +799,9 @@ private fun BundledCurveReportContent(model: CurveReportDisplayModel) {
     InfoCard("Проверка кручения", listOf(model.torsionProbeSummary))
     InfoCard("Замер", listOf(model.benchmarkSummary))
     InfoCard(
-        "Примечания к проверке",
+        "Предупреждения и ограничения",
         (model.warnings + model.unsupportedCases).ifEmpty {
-            listOf("Во встроенном примере нет дополнительных примечаний.")
+            listOf("Во встроенном примере нет предупреждений или неподдержанных сценариев.")
         },
     )
 }

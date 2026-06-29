@@ -35,15 +35,15 @@ object LanEndpointPayloadCodec {
     fun decode(rawJson: String): Result<LanEndpointPayload> =
         runCatching {
             val payload = json.decodeFromString<LanEndpointPayload>(rawJson)
-            require(payload.type == LanEndpointPayload.TYPE) { "Invalid LAN endpoint payload type." }
-            require(payload.version == LanEndpointPayload.VERSION) { "Unsupported LAN endpoint payload version." }
-            require(payload.fingerprint.isNotBlank()) { "Missing LAN endpoint fingerprint." }
-            require(payload.host.isNotBlank()) { "Missing LAN endpoint host." }
-            require(payload.port in 1..65535) { "Invalid LAN endpoint port." }
+            require(payload.type == LanEndpointPayload.TYPE) { "Некорректный тип LAN-адреса." }
+            require(payload.version == LanEndpointPayload.VERSION) { "Неподдерживаемая версия LAN-адреса." }
+            require(payload.fingerprint.isNotBlank()) { "В LAN-адресе нет отпечатка устройства." }
+            require(payload.host.isNotBlank()) { "В LAN-адресе нет сетевого адреса." }
+            require(payload.port in 1..65535) { "Некорректный порт LAN-адреса." }
             payload
         }.recoverCatching { error ->
             if (error is SerializationException || error is IllegalArgumentException) {
-                throw IllegalArgumentException("Invalid LAN endpoint payload.")
+                throw IllegalArgumentException("Некорректный LAN-адрес.")
             }
             throw error
         }

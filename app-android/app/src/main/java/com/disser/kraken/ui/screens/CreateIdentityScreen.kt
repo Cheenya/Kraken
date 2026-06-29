@@ -26,13 +26,13 @@ fun CreateIdentityScreen(
     var displayName by remember { mutableStateOf("") }
     var validationMessage by remember { mutableStateOf<String?>(null) }
 
-    ScreenContainer("Создать личность", navController) {
+    ScreenContainer("Создать профиль", navController) {
         localIdentity?.let { IdentitySummaryCard(it) }
 
         InfoCard(
-            "Локальная личность",
+            "Профиль Kraken",
             listOf(
-                "Имя является только локальной меткой.",
+                "Имя будет видно в контактах.",
                 "Новый ключ означает нового пользователя.",
                 "Без телефона, почты, логина и пароля.",
             )
@@ -67,8 +67,8 @@ fun CreateIdentityScreen(
         WarningCard(
             "Политика ключа",
             listOf(
-                "На этом этапе используется локальный провайдер ключей.",
-                "Ключи личности не должны использовать идентификаторы устройства.",
+                "Ключи создаются и хранятся локально в Kraken.",
+                "Ключи профиля не должны использовать идентификаторы устройства.",
             )
         )
     }

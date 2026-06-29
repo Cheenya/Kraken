@@ -47,19 +47,19 @@ data class ResearchBackendBenchmarkReport(
         }
 
     fun toMarkdown(): String = buildString {
-        appendLine("# Бенчмарк диагностического backend")
+        appendLine("# Замер исследовательского backend")
         appendLine()
-        appendLine("Бенчмарк показывает время работы диагностического backend на выбранных случаях.")
+        appendLine("Диагностический замер стоимости математической проверки профиля.")
         appendLine()
-        appendLine("- Прогревов на backend/case: $warmupRuns")
-        appendLine("- Измерений на backend/case: $measuredRuns")
-        appendLine("- Kotlin, сумма медиан: ${formatMs(kotlinMedianTotalNs)} ms")
-        appendLine("- C++, сумма медиан: ${formatMs(nativeMedianTotalNs)} ms")
+        appendLine("- Прогревов на backend/сценарий: $warmupRuns")
+        appendLine("- Измерений на backend/сценарий: $measuredRuns")
+        appendLine("- Общая медиана Kotlin: ${formatMs(kotlinMedianTotalNs)} ms")
+        appendLine("- Общая медиана C++: ${formatMs(nativeMedianTotalNs)} ms")
         appendLine("- Ускорение C++ по сумме медиан: ${formatRatio(totalSpeedup)}x")
-        appendLine("- Сопоставимых exact-строк: ${comparableRows.size}")
-        appendLine("- Ускорение C++ на сопоставимых exact-строках: ${formatRatio(comparableSpeedup)}x")
+        appendLine("- Сопоставимых точных строк: ${comparableRows.size}")
+        appendLine("- Ускорение C++ на сопоставимых строках: ${formatRatio(comparableSpeedup)}x")
         appendLine()
-        appendLine("| Случай | Группа | Kotlin median ms | C++ median ms | Ускорение | Kotlin case | C++ case |")
+        appendLine("| Сценарий | Группа | Медиана Kotlin, ms | Медиана C++, ms | Ускорение | Случай Kotlin | Случай C++ |")
         appendLine("|---|---:|---:|---:|---:|---|---|")
         rows.forEach { row ->
             appendLine(
@@ -72,7 +72,7 @@ data class ResearchBackendBenchmarkReport(
 
     fun toJson(): String = buildString {
         append("{\n")
-        append("  \"note\": \"Бенчмарк показывает время работы диагностического backend на выбранных случаях.\",\n")
+        append("  \"warning\": \"Диагностический замер стоимости математической проверки профиля.\",\n")
         append("  \"warmup_runs\": $warmupRuns,\n")
         append("  \"measured_runs\": $measuredRuns,\n")
         append("  \"kotlin_median_total_ns\": $kotlinMedianTotalNs,\n")

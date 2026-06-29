@@ -90,7 +90,7 @@ class QrScanImportServiceTest {
     }
 
     @Test
-    fun selfInviteStillUsesExistingValidation() {
+    fun selfInviteShowsUserFacingError() {
         val selfInvite = remotePayload.copy(inviterPublicKeyEncoded = localIdentity.publicKeyEncoded)
         val result = service.importScannedText(
             scannedText = InvitePayloadCodec.encode(selfInvite),
@@ -99,11 +99,11 @@ class QrScanImportServiceTest {
         )
 
         assertTrue(result is QrScanImportResult.Error)
-        assertTrue((result as QrScanImportResult.Error).message.contains("Self-invite is not allowed"))
+        assertEquals("Нельзя добавить собственный QR.", (result as QrScanImportResult.Error).message)
     }
 
     @Test
-    fun duplicateInviteStillUsesExistingValidation() {
+    fun duplicateInviteShowsUserFacingError() {
         val existing = PendingInviteImport(
             localId = "pending-existing",
             inviteId = remotePayload.inviteId,
@@ -120,6 +120,27 @@ class QrScanImportServiceTest {
         )
 
         assertTrue(result is QrScanImportResult.Error)
-        assertTrue((result as QrScanImportResult.Error).message.contains("already imported"))
+        assertEquals("Приглашение уже добавлено.", (result as QrScanImportResult.Error).message)
+    }
+
+    @Test
+    fun knownInviteKeyShowsUserFacingError() {
+        val existing = PendingInviteImport(
+            localId = "pending-existing",
+            inviteId = "invite-old",
+            inviterDisplayName = remotePayload.inviterDisplayName,
+            inviterPublicKeyEncoded = remotePayload.inviterPublicKeyEncoded,
+            inviterFingerprint = remotePayload.inviterFingerprint,
+            importedAtEpochMillis = 1_700_000_000_200,
+            state = PendingInviteState.PENDING_IMPORT,
+        )
+        val result = service.importScannedText(
+            scannedText = InvitePayloadCodec.encode(remotePayload.copy(inviteId = "invite-new")),
+            localIdentity = localIdentity,
+            existingImports = listOf(existing),
+        )
+
+        assertTrue(result is QrScanImportResult.Error)
+        assertEquals("Ключ уже знаком", (result as QrScanImportResult.Error).message)
     }
 }
